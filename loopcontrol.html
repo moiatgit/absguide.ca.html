@@ -1,0 +1,445 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 11.3. Loop Control &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Part 3. Beyond the Basics" href="part3.html"/>
+        <link rel="next" title="XXX 11.4. Testing and Branching" href="testbranch.html"/>
+        <link rel="prev" title="XXX 11.2. Nested Loops" href="nestedloops.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="variables2.html">XXX  Chapter 9. Another Look at Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internalvariables.html">XXX  9.1. Internal Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="declareref.html">XXX  9.2. Typing variables: <strong>declare</strong> or <strong>typeset</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="randomvar.html">XXX  9.3. $RANDOM: generate random integer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manipulatingvars.html">XXX  Chapter 10. Manipulating Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="string-manipulation.html">XXX  10.1. Manipulating Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parameter-substitution.html">XXX 10.2. Substitució de paràmetres</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loops.html">Chapter 11. Loops and Branches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loops1.html">XXX  11.1. Loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedloops.html">XXX  11.2. Nested Loops</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  11.3. Loop Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testbranch.html">XXX  11.4. Testing and Branching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commandsub.html">XXX  Chapter 12. Substitució de comanda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arithexp.html">XXX  Chapter 13. Arithmetic Expansion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recess-time.html">XXX  Chapter 14. Recess Time</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part3.html">XXX Part 3. Beyond the Basics</a> &raquo;</li>
+      
+    <li>XXX  11.3. Loop Control</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-11-3-loop-control">
+<h1>XXX  11.3. Loop Control<a class="headerlink" href="#xxx-11-3-loop-control" title="Link permanent a aquest títol">¶</a></h1>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a></p>
+<p><em>Tournez cent tours, tournez mille tours,</em></p>
+<p><em>Tournez souvent et tournez toujours . . .</em></p>
+<p><a href="#id3"><span class="problematic" id="id4">*</span></a>&#8211;Verlaine, &#8220;Chevaux de bois&#8221; *</p>
+<p>** Commands affecting loop behavior**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>break</strong> , <strong>continue</strong></dt>
+<dd><dl class="first docutils">
+<dt>The <strong>break</strong> and <strong>continue</strong> loop control commands ` [1]</dt>
+<dd>&lt;loopcontrol.html#FTN.AEN6981&gt;`__ correspond exactly to their</dd>
+</dl>
+<p class="last">counterparts in other programming languages. The <strong>break</strong> command
+terminates the loop ( <em>breaks</em> out of it), while <strong>continue</strong> causes
+a jump to the next <a class="reference external" href="loops1.html#ITERATIONREF">iteration</a> of the
+loop, skipping all the remaining commands in that particular loop
+cycle.</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="section" id="exemple-21-effects-of-break-and-continue-in-a-loop">
+<h2>Exemple 21. Effects of <em>break</em> and <strong>continue</strong> in a loop<a class="headerlink" href="#exemple-21-effects-of-break-and-continue-in-a-loop" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">LIMIT</span><span class="o">=</span><span class="m">19</span>  <span class="c"># Upper limit</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Printing Numbers 1 through 20 (but not 3 and 11).&quot;</span>
+
+<span class="nv">a</span><span class="o">=</span>0
+
+<span class="k">while</span> <span class="o">[</span> <span class="nv">$a</span> -le <span class="s2">&quot;</span><span class="nv">$LIMIT</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">do</span>
+ <span class="nv">a</span><span class="o">=</span><span class="k">$((</span><span class="nv">$a</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
+
+ <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> -eq <span class="m">3</span> <span class="o">]</span> <span class="p">|</span><span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> -eq <span class="m">11</span> <span class="o">]</span>  <span class="c"># Excludes 3 and 11.</span>
+ <span class="k">then</span>
+   <span class="k">continue</span>      <span class="c"># Skip rest of this particular loop iteration.</span>
+ <span class="k">fi</span>
+
+ <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> &quot;</span>   <span class="c"># This will not execute for 3 and 11.</span>
+<span class="k">done</span>
+
+<span class="c"># Exercise:</span>
+<span class="c"># Why does the loop print up to 20?</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nb">echo </span>Printing Numbers <span class="m">1</span> through 20, but something happens after 2.
+
+<span class="c">##################################################################</span>
+
+<span class="c"># Same loop, but substituting &#39;break&#39; for &#39;continue&#39;.</span>
+
+<span class="nv">a</span><span class="o">=</span>0
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> -le <span class="s2">&quot;</span><span class="nv">$LIMIT</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">do</span>
+ <span class="nv">a</span><span class="o">=</span><span class="k">$((</span><span class="nv">$a</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
+
+ <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> -gt <span class="m">2</span> <span class="o">]</span>
+ <span class="k">then</span>
+   <span class="nb">break</span>  <span class="c"># Skip entire rest of loop.</span>
+ <span class="k">fi</span>
+
+ <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> &quot;</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>The <strong>break</strong> command may optionally take a parameter. A plain
+<strong>break</strong> terminates only the innermost loop in which it is
+embedded, but a <strong>break N</strong> breaks out of
+``                   N                 `` levels of loop.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-22-breaking-out-of-multiple-loop-levels">
+<h2>Exemple 22. Breaking out of multiple loop levels<a class="headerlink" href="#exemple-22-breaking-out-of-multiple-loop-levels" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># break-levels.sh: Breaking out of loops.</span>
+
+<span class="c"># &quot;break N&quot; breaks out of N level loops.</span>
+
+<span class="k">for</span> outerloop in <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> 5
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;Group </span><span class="nv">$outerloop</span><span class="s2">:   &quot;</span>
+
+  <span class="c"># --------------------------------------------------------</span>
+  <span class="k">for</span> innerloop in <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> 5
+  <span class="k">do</span>
+    <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$innerloop</span><span class="s2"> &quot;</span>
+
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$innerloop</span><span class="s2">&quot;</span> -eq <span class="m">3</span> <span class="o">]</span>
+    <span class="k">then</span>
+      <span class="nb">break</span>  <span class="c"># Try   break 2   to see what happens.</span>
+             <span class="c"># (&quot;Breaks&quot; out of both inner and outer loops.)</span>
+    <span class="k">fi</span>
+  <span class="k">done</span>
+  <span class="c"># --------------------------------------------------------</span>
+
+  <span class="nb">echo</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>The <strong>continue</strong> command, similar to <strong>break</strong> , optionally takes a
+parameter. A plain <strong>continue</strong> cuts short the current iteration
+within its loop and begins the next. A <strong>continue N</strong> terminates all
+remaining iterations at its loop level and continues with the next
+iteration at the loop, ``         N        `` levels above.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-23-continuing-at-a-higher-loop-level">
+<h2>Exemple 23. Continuing at a higher loop level<a class="headerlink" href="#exemple-23-continuing-at-a-higher-loop-level" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># The &quot;continue N&quot; command, continuing at the Nth level loop.</span>
+
+<span class="k">for</span> outer in I II III IV V           <span class="c"># outer loop</span>
+<span class="k">do</span>
+  <span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> -n <span class="s2">&quot;Group </span><span class="nv">$outer</span><span class="s2">: &quot;</span>
+
+  <span class="c"># --------------------------------------------------------------------</span>
+  <span class="k">for</span> inner in <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span> <span class="m">6</span> <span class="m">7</span> <span class="m">8</span> <span class="m">9</span> <span class="m">10</span>  <span class="c"># inner loop</span>
+  <span class="k">do</span>
+
+    <span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$inner</span><span class="s2">&quot;</span> -eq <span class="m">7</span> <span class="o">&amp;&amp;</span> <span class="s2">&quot;</span><span class="nv">$outer</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;III&quot;</span> <span class="o">]]</span>
+    <span class="k">then</span>
+      <span class="k">continue</span> <span class="m">2</span>  <span class="c"># Continue at loop on 2nd level, that is &quot;outer loop&quot;.</span>
+                  <span class="c"># Replace above line with a simple &quot;continue&quot;</span>
+                  <span class="c"># to see normal loop behavior.</span>
+    <span class="k">fi</span>
+
+    <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$inner</span><span class="s2"> &quot;</span>  <span class="c"># 7 8 9 10 will not echo on &quot;Group III.&quot;</span>
+  <span class="k">done</span>
+  <span class="c"># --------------------------------------------------------------------</span>
+
+<span class="k">done</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="c"># Exercise:</span>
+<span class="c"># Come up with a meaningful use for &quot;continue N&quot; in a script.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-24-using-continue-n-in-an-actual-task">
+<h2>Exemple 24. Using <em>continue N</em> in an actual task<a class="headerlink" href="#exemple-24-using-continue-n-in-an-actual-task" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c"># Albert Reiner gives an example of how to use &quot;continue N&quot;:</span>
+<span class="c"># ---------------------------------------------------------</span>
+
+<span class="c">#  Suppose I have a large number of jobs that need to be run, with</span>
+<span class="c">#+ any data that is to be treated in files of a given name pattern</span>
+<span class="c">#+ in a directory. There are several machines that access</span>
+<span class="c">#+ this directory, and I want to distribute the work over these</span>
+<span class="c">#+ different boxen.</span>
+<span class="c">#  Then I usually nohup something like the following on every box:</span>
+
+<span class="k">while</span> <span class="nb">true</span>
+<span class="k">do</span>
+  <span class="k">for</span> n in .iso.*
+  <span class="k">do</span>
+    <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$n</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;.iso.opts&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="k">continue</span>
+    <span class="nv">beta</span><span class="o">=</span><span class="si">${</span><span class="nv">n</span><span class="p">#.iso.</span><span class="si">}</span>
+    <span class="o">[</span> -r .Iso.<span class="nv">$beta</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="k">continue</span>
+    <span class="o">[</span> -r .lock.<span class="nv">$beta</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> sleep <span class="m">10</span> <span class="o">&amp;&amp;</span> <span class="k">continue</span>
+    lockfile -r0 .lock.<span class="nv">$beta</span>.. <span class="k">continue</span>::
+    <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$beta</span><span class="s2">: &quot;</span> <span class="sb">`</span>date<span class="sb">`</span>
+    run-isotherm <span class="nv">$beta</span>
+    date
+    ls -alF .Iso.<span class="nv">$beta</span>
+    <span class="o">[</span> -r .Iso.<span class="nv">$beta</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> rm -f .lock.<span class="nv">$beta</span>
+    <span class="k">continue</span> 2
+  <span class="k">done</span>
+  <span class="nb">break</span>
+<span class="k">done</span>
+
+<span class="nb">exit </span>0
+
+<span class="c">#  The details, in particular the sleep N, are particular to my</span>
+<span class="c">#+ application, but the general pattern is:</span>
+
+<span class="k">while</span> <span class="nb">true</span>
+<span class="k">do</span>
+  <span class="k">for</span> job in <span class="o">{</span>pattern<span class="o">}</span>
+  <span class="k">do</span>
+    <span class="o">{</span>job already <span class="k">done</span> or running<span class="o">}</span> <span class="o">&amp;&amp;</span> <span class="k">continue</span>
+    <span class="o">{</span>mark job as running, <span class="k">do</span> job, mark job as <span class="k">done</span><span class="o">}</span>
+    <span class="k">continue</span> 2
+  <span class="k">done</span>
+  <span class="nb">break</span>        <span class="c"># Or something like `sleep 600&#39; to avoid termination.</span>
+<span class="k">done</span>
+
+<span class="c">#  This way the script will stop only when there are no more jobs to do</span>
+<span class="c">#+ (including jobs that were added during runtime). Through the use</span>
+<span class="c">#+ of appropriate lockfiles it can be run on several machines</span>
+<span class="c">#+ concurrently without duplication of calculations [which run a couple</span>
+<span class="c">#+ of hours in my case, so I really want to avoid this]. Also, as search</span>
+<span class="c">#+ always starts again from the beginning, one can encode priorities in</span>
+<span class="c">#+ the file names. Of course, one could also do this without `continue 2&#39;,</span>
+<span class="c">#+ but then one would have to actually check whether or not some job</span>
+<span class="c">#+ was done (so that we should immediately look for the next job) or not</span>
+<span class="c">#+ (in which case we terminate or sleep for a long time before checking</span>
+<span class="c">#+ for a new job).</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<p class="last">The <strong>continue N</strong> construct is difficult to understand and tricky
+to use in any meaningful context. It is probably best avoided.</p>
+</div>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;loopcontrol.html#AEN6981&gt;`__</p>
+<p>These are shell <a class="reference external" href="internal.html#BUILTINREF">builtins</a> , whereas other
+loop commands, such as <a class="reference external" href="loops1.html#WHILELOOPREF">while</a> and
+<a class="reference external" href="testbranch.html#CASEESAC1">case</a> , are
+<a class="reference external" href="internal.html#KEYWORDREF">keywords</a> .</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="testbranch.html" class="btn btn-neutral float-right" title="XXX 11.4. Testing and Branching" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="nestedloops.html" class="btn btn-neutral" title="XXX 11.2. Nested Loops"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

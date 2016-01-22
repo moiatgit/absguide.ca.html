@@ -1,0 +1,504 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 9.2. Typing variables: declare or typeset &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Part 3. Beyond the Basics" href="part3.html"/>
+        <link rel="next" title="XXX 9.3. $RANDOM: generate random integer" href="randomvar.html"/>
+        <link rel="prev" title="XXX 9.1. Internal Variables" href="internalvariables.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="variables2.html">XXX  Chapter 9. Another Look at Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internalvariables.html">XXX  9.1. Internal Variables</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  9.2. Typing variables: <strong>declare</strong> or <strong>typeset</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="randomvar.html">XXX  9.3. $RANDOM: generate random integer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manipulatingvars.html">XXX  Chapter 10. Manipulating Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="string-manipulation.html">XXX  10.1. Manipulating Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parameter-substitution.html">XXX 10.2. Substitució de paràmetres</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loops.html">Chapter 11. Loops and Branches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loops1.html">XXX  11.1. Loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedloops.html">XXX  11.2. Nested Loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loopcontrol.html">XXX  11.3. Loop Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testbranch.html">XXX  11.4. Testing and Branching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commandsub.html">XXX  Chapter 12. Substitució de comanda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arithexp.html">XXX  Chapter 13. Arithmetic Expansion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recess-time.html">XXX  Chapter 14. Recess Time</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part3.html">XXX Part 3. Beyond the Basics</a> &raquo;</li>
+      
+    <li>XXX  9.2. Typing variables: <strong>declare</strong> or <strong>typeset</strong></li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-9-2-typing-variables-declare-or-typeset">
+<h1>XXX  9.2. Typing variables: <strong>declare</strong> or <strong>typeset</strong><a class="headerlink" href="#xxx-9-2-typing-variables-declare-or-typeset" title="Link permanent a aquest títol">¶</a></h1>
+<p>The <em>declare</em> or <em>typeset</em> <a class="reference external" href="internal.html#BUILTINREF">builtins</a> ,
+which are exact synonyms, permit modifying the properties of variables.
+This is a very weak form of the <em>typing</em> ` [1]</p>
+<blockquote>
+<div>&lt;declareref.html#FTN.AEN5685&gt;`__ available in certain programming</div></blockquote>
+<p>languages. The <em>declare</em> command is specific to version 2 or later of
+Bash. The <em>typeset</em> command also works in ksh scripts.</p>
+<p>** declare/typeset options**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>-r ``                 readonly               ``</dt>
+<dd><p class="first">( ``                   declare -r var1                 `` works the
+same as ``                   readonly var1                 `` )</p>
+<p>This is the rough equivalent of the <strong>C</strong> <em>const</em> type qualifier. An
+attempt to change the value of a <em>readonly</em> variable fails with an
+error message.</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="nb">declare</span> -r <span class="nv">var1</span><span class="o">=</span>1
+<span class="nb">echo</span> <span class="s2">&quot;var1 = </span><span class="nv">$var1</span><span class="s2">&quot;</span>   <span class="c"># var1 = 1</span>
+
+<span class="o">((</span> var1++ <span class="o">))</span>          <span class="c"># x.sh: line 4: var1: readonly variable</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>-i ``                 integer               ``</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="nb">declare</span> -i number
+<span class="c"># The script will treat subsequent occurrences of &quot;number&quot; as an integer.</span>
+
+<span class="nv">number</span><span class="o">=</span>3
+<span class="nb">echo</span> <span class="s2">&quot;Number = </span><span class="nv">$number</span><span class="s2">&quot;</span>     <span class="c"># Number = 3</span>
+
+<span class="nv">number</span><span class="o">=</span>three
+<span class="nb">echo</span> <span class="s2">&quot;Number = </span><span class="nv">$number</span><span class="s2">&quot;</span>     <span class="c"># Number = 0</span>
+<span class="c"># Tries to evaluate the string &quot;three&quot; as an integer.</span>
+</pre></div>
+</div>
+<p>Certain arithmetic operations are permitted for declared integer
+variables without the need for <a class="reference external" href="moreadv.html#EXPRREF">expr</a> or
+<a class="reference external" href="internal.html#LETREF">let</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">n</span><span class="o">=</span>6/3
+<span class="nb">echo</span> <span class="s2">&quot;n = </span><span class="nv">$n</span><span class="s2">&quot;</span>       <span class="c"># n = 6/3</span>
+
+<span class="nb">declare</span> -i n
+<span class="nv">n</span><span class="o">=</span>6/3
+<span class="nb">echo</span> <span class="s2">&quot;n = </span><span class="nv">$n</span><span class="s2">&quot;</span>       <span class="c"># n = 2</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>-a ``                 array               ``</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="nb">declare</span> -a indices
+</pre></div>
+</div>
+<p>The variable ``                   indices                 `` will be
+treated as an <a class="reference external" href="arrays.html#ARRAYREF">array</a> .</p>
+</div></blockquote>
+<p>-f ``                 function(s)               ``</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="nb">declare</span> -f
+</pre></div>
+</div>
+<p>A ``                   declare -f                 `` line with no
+arguments in a script causes a listing of all the
+<a class="reference external" href="functions.html#FUNCTIONREF">functions</a> previously defined in
+that script.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">declare</span> -f function_name
+</pre></div>
+</div>
+<p>A ``                   declare -f function_name                 ``
+in a script lists just the function named.</p>
+</div></blockquote>
+<p>-x <a class="reference external" href="internal.html#EXPORTREF">export</a></p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="nb">declare</span> -x var3
+</pre></div>
+</div>
+<p>This declares a variable as available for exporting outside the
+environment of the script itself.</p>
+</div></blockquote>
+<p>-x var=$value</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="nb">declare</span> -x <span class="nv">var3</span><span class="o">=</span>373
+</pre></div>
+</div>
+<p>The <strong>declare</strong> command permits assigning a value to a variable in
+the same statement as setting its properties.</p>
+</div></blockquote>
+</div></blockquote>
+<div class="section" id="exemple-10-using-declare-to-type-variables">
+<h2>Exemple 10. Using <em>declare</em> to type variables<a class="headerlink" href="#exemple-10-using-declare-to-type-variables" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+func1 <span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">echo </span>This is a <span class="k">function</span>.
+<span class="o">}</span>
+
+<span class="nb">declare</span> -f        <span class="c"># Lists the function above.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">declare</span> -i var1   <span class="c"># var1 is an integer.</span>
+<span class="nv">var1</span><span class="o">=</span>2367
+<span class="nb">echo</span> <span class="s2">&quot;var1 declared as </span><span class="nv">$var1</span><span class="s2">&quot;</span>
+<span class="nv">var1</span><span class="o">=</span>var1+1       <span class="c"># Integer declaration eliminates the need for &#39;let&#39;.</span>
+<span class="nb">echo</span> <span class="s2">&quot;var1 incremented by 1 is </span><span class="nv">$var1</span><span class="s2">.&quot;</span>
+<span class="c"># Attempt to change variable declared as integer.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Attempting to change var1 to floating point value, 2367.1.&quot;</span>
+<span class="nv">var1</span><span class="o">=</span>2367.1       <span class="c"># Results in error message, with no change to variable.</span>
+<span class="nb">echo</span> <span class="s2">&quot;var1 is still </span><span class="nv">$var1</span><span class="s2">&quot;</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">declare</span> -r <span class="nv">var2</span><span class="o">=</span>13.36         <span class="c"># &#39;declare&#39; permits setting a variable property</span>
+                              <span class="c">#+ and simultaneously assigning it a value.</span>
+<span class="nb">echo</span> <span class="s2">&quot;var2 declared as </span><span class="nv">$var2</span><span class="s2">&quot;</span> <span class="c"># Attempt to change readonly variable.</span>
+<span class="nv">var2</span><span class="o">=</span>13.37                    <span class="c"># Generates error message, and exit from script.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;var2 is still </span><span class="nv">$var2</span><span class="s2">&quot;</span>    <span class="c"># This line will not execute.</span>
+
+<span class="nb">exit </span><span class="m">0</span>                        <span class="c"># Script will not exit here.</span>
+</pre></div>
+</div>
+<p><a href="#id1"><span class="problematic" id="id2">|</span></a>Caution</p>
+<p>Using the <em>declare</em> builtin restricts the
+<a class="reference external" href="subshells.html#SCOPEREF">scope</a> of a variable.</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>foo <span class="o">()</span>
+<span class="o">{</span>
+<span class="nv">FOO</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span>
+<span class="o">}</span>
+
+bar <span class="o">()</span>
+<span class="o">{</span>
+foo
+<span class="nb">echo</span> <span class="nv">$FOO</span>
+<span class="o">}</span>
+
+bar   <span class="c"># Prints bar.</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>However . . .</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>foo <span class="o">(){</span>
+<span class="nb">declare </span><span class="nv">FOO</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span>
+<span class="o">}</span>
+
+bar <span class="o">()</span>
+<span class="o">{</span>
+foo
+<span class="nb">echo</span> <span class="nv">$FOO</span>
+<span class="o">}</span>
+
+bar  <span class="c"># Prints nothin</span>
+</pre></div>
+</div>
+<ol class="loweralpha" start="7">
+<li><blockquote class="first">
+<div><p># Thank you, Michael</p>
+</div></blockquote>
+<p>Iatrou, for pointing th</p>
+</li>
+</ol>
+<p>is out.</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>foo <span class="o">()</span>
+<span class="o">{</span>
+<span class="nv">FOO</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span>
+<span class="o">}</span>
+
+bar <span class="o">()</span>
+<span class="o">{</span>
+foo
+<span class="nb">echo</span> <span class="nv">$FOO</span>
+<span class="o">}</span>
+
+bar   <span class="c"># Prints bar.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>foo <span class="o">(){</span>
+<span class="nb">declare </span><span class="nv">FOO</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span>
+<span class="o">}</span>
+
+bar <span class="o">()</span>
+<span class="o">{</span>
+foo
+<span class="nb">echo</span> <span class="nv">$FOO</span>
+<span class="o">}</span>
+
+bar  <span class="c"># Prints nothing.</span>
+
+
+<span class="c"># Thank you, Michael Iatrou, for pointing this out.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>foo <span class="o">()</span>
+<span class="o">{</span>
+<span class="nv">FOO</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span>
+<span class="o">}</span>
+
+bar <span class="o">()</span>
+<span class="o">{</span>
+foo
+<span class="nb">echo</span> <span class="nv">$FOO</span>
+<span class="o">}</span>
+
+bar   <span class="c"># Prints bar.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>  foo <span class="o">(){</span>
+  <span class="nb">declare </span><span class="nv">FOO</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span>
+  <span class="o">}</span>
+
+  bar <span class="o">()</span>
+  <span class="o">{</span>
+  foo
+  <span class="nb">echo</span> <span class="nv">$FOO</span>
+  <span class="o">}</span>
+
+  bar  <span class="c"># Prints nothing.</span>
+
+
+  <span class="c"># Thank you, Michael Iatrou, for pointing this out.</span>
+
+
+
+
+
+9.2.1. Another use <span class="k">for</span> *declare*
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>The <em>declare</em> command can be helpful in identifying variables,
+<a class="reference external" href="othertypesv.html#ENVREF">environmental</a> or otherwise. This can be
+especially useful with <a class="reference external" href="arrays.html#ARRAYREF">arrays</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>declaregrep HOME
+<span class="nv">HOME</span><span class="o">=</span>/home/bozo
+
+
+bash<span class="nv">$ zzy</span><span class="o">=</span>68
+bash<span class="nv">$ </span>declaregrep zzy
+<span class="nv">zzy</span><span class="o">=</span>68
+
+
+bash<span class="nv">$ Colors</span><span class="o">=([</span>0<span class="o">]=</span><span class="s2">&quot;purple&quot;</span> <span class="o">[</span>1<span class="o">]=</span><span class="s2">&quot;reddish-orange&quot;</span> <span class="o">[</span>2<span class="o">]=</span><span class="s2">&quot;light green&quot;</span><span class="o">)</span>
+bash<span class="nv">$ </span><span class="nb">echo</span> <span class="si">${</span><span class="nv">Colors</span><span class="p">[@]</span><span class="si">}</span>
+purple reddish-orange light green
+bash<span class="nv">$ </span>declaregrep Colors
+<span class="nv">Colors</span><span class="o">=([</span>0<span class="o">]=</span><span class="s2">&quot;purple&quot;</span> <span class="o">[</span>1<span class="o">]=</span><span class="s2">&quot;reddish-orange&quot;</span> <span class="o">[</span>2<span class="o">]=</span><span class="s2">&quot;light green&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;declareref.html#AEN5685&gt;`__</p>
+<blockquote>
+<div>In this context, <em>typing</em> a variable means to classify it and restrict</div></blockquote>
+<p>its properties. For example, a variable <em>declared</em> or <em>typed</em> as an
+integer is no longer available for <a class="reference external" href="refcards.html#STRINGOPSTAB">string
+operations</a> .</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">declare</span> -i intvar
+
+<span class="nv">intvar</span><span class="o">=</span>23
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$intvar</span><span class="s2">&quot;</span>   <span class="c"># 2</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>3</dt>
+<dd>intvar=stringval
+echo &#8220;$intvar&#8221;   # 0</dd>
+</dl>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">declare</span> -i intvar
+
+<span class="nv">intvar</span><span class="o">=</span>23
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$intvar</span><span class="s2">&quot;</span>   <span class="c"># 23</span>
+<span class="nv">intvar</span><span class="o">=</span>stringval
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$intvar</span><span class="s2">&quot;</span>   <span class="c"># 0</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">declare</span> -i intvar
+
+<span class="nv">intvar</span><span class="o">=</span>23
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$intvar</span><span class="s2">&quot;</span>   <span class="c"># 23</span>
+<span class="nv">intvar</span><span class="o">=</span>stringval
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$intvar</span><span class="s2">&quot;</span>   <span class="c"># 0</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="randomvar.html" class="btn btn-neutral float-right" title="XXX 9.3. $RANDOM: generate random integer" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="internalvariables.html" class="btn btn-neutral" title="XXX 9.1. Internal Variables"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

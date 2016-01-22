@@ -1,0 +1,2085 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Chapter 27. Arrays &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Part 5. Advanced Topics" href="part5.html"/>
+        <link rel="next" title="XXX Chapter 28. Indirect References" href="ivr.html"/>
+        <link rel="prev" title="XXX Chapter 26. List Constructs" href="list-cons.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="regexp.html">XXX Chapter 18. Regular Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="here-docs.html">XXX  Chapter 19. Document immediat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io-redirection.html">XXX  Chapter 20. I/O Redirection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subshells.html">XXX  Chapter 21. Subshells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restricted-sh.html">XXX  Chapter 22. Restricted Shells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process-sub.html">XXX  Chapter 23. Process Substitution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">XXX  Chapter 24. Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aliases.html">XXX Capítol 25. Àlies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="list-cons.html">XXX  Chapter 26. List Constructs</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  Chapter 27. Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ivr.html">XXX  Chapter 28. Indirect References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networkprogramming.html">XXX  Chapter 30. Network Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zeros.html">XXX  Chapter 31. Of Zeros and Nulls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">XXX  Chapter 32. Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html">XXX  Chapter 33. Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gotchas.html">XXX Chapter 34. Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scrstyle.html">XXX  Chapter 35. Scripting With Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unofficialst.html">XXX  35.1. Unofficial Shell Scripting Stylesheet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellany.html">XXX  Chapter 36. Miscellany</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash2.html">XXX  Chapter 37. Bash, versions 2, 3, and 4</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part5.html">XXX Part 5. Advanced Topics</a> &raquo;</li>
+      
+    <li>XXX  Chapter 27. Arrays</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-chapter-27-arrays">
+<h1>XXX  Chapter 27. Arrays<a class="headerlink" href="#xxx-chapter-27-arrays" title="Link permanent a aquest títol">¶</a></h1>
+<p>Newer versions of Bash support one-dimensional arrays. Array elements
+may be initialized with the ``             variable[xx]           ``
+notation. Alternatively, a script may introduce the entire array by an
+explicit ``             declare -a variable           `` statement. To
+dereference (retrieve the contents of) an array element, use <em>curly
+bracket</em> notation, that is, ``             ${element[xx]}           `` .</p>
+<div class="section" id="exemple-1-simple-array-usage">
+<h2>Exemple 1. Simple array usage<a class="headerlink" href="#exemple-1-simple-array-usage" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+
+area<span class="o">[</span>11<span class="o">]=</span>23
+area<span class="o">[</span>13<span class="o">]=</span>37
+area<span class="o">[</span>51<span class="o">]=</span>UFOs
+
+<span class="c">#  Array members need not be consecutive or contiguous.</span>
+
+<span class="c">#  Some members of the array can be left uninitialized.</span>
+<span class="c">#  Gaps in the array are okay.</span>
+<span class="c">#  In fact, arrays with sparse data (&quot;sparse arrays&quot;)</span>
+<span class="c">#+ are useful in spreadsheet-processing software.</span>
+
+
+<span class="nb">echo</span> -n <span class="s2">&quot;area[11] = &quot;</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">area</span><span class="p">[11]</span><span class="si">}</span>    <span class="c">#  {curly brackets} needed.</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;area[13] = &quot;</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">area</span><span class="p">[13]</span><span class="si">}</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Contents of area[51] are </span><span class="si">${</span><span class="nv">area</span><span class="p">[51]</span><span class="si">}</span><span class="s2">.&quot;</span>
+
+<span class="c"># Contents of uninitialized array variable print blank (null variable).</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;area[43] = &quot;</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">area</span><span class="p">[43]</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;(area[43] unassigned)&quot;</span>
+
+<span class="nb">echo</span>
+
+<span class="c"># Sum of two array variables assigned to third</span>
+area<span class="o">[</span>5<span class="o">]=</span><span class="sb">`</span>expr <span class="si">${</span><span class="nv">area</span><span class="p">[11]</span><span class="si">}</span> + <span class="si">${</span><span class="nv">area</span><span class="p">[13]</span><span class="si">}</span><span class="sb">`</span>
+<span class="nb">echo</span> <span class="s2">&quot;area[5] = area[11] + area[13]&quot;</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;area[5] = &quot;</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">area</span><span class="p">[5]</span><span class="si">}</span>
+
+area<span class="o">[</span>6<span class="o">]=</span><span class="sb">`</span>expr <span class="si">${</span><span class="nv">area</span><span class="p">[11]</span><span class="si">}</span> + <span class="si">${</span><span class="nv">area</span><span class="p">[51]</span><span class="si">}</span><span class="sb">`</span>
+<span class="nb">echo</span> <span class="s2">&quot;area[6] = area[11] + area[51]&quot;</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;area[6] = &quot;</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">area</span><span class="p">[6]</span><span class="si">}</span>
+<span class="c"># This fails because adding an integer to a string is not permitted.</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="c"># -----------------------------------------------------------------</span>
+<span class="c"># Another array, &quot;area2&quot;.</span>
+<span class="c"># Another way of assigning array variables...</span>
+<span class="c"># array_name=( XXX YYY ZZZ ... )</span>
+
+<span class="nv">area2</span><span class="o">=(</span> zero one two three four <span class="o">)</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;area2[0] = &quot;</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">area2</span><span class="p">[0]</span><span class="si">}</span>
+<span class="c"># Aha, zero-based indexing (first element of array is [0], not [1]).</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;area2[1] = &quot;</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">area2</span><span class="p">[1]</span><span class="si">}</span>    <span class="c"># [1] is second element of array.</span>
+<span class="c"># -----------------------------------------------------------------</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="c"># -----------------------------------------------</span>
+<span class="c"># Yet another array, &quot;area3&quot;.</span>
+<span class="c"># Yet another way of assigning array variables...</span>
+<span class="c"># array_name=([xx]=XXX [yy]=YYY ...)</span>
+
+<span class="nv">area3</span><span class="o">=([</span>17<span class="o">]=</span>seventeen <span class="o">[</span>24<span class="o">]=</span>twenty-four<span class="o">)</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;area3[17] = &quot;</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">area3</span><span class="p">[17]</span><span class="si">}</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;area3[24] = &quot;</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">area3</span><span class="p">[24]</span><span class="si">}</span>
+<span class="c"># -----------------------------------------------</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>As we have seen, a convenient way of initializing an entire array is the
+``      array=( element1 element2 ... elementN )     `` notation.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">base64_charset</span><span class="o">=(</span> <span class="o">{</span>A..Z<span class="o">}</span> <span class="o">{</span>a..z<span class="o">}</span> <span class="o">{</span>0..9<span class="o">}</span> + / <span class="o">=</span> <span class="o">)</span>
+               <span class="c">#  Using extended brace expansion</span>
+               <span class="c">#+ to initialize the elements of the array.</span>
+               <span class="c">#  Excerpted from vladz&#39;s &quot;base64.sh&quot; script</span>
+               <span class="c">#+ in the &quot;Contributed Scripts&quot; appendix.</span>
+</pre></div>
+</div>
+<p>Bash permits array operations on variables, even if the variables are
+not explicitly declared as arrays.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">string</span><span class="o">=</span>abcABC123ABCabc
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">string</span><span class="p">[@]</span><span class="si">}</span>               <span class="c"># abcABC123ABCabc</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">string</span><span class="p">[*]</span><span class="si">}</span>               <span class="c"># abcABC123ABCabc</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">string</span><span class="p">[0]</span><span class="si">}</span>               <span class="c"># abcABC123ABCabc</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">string</span><span class="p">[1]</span><span class="si">}</span>               <span class="c"># No output!</span>
+                                <span class="c"># Why?</span>
+<span class="nb">echo</span> <span class="si">${#</span><span class="nv">string</span><span class="p">[@]</span><span class="si">}</span>              <span class="c"># 1</span>
+                                <span class="c"># One element in the array.</span>
+                                <span class="c"># The string itself.</span>
+
+<span class="c"># Thank you, Michael Zick, for pointing this out.</span>
+</pre></div>
+</div>
+<p>Once again this demonstrates that <a class="reference external" href="untyped.html#BVUNTYPED">Bash variables are
+untyped</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">string</span><span class="o">=</span>abcABC123ABCabc
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">string</span><span class="p">[@]</span><span class="si">}</span>               <span class="c"># abcABC123ABCabc</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">string</span><span class="p">[*]</span><span class="si">}</span>               <span class="c"># abcABC123ABCabc</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">string</span><span class="p">[0]</span><span class="si">}</span>               <span class="c"># abcABC123ABCabc</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">string</span><span class="p">[1]</span><span class="si">}</span>               <span class="c"># No output!</span>
+                                <span class="c"># Why?</span>
+<span class="nb">echo</span> <span class="si">${#</span><span class="nv">string</span><span class="p">[@]</span><span class="si">}</span>              <span class="c"># 1</span>
+                                <span class="c"># One element in the array.</span>
+                                <span class="c"># The string itself.</span>
+
+<span class="c"># Thank you, Michael Zick, for pointing this out.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">string</span><span class="o">=</span>abcABC123ABCabc
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">string</span><span class="p">[@]</span><span class="si">}</span>               <span class="c"># abcABC123ABCabc</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">string</span><span class="p">[*]</span><span class="si">}</span>               <span class="c"># abcABC123ABCabc</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">string</span><span class="p">[0]</span><span class="si">}</span>               <span class="c"># abcABC123ABCabc</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">string</span><span class="p">[1]</span><span class="si">}</span>               <span class="c"># No output!</span>
+                                <span class="c"># Why?</span>
+<span class="nb">echo</span> <span class="si">${#</span><span class="nv">string</span><span class="p">[@]</span><span class="si">}</span>              <span class="c"># 1</span>
+                                <span class="c"># One element in the array.</span>
+                                <span class="c"># The string itself.</span>
+
+<span class="c"># Thank you, Michael Zick, for pointing this out.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-2-formatting-a-poem">
+<h2>Exemple 2. Formatting a poem<a class="headerlink" href="#exemple-2-formatting-a-poem" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># poem.sh: Pretty-prints one of the ABS Guide author&#39;s favorite poems.</span>
+
+<span class="c"># Lines of the poem (single stanza).</span>
+Line<span class="o">[</span>1<span class="o">]=</span><span class="s2">&quot;I do not know which to prefer,&quot;</span>
+Line<span class="o">[</span>2<span class="o">]=</span><span class="s2">&quot;The beauty of inflections&quot;</span>
+Line<span class="o">[</span>3<span class="o">]=</span><span class="s2">&quot;Or the beauty of innuendoes,&quot;</span>
+Line<span class="o">[</span>4<span class="o">]=</span><span class="s2">&quot;The blackbird whistling&quot;</span>
+Line<span class="o">[</span>5<span class="o">]=</span><span class="s2">&quot;Or just after.&quot;</span>
+<span class="c"># Note that quoting permits embedding whitespace.</span>
+
+<span class="c"># Attribution.</span>
+Attrib<span class="o">[</span>1<span class="o">]=</span><span class="s2">&quot; Wallace Stevens&quot;</span>
+Attrib<span class="o">[</span>2<span class="o">]=</span><span class="s2">&quot;\&quot;Thirteen Ways of Looking at a Blackbird\&quot;&quot;</span>
+<span class="c"># This poem is in the Public Domain (copyright expired).</span>
+
+<span class="nb">echo</span>
+
+tput bold   <span class="c"># Bold print.</span>
+
+<span class="k">for</span> index in <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span>    <span class="c"># Five lines.</span>
+<span class="k">do</span>
+  <span class="nb">printf</span> <span class="s2">&quot;     %s\n&quot;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">Line</span><span class="p">[index]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+
+<span class="k">for</span> index in <span class="m">1</span> <span class="m">2</span>          <span class="c"># Two attribution lines.</span>
+<span class="k">do</span>
+  <span class="nb">printf</span> <span class="s2">&quot;          %s\n&quot;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">Attrib</span><span class="p">[index]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+
+tput sgr0   <span class="c"># Reset terminal.</span>
+            <span class="c"># See &#39;tput&#39; docs.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># Exercise:</span>
+<span class="c"># --------</span>
+<span class="c"># Modify this script to pretty-print a poem from a text data file.</span>
+</pre></div>
+</div>
+<p>Array variables have a syntax all their own, and even standard Bash
+commands and operators have special options adapted for array use.</p>
+</div>
+<div class="section" id="exemple-3-various-array-operations">
+<h2>Exemple 3. Various array operations<a class="headerlink" href="#exemple-3-various-array-operations" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># array-ops.sh: More fun with arrays.</span>
+
+
+<span class="nv">array</span><span class="o">=(</span> zero one two three four five <span class="o">)</span>
+<span class="c"># Element 0   1   2    3     4    5</span>
+
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">array</span><span class="p">[0]</span><span class="si">}</span>       <span class="c">#  zero</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">array</span><span class="p">:</span><span class="nv">0</span><span class="si">}</span>        <span class="c">#  zero</span>
+                       <span class="c">#  Parameter expansion of first element,</span>
+                       <span class="c">#+ starting at position # 0 (1st character).</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">array</span><span class="p">:</span><span class="nv">1</span><span class="si">}</span>        <span class="c">#  ero</span>
+                       <span class="c">#  Parameter expansion of first element,</span>
+                       <span class="c">#+ starting at position # 1 (2nd character).</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;--------------&quot;</span>
+
+<span class="nb">echo</span> <span class="si">${#</span><span class="nv">array</span><span class="p">[0]</span><span class="si">}</span>      <span class="c">#  4</span>
+                       <span class="c">#  Length of first element of array.</span>
+<span class="nb">echo</span> <span class="si">${#</span><span class="nv">array</span><span class="si">}</span>         <span class="c">#  4</span>
+                       <span class="c">#  Length of first element of array.</span>
+                       <span class="c">#  (Alternate notation)</span>
+
+<span class="nb">echo</span> <span class="si">${#</span><span class="nv">array</span><span class="p">[1]</span><span class="si">}</span>      <span class="c">#  3</span>
+                       <span class="c">#  Length of second element of array.</span>
+                       <span class="c">#  Arrays in Bash have zero-based indexing.</span>
+
+<span class="nb">echo</span> <span class="si">${#</span><span class="nv">array</span><span class="p">[*]</span><span class="si">}</span>      <span class="c">#  6</span>
+                       <span class="c">#  Number of elements in array.</span>
+<span class="nb">echo</span> <span class="si">${#</span><span class="nv">array</span><span class="p">[@]</span><span class="si">}</span>      <span class="c">#  6</span>
+                       <span class="c">#  Number of elements in array.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;--------------&quot;</span>
+
+<span class="nv">array2</span><span class="o">=(</span> <span class="o">[</span>0<span class="o">]=</span><span class="s2">&quot;first element&quot;</span> <span class="o">[</span>1<span class="o">]=</span><span class="s2">&quot;second element&quot;</span> <span class="o">[</span>3<span class="o">]=</span><span class="s2">&quot;fourth element&quot;</span> <span class="o">)</span>
+<span class="c">#            ^     ^       ^     ^      ^       ^     ^      ^       ^</span>
+<span class="c"># Quoting permits embedding whitespace within individual array elements.</span>
+
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">array2</span><span class="p">[0]</span><span class="si">}</span>      <span class="c"># first element</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">array2</span><span class="p">[1]</span><span class="si">}</span>      <span class="c"># second element</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">array2</span><span class="p">[2]</span><span class="si">}</span>      <span class="c">#</span>
+                       <span class="c"># Skipped in initialization, and therefore null.</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">array2</span><span class="p">[3]</span><span class="si">}</span>      <span class="c"># fourth element</span>
+<span class="nb">echo</span> <span class="si">${#</span><span class="nv">array2</span><span class="p">[0]</span><span class="si">}</span>     <span class="c"># 13    (length of first element)</span>
+<span class="nb">echo</span> <span class="si">${#</span><span class="nv">array2</span><span class="p">[*]</span><span class="si">}</span>     <span class="c"># 3     (number of elements in array)</span>
+
+<span class="nb">exit</span>
+</pre></div>
+</div>
+<p>Many of the standard <a class="reference external" href="string-manipulation.html#STRINGMANIP">string
+operations</a> work on arrays.</p>
+</div>
+<div class="section" id="exemple-4-string-operations-on-arrays">
+<h2>Exemple 4. String operations on arrays<a class="headerlink" href="#exemple-4-string-operations-on-arrays" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># array-strops.sh: String operations on arrays.</span>
+
+<span class="c"># Script by Michael Zick.</span>
+<span class="c"># Used in ABS Guide with permission.</span>
+<span class="c"># Fixups: 05 May 08, 04 Aug 08.</span>
+
+<span class="c">#  In general, any string operation using the ${name ... } notation</span>
+<span class="c">#+ can be applied to all string elements in an array,</span>
+<span class="c">#+ with the ${name[@] ... } or ${name[*] ...} notation.</span>
+
+
+<span class="nv">arrayZ</span><span class="o">=(</span> one two three four five five <span class="o">)</span>
+
+<span class="nb">echo</span>
+
+<span class="c"># Trailing Substring Extraction</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">arrayZ</span><span class="p">[@]:</span><span class="nv">0</span><span class="si">}</span>     <span class="c"># one two three four five five</span>
+<span class="c">#                ^        All elements.</span>
+
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">arrayZ</span><span class="p">[@]:</span><span class="nv">1</span><span class="si">}</span>     <span class="c"># two three four five five</span>
+<span class="c">#                ^        All elements following element[0].</span>
+
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">arrayZ</span><span class="p">[@]:</span><span class="nv">1</span><span class="p">:</span><span class="nv">2</span><span class="si">}</span>   <span class="c"># two three</span>
+<span class="c">#                  ^      Only the two elements after element[0].</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;---------&quot;</span>
+
+
+<span class="c"># Substring Removal</span>
+
+<span class="c"># Removes shortest match from front of string(s).</span>
+
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">arrayZ</span><span class="p">[@]#f*r</span><span class="si">}</span>   <span class="c"># one two three five five</span>
+<span class="c">#               ^       # Applied to all elements of the array.</span>
+                        <span class="c"># Matches &quot;four&quot; and removes it.</span>
+
+<span class="c"># Longest match from front of string(s)</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">arrayZ</span><span class="p">[@]##t*e</span><span class="si">}</span>  <span class="c"># one two four five five</span>
+<span class="c">#               ^^      # Applied to all elements of the array.</span>
+                        <span class="c"># Matches &quot;three&quot; and removes it.</span>
+
+<span class="c"># Shortest match from back of string(s)</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">arrayZ</span><span class="p">[@]%h*e</span><span class="si">}</span>   <span class="c"># one two t four five five</span>
+<span class="c">#               ^       # Applied to all elements of the array.</span>
+                        <span class="c"># Matches &quot;hree&quot; and removes it.</span>
+
+<span class="c"># Longest match from back of string(s)</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">arrayZ</span><span class="p">[@]%%t*e</span><span class="si">}</span>  <span class="c"># one two four five five</span>
+<span class="c">#               ^^      # Applied to all elements of the array.</span>
+                        <span class="c"># Matches &quot;three&quot; and removes it.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;----------------------&quot;</span>
+
+
+<span class="c"># Substring Replacement</span>
+
+<span class="c"># Replace first occurrence of substring with replacement.</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">arrayZ</span><span class="p">[@]/fiv/XYZ</span><span class="si">}</span>   <span class="c"># one two three four XYZe XYZe</span>
+<span class="c">#               ^           # Applied to all elements of the array.</span>
+
+<span class="c"># Replace all occurrences of substring.</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">arrayZ</span><span class="p">[@]//iv/YY</span><span class="si">}</span>    <span class="c"># one two three four fYYe fYYe</span>
+                            <span class="c"># Applied to all elements of the array.</span>
+
+<span class="c"># Delete all occurrences of substring.</span>
+<span class="c"># Not specifing a replacement defaults to &#39;delete&#39; ...</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">arrayZ</span><span class="p">[@]//fi/</span><span class="si">}</span>      <span class="c"># one two three four ve ve</span>
+<span class="c">#               ^^          # Applied to all elements of the array.</span>
+
+<span class="c"># Replace front-end occurrences of substring.</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">arrayZ</span><span class="p">[@]/#fi/XY</span><span class="si">}</span>    <span class="c"># one two three four XYve XYve</span>
+<span class="c">#                ^          # Applied to all elements of the array.</span>
+
+<span class="c"># Replace back-end occurrences of substring.</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">arrayZ</span><span class="p">[@]/%ve/ZZ</span><span class="si">}</span>    <span class="c"># one two three four fiZZ fiZZ</span>
+<span class="c">#                ^          # Applied to all elements of the array.</span>
+
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">arrayZ</span><span class="p">[@]/%o/XX</span><span class="si">}</span>     <span class="c"># one twXX three four five five</span>
+<span class="c">#                ^          # Why?</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;-----------------------------&quot;</span>
+
+
+replacement<span class="o">()</span> <span class="o">{</span>
+    <span class="nb">echo</span> -n <span class="s2">&quot;!!!&quot;</span>
+<span class="o">}</span>
+
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">arrayZ</span><span class="p">[@]/%e/</span><span class="k">$(</span>replacement<span class="k">)</span><span class="si">}</span>
+<span class="c">#                ^  ^^^^^^^^^^^^^^</span>
+<span class="c"># on!!! two thre!!! four fiv!!! fiv!!!</span>
+<span class="c"># The stdout of replacement() is the replacement string.</span>
+<span class="c"># Q.E.D: The replacement action is, in effect, an &#39;assignment.&#39;</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;------------------------------------&quot;</span>
+
+<span class="c">#  Accessing the &quot;for-each&quot;:</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">arrayZ</span><span class="p">[@]//*/</span><span class="k">$(</span>replacement optional_arguments<span class="k">)</span><span class="si">}</span>
+<span class="c">#                ^^ ^^^^^^^^^^^^^</span>
+<span class="c"># !!! !!! !!! !!! !!! !!!</span>
+
+<span class="c">#  Now, if Bash would only pass the matched string</span>
+<span class="c">#+ to the function being called . . .</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+
+<span class="c">#  Before reaching for a Big Hammer -- Perl, Python, or all the rest --</span>
+<span class="c">#  recall:</span>
+<span class="c">#    $( ... ) is command substitution.</span>
+<span class="c">#    A function runs as a sub-process.</span>
+<span class="c">#    A function writes its output (if echo-ed) to stdout.</span>
+<span class="c">#    Assignment, in conjunction with &quot;echo&quot; and command substitution,</span>
+<span class="c">#+   can read a function&#39;s stdout.</span>
+<span class="c">#    The name[@] notation specifies (the equivalent of) a &quot;for-each&quot;</span>
+<span class="c">#+   operation.</span>
+<span class="c">#  Bash is more powerful than you think!</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="commandsub.html#COMMANDSUBREF">Command substitution</a> can construct
+the individual elements of an array.</p>
+</div>
+<div class="section" id="exemple-5-loading-the-contents-of-a-script-into-an-array">
+<h2>Exemple 5. Loading the contents of a script into an array<a class="headerlink" href="#exemple-5-loading-the-contents-of-a-script-into-an-array" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># script-array.sh: Loads this script into an array.</span>
+<span class="c"># Inspired by an e-mail from Chris Martin (thanks!).</span>
+
+<span class="nv">script_contents</span><span class="o">=(</span> <span class="k">$(</span>cat <span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span> <span class="o">)</span>  <span class="c">#  Stores contents of this script ($0)</span>
+                                 <span class="c">#+ in an array.</span>
+
+<span class="k">for</span> element in <span class="k">$(</span>seq <span class="m">0</span> <span class="k">$((</span><span class="si">${#</span><span class="nv">script_contents</span><span class="p">[@]</span><span class="si">}</span> <span class="o">-</span> <span class="m">1</span><span class="k">)))</span>
+  <span class="k">do</span>                <span class="c">#  ${#script_contents[@]}</span>
+                    <span class="c">#+ gives number of elements in the array.</span>
+                    <span class="c">#</span>
+                    <span class="c">#  Question:</span>
+                    <span class="c">#  Why is  seq 0  necessary?</span>
+                    <span class="c">#  Try changing it to seq 1.</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="si">${</span><span class="nv">script_contents</span><span class="p">[</span><span class="nv">$element</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="c"># List each field of this script on a single line.</span>
+<span class="c"># echo -n &quot;${script_contents[element]}&quot; also works because of ${ ... }.</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot; -- &quot;</span>    <span class="c"># Use &quot; -- &quot; as a field separator.</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># Exercise:</span>
+<span class="c"># --------</span>
+<span class="c">#  Modify this script so it lists itself</span>
+<span class="c">#+ in its original format,</span>
+<span class="c">#+ complete with whitespace, line breaks, etc.</span>
+</pre></div>
+</div>
+<p>In an array context, some Bash <a class="reference external" href="internal.html#BUILTINREF">builtins</a>
+have a slightly altered meaning. For example,
+<a class="reference external" href="internal.html#UNSETREF">unset</a> deletes array elements, or even an
+entire array.</p>
+</div>
+<div class="section" id="exemple-6-some-special-properties-of-arrays">
+<h2>Exemple 6. Some special properties of arrays<a class="headerlink" href="#exemple-6-some-special-properties-of-arrays" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">declare</span> -a colors
+<span class="c">#  All subsequent commands in this script will treat</span>
+<span class="c">#+ the variable &quot;colors&quot; as an array.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Enter your favorite colors (separated from each other by a space).&quot;</span>
+
+<span class="nb">read</span> -a colors    <span class="c"># Enter at least 3 colors to demonstrate features below.</span>
+<span class="c">#  Special option to &#39;read&#39; command,</span>
+<span class="c">#+ allowing assignment of elements in an array.</span>
+
+<span class="nb">echo</span>
+
+<span class="nv">element_count</span><span class="o">=</span><span class="si">${#</span><span class="nv">colors</span><span class="p">[@]</span><span class="si">}</span>
+<span class="c"># Special syntax to extract number of elements in array.</span>
+<span class="c">#     element_count=${#colors[*]} works also.</span>
+<span class="c">#</span>
+<span class="c">#  The &quot;@&quot; variable allows word splitting within quotes</span>
+<span class="c">#+ (extracts variables separated by whitespace).</span>
+<span class="c">#</span>
+<span class="c">#  This corresponds to the behavior of &quot;$@&quot; and &quot;$*&quot;</span>
+<span class="c">#+ in positional parameters.</span>
+
+<span class="nv">index</span><span class="o">=</span>0
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$index</span><span class="s2">&quot;</span> -lt <span class="s2">&quot;</span><span class="nv">$element_count</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">do</span>    <span class="c"># List all the elements in the array.</span>
+  <span class="nb">echo</span> <span class="si">${</span><span class="nv">colors</span><span class="p">[</span><span class="nv">$index</span><span class="p">]</span><span class="si">}</span>
+  <span class="c">#    ${colors[index]} also works because it&#39;s within ${ ... } brackets.</span>
+  <span class="nb">let</span> <span class="s2">&quot;index = </span><span class="nv">$index</span><span class="s2"> + 1&quot;</span>
+  <span class="c"># Or:</span>
+  <span class="c">#    ((index++))</span>
+<span class="k">done</span>
+<span class="c"># Each array element listed on a separate line.</span>
+<span class="c"># If this is not desired, use  echo -n &quot;${colors[$index]} &quot;</span>
+<span class="c">#</span>
+<span class="c"># Doing it with a &quot;for&quot; loop instead:</span>
+<span class="c">#   for i in &quot;${colors[@]}&quot;</span>
+<span class="c">#   do</span>
+<span class="c">#     echo &quot;$i&quot;</span>
+<span class="c">#   done</span>
+<span class="c"># (Thanks, S.C.)</span>
+
+<span class="nb">echo</span>
+
+<span class="c"># Again, list all the elements in the array, but using a more elegant method.</span>
+  <span class="nb">echo</span> <span class="si">${</span><span class="nv">colors</span><span class="p">[@]</span><span class="si">}</span>          <span class="c"># echo ${colors[*]} also works.</span>
+
+<span class="nb">echo</span>
+
+<span class="c"># The &quot;unset&quot; command deletes elements of an array, or entire array.</span>
+<span class="nb">unset </span>colors<span class="o">[</span>1<span class="o">]</span>              <span class="c"># Remove 2nd element of array.</span>
+                             <span class="c"># Same effect as   colors[1]=</span>
+<span class="nb">echo</span>  <span class="si">${</span><span class="nv">colors</span><span class="p">[@]</span><span class="si">}</span>           <span class="c"># List array again, missing 2nd element.</span>
+
+<span class="nb">unset </span>colors                 <span class="c"># Delete entire array.</span>
+                             <span class="c">#  unset colors[*] and</span>
+                             <span class="c">#+ unset colors[@] also work.</span>
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> -n <span class="s2">&quot;Colors gone.&quot;</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">colors</span><span class="p">[@]</span><span class="si">}</span>            <span class="c"># List array again, now empty.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>As seen in the previous example, either <strong>${array_name[&#64;]}</strong> or
+<strong>${array_name[*]}</strong> refers to <em>all</em> the elements of the array.
+Similarly, to get a count of the number of elements in an array, use
+either <strong>${#array_name[&#64;]}</strong> or <strong>${#array_name[*]}</strong> .
+<strong>${#array_name}</strong> is the length (number of characters) of
+<strong>${array_name[0]}</strong> , the first element of the array.</p>
+</div>
+<div class="section" id="exemple-7-of-empty-arrays-and-empty-elements">
+<h2>Exemple 7. Of empty arrays and empty elements<a class="headerlink" href="#exemple-7-of-empty-arrays-and-empty-elements" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># empty-array.sh</span>
+
+<span class="c">#  Thanks to Stephane Chazelas for the original example,</span>
+<span class="c">#+ and to Michael Zick and Omair Eshkenazi, for extending it.</span>
+<span class="c">#  And to Nathan Coulter for clarifications and corrections.</span>
+
+
+<span class="c"># An empty array is not the same as an array with empty elements.</span>
+
+  <span class="nv">array0</span><span class="o">=(</span> first second third <span class="o">)</span>
+  <span class="nv">array1</span><span class="o">=(</span> <span class="s1">&#39;&#39;</span> <span class="o">)</span>   <span class="c"># &quot;array1&quot; consists of one empty element.</span>
+  <span class="nv">array2</span><span class="o">=(</span> <span class="o">)</span>      <span class="c"># No elements . . . &quot;array2&quot; is empty.</span>
+  <span class="nv">array3</span><span class="o">=(</span>   <span class="o">)</span>    <span class="c"># What about this array?</span>
+
+
+<span class="nb">echo</span>
+ListArray<span class="o">()</span>
+<span class="o">{</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Elements in array0:  </span><span class="si">${</span><span class="nv">array0</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Elements in array1:  </span><span class="si">${</span><span class="nv">array1</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Elements in array2:  </span><span class="si">${</span><span class="nv">array2</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Elements in array3:  </span><span class="si">${</span><span class="nv">array3</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Length of first element in array0 = </span><span class="si">${#</span><span class="nv">array0</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Length of first element in array1 = </span><span class="si">${#</span><span class="nv">array1</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Length of first element in array2 = </span><span class="si">${#</span><span class="nv">array2</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Length of first element in array3 = </span><span class="si">${#</span><span class="nv">array3</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Number of elements in array0 = </span><span class="si">${#</span><span class="nv">array0</span><span class="p">[*]</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c"># 3</span>
+<span class="nb">echo</span> <span class="s2">&quot;Number of elements in array1 = </span><span class="si">${#</span><span class="nv">array1</span><span class="p">[*]</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c"># 1  (Surprise!)</span>
+<span class="nb">echo</span> <span class="s2">&quot;Number of elements in array2 = </span><span class="si">${#</span><span class="nv">array2</span><span class="p">[*]</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c"># 0</span>
+<span class="nb">echo</span> <span class="s2">&quot;Number of elements in array3 = </span><span class="si">${#</span><span class="nv">array3</span><span class="p">[*]</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c"># 0</span>
+<span class="o">}</span>
+
+<span class="c"># ===================================================================</span>
+
+ListArray
+
+<span class="c"># Try extending those arrays.</span>
+
+<span class="c"># Adding an element to an array.</span>
+<span class="nv">array0</span><span class="o">=(</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">array0</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="s2">&quot;new1&quot;</span> <span class="o">)</span>
+<span class="nv">array1</span><span class="o">=(</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">array1</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="s2">&quot;new1&quot;</span> <span class="o">)</span>
+<span class="nv">array2</span><span class="o">=(</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">array2</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="s2">&quot;new1&quot;</span> <span class="o">)</span>
+<span class="nv">array3</span><span class="o">=(</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">array3</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="s2">&quot;new1&quot;</span> <span class="o">)</span>
+
+ListArray
+
+<span class="c"># or</span>
+array0<span class="o">[</span><span class="si">${#</span><span class="nv">array0</span><span class="p">[*]</span><span class="si">}</span><span class="o">]=</span><span class="s2">&quot;new2&quot;</span>
+array1<span class="o">[</span><span class="si">${#</span><span class="nv">array1</span><span class="p">[*]</span><span class="si">}</span><span class="o">]=</span><span class="s2">&quot;new2&quot;</span>
+array2<span class="o">[</span><span class="si">${#</span><span class="nv">array2</span><span class="p">[*]</span><span class="si">}</span><span class="o">]=</span><span class="s2">&quot;new2&quot;</span>
+array3<span class="o">[</span><span class="si">${#</span><span class="nv">array3</span><span class="p">[*]</span><span class="si">}</span><span class="o">]=</span><span class="s2">&quot;new2&quot;</span>
+
+ListArray
+
+<span class="c"># When extended as above, arrays are &#39;stacks&#39; ...</span>
+<span class="c"># Above is the &#39;push&#39; ...</span>
+<span class="c"># The stack &#39;height&#39; is:</span>
+<span class="nv">height</span><span class="o">=</span><span class="si">${#</span><span class="nv">array2</span><span class="p">[@]</span><span class="si">}</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Stack height for array2 = </span><span class="nv">$height</span><span class="s2">&quot;</span>
+
+<span class="c"># The &#39;pop&#39; is:</span>
+<span class="nb">unset </span>array2<span class="o">[</span><span class="si">${#</span><span class="nv">array2</span><span class="p">[@]</span><span class="si">}</span>-1<span class="o">]</span>   <span class="c">#  Arrays are zero-based,</span>
+<span class="nv">height</span><span class="o">=</span><span class="si">${#</span><span class="nv">array2</span><span class="p">[@]</span><span class="si">}</span>            <span class="c">#+ which means first element has index 0.</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;POP&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;New stack height for array2 = </span><span class="nv">$height</span><span class="s2">&quot;</span>
+
+ListArray
+
+<span class="c"># List only 2nd and 3rd elements of array0.</span>
+<span class="nv">from</span><span class="o">=</span><span class="m">1</span>          <span class="c"># Zero-based numbering.</span>
+<span class="nv">to</span><span class="o">=</span>2
+<span class="nv">array3</span><span class="o">=(</span> <span class="si">${</span><span class="nv">array0</span><span class="p">[@]:</span><span class="nv">1</span><span class="p">:</span><span class="nv">2</span><span class="si">}</span> <span class="o">)</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Elements in array3:  </span><span class="si">${</span><span class="nv">array3</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c"># Works like a string (array of characters).</span>
+<span class="c"># Try some other &quot;string&quot; forms.</span>
+
+<span class="c"># Replacement:</span>
+<span class="nv">array4</span><span class="o">=(</span> <span class="si">${</span><span class="nv">array0</span><span class="p">[@]/second/2nd</span><span class="si">}</span> <span class="o">)</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Elements in array4:  </span><span class="si">${</span><span class="nv">array4</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c"># Replace all matching wildcarded string.</span>
+<span class="nv">array5</span><span class="o">=(</span> <span class="si">${</span><span class="nv">array0</span><span class="p">[@]//new?/old</span><span class="si">}</span> <span class="o">)</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Elements in array5:  </span><span class="si">${</span><span class="nv">array5</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c"># Just when you are getting the feel for this . . .</span>
+<span class="nv">array6</span><span class="o">=(</span> <span class="si">${</span><span class="nv">array0</span><span class="p">[@]#*new</span><span class="si">}</span> <span class="o">)</span>
+<span class="nb">echo</span> <span class="c"># This one might surprise you.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Elements in array6:  </span><span class="si">${</span><span class="nv">array6</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="nv">array7</span><span class="o">=(</span> <span class="si">${</span><span class="nv">array0</span><span class="p">[@]#new1</span><span class="si">}</span> <span class="o">)</span>
+<span class="nb">echo</span> <span class="c"># After array6 this should not be a surprise.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Elements in array7:  </span><span class="si">${</span><span class="nv">array7</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c"># Which looks a lot like . . .</span>
+<span class="nv">array8</span><span class="o">=(</span> <span class="si">${</span><span class="nv">array0</span><span class="p">[@]/new1/</span><span class="si">}</span> <span class="o">)</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Elements in array8:  </span><span class="si">${</span><span class="nv">array8</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c">#  So what can one say about this?</span>
+
+<span class="c">#  The string operations are performed on</span>
+<span class="c">#+ each of the elements in var[@] in succession.</span>
+<span class="c">#  Therefore : Bash supports string vector operations.</span>
+<span class="c">#  If the result is a zero length string,</span>
+<span class="c">#+ that element disappears in the resulting assignment.</span>
+<span class="c">#  However, if the expansion is in quotes, the null elements remain.</span>
+
+<span class="c">#  Michael Zick:    Question, are those strings hard or soft quotes?</span>
+<span class="c">#  Nathan Coulter:  There is no such thing as &quot;soft quotes.&quot;</span>
+<span class="c">#!    What&#39;s really happening is that</span>
+<span class="c">#!+   the pattern matching happens after</span>
+<span class="c">#!+   all the other expansions of [word]</span>
+<span class="c">#!+   in cases like ${parameter#word}.</span>
+
+
+<span class="nv">zap</span><span class="o">=</span><span class="s1">&#39;new*&#39;</span>
+<span class="nv">array9</span><span class="o">=(</span> <span class="si">${</span><span class="nv">array0</span><span class="p">[@]/</span><span class="nv">$zap</span><span class="p">/</span><span class="si">}</span> <span class="o">)</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Number of elements in array9:  </span><span class="si">${#</span><span class="nv">array9</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nv">array9</span><span class="o">=(</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">array0</span><span class="p">[@]/</span><span class="nv">$zap</span><span class="p">/</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">)</span>
+<span class="nb">echo</span> <span class="s2">&quot;Elements in array9:  </span><span class="si">${</span><span class="nv">array9</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="c"># This time the null elements remain.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Number of elements in array9:  </span><span class="si">${#</span><span class="nv">array9</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+
+<span class="c"># Just when you thought you were still in Kansas . . .</span>
+<span class="nv">array10</span><span class="o">=(</span> <span class="si">${</span><span class="nv">array0</span><span class="p">[@]#</span><span class="nv">$zap</span><span class="si">}</span> <span class="o">)</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Elements in array10:  </span><span class="si">${</span><span class="nv">array10</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="c"># But, the asterisk in zap won&#39;t be interpreted if quoted.</span>
+<span class="nv">array10</span><span class="o">=(</span> <span class="si">${</span><span class="nv">array0</span><span class="p">[@]#</span><span class="s2">&quot;</span><span class="nv">$zap</span><span class="s2">&quot;</span><span class="si">}</span> <span class="o">)</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Elements in array10:  </span><span class="si">${</span><span class="nv">array10</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="c"># Well, maybe we _are_ still in Kansas . . .</span>
+<span class="c"># (Revisions to above code block by Nathan Coulter.)</span>
+
+
+<span class="c">#  Compare array7 with array10.</span>
+<span class="c">#  Compare array8 with array9.</span>
+
+<span class="c">#  Reiterating: No such thing as soft quotes!</span>
+<span class="c">#  Nathan Coulter explains:</span>
+<span class="c">#  Pattern matching of &#39;word&#39; in ${parameter#word} is done after</span>
+<span class="c">#+ parameter expansion and *before* quote removal.</span>
+<span class="c">#  In the normal case, pattern matching is done *after* quote removal.</span>
+
+<span class="nb">exit</span>
+</pre></div>
+</div>
+<p>The relationship of <strong>${array_name[&#64;]}</strong> and <strong>${array_name[*]}</strong> is
+analogous to that between <a class="reference external" href="internalvariables.html#APPREF">$&#64; and $*</a>
+. This powerful array notation has a number of uses.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Copying an array.</span>
+<span class="nv">array2</span><span class="o">=(</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">array1</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">)</span>
+<span class="c"># or</span>
+<span class="nv">array2</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">array1</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="c">#</span>
+<span class="c">#  However, this fails with &quot;sparse&quot; arrays,</span>
+<span class="c">#+ arrays with holes (missing elements) in them,</span>
+<span class="c">#+ as Jochen DeSmet points out.</span>
+<span class="c"># ------------------------------------------</span>
+  array1<span class="o">[</span>0<span class="o">]=</span>0
+<span class="c"># array1[1] not assigned</span>
+  array1<span class="o">[</span>2<span class="o">]=</span>2
+  <span class="nv">array2</span><span class="o">=(</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">array1</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">)</span>       <span class="c"># Copy it?</span>
+
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">array2</span><span class="p">[0]</span><span class="si">}</span>      <span class="c"># 0</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">array2</span><span class="p">[2]</span><span class="si">}</span>      <span class="c"># (null), should be 2</span>
+<span class="c"># ------------------------------------------</span>
+
+
+
+<span class="c"># Adding an element to an array.</span>
+<span class="nv">array</span><span class="o">=(</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">array</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="s2">&quot;new element&quot;</span> <span class="o">)</span>
+<span class="c"># or</span>
+array<span class="o">[</span><span class="si">${#</span><span class="nv">array</span><span class="p">[*]</span><span class="si">}</span><span class="o">]=</span><span class="s2">&quot;new element&quot;</span>
+
+<span class="c"># Thanks, S.C.</span>
+</pre></div>
+</div>
+<p>Tip</p>
+<p>The <strong>array=( element1 element2 ... elementN )</strong> initialization
+operation, with the help of <a class="reference external" href="commandsub.html#COMMANDSUBREF">command
+substitution</a> , makes it possible to
+load the contents of a text file into an array.</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">filename</span><span class="o">=</span>sample_file
+
+<span class="c">#            cat sam</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>ple_file</dt>
+<dd>#
+#            1 a b c
+#            2 d e f</dd>
+</dl>
+<p>g</p>
+<blockquote>
+<div><p>declare -a array1</p>
+<p>array1=( <a href="#id1"><span class="problematic" id="id2">`</span></a>cat &#8220;$file</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>name&#8221;<a href="#id3"><span class="problematic" id="id4">`</span></a>)                #</dt>
+<dd><dl class="first last docutils">
+<dt>Loads contents</dt>
+<dd>#         List file</dd>
+</dl>
+</dd>
+</dl>
+<p>to stdout              #
++ of $filename into arra
+y1.</p>
+<blockquote>
+<div>#
+#  array1=( <a href="#id5"><span class="problematic" id="id6">`</span></a>cat &#8220;$f</div></blockquote>
+<dl class="docutils">
+<dt>ilename&#8221; | tr &#8216;n&#8217; &#8216; &#8216;<a href="#id7"><span class="problematic" id="id8">`</span></a>)</dt>
+<dd><dl class="first last docutils">
+<dt>#</dt>
+<dd>change linefeed</dd>
+</dl>
+</dd>
+<dt>s in file to spaces.</dt>
+<dd>#  Not necessary bec</dd>
+</dl>
+<p>ause Bash does word spli
+tting,</p>
+<blockquote>
+<div>#+ changing linefeed</div></blockquote>
+<p>s to spaces.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>echo ${array1[&#64;]}</dt>
+<dd># List the arra</dd>
+</dl>
+</div></blockquote>
+<ol class="loweralpha" start="25">
+<li><blockquote class="first">
+<div><dl class="docutils">
+<dt>#</dt>
+<dd><p class="first last">1 a b c 2 d e</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="docutils">
+<dt>fg</dt>
+<dd><p class="first last">#
+#  Each whitespace-s</p>
+</dd>
+</dl>
+</li>
+</ol>
+<p>eparated &#8220;word&#8221; in the f
+ile</p>
+<blockquote>
+<div><blockquote>
+<div>#+ has been assigned</div></blockquote>
+<p>to an element of the ar</p>
+</div></blockquote>
+<p>ray.</p>
+<blockquote>
+<div>element_count=${#arr</div></blockquote>
+<dl class="docutils">
+<dt>ay1[*]}</dt>
+<dd><dl class="first last docutils">
+<dt>echo $element_count</dt>
+<dd># 8</dd>
+</dl>
+</dd>
+</dl>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">filename</span><span class="o">=</span>sample_file
+
+<span class="c">#            cat sample_file</span>
+<span class="c">#</span>
+<span class="c">#            1 a b c</span>
+<span class="c">#            2 d e fg</span>
+
+
+<span class="nb">declare</span> -a array1
+
+<span class="nv">array1</span><span class="o">=(</span> <span class="sb">`</span>cat <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span><span class="sb">`</span><span class="o">)</span>                <span class="c">#  Loads contents</span>
+<span class="c">#         List file to stdout              #+ of $filename into array1.</span>
+<span class="c">#</span>
+<span class="c">#  array1=( `cat &quot;$filename&quot;tr &#39;\n&#39; &#39; &#39;`)</span>
+<span class="c">#                            change linefeeds in file to spaces.</span>
+<span class="c">#  Not necessary because Bash does word splitting,</span>
+<span class="c">#+ changing linefeeds to spaces.</span>
+
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">array1</span><span class="p">[@]</span><span class="si">}</span>            <span class="c"># List the array.</span>
+<span class="c">#                              1 a b c 2 d e fg</span>
+<span class="c">#</span>
+<span class="c">#  Each whitespace-separated &quot;word&quot; in the file</span>
+<span class="c">#+ has been assigned to an element of the array.</span>
+
+<span class="nv">element_count</span><span class="o">=</span><span class="si">${#</span><span class="nv">array1</span><span class="p">[*]</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="nv">$element_count</span>          <span class="c"># 8</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">filename</span><span class="o">=</span>sample_file
+
+<span class="c">#            cat sample_file</span>
+<span class="c">#</span>
+<span class="c">#            1 a b c</span>
+<span class="c">#            2 d e fg</span>
+
+
+<span class="nb">declare</span> -a array1
+
+<span class="nv">array1</span><span class="o">=(</span> <span class="sb">`</span>cat <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span><span class="sb">`</span><span class="o">)</span>                <span class="c">#  Loads contents</span>
+<span class="c">#         List file to stdout              #+ of $filename into array1.</span>
+<span class="c">#</span>
+<span class="c">#  array1=( `cat &quot;$filename&quot;tr &#39;\n&#39; &#39; &#39;`)</span>
+<span class="c">#                            change linefeeds in file to spaces.</span>
+<span class="c">#  Not necessary because Bash does word splitting,</span>
+<span class="c">#+ changing linefeeds to spaces.</span>
+
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">array1</span><span class="p">[@]</span><span class="si">}</span>            <span class="c"># List the array.</span>
+<span class="c">#                              1 a b c 2 d e fg</span>
+<span class="c">#</span>
+<span class="c">#  Each whitespace-separated &quot;word&quot; in the file</span>
+<span class="c">#+ has been assigned to an element of the array.</span>
+
+<span class="nv">element_count</span><span class="o">=</span><span class="si">${#</span><span class="nv">array1</span><span class="p">[*]</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="nv">$element_count</span>          <span class="c"># 8</span>
+</pre></div>
+</div>
+<p>Clever scripting makes it possible to add array operations.</p>
+</div>
+<div class="section" id="exemple-8-initializing-arrays">
+<h2>Exemple 8. Initializing arrays<a class="headerlink" href="#exemple-8-initializing-arrays" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#! /bin/bash</span>
+<span class="c"># array-assign.bash</span>
+
+<span class="c">#  Array operations are Bash-specific,</span>
+<span class="c">#+ hence the &quot;.bash&quot; in the script name.</span>
+
+<span class="c"># Copyright (c) Michael S. Zick, 2003, All rights reserved.</span>
+<span class="c"># License: Unrestricted reuse in any form, for any purpose.</span>
+<span class="c"># Version: $ID$</span>
+<span class="c">#</span>
+<span class="c"># Clarification and additional comments by William Park.</span>
+
+<span class="c">#  Based on an example provided by Stephane Chazelas</span>
+<span class="c">#+ which appeared in an earlier version of the</span>
+<span class="c">#+ Advanced Bash Scripting Guide.</span>
+
+<span class="c"># Output format of the &#39;times&#39; command:</span>
+<span class="c"># User CPU &lt;space&gt; System CPU</span>
+<span class="c"># User CPU of dead children &lt;space&gt; System CPU of dead children</span>
+
+<span class="c">#  Bash has two versions of assigning all elements of an array</span>
+<span class="c">#+ to a new array variable.</span>
+<span class="c">#  Both drop &#39;null reference&#39; elements</span>
+<span class="c">#+ in Bash versions 2.04 and later.</span>
+<span class="c">#  An additional array assignment that maintains the relationship of</span>
+<span class="c">#+ [subscript]=value for arrays may be added to newer versions.</span>
+
+<span class="c">#  Constructs a large array using an internal command,</span>
+<span class="c">#+ but anything creating an array of several thousand elements</span>
+<span class="c">#+ will do just fine.</span>
+
+<span class="nb">declare</span> -a <span class="nv">bigOne</span><span class="o">=(</span> /dev/* <span class="o">)</span>  <span class="c"># All the files in /dev . . .</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s1">&#39;Conditions: Unquoted, default IFS, All-Elements-Of&#39;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Number of elements in array is </span><span class="si">${#</span><span class="nv">bigOne</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c"># set -vx</span>
+
+
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s1">&#39;- - testing: =( ${array[@]} ) - -&#39;</span>
+<span class="nb">times</span>
+<span class="nb">declare</span> -a <span class="nv">bigTwo</span><span class="o">=(</span> <span class="si">${</span><span class="nv">bigOne</span><span class="p">[@]</span><span class="si">}</span> <span class="o">)</span>
+<span class="c"># Note parens:    ^              ^</span>
+<span class="nb">times</span>
+
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s1">&#39;- - testing: =${array[@]} - -&#39;</span>
+<span class="nb">times</span>
+<span class="nb">declare</span> -a <span class="nv">bigThree</span><span class="o">=</span><span class="si">${</span><span class="nv">bigOne</span><span class="p">[@]</span><span class="si">}</span>
+<span class="c"># No parentheses this time.</span>
+<span class="nb">times</span>
+
+<span class="c">#  Comparing the numbers shows that the second form, pointed out</span>
+<span class="c">#+ by Stephane Chazelas, is faster.</span>
+<span class="c">#</span>
+<span class="c">#  As William Park explains:</span>
+<span class="c">#+ The bigTwo array assigned element by element (because of parentheses),</span>
+<span class="c">#+ whereas bigThree assigned as a single string.</span>
+<span class="c">#  So, in essence, you have:</span>
+<span class="c">#                   bigTwo=( [0]=&quot;...&quot; [1]=&quot;...&quot; [2]=&quot;...&quot; ... )</span>
+<span class="c">#                   bigThree=( [0]=&quot;... ... ...&quot; )</span>
+<span class="c">#</span>
+<span class="c">#  Verify this by:  echo ${bigTwo[0]}</span>
+<span class="c">#                   echo ${bigThree[0]}</span>
+
+
+<span class="c">#  I will continue to use the first form in my example descriptions</span>
+<span class="c">#+ because I think it is a better illustration of what is happening.</span>
+
+<span class="c">#  The reusable portions of my examples will actual contain</span>
+<span class="c">#+ the second form where appropriate because of the speedup.</span>
+
+<span class="c"># MSZ: Sorry about that earlier oversight folks.</span>
+
+
+<span class="c">#  Note:</span>
+<span class="c">#  ----</span>
+<span class="c">#  The &quot;declare -a&quot; statements in lines 32 and 44</span>
+<span class="c">#+ are not strictly necessary, since it is implicit</span>
+<span class="c">#+ in the  Array=( ... )  assignment form.</span>
+<span class="c">#  However, eliminating these declarations slows down</span>
+<span class="c">#+ the execution of the following sections of the script.</span>
+<span class="c">#  Try it, and see.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p><a href="#id9"><span class="problematic" id="id10">|</span></a>Note</p>
+<p>Adding a superfluous <strong>declare -a</strong> statement to an array declaration
+may speed up execution of subsequent operations on the array.</p>
+</div>
+<div class="section" id="exemple-9-copying-and-concatenating-arrays">
+<h2>Exemple 9. Copying and concatenating arrays<a class="headerlink" href="#exemple-9-copying-and-concatenating-arrays" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#! /bin/bash</span>
+<span class="c"># CopyArray.sh</span>
+<span class="c">#</span>
+<span class="c"># This script written by Michael Zick.</span>
+<span class="c"># Used here with permission.</span>
+
+<span class="c">#  How-To &quot;Pass by Name &amp; Return by Name&quot;</span>
+<span class="c">#+ or &quot;Building your own assignment statement&quot;.</span>
+
+
+CpArray_Mac<span class="o">()</span> <span class="o">{</span>
+
+<span class="c"># Assignment Command Statement Builder</span>
+
+    <span class="nb">echo</span> -n <span class="s1">&#39;eval &#39;</span>
+    <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>                    <span class="c"># Destination name</span>
+    <span class="nb">echo</span> -n <span class="s1">&#39;=( ${&#39;</span>
+    <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>                    <span class="c"># Source name</span>
+    <span class="nb">echo</span> -n <span class="s1">&#39;[@]} )&#39;</span>
+
+<span class="c"># That could all be a single command.</span>
+<span class="c"># Matter of style only.</span>
+<span class="o">}</span>
+
+<span class="nb">declare</span> -f CopyArray                <span class="c"># Function &quot;Pointer&quot;</span>
+<span class="nv">CopyArray</span><span class="o">=</span>CpArray_Mac               <span class="c"># Statement Builder</span>
+
+Hype<span class="o">()</span>
+<span class="o">{</span>
+
+<span class="c"># Hype the array named $1.</span>
+<span class="c"># (Splice it together with array containing &quot;Really Rocks&quot;.)</span>
+<span class="c"># Return in array named $2.</span>
+
+    <span class="nb">local</span> -a TMP
+    <span class="nb">local</span> -a <span class="nv">hype</span><span class="o">=(</span> Really Rocks <span class="o">)</span>
+
+    <span class="k">$(</span><span class="nv">$CopyArray</span> <span class="nv">$1</span> TMP<span class="k">)</span>
+    <span class="nv">TMP</span><span class="o">=(</span> <span class="si">${</span><span class="nv">TMP</span><span class="p">[@]</span><span class="si">}</span> <span class="si">${</span><span class="nv">hype</span><span class="p">[@]</span><span class="si">}</span> <span class="o">)</span>
+    <span class="k">$(</span><span class="nv">$CopyArray</span> TMP <span class="nv">$2</span><span class="k">)</span>
+<span class="o">}</span>
+
+<span class="nb">declare</span> -a <span class="nv">before</span><span class="o">=(</span> Advanced Bash Scripting <span class="o">)</span>
+<span class="nb">declare</span> -a after
+
+<span class="nb">echo</span> <span class="s2">&quot;Array Before = </span><span class="si">${</span><span class="nv">before</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+Hype before after
+
+<span class="nb">echo</span> <span class="s2">&quot;Array After = </span><span class="si">${</span><span class="nv">after</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c"># Too much hype?</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;What </span><span class="si">${</span><span class="nv">after</span><span class="p">[@]:</span><span class="nv">3</span><span class="p">:</span><span class="nv">2</span><span class="si">}</span><span class="s2">?&quot;</span>
+
+<span class="nb">declare</span> -a <span class="nv">modest</span><span class="o">=(</span> <span class="si">${</span><span class="nv">after</span><span class="p">[@]:</span><span class="nv">2</span><span class="p">:</span><span class="nv">1</span><span class="si">}</span> <span class="si">${</span><span class="nv">after</span><span class="p">[@]:</span><span class="nv">3</span><span class="p">:</span><span class="nv">2</span><span class="si">}</span> <span class="o">)</span>
+<span class="c">#                    ---- substring extraction ----</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Array Modest = </span><span class="si">${</span><span class="nv">modest</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c"># What happened to &#39;before&#39; ?</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Array Before = </span><span class="si">${</span><span class="nv">before</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-10-more-on-concatenating-arrays">
+<h2>Exemple 10. More on concatenating arrays<a class="headerlink" href="#exemple-10-more-on-concatenating-arrays" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#! /bin/bash</span>
+<span class="c"># array-append.bash</span>
+
+<span class="c"># Copyright (c) Michael S. Zick, 2003, All rights reserved.</span>
+<span class="c"># License: Unrestricted reuse in any form, for any purpose.</span>
+<span class="c"># Version: $ID$</span>
+<span class="c">#</span>
+<span class="c"># Slightly modified in formatting by M.C.</span>
+
+
+<span class="c"># Array operations are Bash-specific.</span>
+<span class="c"># Legacy UNIX /bin/sh lacks equivalents.</span>
+
+
+<span class="c">#  Pipe the output of this script to &#39;more&#39;</span>
+<span class="c">#+ so it doesn&#39;t scroll off the terminal.</span>
+<span class="c">#  Or, redirect output to a file.</span>
+
+
+<span class="nb">declare</span> -a <span class="nv">array1</span><span class="o">=(</span> zero1 one1 two1 <span class="o">)</span>
+<span class="c"># Subscript packed.</span>
+<span class="nb">declare</span> -a <span class="nv">array2</span><span class="o">=(</span> <span class="o">[</span>0<span class="o">]=</span>zero2 <span class="o">[</span>2<span class="o">]=</span>two2 <span class="o">[</span>3<span class="o">]=</span>three2 <span class="o">)</span>
+<span class="c"># Subscript sparse -- [1] is not defined.</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s1">&#39;- Confirm that the array is really subscript sparse. -&#39;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Number of elements: 4&quot;</span>        <span class="c"># Hard-coded for illustration.</span>
+<span class="k">for</span> <span class="o">((</span> <span class="nv">i</span> <span class="o">=</span> <span class="m">0</span> <span class="p">;</span> i &lt; <span class="m">4</span> <span class="p">;</span> i++ <span class="o">))</span>
+<span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Element [</span><span class="nv">$i</span><span class="s2">]: </span><span class="si">${</span><span class="nv">array2</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+<span class="c"># See also the more general code example in basics-reviewed.bash.</span>
+
+
+<span class="nb">declare</span> -a dest
+
+<span class="c"># Combine (append) two arrays into a third array.</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s1">&#39;Conditions: Unquoted, default IFS, All-Elements-Of operator&#39;</span>
+<span class="nb">echo</span> <span class="s1">&#39;- Undefined elements not present, subscripts not maintained. -&#39;</span>
+<span class="c"># # The undefined elements do not exist; they are not being dropped.</span>
+
+<span class="nv">dest</span><span class="o">=(</span> <span class="si">${</span><span class="nv">array1</span><span class="p">[@]</span><span class="si">}</span> <span class="si">${</span><span class="nv">array2</span><span class="p">[@]</span><span class="si">}</span> <span class="o">)</span>
+<span class="c"># dest=${array1[@]}${array2[@]}     # Strange results, possibly a bug.</span>
+
+<span class="c"># Now, list the result.</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s1">&#39;- - Testing Array Append - -&#39;</span>
+<span class="nv">cnt</span><span class="o">=</span><span class="si">${#</span><span class="nv">dest</span><span class="p">[@]</span><span class="si">}</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Number of elements: </span><span class="nv">$cnt</span><span class="s2">&quot;</span>
+<span class="k">for</span> <span class="o">((</span> <span class="nv">i</span> <span class="o">=</span> <span class="m">0</span> <span class="p">;</span> i &lt; cnt <span class="p">;</span> i++ <span class="o">))</span>
+<span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Element [</span><span class="nv">$i</span><span class="s2">]: </span><span class="si">${</span><span class="nv">dest</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+
+<span class="c"># Assign an array to a single array element (twice).</span>
+dest<span class="o">[</span>0<span class="o">]=</span><span class="si">${</span><span class="nv">array1</span><span class="p">[@]</span><span class="si">}</span>
+dest<span class="o">[</span>1<span class="o">]=</span><span class="si">${</span><span class="nv">array2</span><span class="p">[@]</span><span class="si">}</span>
+
+<span class="c"># List the result.</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s1">&#39;- - Testing modified array - -&#39;</span>
+<span class="nv">cnt</span><span class="o">=</span><span class="si">${#</span><span class="nv">dest</span><span class="p">[@]</span><span class="si">}</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Number of elements: </span><span class="nv">$cnt</span><span class="s2">&quot;</span>
+<span class="k">for</span> <span class="o">((</span> <span class="nv">i</span> <span class="o">=</span> <span class="m">0</span> <span class="p">;</span> i &lt; cnt <span class="p">;</span> i++ <span class="o">))</span>
+<span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Element [</span><span class="nv">$i</span><span class="s2">]: </span><span class="si">${</span><span class="nv">dest</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+
+<span class="c"># Examine the modified second element.</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s1">&#39;- - Reassign and list second element - -&#39;</span>
+
+<span class="nb">declare</span> -a <span class="nv">subArray</span><span class="o">=</span><span class="si">${</span><span class="nv">dest</span><span class="p">[1]</span><span class="si">}</span>
+<span class="nv">cnt</span><span class="o">=</span><span class="si">${#</span><span class="nv">subArray</span><span class="p">[@]</span><span class="si">}</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Number of elements: </span><span class="nv">$cnt</span><span class="s2">&quot;</span>
+<span class="k">for</span> <span class="o">((</span> <span class="nv">i</span> <span class="o">=</span> <span class="m">0</span> <span class="p">;</span> i &lt; cnt <span class="p">;</span> i++ <span class="o">))</span>
+<span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Element [</span><span class="nv">$i</span><span class="s2">]: </span><span class="si">${</span><span class="nv">subArray</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+
+<span class="c">#  The assignment of an entire array to a single element</span>
+<span class="c">#+ of another array using the &#39;=${ ... }&#39; array assignment</span>
+<span class="c">#+ has converted the array being assigned into a string,</span>
+<span class="c">#+ with the elements separated by a space (the first character of IFS).</span>
+
+<span class="c"># If the original elements didn&#39;t contain whitespace . . .</span>
+<span class="c"># If the original array isn&#39;t subscript sparse . . .</span>
+<span class="c"># Then we could get the original array structure back again.</span>
+
+<span class="c"># Restore from the modified second element.</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s1">&#39;- - Listing restored element - -&#39;</span>
+
+<span class="nb">declare</span> -a <span class="nv">subArray</span><span class="o">=(</span> <span class="si">${</span><span class="nv">dest</span><span class="p">[1]</span><span class="si">}</span> <span class="o">)</span>
+<span class="nv">cnt</span><span class="o">=</span><span class="si">${#</span><span class="nv">subArray</span><span class="p">[@]</span><span class="si">}</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Number of elements: </span><span class="nv">$cnt</span><span class="s2">&quot;</span>
+<span class="k">for</span> <span class="o">((</span> <span class="nv">i</span> <span class="o">=</span> <span class="m">0</span> <span class="p">;</span> i &lt; cnt <span class="p">;</span> i++ <span class="o">))</span>
+<span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Element [</span><span class="nv">$i</span><span class="s2">]: </span><span class="si">${</span><span class="nv">subArray</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+<span class="nb">echo</span> <span class="s1">&#39;- - Do not depend on this behavior. - -&#39;</span>
+<span class="nb">echo</span> <span class="s1">&#39;- - This behavior is subject to change - -&#39;</span>
+<span class="nb">echo</span> <span class="s1">&#39;- - in versions of Bash newer than version 2.05b - -&#39;</span>
+
+<span class="c"># MSZ: Sorry about any earlier confusion folks.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>&#8211;</p>
+<p>Arrays permit deploying old familiar algorithms as shell scripts.
+Whether this is necessarily a good idea is left for the reader to
+decide.</p>
+</div>
+<div class="section" id="exemple-11-the-bubble-sort">
+<h2>Exemple 11. The Bubble Sort<a class="headerlink" href="#exemple-11-the-bubble-sort" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># bubble.sh: Bubble sort, of sorts.</span>
+
+<span class="c"># Recall the algorithm for a bubble sort. In this particular version...</span>
+
+<span class="c">#  With each successive pass through the array to be sorted,</span>
+<span class="c">#+ compare two adjacent elements, and swap them if out of order.</span>
+<span class="c">#  At the end of the first pass, the &quot;heaviest&quot; element has sunk to bottom.</span>
+<span class="c">#  At the end of the second pass, the next &quot;heaviest&quot; one has sunk next to bottom.</span>
+<span class="c">#  And so forth.</span>
+<span class="c">#  This means that each successive pass needs to traverse less of the array.</span>
+<span class="c">#  You will therefore notice a speeding up in the printing of the later passes.</span>
+
+
+exchange<span class="o">()</span>
+<span class="o">{</span>
+  <span class="c"># Swaps two members of the array.</span>
+  <span class="nb">local </span><span class="nv">temp</span><span class="o">=</span><span class="si">${</span><span class="nv">Countries</span><span class="p">[</span><span class="nv">$1</span><span class="p">]</span><span class="si">}</span> <span class="c">#  Temporary storage</span>
+                              <span class="c">#+ for element getting swapped out.</span>
+  Countries<span class="o">[</span><span class="nv">$1</span><span class="o">]=</span><span class="si">${</span><span class="nv">Countries</span><span class="p">[</span><span class="nv">$2</span><span class="p">]</span><span class="si">}</span>
+  Countries<span class="o">[</span><span class="nv">$2</span><span class="o">]=</span><span class="nv">$temp</span>
+
+  <span class="k">return</span>
+<span class="o">}</span>
+
+<span class="nb">declare</span> -a Countries  <span class="c">#  Declare array,</span>
+                      <span class="c">#+ optional here since it&#39;s initialized below.</span>
+
+<span class="c">#  Is it permissable to split an array variable over multiple lines</span>
+<span class="c">#+ using an escape (\)?</span>
+<span class="c">#  Yes.</span>
+
+<span class="nv">Countries</span><span class="o">=(</span>Netherlands Ukraine Zaire Turkey Russia Yemen Syria <span class="se">\</span>
+Brazil Argentina Nicaragua Japan Mexico Venezuela Greece England <span class="se">\</span>
+Israel Peru Canada Oman Denmark Wales France Kenya <span class="se">\</span>
+Xanadu Qatar Liechtenstein Hungary<span class="o">)</span>
+
+<span class="c"># &quot;Xanadu&quot; is the mythical place where, according to Coleridge,</span>
+<span class="c">#+ Kubla Khan did a pleasure dome decree.</span>
+
+
+clear                      <span class="c"># Clear the screen to start with.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;0: </span><span class="si">${</span><span class="nv">Countries</span><span class="p">[*]</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c"># List entire array at pass 0.</span>
+
+<span class="nv">number_of_elements</span><span class="o">=</span><span class="si">${#</span><span class="nv">Countries</span><span class="p">[@]</span><span class="si">}</span>
+<span class="nb">let</span> <span class="s2">&quot;comparisons = </span><span class="nv">$number_of_elements</span><span class="s2"> - 1&quot;</span>
+
+<span class="nv">count</span><span class="o">=</span><span class="m">1</span> <span class="c"># Pass number.</span>
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$comparisons</span><span class="s2">&quot;</span> -gt <span class="m">0</span> <span class="o">]</span>          <span class="c"># Beginning of outer loop</span>
+<span class="k">do</span>
+
+  <span class="nv">index</span><span class="o">=</span><span class="m">0</span>  <span class="c"># Reset index to start of array after each pass.</span>
+
+  <span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$index</span><span class="s2">&quot;</span> -lt <span class="s2">&quot;</span><span class="nv">$comparisons</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="c"># Beginning of inner loop</span>
+  <span class="k">do</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="si">${</span><span class="nv">Countries</span><span class="p">[</span><span class="nv">$index</span><span class="p">]</span><span class="si">}</span> <span class="se">\&gt;</span> <span class="si">${</span><span class="nv">Countries</span><span class="p">[</span><span class="sb">`</span>expr <span class="nv">$index</span> + 1<span class="sb">`</span><span class="p">]</span><span class="si">}</span> <span class="o">]</span>
+    <span class="c">#  If out of order...</span>
+    <span class="c">#  Recalling that \&gt; is ASCII comparison operator</span>
+    <span class="c">#+ within single brackets.</span>
+
+    <span class="c">#  if [[ ${Countries[$index]} &gt; ${Countries[`expr $index + 1`]} ]]</span>
+    <span class="c">#+ also works.</span>
+    <span class="k">then</span>
+      exchange <span class="nv">$index</span> <span class="sb">`</span>expr <span class="nv">$index</span> + 1<span class="sb">`</span>  <span class="c"># Swap.</span>
+    <span class="k">fi</span>
+    <span class="nb">let</span> <span class="s2">&quot;index += 1&quot;</span>  <span class="c"># Or,   index+=1   on Bash, ver. 3.1 or newer.</span>
+  <span class="k">done</span> <span class="c"># End of inner loop</span>
+
+<span class="c"># ----------------------------------------------------------------------</span>
+<span class="c"># Paulo Marcel Coelho Aragao suggests for-loops as a simpler altenative.</span>
+<span class="c">#</span>
+<span class="c"># for (( last = $number_of_elements - 1 ; last &gt; 0 ; last-- ))</span>
+<span class="c">##                     Fix by C.Y. Hunt          ^   (Thanks!)</span>
+<span class="c"># do</span>
+<span class="c">#     for (( i = 0 ; i &lt; last ; i++ ))</span>
+<span class="c">#     do</span>
+<span class="c">#         [[ &quot;${Countries[$i]}&quot; &gt; &quot;${Countries[$((i+1))]}&quot; ]] \</span>
+<span class="c">#             &amp;&amp; exchange $i $((i+1))</span>
+<span class="c">#     done</span>
+<span class="c"># done</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+
+<span class="nb">let</span> <span class="s2">&quot;comparisons -= 1&quot;</span> <span class="c">#  Since &quot;heaviest&quot; element bubbles to bottom,</span>
+                       <span class="c">#+ we need do one less comparison each pass.</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$count</span><span class="s2">: </span><span class="si">${</span><span class="nv">Countries</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c"># Print resultant array at end of each pass.</span>
+<span class="nb">echo</span>
+<span class="nb">let</span> <span class="s2">&quot;count += 1&quot;</span>                <span class="c"># Increment pass count.</span>
+
+<span class="k">done</span>                            <span class="c"># End of outer loop</span>
+                                <span class="c"># All done.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>&#8211;</p>
+<p>Is it possible to nest arrays within arrays?</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># &quot;Nested&quot; array.</span>
+
+<span class="c">#  Michael Zick provided this example,</span>
+<span class="c">#+ with corrections and clarifications by William Park.</span>
+
+<span class="nv">AnArray</span><span class="o">=(</span> <span class="k">$(</span>ls --inode --ignore-backups --almost-all <span class="se">\</span>
+    --directory --full-time --color<span class="o">=</span>none --time<span class="o">=</span>status <span class="se">\</span>
+    --sort<span class="o">=</span><span class="nb">time</span> -l <span class="si">${</span><span class="nv">PWD</span><span class="si">}</span> <span class="k">)</span> <span class="o">)</span>  <span class="c"># Commands and options.</span>
+
+<span class="c"># Spaces are significant . . . and don&#39;t quote anything in the above.</span>
+
+<span class="nv">SubArray</span><span class="o">=(</span> <span class="si">${</span><span class="nv">AnArray</span><span class="p">[@]:</span><span class="nv">11</span><span class="p">:</span><span class="nv">1</span><span class="si">}</span>  <span class="si">${</span><span class="nv">AnArray</span><span class="p">[@]:</span><span class="nv">6</span><span class="p">:</span><span class="nv">5</span><span class="si">}</span> <span class="o">)</span>
+<span class="c">#  This array has six elements:</span>
+<span class="c">#+     SubArray=( [0]=${AnArray[11]} [1]=${AnArray[6]} [2]=${AnArray[7]}</span>
+<span class="c">#      [3]=${AnArray[8]} [4]=${AnArray[9]} [5]=${AnArray[10]} )</span>
+<span class="c">#</span>
+<span class="c">#  Arrays in Bash are (circularly) linked lists</span>
+<span class="c">#+ of type string (char *).</span>
+<span class="c">#  So, this isn&#39;t actually a nested array,</span>
+<span class="c">#+ but it&#39;s functionally similar.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Current directory and date of last status change:&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">SubArray</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>&#8211;</p>
+<p>Embedded arrays in combination with <a class="reference external" href="bashver2.html#VARREFNEW">indirect
+references</a> create some fascinating
+possibilities</p>
+</div>
+<div class="section" id="exemple-12-embedded-arrays-and-indirect-references">
+<h2>Exemple 12. Embedded arrays and indirect references<a class="headerlink" href="#exemple-12-embedded-arrays-and-indirect-references" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># embedded-arrays.sh</span>
+<span class="c"># Embedded arrays and indirect references.</span>
+
+<span class="c"># This script by Dennis Leeuw.</span>
+<span class="c"># Used with permission.</span>
+<span class="c"># Modified by document author.</span>
+
+
+<span class="nv">ARRAY1</span><span class="o">=(</span>
+        <span class="nv">VAR1_1</span><span class="o">=</span>value11
+        <span class="nv">VAR1_2</span><span class="o">=</span>value12
+        <span class="nv">VAR1_3</span><span class="o">=</span>value13
+<span class="o">)</span>
+
+<span class="nv">ARRAY2</span><span class="o">=(</span>
+        <span class="nv">VARIABLE</span><span class="o">=</span><span class="s2">&quot;test&quot;</span>
+        <span class="nv">STRING</span><span class="o">=</span><span class="s2">&quot;VAR1=value1 VAR2=value2 VAR3=value3&quot;</span>
+        <span class="nv">ARRAY21</span><span class="o">=</span><span class="si">${</span><span class="nv">ARRAY1</span><span class="p">[*]</span><span class="si">}</span>
+<span class="o">)</span>       <span class="c"># Embed ARRAY1 within this second array.</span>
+
+<span class="k">function</span> print <span class="o">()</span> <span class="o">{</span>
+        <span class="nv">OLD_IFS</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$IFS</span><span class="s2">&quot;</span>
+        <span class="nv">IFS</span><span class="o">=</span><span class="s1">$&#39;\n&#39;</span>       <span class="c">#  To print each array element</span>
+                        <span class="c">#+ on a separate line.</span>
+        <span class="nv">TEST1</span><span class="o">=</span><span class="s2">&quot;ARRAY2[*]&quot;</span>
+        <span class="nb">local</span> <span class="si">${</span><span class="p">!TEST1</span><span class="si">}</span> <span class="c"># See what happens if you delete this line.</span>
+        <span class="c">#  Indirect reference.</span>
+    <span class="c">#  This makes the components of $TEST1</span>
+    <span class="c">#+ accessible to this function.</span>
+
+
+        <span class="c">#  Let&#39;s see what we&#39;ve got so far.</span>
+        <span class="nb">echo</span>
+<span class="nb">        echo</span> <span class="s2">&quot;\$TEST1 = </span><span class="nv">$TEST1</span><span class="s2">&quot;</span>       <span class="c">#  Just the name of the variable.</span>
+        <span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+<span class="nb">        echo</span> <span class="s2">&quot;{\$TEST1} = </span><span class="si">${</span><span class="p">!TEST1</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c">#  Contents of the variable.</span>
+                                      <span class="c">#  That&#39;s what an indirect</span>
+                                      <span class="c">#+ reference does.</span>
+        <span class="nb">echo</span>
+<span class="nb">        echo</span> <span class="s2">&quot;-------------------------------------------&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+<span class="nb">        echo</span>
+
+
+        <span class="c"># Print variable</span>
+        <span class="nb">echo</span> <span class="s2">&quot;Variable VARIABLE: </span><span class="nv">$VARIABLE</span><span class="s2">&quot;</span>
+
+        <span class="c"># Print a string element</span>
+        <span class="nv">IFS</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$OLD_IFS</span><span class="s2">&quot;</span>
+        <span class="nv">TEST2</span><span class="o">=</span><span class="s2">&quot;STRING[*]&quot;</span>
+        <span class="nb">local</span> <span class="si">${</span><span class="p">!TEST2</span><span class="si">}</span>      <span class="c"># Indirect reference (as above).</span>
+        <span class="nb">echo</span> <span class="s2">&quot;String element VAR2: </span><span class="nv">$VAR2</span><span class="s2"> from STRING&quot;</span>
+
+        <span class="c"># Print an array element</span>
+        <span class="nv">TEST2</span><span class="o">=</span><span class="s2">&quot;ARRAY21[*]&quot;</span>
+        <span class="nb">local</span> <span class="si">${</span><span class="p">!TEST2</span><span class="si">}</span>      <span class="c"># Indirect reference (as above).</span>
+        <span class="nb">echo</span> <span class="s2">&quot;Array element VAR1_1: </span><span class="nv">$VAR1_1</span><span class="s2"> from ARRAY21&quot;</span>
+<span class="o">}</span>
+
+print
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+
+<span class="c">#   As the author of the script notes,</span>
+<span class="c">#+ &quot;you can easily expand it to create named-hashes in bash.&quot;</span>
+<span class="c">#   (Difficult) exercise for the reader: implement this.</span>
+</pre></div>
+</div>
+<p>&#8211;</p>
+<p>Arrays enable implementing a shell script version of the <em>Sieve of
+Eratosthenes</em> . Of course, a resource-intensive application of this
+nature should really be written in a compiled language, such as C. It
+runs excruciatingly slowly as a script.</p>
+</div>
+<div class="section" id="exemple-13-the-sieve-of-eratosthenes">
+<h2>Exemple 13. The Sieve of Eratosthenes<a class="headerlink" href="#exemple-13-the-sieve-of-eratosthenes" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># sieve.sh (ex68.sh)</span>
+
+<span class="c"># Sieve of Eratosthenes</span>
+<span class="c"># Ancient algorithm for finding prime numbers.</span>
+
+<span class="c">#  This runs a couple of orders of magnitude slower</span>
+<span class="c">#+ than the equivalent program written in C.</span>
+
+<span class="nv">LOWER_LIMIT</span><span class="o">=</span><span class="m">1</span>       <span class="c"># Starting with 1.</span>
+<span class="nv">UPPER_LIMIT</span><span class="o">=</span><span class="m">1000</span>    <span class="c"># Up to 1000.</span>
+<span class="c"># (You may set this higher . . . if you have time on your hands.)</span>
+
+<span class="nv">PRIME</span><span class="o">=</span>1
+<span class="nv">NON_PRIME</span><span class="o">=</span>0
+
+<span class="nb">let </span><span class="nv">SPLIT</span><span class="o">=</span>UPPER_LIMIT/2
+<span class="c"># Optimization:</span>
+<span class="c"># Need to test numbers only halfway to upper limit. Why?</span>
+
+
+<span class="nb">declare</span> -a Primes
+<span class="c"># Primes[] is an array.</span>
+
+
+initialize <span class="o">()</span>
+<span class="o">{</span>
+<span class="c"># Initialize the array.</span>
+
+<span class="nv">i</span><span class="o">=</span><span class="nv">$LOWER_LIMIT</span>
+<span class="k">until</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span> -gt <span class="s2">&quot;</span><span class="nv">$UPPER_LIMIT</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">do</span>
+  Primes<span class="o">[</span>i<span class="o">]=</span><span class="nv">$PRIME</span>
+  <span class="nb">let</span> <span class="s2">&quot;i += 1&quot;</span>
+<span class="k">done</span>
+<span class="c">#  Assume all array members guilty (prime)</span>
+<span class="c">#+ until proven innocent.</span>
+<span class="o">}</span>
+
+print_primes <span class="o">()</span>
+<span class="o">{</span>
+<span class="c"># Print out the members of the Primes[] array tagged as prime.</span>
+
+<span class="nv">i</span><span class="o">=</span><span class="nv">$LOWER_LIMIT</span>
+
+<span class="k">until</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span> -gt <span class="s2">&quot;</span><span class="nv">$UPPER_LIMIT</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">do</span>
+
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">Primes</span><span class="p">[i]</span><span class="si">}</span><span class="s2">&quot;</span> -eq <span class="s2">&quot;</span><span class="nv">$PRIME</span><span class="s2">&quot;</span> <span class="o">]</span>
+  <span class="k">then</span>
+    <span class="nb">printf</span> <span class="s2">&quot;%8d&quot;</span> <span class="nv">$i</span>
+    <span class="c"># 8 spaces per number gives nice, even columns.</span>
+  <span class="k">fi</span>
+
+  <span class="nb">let</span> <span class="s2">&quot;i += 1&quot;</span>
+
+<span class="k">done</span>
+
+<span class="o">}</span>
+
+sift <span class="o">()</span> <span class="c"># Sift out the non-primes.</span>
+<span class="o">{</span>
+
+<span class="nb">let </span><span class="nv">i</span><span class="o">=</span><span class="nv">$LOWER_LIMIT</span>+1
+<span class="c"># Let&#39;s start with 2.</span>
+
+<span class="k">until</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span> -gt <span class="s2">&quot;</span><span class="nv">$UPPER_LIMIT</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">do</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">Primes</span><span class="p">[i]</span><span class="si">}</span><span class="s2">&quot;</span> -eq <span class="s2">&quot;</span><span class="nv">$PRIME</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="c"># Don&#39;t bother sieving numbers already sieved (tagged as non-prime).</span>
+<span class="k">then</span>
+
+  <span class="nv">t</span><span class="o">=</span><span class="nv">$i</span>
+
+  <span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$t</span><span class="s2">&quot;</span> -le <span class="s2">&quot;</span><span class="nv">$UPPER_LIMIT</span><span class="s2">&quot;</span> <span class="o">]</span>
+  <span class="k">do</span>
+    <span class="nb">let</span> <span class="s2">&quot;t += </span><span class="nv">$i</span><span class="s2"> &quot;</span>
+    Primes<span class="o">[</span>t<span class="o">]=</span><span class="nv">$NON_PRIME</span>
+    <span class="c"># Tag as non-prime all multiples.</span>
+  <span class="k">done</span>
+
+<span class="k">fi</span>
+
+  <span class="nb">let</span> <span class="s2">&quot;i += 1&quot;</span>
+<span class="k">done</span>
+
+
+<span class="o">}</span>
+
+
+<span class="c"># ==============================================</span>
+<span class="c"># main ()</span>
+<span class="c"># Invoke the functions sequentially.</span>
+initialize
+sift
+print_primes
+<span class="c"># This is what they call structured programming.</span>
+<span class="c"># ==============================================</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+
+
+
+<span class="c"># -------------------------------------------------------- #</span>
+<span class="c"># Code below line will not execute, because of &#39;exit.&#39;</span>
+
+<span class="c">#  This improved version of the Sieve, by Stephane Chazelas,</span>
+<span class="c">#+ executes somewhat faster.</span>
+
+<span class="c"># Must invoke with command-line argument (limit of primes).</span>
+
+<span class="nv">UPPER_LIMIT</span><span class="o">=</span><span class="nv">$1</span>                  <span class="c"># From command-line.</span>
+<span class="nb">let </span><span class="nv">SPLIT</span><span class="o">=</span>UPPER_LIMIT/2         <span class="c"># Halfway to max number.</span>
+
+<span class="nv">Primes</span><span class="o">=(</span> <span class="s1">&#39;&#39;</span> <span class="k">$(</span>seq <span class="nv">$UPPER_LIMIT</span><span class="k">)</span> <span class="o">)</span>
+
+<span class="nv">i</span><span class="o">=</span>1
+<span class="k">until</span> <span class="o">((</span> <span class="o">(</span> i +<span class="o">=</span> <span class="m">1</span> <span class="o">)</span> &gt; SPLIT <span class="o">))</span>  <span class="c"># Need check only halfway.</span>
+<span class="k">do</span>
+  <span class="k">if</span> <span class="o">[[</span> -n <span class="si">${</span><span class="nv">Primes</span><span class="p">[i]</span><span class="si">}</span> <span class="o">]]</span>
+  <span class="k">then</span>
+    <span class="nv">t</span><span class="o">=</span><span class="nv">$i</span>
+    <span class="k">until</span> <span class="o">((</span> <span class="o">(</span> t +<span class="o">=</span> i <span class="o">)</span> &gt; UPPER_LIMIT <span class="o">))</span>
+    <span class="k">do</span>
+      Primes<span class="o">[</span>t<span class="o">]=</span>
+    <span class="k">done</span>
+  <span class="k">fi</span>
+<span class="k">done</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">Primes</span><span class="p">[*]</span><span class="si">}</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-14-the-sieve-of-eratosthenes-optimized">
+<h2>Exemple 14. The Sieve of Eratosthenes, Optimized<a class="headerlink" href="#exemple-14-the-sieve-of-eratosthenes-optimized" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Optimized Sieve of Eratosthenes</span>
+<span class="c"># Script by Jared Martin, with very minor changes by ABS Guide author.</span>
+<span class="c"># Used in ABS Guide with permission (thanks!).</span>
+
+<span class="c"># Based on script in Advanced Bash Scripting Guide.</span>
+<span class="c"># http://tldp.org/LDP/abs/html/arrays.html#PRIMES0 (ex68.sh).</span>
+
+<span class="c"># http://www.cs.hmc.edu/~oneill/papers/Sieve-JFP.pdf (reference)</span>
+<span class="c"># Check results against http://primes.utm.edu/lists/small/1000.txt</span>
+
+<span class="c"># Necessary but not sufficient would be, e.g.,</span>
+<span class="c">#     (($(sieve 7919wc -w) == 1000)) &amp;&amp; echo &quot;7919 is the 1000th prime&quot;</span>
+
+<span class="nv">UPPER_LIMIT</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="p">:?</span><span class="s2">&quot;Need an upper limit of primes to search.&quot;</span><span class="si">}</span>
+
+<span class="nv">Primes</span><span class="o">=(</span> <span class="s1">&#39;&#39;</span> <span class="k">$(</span>seq <span class="si">${</span><span class="nv">UPPER_LIMIT</span><span class="si">}</span><span class="k">)</span> <span class="o">)</span>
+
+<span class="nb">typeset</span> -i i t
+Primes<span class="o">[</span><span class="nv">i</span><span class="o">=</span>1<span class="o">]=</span><span class="s1">&#39;&#39;</span> <span class="c"># 1 is not a prime.</span>
+<span class="k">until</span> <span class="o">((</span> <span class="o">(</span> i +<span class="o">=</span> <span class="m">1</span> <span class="o">)</span> &gt; <span class="o">(</span><span class="si">${</span><span class="nv">UPPER_LIMIT</span><span class="si">}</span>/i<span class="o">)</span> <span class="o">))</span>  <span class="c"># Need check only ith-way.</span>
+  <span class="k">do</span>                                         <span class="c"># Why?</span>
+    <span class="k">if</span> <span class="o">((</span><span class="si">${</span><span class="nv">Primes</span><span class="p">[t=i*(i-1), i]</span><span class="si">}</span><span class="o">))</span>
+    <span class="c"># Obscure, but instructive, use of arithmetic expansion in subscript.</span>
+    <span class="k">then</span>
+      <span class="k">until</span> <span class="o">((</span> <span class="o">(</span> t +<span class="o">=</span> i <span class="o">)</span> &gt; <span class="si">${</span><span class="nv">UPPER_LIMIT</span><span class="si">}</span> <span class="o">))</span>
+        <span class="k">do</span> Primes<span class="o">[</span>t<span class="o">]=</span><span class="p">;</span> <span class="k">done</span>
+    <span class="k">fi</span>
+  <span class="k">done</span>
+
+<span class="c"># echo ${Primes[*]}</span>
+<span class="nb">echo</span>   <span class="c"># Change to original script for pretty-printing (80-col. display).</span>
+<span class="nb">printf</span> <span class="s2">&quot;%8d&quot;</span> <span class="si">${</span><span class="nv">Primes</span><span class="p">[*]</span><span class="si">}</span>
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+<p>Compare these array-based prime number generators with alternatives that
+do not use arrays, <a class="reference external" href="contributed-scripts.html#PRIMES">Example A-15</a> ,
+and <a class="reference external" href="mathc.html#PRIMES2">Example 16-46</a> .</p>
+<p>&#8211;</p>
+<p>Arrays lend themselves, to some extent, to emulating data structures for
+which Bash has no native support.</p>
+</div>
+<div class="section" id="exemple-15-emulating-a-push-down-stack">
+<h2>Exemple 15. Emulating a push-down stack<a class="headerlink" href="#exemple-15-emulating-a-push-down-stack" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># stack.sh: push-down stack simulation</span>
+
+<span class="c">#  Similar to the CPU stack, a push-down stack stores data items</span>
+<span class="c">#+ sequentially, but releases them in reverse order, last-in first-out.</span>
+
+
+<span class="nv">BP</span><span class="o">=</span><span class="m">100</span>            <span class="c">#  Base Pointer of stack array.</span>
+                  <span class="c">#  Begin at element 100.</span>
+
+<span class="nv">SP</span><span class="o">=</span><span class="nv">$BP</span>            <span class="c">#  Stack Pointer.</span>
+                  <span class="c">#  Initialize it to &quot;base&quot; (bottom) of stack.</span>
+
+<span class="nv">Data</span><span class="o">=</span>             <span class="c">#  Contents of stack location.</span>
+                  <span class="c">#  Must use global variable,</span>
+                  <span class="c">#+ because of limitation on function return range.</span>
+
+
+                  <span class="c"># 100     Base pointer       &lt;-- Base Pointer</span>
+                  <span class="c">#  99     First data item</span>
+                  <span class="c">#  98     Second data item</span>
+                  <span class="c"># ...     More data</span>
+                  <span class="c">#         Last data item     &lt;-- Stack pointer</span>
+
+
+<span class="nb">declare</span> -a stack
+
+
+push<span class="o">()</span>            <span class="c"># Push item on stack.</span>
+<span class="o">{</span>
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>    <span class="c"># Nothing to push?</span>
+<span class="k">then</span>
+  <span class="k">return</span>
+<span class="k">fi</span>
+
+<span class="nb">let</span> <span class="s2">&quot;SP -= 1&quot;</span>     <span class="c"># Bump stack pointer.</span>
+stack<span class="o">[</span><span class="nv">$SP</span><span class="o">]=</span><span class="nv">$1</span>
+
+<span class="k">return</span>
+<span class="o">}</span>
+
+pop<span class="o">()</span>                    <span class="c"># Pop item off stack.</span>
+<span class="o">{</span>
+<span class="nv">Data</span><span class="o">=</span>                    <span class="c"># Empty out data item.</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$SP</span><span class="s2">&quot;</span> -eq <span class="s2">&quot;</span><span class="nv">$BP</span><span class="s2">&quot;</span> <span class="o">]</span>   <span class="c"># Stack empty?</span>
+<span class="k">then</span>
+  <span class="k">return</span>
+<span class="k">fi</span>                       <span class="c">#  This also keeps SP from getting past 100,</span>
+                         <span class="c">#+ i.e., prevents a runaway stack.</span>
+
+<span class="nv">Data</span><span class="o">=</span><span class="si">${</span><span class="nv">stack</span><span class="p">[</span><span class="nv">$SP</span><span class="p">]</span><span class="si">}</span>
+<span class="nb">let</span> <span class="s2">&quot;SP += 1&quot;</span>            <span class="c"># Bump stack pointer.</span>
+<span class="k">return</span>
+<span class="o">}</span>
+
+status_report<span class="o">()</span>          <span class="c"># Find out what&#39;s happening.</span>
+<span class="o">{</span>
+<span class="nb">echo</span> <span class="s2">&quot;-------------------------------------&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;REPORT&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Stack Pointer = </span><span class="nv">$SP</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Just popped \&quot;&quot;</span><span class="nv">$Data</span><span class="s2">&quot;\&quot; off the stack.&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;-------------------------------------&quot;</span>
+<span class="nb">echo</span>
+<span class="o">}</span>
+
+
+<span class="c"># =======================================================</span>
+<span class="c"># Now, for some fun.</span>
+
+<span class="nb">echo</span>
+
+<span class="c"># See if you can pop anything off empty stack.</span>
+pop
+status_report
+
+<span class="nb">echo</span>
+
+push garbage
+pop
+status_report     <span class="c"># Garbage in, garbage out.</span>
+
+<span class="nv">value1</span><span class="o">=</span>23<span class="p">;</span>        push <span class="nv">$value1</span>
+<span class="nv">value2</span><span class="o">=</span>skidoo<span class="p">;</span>    push <span class="nv">$value2</span>
+<span class="nv">value3</span><span class="o">=</span>LAST<span class="p">;</span>      push <span class="nv">$value3</span>
+
+pop               <span class="c"># LAST</span>
+status_report
+pop               <span class="c"># skidoo</span>
+status_report
+pop               <span class="c"># 23</span>
+status_report     <span class="c"># Last-in, first-out!</span>
+
+<span class="c">#  Notice how the stack pointer decrements with each push,</span>
+<span class="c">#+ and increments with each pop.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># =======================================================</span>
+
+
+<span class="c"># Exercises:</span>
+<span class="c"># ---------</span>
+
+<span class="c"># 1)  Modify the &quot;push()&quot; function to permit pushing</span>
+<span class="c">#   + multiple element on the stack with a single function call.</span>
+
+<span class="c"># 2)  Modify the &quot;pop()&quot; function to permit popping</span>
+<span class="c">#   + multiple element from the stack with a single function call.</span>
+
+<span class="c"># 3)  Add error checking to the critical functions.</span>
+<span class="c">#     That is, return an error code, depending on</span>
+<span class="c">#   + successful or unsuccessful completion of the operation,</span>
+<span class="c">#   + and take appropriate action.</span>
+
+<span class="c"># 4)  Using this script as a starting point,</span>
+<span class="c">#   + write a stack-based 4-function calculator.</span>
+</pre></div>
+</div>
+<p>&#8211;</p>
+<p>Fancy manipulation of array &#8220;subscripts&#8221; may require intermediate
+variables. For projects involving this, again consider using a more
+powerful programming language, such as Perl or C.</p>
+</div>
+<div class="section" id="exemple-16-complex-array-application-exploring-a-weird-mathematical-series">
+<h2>Exemple 16. Complex array application: <em>Exploring a weird mathematical series</em><a class="headerlink" href="#exemple-16-complex-array-application-exploring-a-weird-mathematical-series" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c"># Douglas Hofstadter&#39;s notorious &quot;Q-series&quot;:</span>
+
+<span class="c"># Q(1) = Q(2) = 1</span>
+<span class="c"># Q(n) = Q(n - Q(n-1)) + Q(n - Q(n-2)), for n&gt;2</span>
+
+<span class="c">#  This is a &quot;chaotic&quot; integer series with strange</span>
+<span class="c">#+ and unpredictable behavior.</span>
+<span class="c">#  The first 20 terms of the series are:</span>
+<span class="c">#  1 1 2 3 3 4 5 5 6 6 6 8 8 8 10 9 10 11 11 12</span>
+
+<span class="c">#  See Hofstadter&#39;s book, _Goedel, Escher, Bach: An Eternal Golden Braid_,</span>
+<span class="c">#+ p. 137, ff.</span>
+
+
+<span class="nv">LIMIT</span><span class="o">=</span><span class="m">100</span>     <span class="c"># Number of terms to calculate.</span>
+<span class="nv">LINEWIDTH</span><span class="o">=</span><span class="m">20</span>  <span class="c"># Number of terms printed per line.</span>
+
+Q<span class="o">[</span>1<span class="o">]=</span><span class="m">1</span>        <span class="c"># First two terms of series are 1.</span>
+Q<span class="o">[</span>2<span class="o">]=</span>1
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Q-series [</span><span class="nv">$LIMIT</span><span class="s2"> terms]:&quot;</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="si">${</span><span class="nv">Q</span><span class="p">[1]</span><span class="si">}</span><span class="s2"> &quot;</span>             <span class="c"># Output first two terms.</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="si">${</span><span class="nv">Q</span><span class="p">[2]</span><span class="si">}</span><span class="s2"> &quot;</span>
+
+<span class="k">for</span> <span class="o">((</span><span class="nv">n</span><span class="o">=</span>3<span class="p">;</span> n &lt;<span class="o">=</span> <span class="nv">$LIMIT</span><span class="p">;</span> n++<span class="o">))</span>  <span class="c"># C-like loop expression.</span>
+<span class="k">do</span>   <span class="c"># Q[n] = Q[n - Q[n-1]] + Q[n - Q[n-2]]  for n&gt;2</span>
+<span class="c">#    Need to break the expression into intermediate terms,</span>
+<span class="c">#+   since Bash doesn&#39;t handle complex array arithmetic very well.</span>
+
+  <span class="nb">let</span> <span class="s2">&quot;n1 = </span><span class="nv">$n</span><span class="s2"> - 1&quot;</span>        <span class="c"># n-1</span>
+  <span class="nb">let</span> <span class="s2">&quot;n2 = </span><span class="nv">$n</span><span class="s2"> - 2&quot;</span>        <span class="c"># n-2</span>
+
+  <span class="nv">t0</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$n</span> - <span class="si">${</span><span class="nv">Q</span><span class="p">[n1]</span><span class="si">}</span><span class="sb">`</span>  <span class="c"># n - Q[n-1]</span>
+  <span class="nv">t1</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$n</span> - <span class="si">${</span><span class="nv">Q</span><span class="p">[n2]</span><span class="si">}</span><span class="sb">`</span>  <span class="c"># n - Q[n-2]</span>
+
+  <span class="nv">T0</span><span class="o">=</span><span class="si">${</span><span class="nv">Q</span><span class="p">[t0]</span><span class="si">}</span>              <span class="c"># Q[n - Q[n-1]]</span>
+  <span class="nv">T1</span><span class="o">=</span><span class="si">${</span><span class="nv">Q</span><span class="p">[t1]</span><span class="si">}</span>              <span class="c"># Q[n - Q[n-2]]</span>
+
+Q<span class="o">[</span>n<span class="o">]=</span><span class="sb">`</span>expr <span class="nv">$T0</span> + <span class="nv">$T1</span><span class="sb">`</span>      <span class="c"># Q[n - Q[n-1]] + Q[n - Q[n-2]]</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="si">${</span><span class="nv">Q</span><span class="p">[n]</span><span class="si">}</span><span class="s2"> &quot;</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="sb">`</span>expr <span class="nv">$n</span> % <span class="nv">$LINEWIDTH</span><span class="sb">`</span> -eq <span class="m">0</span> <span class="o">]</span>    <span class="c"># Format output.</span>
+<span class="k">then</span>   <span class="c">#      ^ modulo</span>
+  <span class="nb">echo</span> <span class="c"># Break lines into neat chunks.</span>
+<span class="k">fi</span>
+
+<span class="k">done</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+
+<span class="c">#  This is an iterative implementation of the Q-series.</span>
+<span class="c">#  The more intuitive recursive implementation is left as an exercise.</span>
+<span class="c">#  Warning: calculating this series recursively takes a VERY long time</span>
+<span class="c">#+ via a script. C/C++ would be orders of magnitude faster.</span>
+</pre></div>
+</div>
+<p>&#8211;</p>
+<p>Bash supports only one-dimensional arrays, though a little trickery
+permits simulating multi-dimensional ones.</p>
+</div>
+<div class="section" id="exemple-17-simulating-a-two-dimensional-array-then-tilting-it">
+<h2>Exemple 17. Simulating a two-dimensional array, then tilting it<a class="headerlink" href="#exemple-17-simulating-a-two-dimensional-array-then-tilting-it" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># twodim.sh: Simulating a two-dimensional array.</span>
+
+<span class="c"># A one-dimensional array consists of a single row.</span>
+<span class="c"># A two-dimensional array stores rows sequentially.</span>
+
+<span class="nv">Rows</span><span class="o">=</span>5
+<span class="nv">Columns</span><span class="o">=</span>5
+<span class="c"># 5 X 5 Array.</span>
+
+<span class="nb">declare</span> -a alpha     <span class="c"># char alpha [Rows] [Columns];</span>
+                     <span class="c"># Unnecessary declaration. Why?</span>
+
+load_alpha <span class="o">()</span>
+<span class="o">{</span>
+<span class="nb">local </span><span class="nv">rc</span><span class="o">=</span>0
+<span class="nb">local </span>index
+
+<span class="k">for</span> i in A B C D E F G H I J K L M N O P Q R S T U V W X Y
+<span class="k">do</span>     <span class="c"># Use different symbols if you like.</span>
+  <span class="nb">local </span><span class="nv">row</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$rc</span> / <span class="nv">$Columns</span><span class="sb">`</span>
+  <span class="nb">local </span><span class="nv">column</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$rc</span> % <span class="nv">$Rows</span><span class="sb">`</span>
+  <span class="nb">let</span> <span class="s2">&quot;index = </span><span class="nv">$row</span><span class="s2"> * </span><span class="nv">$Rows</span><span class="s2"> + </span><span class="nv">$column</span><span class="s2">&quot;</span>
+  alpha<span class="o">[</span><span class="nv">$index</span><span class="o">]=</span><span class="nv">$i</span>
+<span class="c"># alpha[$row][$column]</span>
+  <span class="nb">let</span> <span class="s2">&quot;rc += 1&quot;</span>
+<span class="k">done</span>
+
+<span class="c">#  Simpler would be</span>
+<span class="c">#+   declare -a alpha=( A B C D E F G H I J K L M N O P Q R S T U V W X Y )</span>
+<span class="c">#+ but this somehow lacks the &quot;flavor&quot; of a two-dimensional array.</span>
+<span class="o">}</span>
+
+print_alpha <span class="o">()</span>
+<span class="o">{</span>
+<span class="nb">local </span><span class="nv">row</span><span class="o">=</span>0
+<span class="nb">local </span>index
+
+<span class="nb">echo</span>
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$row</span><span class="s2">&quot;</span> -lt <span class="s2">&quot;</span><span class="nv">$Rows</span><span class="s2">&quot;</span> <span class="o">]</span>   <span class="c">#  Print out in &quot;row major&quot; order:</span>
+<span class="k">do</span>                             <span class="c">#+ columns vary,</span>
+                               <span class="c">#+ while row (outer loop) remains the same.</span>
+  <span class="nb">local </span><span class="nv">column</span><span class="o">=</span>0
+
+  <span class="nb">echo</span> -n <span class="s2">&quot;       &quot;</span>            <span class="c">#  Lines up &quot;square&quot; array with rotated one.</span>
+
+  <span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$column</span><span class="s2">&quot;</span> -lt <span class="s2">&quot;</span><span class="nv">$Columns</span><span class="s2">&quot;</span> <span class="o">]</span>
+  <span class="k">do</span>
+    <span class="nb">let</span> <span class="s2">&quot;index = </span><span class="nv">$row</span><span class="s2"> * </span><span class="nv">$Rows</span><span class="s2"> + </span><span class="nv">$column</span><span class="s2">&quot;</span>
+    <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="si">${</span><span class="nv">alpha</span><span class="p">[index]</span><span class="si">}</span><span class="s2"> &quot;</span>  <span class="c"># alpha[$row][$column]</span>
+    <span class="nb">let</span> <span class="s2">&quot;column += 1&quot;</span>
+  <span class="k">done</span>
+
+  <span class="nb">let</span> <span class="s2">&quot;row += 1&quot;</span>
+  <span class="nb">echo</span>
+
+<span class="k">done</span>
+
+<span class="c"># The simpler equivalent is</span>
+<span class="c">#     echo ${alpha[*]}xargs -n $Columns</span>
+
+<span class="nb">echo</span>
+<span class="o">}</span>
+
+filter <span class="o">()</span>     <span class="c"># Filter out negative array indices.</span>
+<span class="o">{</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;  &quot;</span>  <span class="c"># Provides the tilt.</span>
+              <span class="c"># Explain how.</span>
+
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> -ge <span class="m">0</span> <span class="o">&amp;&amp;</span>  <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> -lt <span class="s2">&quot;</span><span class="nv">$Rows</span><span class="s2">&quot;</span> <span class="o">&amp;&amp;</span> <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span> -ge <span class="m">0</span> <span class="o">&amp;&amp;</span> <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span> -lt <span class="s2">&quot;</span><span class="nv">$Columns</span><span class="s2">&quot;</span> <span class="o">]]</span>
+<span class="k">then</span>
+    <span class="nb">let</span> <span class="s2">&quot;index = </span><span class="nv">$1</span><span class="s2"> * </span><span class="nv">$Rows</span><span class="s2"> + </span><span class="nv">$2</span><span class="s2">&quot;</span>
+    <span class="c"># Now, print it rotated.</span>
+    <span class="nb">echo</span> -n <span class="s2">&quot; </span><span class="si">${</span><span class="nv">alpha</span><span class="p">[index]</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="c">#           alpha[$row][$column]</span>
+<span class="k">fi</span>
+
+<span class="o">}</span>
+
+
+
+
+rotate <span class="o">()</span>  <span class="c">#  Rotate the array 45 degrees --</span>
+<span class="o">{</span>          <span class="c">#+ &quot;balance&quot; it on its lower lefthand corner.</span>
+<span class="nb">local </span>row
+<span class="nb">local </span>column
+
+<span class="k">for</span> <span class="o">((</span> <span class="nv">row</span> <span class="o">=</span> Rows<span class="p">;</span> row &gt; -Rows<span class="p">;</span> row-- <span class="o">))</span>
+  <span class="k">do</span>       <span class="c"># Step through the array backwards. Why?</span>
+
+  <span class="k">for</span> <span class="o">((</span> <span class="nv">column</span> <span class="o">=</span> 0<span class="p">;</span> column &lt; Columns<span class="p">;</span> column++ <span class="o">))</span>
+  <span class="k">do</span>
+
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$row</span><span class="s2">&quot;</span> -ge <span class="m">0</span> <span class="o">]</span>
+    <span class="k">then</span>
+      <span class="nb">let</span> <span class="s2">&quot;t1 = </span><span class="nv">$column</span><span class="s2"> - </span><span class="nv">$row</span><span class="s2">&quot;</span>
+      <span class="nb">let</span> <span class="s2">&quot;t2 = </span><span class="nv">$column</span><span class="s2">&quot;</span>
+    <span class="k">else</span>
+      <span class="nb">let</span> <span class="s2">&quot;t1 = </span><span class="nv">$column</span><span class="s2">&quot;</span>
+      <span class="nb">let</span> <span class="s2">&quot;t2 = </span><span class="nv">$column</span><span class="s2"> + </span><span class="nv">$row</span><span class="s2">&quot;</span>
+    <span class="k">fi</span>
+
+    filter <span class="nv">$t1</span> <span class="nv">$t2</span>   <span class="c"># Filter out negative array indices.</span>
+                     <span class="c"># What happens if you don&#39;t do this?</span>
+  <span class="k">done</span>
+
+  <span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="k">done</span>
+
+<span class="c">#  Array rotation inspired by examples (pp. 143-146) in</span>
+<span class="c">#+ &quot;Advanced C Programming on the IBM PC,&quot; by Herbert Mayer</span>
+<span class="c">#+ (see bibliography).</span>
+<span class="c">#  This just goes to show that much of what can be done in C</span>
+<span class="c">#+ can also be done in shell scripting.</span>
+
+<span class="o">}</span>
+
+
+<span class="c">#--------------- Now, let the show begin. ------------#</span>
+load_alpha     <span class="c"># Load the array.</span>
+print_alpha    <span class="c"># Print it out.</span>
+rotate         <span class="c"># Rotate it 45 degrees counterclockwise.</span>
+<span class="c">#-----------------------------------------------------#</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># This is a rather contrived, not to mention inelegant simulation.</span>
+
+<span class="c"># Exercises:</span>
+<span class="c"># ---------</span>
+<span class="c"># 1)  Rewrite the array loading and printing functions</span>
+<span class="c">#     in a more intuitive and less kludgy fashion.</span>
+<span class="c">#</span>
+<span class="c"># 2)  Figure out how the array rotation functions work.</span>
+<span class="c">#     Hint: think about the implications of backwards-indexing an array.</span>
+<span class="c">#</span>
+<span class="c"># 3)  Rewrite this script to handle a non-square array,</span>
+<span class="c">#     such as a 6 X 4 one.</span>
+<span class="c">#     Try to minimize &quot;distortion&quot; when the array is rotated.</span>
+</pre></div>
+</div>
+<p>A two-dimensional array is essentially equivalent to a one-dimensional
+one, but with additional addressing modes for referencing and
+manipulating the individual elements by <em>row</em> and <em>column</em> position.</p>
+<p>For an even more elaborate example of simulating a two-dimensional
+array, see <a class="reference external" href="contributed-scripts.html#LIFESLOW">Example A-10</a> .</p>
+<p>&#8211;</p>
+<p>For more interesting scripts using arrays, see:</p>
+<ul class="simple">
+<li><a class="reference external" href="commandsub.html#AGRAM2">Example 12-3</a></li>
+<li><a class="reference external" href="mathc.html#PRIMES2">Example 16-46</a></li>
+<li><a class="reference external" href="contributed-scripts.html#HASHEX2">Example A-22</a></li>
+<li><a class="reference external" href="contributed-scripts.html#HOMEWORK">Example A-44</a></li>
+<li><a class="reference external" href="contributed-scripts.html#QKY">Example A-41</a></li>
+<li><a class="reference external" href="contributed-scripts.html#NIM">Example A-42</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ivr.html" class="btn btn-neutral float-right" title="XXX Chapter 28. Indirect References" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="list-cons.html" class="btn btn-neutral" title="XXX Chapter 26. List Constructs"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

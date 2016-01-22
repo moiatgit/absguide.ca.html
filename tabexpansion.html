@@ -1,0 +1,322 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Appendix J. An Introduction to Programmable Completion &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  Appendix J. An Introduction to Programmable Completion</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-appendix-j-an-introduction-to-programmable-completion">
+<h1>XXX  Appendix J. An Introduction to Programmable Completion<a class="headerlink" href="#xxx-appendix-j-an-introduction-to-programmable-completion" title="Link permanent a aquest títol">¶</a></h1>
+<p>The <em>programmable completion</em> feature in Bash permits typing a partial
+command, then pressing the <strong>[Tab]</strong> key to auto-complete the command
+sequence. ` [1]  &lt;tabexpansion.html#FTN.AEN24082&gt;`__ If multiple
+completions are possible, then <strong>[Tab]</strong> lists them all. Let&#8217;s see how
+it works.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>xtra<span class="o">[</span>Tab<span class="o">]</span>
+xtraceroute       xtrapin           xtrapproto
+ xtraceroute.real  xtrapinfo         xtrapreset
+ xtrapchar         xtrapout          xtrapstats
+
+
+bash<span class="nv">$ </span>xtrac<span class="o">[</span>Tab<span class="o">]</span>
+xtraceroute       xtraceroute.real
+
+
+bash<span class="nv">$ </span>xtraceroute.r<span class="o">[</span>Tab<span class="o">]</span>
+xtraceroute.real
+</pre></div>
+</div>
+<p>Tab completion also works for variables and path names.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$BASH</span><span class="o">[</span>Tab<span class="o">]</span>
+<span class="nv">$BASH</span>                 <span class="nv">$BASH_COMPLETION</span>      <span class="nv">$BASH_SUBSHELL</span>
+ <span class="nv">$BASH_ARGC</span>            <span class="nv">$BASH_COMPLETION_DIR</span>  <span class="nv">$BASH_VERSINFO</span>
+ <span class="nv">$BASH_ARGV</span>            <span class="nv">$BASH_LINENO</span>          <span class="nv">$BASH_VERSION</span>
+ <span class="nv">$BASH_COMMAND</span>         <span class="nv">$BASH_SOURCE</span>
+
+
+bash<span class="nv">$ </span><span class="nb">echo</span> /usr/local/<span class="o">[</span>Tab<span class="o">]</span>
+bin/     etc/     include/ libexec/ sbin/    src/
+ doc/     games/   lib/     man/     share/
+</pre></div>
+</div>
+<p>The Bash <strong>complete</strong> and <strong>compgen</strong>
+<a class="reference external" href="internal.html#BUILTINREF">builtins</a> make it possible for <em>tab
+completion</em> to recognize partial <em>parameters</em> and <em>options</em> to commands.
+In a very simple case, we can use <strong>complete</strong> from the command-line to
+specify a short list of acceptable parameters.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>touch sample_command
+bash<span class="nv">$ </span>touch file1.txt file2.txt file2.doc file30.txt file4.zzz
+bash<span class="nv">$ </span>chmod +x sample_command
+bash<span class="nv">$ </span><span class="nb">complete</span> -f -X <span class="s1">&#39;!*.txt&#39;</span> sample_command
+
+
+bash<span class="nv">$ </span>./sample<span class="o">[</span>Tab<span class="o">][</span>Tab<span class="o">]</span>
+sample_command
+file1.txt   file2.txt   file30.txt
+</pre></div>
+</div>
+<p>The ``      -f     `` option to <em>complete</em> specifies filenames, and
+``      -X     `` the filter pattern.</p>
+<p>For anything more complex, we could write a script that specifies a list
+of acceptable command-line parameters. The <strong>compgen</strong> builtin expands a
+list of <em>arguments</em> to <em>generate</em> completion matches.</p>
+<p>Let us take a <a class="reference external" href="contributed-scripts.html#USEGETOPT2">modified version</a>
+of the <em>UseGetOpt.sh</em> script as an example command. This script accepts
+a number of command-line parameters, preceded by either a single or
+double dash. And here is the corresponding <em>completion script</em> , by
+convention given a filename corresponding to its associated command.</p>
+<div class="section" id="exemple-1-completion-script-for-usegetopt-sh">
+<h2>Exemple 1. Completion script for <em>UseGetOpt.sh</em><a class="headerlink" href="#exemple-1-completion-script-for-usegetopt-sh" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># file: UseGetOpt-2</span>
+<span class="c"># UseGetOpt-2.sh parameter-completion</span>
+
+_UseGetOpt-2 <span class="o">()</span>   <span class="c">#  By convention, the function name</span>
+<span class="o">{</span>                 <span class="c">#+ starts with an underscore.</span>
+  <span class="nb">local </span>cur
+  <span class="c"># Pointer to current completion word.</span>
+  <span class="c"># By convention, it&#39;s named &quot;cur&quot; but this isn&#39;t strictly necessary.</span>
+
+  <span class="nv">COMPREPLY</span><span class="o">=()</span>   <span class="c"># Array variable storing the possible completions.</span>
+  <span class="nv">cur</span><span class="o">=</span><span class="si">${</span><span class="nv">COMP_WORDS</span><span class="p">[COMP_CWORD]</span><span class="si">}</span>
+
+  <span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$cur</span><span class="s2">&quot;</span> in
+    -*<span class="o">)</span>
+    <span class="nv">COMPREPLY</span><span class="o">=(</span> <span class="k">$(</span> <span class="nb">compgen</span> -W <span class="s1">&#39;-a -d -f -l -t -h --aoption --debug \</span>
+<span class="s1">                               --file --log --test --help --&#39;</span> -- <span class="nv">$cur</span> <span class="k">)</span> <span class="o">)</span><span class="p">;;</span>
+<span class="c">#   Generate the completion matches and load them into $COMPREPLY array.</span>
+<span class="c">#   xx) May add more cases here.</span>
+<span class="c">#   yy)</span>
+<span class="c">#   zz)</span>
+  <span class="k">esac</span>
+
+  <span class="k">return</span> 0
+<span class="o">}</span>
+
+<span class="nb">complete</span> -F _UseGetOpt-2 -o filenames ./UseGetOpt-2.sh
+<span class="c">#        ^^ ^^^^^^^^^^^^  Invokes the function _UseGetOpt-2.</span>
+</pre></div>
+</div>
+<p>Now, let&#8217;s try it.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">source </span>UseGetOpt-2
+
+bash<span class="nv">$ </span>./UseGetOpt-2.sh -<span class="o">[</span>Tab<span class="o">]</span>
+--         --aoption  --debug    --file     --help     --log     --test
+ -a         -d         -f         -h         -l         -t
+
+
+bash<span class="nv">$ </span>./UseGetOpt-2.sh --<span class="o">[</span>Tab<span class="o">]</span>
+--         --aoption  --debug    --file     --help     --log     --test
+</pre></div>
+</div>
+<p>We begin by <a class="reference external" href="internal.html#SOURCEREF">sourcing</a> the &#8220;completion
+script.&#8221; This sets the command-line parameters. ` [2]</p>
+<blockquote>
+<div>&lt;tabexpansion.html#FTN.AEN24160&gt;`__</div></blockquote>
+<p>In the first instance, hitting <strong>[Tab]</strong> after a single dash, the output
+is all the possible parameters preceded by <em>one or more</em> dashes. Hitting
+<strong>[Tab]</strong> after <em>two</em> dashes gives the possible parameters preceded by
+<em>two or more</em> dashes.</p>
+<p>Now, just what is the point of having to jump through flaming hoops to
+enable command-line tab completion? <em>It saves keystrokes.</em> ` [3]</p>
+<blockquote>
+<div>&lt;tabexpansion.html#FTN.AEN24173&gt;`__</div></blockquote>
+<p>&#8211;</p>
+<p><em>Resources:</em></p>
+<p>Bash <a class="reference external" href="http://freshmeat.net/projects/bashcompletion">programmable
+completion</a> project</p>
+<p>Mitch Frazier&#8217;s <a class="reference external" href="http://www.linuxjournal.com">*Linux Journal*</a>
+article, <a class="reference external" href="http://www.linuxjournal.com/content/more-using-bash-complete-command">*More on Using the Bash Complete
+Command*</a></p>
+<p>Steve&#8217;s excellent two-part article, &#8220;An Introduction to Bash Completion&#8221;
+: <a class="reference external" href="http://www.debian-administration.org/article/An_introduction_to_bash_completion_part_1">Part
+1</a>
+and <a class="reference external" href="http://www.debian-administration.org/article/An_introduction_to_bash_completion_part_2">Part
+2</a></p>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;tabexpansion.html#AEN24082&gt;`__</p>
+<p>This works only from the <em>command line</em> , of course, and not within a
+script.</p>
+<p>` [2]  &lt;tabexpansion.html#AEN24160&gt;`__</p>
+<p>Normally the default parameter completion files reside in either the
+``       /etc/profile.d      `` directory or in
+``       /etc/bash_completion      `` . These autoload on system
+startup. So, after writing a useful completion script, you might wish to
+move it (as <em>root</em> , of course) to one of these directories.</p>
+<p>` [3]  &lt;tabexpansion.html#AEN24173&gt;`__</p>
+<p>It has been extensively documented that programmers are willing to put
+in long hours of effort in order to save ten minutes of &#8220;unnecessary&#8221;
+labor. This is known as <em>optimization</em> .</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

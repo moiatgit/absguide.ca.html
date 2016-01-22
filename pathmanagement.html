@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Appendix D. Parsing and Managing Pathnames &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  Appendix D. Parsing and Managing Pathnames</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-appendix-d-parsing-and-managing-pathnames">
+<h1>XXX  Appendix D. Parsing and Managing Pathnames<a class="headerlink" href="#xxx-appendix-d-parsing-and-managing-pathnames" title="Link permanent a aquest títol">¶</a></h1>
+<p>Emmanual Rouat contributed the following example of parsing and
+transforming <em>filenames</em> and, in particular,
+<a class="reference external" href="special-chars.html#PATHNAMEREF">pathnames</a> . It draws heavily on the
+functionality of <em>sed</em> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/usr/bin/env bash</span>
+<span class="c">#-----------------------------------------------------------</span>
+<span class="c"># Management of PATH, LD_LIBRARY_PATH, MANPATH variables...</span>
+<span class="c"># By Emmanuel Rouat &lt;no-email&gt;</span>
+<span class="c"># (Inspired by the bash documentation &#39;pathfuncs&#39; and on</span>
+<span class="c"># discussions found on stackoverflow:</span>
+<span class="c"># http://stackoverflow.com/questions/370047/</span>
+<span class="c"># http://stackoverflow.com/questions/273909/#346860 )</span>
+<span class="c"># Last modified: Sat Sep 22 12:01:55 CEST 2012</span>
+<span class="c">#</span>
+<span class="c"># The following functions handle spaces correctly.</span>
+<span class="c"># These functions belong in .bash_profile rather than in</span>
+<span class="c"># .bashrc, I guess.</span>
+<span class="c">#</span>
+<span class="c"># The modular aspect of these functions should make it easy</span>
+<span class="c"># to expand them to handle path substitutions instead</span>
+<span class="c"># of path removal etc....</span>
+<span class="c">#</span>
+<span class="c"># See http://www.catonmat.net/blog/awk-one-liners-explained-part-two/</span>
+<span class="c"># (item 43) for an explanation of the &#39;duplicate-entries&#39; removal</span>
+<span class="c"># (it&#39;s a nice trick!)</span>
+<span class="c">#-----------------------------------------------------------</span>
+
+<span class="c"># Show $@ (usually PATH) as list.</span>
+<span class="k">function</span> p_show<span class="o">()</span> <span class="o">{</span> <span class="nb">local </span><span class="nv">p</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span> <span class="o">&amp;&amp;</span> <span class="k">for</span> p<span class="p">;</span> <span class="k">do</span> <span class="o">[[</span> <span class="si">${</span><span class="p">!p</span><span class="si">}</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span>
+<span class="nb">echo</span> -e <span class="si">${</span><span class="p">!p//:/</span><span class="se">\\</span><span class="nv">n</span><span class="si">}</span><span class="p">;</span> <span class="k">done</span> <span class="o">}</span>
+
+<span class="c"># Filter out empty lines, multiple/trailing slashes, and duplicate entries.</span>
+<span class="k">function</span> p_filter<span class="o">()</span>
+<span class="o">{</span> awk <span class="s1">&#39;/^[ \t]*$/ {next} {sub(/\/+$/, &quot;&quot;);gsub(/\/+/, &quot;/&quot;)}!x[$0]++&#39;</span> <span class="p">;</span><span class="o">}</span>
+
+<span class="c"># Rebuild list of items into &#39;:&#39; separated word (PATH-like).</span>
+<span class="k">function</span> p_build<span class="o">()</span> <span class="o">{</span> paste -sd: <span class="p">;</span><span class="o">}</span>
+
+<span class="c"># Clean $1 (typically PATH) and rebuild it</span>
+<span class="k">function</span> p_clean<span class="o">()</span>
+<span class="o">{</span> <span class="nb">local </span><span class="nv">p</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="si">}</span> <span class="o">&amp;&amp;</span> <span class="nb">eval</span> <span class="si">${</span><span class="nv">p</span><span class="si">}</span><span class="o">=</span><span class="s1">&#39;$(p_show ${p}p_filter | p_build)&#39;</span> <span class="p">;</span><span class="o">}</span>
+
+<span class="c"># Remove $1 from $2 (found on stackoverflow, with modifications).</span>
+<span class="k">function</span> p_rm<span class="o">()</span>
+<span class="o">{</span> <span class="nb">local </span><span class="nv">d</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$1p_filter</span><span class="k">)</span> <span class="nv">p</span><span class="o">=</span><span class="si">${</span><span class="nv">2</span><span class="si">}</span> <span class="o">&amp;&amp;</span>
+  <span class="nb">eval</span> <span class="si">${</span><span class="nv">p</span><span class="si">}</span><span class="o">=</span><span class="s1">&#39;$(p_show ${p}p_filter | grep -xv &quot;${d}&quot; | p_build)&#39;</span> <span class="p">;</span><span class="o">}</span>
+
+<span class="c">#  Same as previous, but filters on a pattern (dangerous...</span>
+<span class="c">#+ don&#39;t use &#39;bin&#39; or &#39;/&#39; as pattern!).</span>
+<span class="k">function</span> p_rmpat<span class="o">()</span>
+<span class="o">{</span> <span class="nb">local </span><span class="nv">d</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$1p_filter</span><span class="k">)</span> <span class="nv">p</span><span class="o">=</span><span class="si">${</span><span class="nv">2</span><span class="si">}</span> <span class="o">&amp;&amp;</span> <span class="nb">eval</span> <span class="si">${</span><span class="nv">p</span><span class="si">}</span><span class="o">=</span><span class="s1">&#39;$(p_show ${p}</span>
+<span class="s1">  p_filtergrep -v &quot;${d}&quot; | p_build)&#39;</span> <span class="p">;</span><span class="o">}</span>
+
+<span class="c"># Delete $1 from $2 and append it cleanly.</span>
+<span class="k">function</span> p_append<span class="o">()</span>
+<span class="o">{</span> <span class="nb">local </span><span class="nv">d</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$1p_filter</span><span class="k">)</span> <span class="nv">p</span><span class="o">=</span><span class="si">${</span><span class="nv">2</span><span class="si">}</span> <span class="o">&amp;&amp;</span> p_rm <span class="s2">&quot;</span><span class="si">${</span><span class="nv">d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="si">${</span><span class="nv">p</span><span class="si">}</span> <span class="o">&amp;&amp;</span>
+  <span class="nb">eval</span> <span class="si">${</span><span class="nv">p</span><span class="si">}</span><span class="o">=</span><span class="s1">&#39;$(p_show ${p} dp_build)&#39;</span> <span class="p">;</span><span class="o">}</span>
+
+<span class="c"># Delete $1 from $2 and prepend it cleanly.</span>
+<span class="k">function</span> p_prepend<span class="o">()</span>
+<span class="o">{</span> <span class="nb">local </span><span class="nv">d</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$1p_filter</span><span class="k">)</span> <span class="nv">p</span><span class="o">=</span><span class="si">${</span><span class="nv">2</span><span class="si">}</span> <span class="o">&amp;&amp;</span> p_rm <span class="s2">&quot;</span><span class="si">${</span><span class="nv">d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="si">${</span><span class="nv">p</span><span class="si">}</span> <span class="o">&amp;&amp;</span>
+  <span class="nb">eval</span> <span class="si">${</span><span class="nv">p</span><span class="si">}</span><span class="o">=</span><span class="s1">&#39;$(p_show d ${p}p_build)&#39;</span> <span class="p">;</span><span class="o">}</span>
+
+<span class="c"># Some tests:</span>
+<span class="nb">echo</span>
+<span class="nv">MYPATH</span><span class="o">=</span><span class="s2">&quot;/bin:/usr/bin/:/bin://bin/&quot;</span>
+p_append <span class="s2">&quot;/project//my project/bin&quot;</span> MYPATH
+<span class="nb">echo</span> <span class="s2">&quot;Append &#39;/project//my project/bin&#39; to &#39;/bin:/usr/bin/:/bin://bin/&#39;&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;(result should be: /bin:/usr/bin:/project/my project/bin)&quot;</span>
+<span class="nb">echo</span> <span class="nv">$MYPATH</span>
+
+<span class="nb">echo</span>
+<span class="nv">MYOTHERPATH</span><span class="o">=</span><span class="s2">&quot;/bin:/usr/bin/:/bin:/project//my project/bin&quot;</span>
+p_prepend <span class="s2">&quot;/project//my project/bin&quot;</span> MYOTHERPATH
+<span class="nb">echo</span> <span class="s2">&quot;Prepend &#39;/project//my project/bin&#39; \</span>
+<span class="s2">to &#39;/bin:/usr/bin/:/bin:/project//my project/bin/&#39;&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;(result should be: /project/my project/bin:/bin:/usr/bin)&quot;</span>
+<span class="nb">echo</span> <span class="nv">$MYOTHERPATH</span>
+
+<span class="nb">echo</span>
+p_prepend <span class="s2">&quot;/project//my project/bin&quot;</span> FOOPATH  <span class="c"># FOOPATH doesn&#39;t exist.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Prepend &#39;/project//my project/bin&#39; to an unset variable&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;(result should be: /project/my project/bin)&quot;</span>
+<span class="nb">echo</span> <span class="nv">$FOOPATH</span>
+
+<span class="nb">echo</span>
+<span class="nv">BARPATH</span><span class="o">=</span><span class="s2">&quot;/a:/b/://b c://a:/my local pub&quot;</span>
+p_clean BARPATH
+<span class="nb">echo</span> <span class="s2">&quot;Clean BARPATH=&#39;/a:/b/://b c://a:/my local pub&#39;&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;(result should be: /a:/b:/b c:/my local pub)&quot;</span>
+<span class="nb">echo</span> <span class="nv">$BARPATH</span>
+</pre></div>
+</div>
+<p>***</p>
+<p>David Wheeler kindly permitted me to use his instructive examples.</p>
+<div class="highlight-sh"><div class="highlight"><pre>Doing it correctly: A quick summary
+by David Wheeler
+http://www.dwheeler.com/essays/filenames-in-shell.html
+
+So, how can you process filenames correctly in shell? Here<span class="s1">&#39;s a quick</span>
+<span class="s1">summary about how to do it correctly, for the impatient who &quot;just want the</span>
+<span class="s1">answer&quot;. In short: Double-quote to use &quot;$variable&quot; instead of $variable,</span>
+<span class="s1">set IFS to just newline and tab, prefix all globs/filenames so they cannot</span>
+<span class="s1">begin with &quot;-&quot; when expanded, and use one of a few templates that work</span>
+<span class="s1">correctly. Here are some of those templates that work correctly:</span>
+
+
+<span class="s1"> IFS=&quot;$(printf &#39;</span><span class="se">\n\t</span><span class="s1">&#39;)&quot;</span>
+<span class="s1"> # Remove SPACE, so filenames with spaces work well.</span>
+
+<span class="s1"> #  Correct glob use:</span>
+<span class="s1"> #+ always use &quot;for&quot; loop, prefix glob, check for existence:</span>
+<span class="s1"> for file in ./* ; do          # Use &quot;./*&quot; ... NEVER bare &quot;*&quot; ...</span>
+<span class="s1">   if [ -e &quot;$file&quot; ] ; then    # Make sure it isn&#39;</span>t an empty match.
+     COMMAND ... <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span> ...
+   <span class="k">fi</span>
+ <span class="k">done</span>
+
+
+
+ <span class="c"># Correct glob use, but requires nonstandard bash extension.</span>
+ <span class="nb">shopt</span> -s nullglob  <span class="c">#  Bash extension,</span>
+                    <span class="c">#+ so that empty glob matches will work.</span>
+ <span class="k">for</span> file in ./* <span class="p">;</span> <span class="k">do</span>        <span class="c"># Use &quot;./*&quot;, NEVER bare &quot;*&quot;</span>
+   COMMAND ... <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span> ...
+ <span class="k">done</span>
+
+
+
+ <span class="c">#  These handle all filenames correctly;</span>
+ <span class="c">#+ can be unwieldy if COMMAND is large:</span>
+ find ... -exec COMMAND... <span class="o">{}</span> <span class="se">\;</span>
+ find ... -exec COMMAND... <span class="o">{}</span> <span class="se">\+</span> <span class="c"># If multiple files are okay for COMMAND.</span>
+
+
+
+ <span class="c">#  This skips filenames with control characters</span>
+ <span class="c">#+ (including tab and newline).</span>
+ <span class="nv">IFS</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">printf</span> <span class="s1">&#39;\n\t&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+ <span class="nv">controlchars</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">printf</span> <span class="s1">&#39;*[\001-\037\177]*&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+ <span class="k">for</span> file in <span class="k">$(</span>find . ! -name <span class="s2">&quot;</span><span class="nv">$controlchars</span><span class="s2">&quot;</span><span class="s1">&#39;) ; do</span>
+<span class="s1">   COMMAND &quot;$file&quot; ...</span>
+<span class="s1"> done</span>
+
+
+
+<span class="s1"> #  Okay if filenames can&#39;</span>t contain tabs or newlines --
+ <span class="c">#+ beware the assumption.</span>
+ <span class="nv">IFS</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">printf</span> <span class="s1">&#39;\n\t&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+ <span class="k">for</span> file in <span class="k">$(</span>find .<span class="k">)</span> <span class="p">;</span> <span class="k">do</span>
+   COMMAND <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span> ...
+ <span class="k">done</span>
+
+
+
+ <span class="c"># Requires nonstandard but common extensions in find and xargs:</span>
+ find . -print0xargs -0 COMMAND
+
+ <span class="c"># Requires nonstandard extensions to find and to shell (bash works).</span>
+ <span class="c"># variables might not stay set once the loop ends:</span>
+ find . -print0while <span class="nv">IFS</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="nb">read</span> -r -d <span class="s2">&quot;&quot;</span> file <span class="p">;</span> <span class="k">do</span> ...
+   COMMAND <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span> <span class="c"># Use quoted &quot;$file&quot;, not $file, everywhere.</span>
+ <span class="k">done</span>
+
+
+
+ <span class="c">#  Requires nonstandard extensions to find and to shell (bash works).</span>
+ <span class="c">#  Underlying system must include named pipes (FIFOs)</span>
+ <span class="c">#+ or the /dev/fd mechanism.</span>
+ <span class="c">#  In this version, variables *do* stay set after the loop ends,</span>
+ <span class="c">#  and you can read from stdin.</span>
+ <span class="c">#+ (Change the 4 to another number if fd 4 is needed.)</span>
+
+ <span class="k">while</span> <span class="nv">IFS</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="nb">read</span> -r -d <span class="s2">&quot;&quot;</span> file &lt;<span class="p">&amp;</span><span class="m">4</span> <span class="p">;</span> <span class="k">do</span>
+   COMMAND <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>   <span class="c"># Use quoted &quot;$file&quot; -- not $file, everywhere.</span>
+ <span class="k">done</span> 4&lt; &lt;<span class="o">(</span>find . -print0<span class="k">)</span>
+
+
+ <span class="c">#  Named pipe version.</span>
+ <span class="c">#  Requires nonstandard extensions to find and to shell&#39;s read (bash ok).</span>
+ <span class="c">#  Underlying system must include named pipes (FIFOs).</span>
+ <span class="c">#  Again, in this version, variables *do* stay set after the loop ends,</span>
+ <span class="c">#  and you can read from stdin.</span>
+ <span class="c"># (Change the 4 to something else if fd 4 needed).</span>
+
+ mkfifo mypipe
+
+ find . -print0 &gt; mypipe <span class="p">&amp;</span>
+ <span class="k">while</span> <span class="nv">IFS</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="nb">read</span> -r -d <span class="s2">&quot;&quot;</span> file &lt;<span class="p">&amp;</span><span class="m">4</span> <span class="p">;</span> <span class="k">do</span>
+   COMMAND <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span> <span class="c"># Use quoted &quot;$file&quot;, not $file, everywhere.</span>
+ <span class="k">done</span> 4&lt; mypipe
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

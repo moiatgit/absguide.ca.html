@@ -1,0 +1,419 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>4.1. Substitució de variables &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="4. Variables" href="variables.html"/>
+        <link rel="next" title="4.2. Assignació a variable" href="varassignment.html"/>
+        <link rel="prev" title="4. Variables" href="variables.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="special-chars.html">XXX 3. Caràcters especials</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="variables.html">4. Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quoting.html">Chapter 5. Cometes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exit-status.html">XXX Chapter 6. Exit and Exit Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html">XXX Chapter 7. Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testconstructs.html">XXX  7.1. Test Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fto.html">XXX  7.2. File test operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparison-ops.html">XXX  7.3. Other Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedifthen.html">7.4. Condicionals aniuats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testtest.html">XXX  7.5. Testing Your Knowledge of Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations.html">XXX Chapter 8. Operations and Related Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ops.html">XXX  8.1. Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="numerical-constants.html">XXX  8.2. Numerical Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dblparens.html">XXX  8.3. The Double-Parentheses Construct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opprecedence.html">XXX  8.4. Operator Precedence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part2.html">Part 2. Conceptes bàsics</a> &raquo;</li>
+      
+          <li><a href="variables.html">4. Variables</a> &raquo;</li>
+      
+    <li>4.1. Substitució de variables</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="substitucio-de-variables">
+<h1>4.1. Substitució de variables<a class="headerlink" href="#substitucio-de-variables" title="Link permanent a aquest títol">¶</a></h1>
+<p>El nom d&#8217;una variable és un marcador o referència al seu valor. El valor de la variable és la dada
+que conté la posició de memòria a què fa referència. En diem <em>substitució de variable</em> a l&#8217;obtenció
+del valor associat a la variable.</p>
+<p>Comencem diferenciant cuidadosament entre el <em>nom</em> d&#8217;una variable i el seu <em>valor</em>.</p>
+<p>Si <code class="docutils literal"><span class="pre">variable1</span></code> és el nom d&#8217;una variable, llavors <code class="docutils literal"><span class="pre">$variable1</span></code> fa referència al seu valor, és a
+dir, la dada guardada en la posició de memòria a la que fa referència <code class="docutils literal"><span class="pre">variable1</span></code><a class="footnote-reference" href="#mestecnicament" id="id1">[1]</a>.</p>
+<p>Per exemple, considera el següent codi:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ variable1</span><span class="o">=</span>23
+<span class="nv">$ </span><span class="nb">echo </span>variable1
+variable1
+<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$variable1</span>
+23
+</pre></div>
+</div>
+<p>Trobarem el nom de les variables sense <code class="docutils literal"><span class="pre">$</span></code>:</p>
+<ol class="arabic simple">
+<li>quan és declada, assignada o desassignada (<em>unset</em>)</li>
+<li>quan s&#8217;exporta</li>
+<li>en expressions aritmètiques amb :doc:<a href="#id2"><span class="problematic" id="id3">`</span></a>doble parèntesis &lt;dblparens&gt;&#8217;</li>
+<li>en variables que representen <a class="reference internal" href="debugging.html#debugging-example-trappingandexit"><span>senyals</span></a>.</li>
+</ol>
+<p>L&#8217;assignació pot realitzar-se:</p>
+<ul>
+<li><p class="first">amb <code class="docutils literal"><span class="pre">=</span></code> com en <code class="docutils literal"><span class="pre">var1=27</span></code></p>
+</li>
+<li><p class="first">amb una instrucció de lectura <code class="docutils literal"><span class="pre">read</span></code> com a <a class="reference internal" href="internal.html#internal-variableassignwithread"><span>Exemple 3. Variable assignment, using read</span></a>.</p>
+</li>
+<li><p class="first">a la capçalera d&#8217;un bucle:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">for</span> var in <span class="m">1</span> <span class="m">2</span> 3<span class="p">;</span>
+<span class="k">do</span>
+    <span class="nb">echo</span> <span class="nv">$var</span><span class="p">;</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Encara que tanquem un valor entre cometes dobles, no s&#8217;evita la substitució. Per això se li diu
+<em>cometes parcials</em> o també <em>cometes febles</em>. Amb les cometes simples, en canvi, sí s&#8217;anul·la la
+substitució i el nom de la variable (juntament amb <code class="docutils literal"><span class="pre">$</span></code>) s&#8217;interpreten literalment. És el que es
+coneix com a <em>cometes completes</em> o <em>cometes fortes</em>. Mira <a class="reference internal" href="quoting.html"><em>Chapter 5. Cometes</em></a> per una discussió completa
+d&#8217;aquest tema.</p>
+<p>Cal tenir present què <code class="docutils literal"><span class="pre">$variable</span></code> és, en realitat, una forma simplificada de l&#8217;expressió
+<code class="docutils literal"><span class="pre">${variable}</span></code>.</p>
+<p>En alguns contexts en que la forma simplificada <code class="docutils literal"><span class="pre">$variable</span></code> pot donar problemes, la forma completa
+<code class="docutils literal"><span class="pre">${variable}</span></code> podria funcionar. Mira <a class="reference internal" href="parameter-substitution.html"><em>XXX 10.2. Substitució de paràmetres</em></a> per més detalls.</p>
+<p>Veiem un exemple:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c"># Exemple d&#39;inicialització i substitució de variable</span>
+
+<span class="nv">a</span><span class="o">=</span>375
+<span class="nv">variable</span><span class="o">=</span><span class="nv">$a</span>
+<span class="c">#      ^ ^ sense espais</span>
+
+<span class="nb">echo </span>variable    <span class="c"># Sortida: variable</span>
+<span class="c"># No es una referència a variable, simplemente és el String &quot;variable&quot;</span>
+
+<span class="nb">echo</span> <span class="nv">$variable</span>   <span class="c"># Sortida: 375</span>
+<span class="c">#    ^           Ara sí que és una referència a variable.</span>
+
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">variable</span><span class="si">}</span> <span class="c"># Sortida: 375</span>
+<span class="c">#                La versió ampliada de la referència.</span>
+
+<span class="c"># Amb cometes febles, en aquest cas el resultat no canvia</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$variable</span><span class="s2">&quot;</span>    <span class="c"># Sortida: 375</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">variable</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c"># Sortida: 375</span>
+
+<span class="c"># XXX TODO: vas per aquí. Estàs passant les explicacions &quot;gruixudes&quot; al text que la descriu.</span>
+
+<span class="nb">echo</span>
+
+
+<span class="c"># Provem amb Strings</span>
+<span class="nv">variable</span><span class="o">=</span><span class="s2">&quot;A B  C   D&quot;</span>
+<span class="c">#          ^ ^^ ^^^   diferents espais</span>
+<span class="nb">echo</span> <span class="nv">$variable</span>   <span class="c"># Sortida: A B C D</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$variable</span><span class="s2">&quot;</span> <span class="c"># Sortida: A B  C   D</span>
+<span class="c"># Fixa&#39;t que echo $variable i echo &quot;$variable&quot; donen resultats diferents.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s1">&#39;$variable&#39;</span>  <span class="c"># Sortida: $variable</span>
+<span class="c">#    ^         ^</span>
+<span class="c">#  Amb cometes simples, no es fa la substitució donat que $ s&#39;interpreta literalment</span>
+
+
+<span class="c"># Comprovem els efectes de les diferents cometes</span>
+
+<span class="nv">variable</span><span class="o">=</span>    <span class="c"># assignem el valor null</span>
+<span class="nb">echo</span> <span class="s2">&quot;\$variable (valor null) = </span><span class="nv">$variable</span><span class="s2">&quot;</span>      <span class="c"># Sortida: $variable (valor null) =</span>
+<span class="c">#  Assignar-li el valor null equivaldria a desassignar la variable.</span>
+
+
+<span class="c">#  Assignació múltiple en una mateixa línia</span>
+<span class="nv">var1</span><span class="o">=</span><span class="m">21</span>  <span class="nv">var2</span><span class="o">=</span><span class="m">22</span>  <span class="nv">var3</span><span class="o">=</span><span class="nv">$V3</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;var1=</span><span class="nv">$var1</span><span class="s2">   var2=</span><span class="nv">$var2</span><span class="s2">   var3=</span><span class="nv">$var3</span><span class="s2">&quot;</span>
+
+
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nv">nombres</span><span class="o">=</span><span class="s2">&quot;un dos tres&quot;</span>
+<span class="c">#           ^   ^</span>
+<span class="nv">altres_nombres</span><span class="o">=</span><span class="s2">&quot;1 2 3&quot;</span>
+<span class="c">#                ^ ^</span>
+<span class="c">#  Quan el valor d&#39;una variable conté espais, és obligatori posar-lo entre cometes.</span>
+<span class="c">#  altres_nombres=1 2 3                   # Generaria un missatge d&#39;error.</span>
+<span class="nb">echo</span> <span class="s2">&quot;nombres = </span><span class="nv">$nombres</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;altres_nombres = </span><span class="nv">$altres_nombres</span><span class="s2">&quot;</span>   <span class="c"># Sortida: altres_nombres = 1 2 3</span>
+<span class="c">#  També funciona si escapem els espais</span>
+<span class="nv">una_cosa</span><span class="o">=</span>1<span class="se">\ </span>---<span class="se">\ </span>cosa
+<span class="c">#          ^    ^ un espai després de l&#39;escape (\).</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$una_cosa</span><span class="s2">&quot;</span>         <span class="c"># 1 --- cosa</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;variable_no_inicialitzada = </span><span class="nv">$variable_no_inicialitzada</span><span class="s2">&quot;</span>
+<span class="c"># Una variable sense inicialitzar no té cap valor.</span>
+<span class="nv">variable_no_inicialitzada</span><span class="o">=</span>   <span class="c">#  Així la declarem però no la inicialitzem, el que</span>
+                             <span class="c">#+ equival a assignar-li el valor null, com abans.</span>
+<span class="nb">echo</span> <span class="s2">&quot;variable_no_inicialitzada = </span><span class="nv">$variable_no_inicialitzada</span><span class="s2">&quot;</span>
+                             <span class="c"># Encara amb valor null.</span>
+
+<span class="nv">variable_no_inicialitzada</span><span class="o">=</span><span class="m">23</span>       <span class="c"># Ara queda inicialitzada.</span>
+<span class="nb">unset </span>variable_no_inicialitzada    <span class="c"># Ara la desassignem.</span>
+<span class="nb">echo</span> <span class="s2">&quot;variable_no_inicialitzada = </span><span class="nv">$variable_no_inicialitzada</span><span class="s2">&quot;</span>
+                                <span class="c"># Sortida: variable_no_inicialitzada =</span>
+                                <span class="c"># Continua mostrant un valor null</span>
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>A tenir present:</p>
+<ul>
+<li><p class="first">En assignacions, <code class="docutils literal"><span class="pre">=</span></code> sense espais</p>
+<p>A l&#8217;hora d&#8217;assignar un valor a una variable <strong>no</strong> es pot posar espais en blanc ni abans ni
+després del <code class="docutils literal"><span class="pre">=</span></code>.</p>
+<p>Si el posem abans, s&#8217;intentaria executar la variable com si fos una comanda amb un argument:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">variable</span> <span class="o">=</span>42
+<span class="c">#       ^</span>
+</pre></div>
+</div>
+<p>En el cas que l&#8217;espai estigui després, s&#8217;intentarà executar el valor com una comanda amb la
+variable assignada a &#8220;&#8221; com a variable d&#8217;entorn.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">variable</span><span class="o">=</span> 42
+<span class="c">#        ^</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Les cometes febles conserven blancs</p>
+<p>Quan posem una variable entre cometes, es preserven els espais en blanc del seu valor</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">variable</span><span class="o">=</span><span class="s2">&quot;A B  C   D&quot;</span>
+<span class="c">#          ^ ^^ ^^^   diferents espais</span>
+<span class="nb">echo</span> <span class="nv">$variable</span>   <span class="c"># Sortida: A B C D</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$variable</span><span class="s2">&quot;</span> <span class="c"># Sortida: A B  C   D</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Més d&#8217;una assignació per línia</p>
+<p>És possible assignar més d&#8217;una variable en una mateixa línia si les separem amb espais blancs.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">var1</span><span class="o">=</span><span class="m">21</span>  <span class="nv">var2</span><span class="o">=</span><span class="m">22</span>  <span class="nv">var3</span><span class="o">=</span><span class="nv">$V3</span>
+</pre></div>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<p class="last">Aquesta pràctica pot fer més difícil de llegir el nostre codi i podria no ser portable.
+Podria donar problemes amb versions antigues de <code class="docutils literal"><span class="pre">sh</span></code>.</p>
+</div>
+</li>
+<li><p class="first">Les variables sense inicialitzar tenen valor <code class="docutils literal"><span class="pre">null</span></code></p>
+<p>Una variable sense inicialitzar té el valor <code class="docutils literal"><span class="pre">null</span></code> que indica que no té cap valor assignat.
+Compte que <code class="docutils literal"><span class="pre">null</span></code> no és zero.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$variable_no_inicialitzada</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;\$variable_no_inicialitzada val null.&quot;</span>
+<span class="k">fi</span>     <span class="c"># Sortida: $variable_no_inicialitzada val null.</span>
+</pre></div>
+</div>
+<p>Pot provocar problemes l&#8217;ús d&#8217;una variable abans de ser inicialitzada. Amb tot, és possible
+realitzar operacions aritmètiques amb variables no inicialitzades.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$variable_no_inicialitzada</span><span class="s2">&quot;</span>
+<span class="c"># (una línia en blanc)</span>
+<span class="nb">let</span> <span class="s2">&quot;variable_no_inicialitzada += 5&quot;</span>
+<span class="c"># Suma 5 al seu valor</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$variable_no_inicialitzada</span><span class="s2">&quot;</span>
+<span class="c"># Sortida: 5</span>
+</pre></div>
+</div>
+<p>Això implica que, malgrat una variable no inicialitzada val null, en cas de realitzar una operació
+aritmètica amb ella, es considera que té com a valor el 0.</p>
+<p>Considera també <a class="reference internal" href="internal.html#internal-uselessthatsourcesitself"><span>Exemple 20. Un guió (inutil) que s&#8217;autocarrega</span></a>.</p>
+</li>
+</ul>
+<p class="rubric">Anotacions</p>
+<table class="docutils footnote" frame="void" id="mestecnicament" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Tècnicament, el <em>nom</em> d&#8217;una variable es coneix com a <em>lvalue</em> o valor esquerre,
+perquè apareix a la part esquerra d&#8217;una assignació. En canvi, el <em>valor</em> d&#8217;una variable és coneix
+com a <em>rvalue</em> doncs sol apareixer a la part dreta de l&#8217;assignació: <code class="docutils literal"><span class="pre">variable2=$variable1</span></code>.</td></tr>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="varassignment.html" class="btn btn-neutral float-right" title="4.2. Assignació a variable" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="variables.html" class="btn btn-neutral" title="4. Variables"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,2732 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Chapter 17. System and Administrative Commands &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Part 4. Commands" href="part4.html"/>
+        <link rel="next" title="XXX Part 5. Advanced Topics" href="part5.html"/>
+        <link rel="prev" title="XXX 16.9. Miscellaneous Commands" href="extmisc.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="internal.html">XXX  Chapter 15. Internal Commands and Builtins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="external.html">XXX  Chapter 16. External Filters, Programs and Commands</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  Chapter 17. System and Administrative Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part4.html">XXX Part 4. Commands</a> &raquo;</li>
+      
+    <li>XXX  Chapter 17. System and Administrative Commands</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-chapter-17-system-and-administrative-commands">
+<h1>XXX  Chapter 17. System and Administrative Commands<a class="headerlink" href="#xxx-chapter-17-system-and-administrative-commands" title="Link permanent a aquest títol">¶</a></h1>
+<p>The startup and shutdown scripts in ``      /etc/rc.d     `` illustrate
+the uses (and usefulness) of many of these comands. These are usually
+invoked by <em>root</em> and used for system maintenance or emergency
+filesystem repairs. Use with caution, as some of these commands may
+damage your system if misused.</p>
+<p>** Users and Groups**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>users</strong></dt>
+<dd>Show all logged on users. This is the approximate equivalent of
+<strong>who -q</strong> .</dd>
+<dt><strong>groups</strong></dt>
+<dd><p class="first">Lists the current user and the groups she belongs to. This
+corresponds to the <a class="reference external" href="internalvariables.html#GROUPSREF">$GROUPS</a>
+internal variable, but gives the group names, rather than the
+numbers.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>groups
+bozita cdrom cdwriter audio xgrp
+
+bash<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$GROUPS</span>
+501
+</pre></div>
+</div>
+</dd>
+<dt><strong>chown</strong> , <strong>chgrp</strong></dt>
+<dd><p class="first">The <strong>chown</strong> command changes the ownership of a file or files. This
+command is a useful method that <em>root</em> can use to shift file
+ownership from one user to another. An ordinary user may not change
+the ownership of files, not even her own files. ` [1]</p>
+<blockquote>
+<div>&lt;system.html#FTN.AEN14695&gt;`__</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre>root# chown bozo *.txt
+</pre></div>
+</div>
+<p>The <strong>chgrp</strong> command changes the
+``                   group                 `` ownership of a file or
+files. You must be owner of the file(s) as well as a member of the
+destination group (or <em>root</em> ) to use this operation.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>chgrp --recursive dunderheads *.data
+<span class="c">#  The &quot;dunderheads&quot; group will now own all the &quot;*.data&quot; files</span>
+<span class="c">#+ all the way down the $PWD directory tree (that&#39;s what &quot;recursive&quot; means).</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>useradd</strong> , <strong>userdel</strong></dt>
+<dd>The <strong>useradd</strong> administrative command adds a user account to the
+system and creates a home directory for that particular user, if so
+specified. The corresponding <strong>userdel</strong> command removes a user
+account from the system ` [2]  &lt;system.html#FTN.AEN14727&gt;`__ and
+deletes associated files.</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div>The <strong>adduser</strong> command is a synonym for <strong>useradd</strong> and is usually
+a symbolic link to it.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>usermod</strong></dt>
+<dd>Modify a user account. Changes may be made to the password, group
+membership, expiration date, and other attributes of a given user&#8217;s
+account. With this command, a user&#8217;s password may be locked, which
+has the effect of disabling the account.</dd>
+<dt><strong>groupmod</strong></dt>
+<dd>Modify a given group. The group name and/or ID number may be changed
+using this command.</dd>
+<dt><strong>id</strong></dt>
+<dd><p class="first">The <strong>id</strong> command lists the real and effective user IDs and the
+group IDs of the user associated with the current process. This is
+the counterpart to the <a class="reference external" href="internalvariables.html#UIDREF">$UID</a> ,
+<a class="reference external" href="internalvariables.html#EUIDREF">$EUID</a> , and
+<a class="reference external" href="internalvariables.html#GROUPSREF">$GROUPS</a> internal Bash
+variables.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>id
+<span class="nv">uid</span><span class="o">=</span>501<span class="o">(</span>bozo<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>501<span class="o">(</span>bozo<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>501<span class="o">(</span>bozo<span class="o">)</span>,22<span class="o">(</span>cdrom<span class="o">)</span>,80<span class="o">(</span>cdwriter<span class="o">)</span>,81<span class="o">(</span>audio<span class="o">)</span>
+
+bash<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$UID</span>
+501
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div><p>The <strong>id</strong> command shows the <em>effective</em> IDs only when they differ
+from the <em>real</em> ones.</p>
+<p>Also see <a class="reference external" href="internalvariables.html#AMIROOT">Example 9-5</a> .</p>
+</div></blockquote>
+<dl class="last docutils">
+<dt><strong>lid</strong></dt>
+<dd><p class="first">The <em>lid</em> (list ID) command shows the group(s) that a given user
+belongs to, or alternately, the users belonging to a given group.
+May be invoked only by root.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>root# lid bozo
+ bozo<span class="o">(</span><span class="nv">gid</span><span class="o">=</span>500<span class="o">)</span>
+
+
+root# lid daemon
+ bin<span class="o">(</span><span class="nv">gid</span><span class="o">=</span>1<span class="o">)</span>
+  daemon<span class="o">(</span><span class="nv">gid</span><span class="o">=</span>2<span class="o">)</span>
+  adm<span class="o">(</span><span class="nv">gid</span><span class="o">=</span>4<span class="o">)</span>
+  lp<span class="o">(</span><span class="nv">gid</span><span class="o">=</span>7<span class="o">)</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>who</strong></dt>
+<dd><p class="first">Show all users logged on to the system.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>who
+bozo  tty1     Apr <span class="m">27</span> 17:45
+ bozo  pts/0    Apr <span class="m">27</span> 17:46
+ bozo  pts/1    Apr <span class="m">27</span> 17:47
+ bozo  pts/2    Apr <span class="m">27</span> 17:49
+</pre></div>
+</div>
+<p>The ``         -m        `` gives detailed information about only
+the current user. Passing any two arguments to <strong>who</strong> is the
+equivalent of <strong>who -m</strong> , as in <strong>who am i</strong> or <strong>who The Man</strong> .</p>
+<div class="highlight-sh"><div class="highlight"><pre>   bash<span class="nv">$ </span>who -m
+   localhost.localdomain!bozo  pts/2    Apr <span class="m">27</span> 17:49
+
+
+
+
+**whoami** is similar to **who -m** , but only lists the user name.
+</pre></div>
+</div>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>whoami
+bozo
+</pre></div>
+</div>
+</dd>
+<dt><strong>w</strong></dt>
+<dd><p class="first">Show all logged on users and the processes belonging to them. This
+is an extended version of <strong>who</strong> . The output of <strong>w</strong> may be piped
+to <a class="reference external" href="textproc.html#GREPREF">grep</a> to find a specific user and/or
+process.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>wgrep startx
+bozo  tty1     -                 4:22pm  6:41   4.47s  0.45s  startx
+</pre></div>
+</div>
+</dd>
+<dt><strong>logname</strong></dt>
+<dd><p class="first">Show current user&#8217;s login name (as found in
+``         /var/run/utmp        `` ). This is a near-equivalent to
+<a class="reference external" href="system.html#WHOAMIREF">whoami</a> , above.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>logname
+bozo
+
+bash<span class="nv">$ </span>whoami
+bozo
+</pre></div>
+</div>
+<p>However . . .</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>su
+Password: ......
+
+bash# whoami
+root
+bash# logname
+bozo
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div>While <strong>logname</strong> prints the name of the logged in user, <strong>whoami</strong>
+gives the name of the user attached to the current process. As we
+have just seen, sometimes these are not the same.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>su</strong></dt>
+<dd>Runs a program or script as a <strong>s</strong> ubstitute <strong>u</strong> ser. <strong>su
+rjones</strong> starts a shell as user <em>rjones</em> . A naked <strong>su</strong> defaults
+to <em>root</em> . See <a class="reference external" href="contributed-scripts.html#FIFO">Example A-14</a> .</dd>
+<dt><strong>sudo</strong></dt>
+<dd><p class="first">Runs a command as <em>root</em> (or another user). This may be used in a
+script, thus permitting a <em>regular user</em> to run the script.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c"># Some commands.</span>
+sudo cp /root/secretfile /home/bozo/secret
+<span class="c"># Some more commands.</span>
+</pre></div>
+</div>
+<p class="last">The file ``         /etc/sudoers        `` holds the names of users
+permitted to invoke <strong>sudo</strong> .</p>
+</dd>
+<dt><strong>passwd</strong></dt>
+<dd><p class="first">Sets, changes, or manages a user&#8217;s password.</p>
+<p class="last">The <strong>passwd</strong> command can be used in a script, but probably <em>should
+not</em> be.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="exemple-1-setting-a-new-password">
+<h2>Exemple 1. Setting a new password<a class="headerlink" href="#exemple-1-setting-a-new-password" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c">#  setnew-password.sh: For demonstration purposes only.</span>
+<span class="c">#                      Not a good idea to actually run this script.</span>
+<span class="c">#  This script must be run as root.</span>
+
+<span class="nv">ROOT_UID</span><span class="o">=</span><span class="m">0</span>         <span class="c"># Root has $UID 0.</span>
+<span class="nv">E_WRONG_USER</span><span class="o">=</span><span class="m">65</span>    <span class="c"># Not root?</span>
+
+<span class="nv">E_NOSUCHUSER</span><span class="o">=</span>70
+<span class="nv">SUCCESS</span><span class="o">=</span>0
+
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$UID</span><span class="s2">&quot;</span> -ne <span class="s2">&quot;</span><span class="nv">$ROOT_UID</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;Only root can run this script.&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+<span class="nb">  exit</span> <span class="nv">$E_WRONG_USER</span>
+<span class="k">else</span>
+  <span class="nb">echo</span>
+<span class="nb">  echo</span> <span class="s2">&quot;You should know better than to run this script, root.&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Even root users get the blues... &quot;</span>
+  <span class="nb">echo</span>
+<span class="k">fi</span>
+
+
+<span class="nv">username</span><span class="o">=</span>bozo
+<span class="nv">NEWPASSWORD</span><span class="o">=</span>security_violation
+
+<span class="c"># Check if bozo lives here.</span>
+grep -q <span class="s2">&quot;</span><span class="nv">$username</span><span class="s2">&quot;</span> /etc/passwd
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -ne <span class="nv">$SUCCESS</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;User </span><span class="nv">$username</span><span class="s2"> does not exist.&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;No password changed.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOSUCHUSER</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$NEWPASSWORD</span><span class="s2">&quot;</span>passwd --stdin <span class="s2">&quot;</span><span class="nv">$username</span><span class="s2">&quot;</span>
+<span class="c">#  The &#39;--stdin&#39; option to &#39;passwd&#39; permits</span>
+<span class="c">#+ getting a new password from stdin (or a pipe).</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;User </span><span class="nv">$username</span><span class="s2">&#39;s password changed!&quot;</span>
+
+<span class="c"># Using the &#39;passwd&#39; command in a script is dangerous.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>The <strong>passwd</strong> command&#8217;s ``         -l        `` ,
+``         -u        `` , and ``         -d        `` options permit
+locking, unlocking, and deleting a user&#8217;s password. Only <em>root</em> may
+use these options.</p>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>ac</strong></dt>
+<dd><p class="first">Show users&#8217; logged in time, as read from
+``         /var/log/wtmp        `` . This is one of the GNU
+accounting utilities.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>ac
+        total       68.08
+</pre></div>
+</div>
+</dd>
+<dt><strong>last</strong></dt>
+<dd><p class="first">List <em>last</em> logged in users, as read from
+``         /var/log/wtmp        `` . This command can also show
+remote logins.</p>
+<p>For example, to show the last few times the system rebooted:</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>last reboot
+reboot   system boot  2.6.9-1.667      Fri Feb  <span class="m">4</span> 18:18          <span class="o">(</span>00:02<span class="o">)</span>
+ reboot   system boot  2.6.9-1.667      Fri Feb  <span class="m">4</span> 15:20          <span class="o">(</span>01:27<span class="o">)</span>
+ reboot   system boot  2.6.9-1.667      Fri Feb  <span class="m">4</span> 12:56          <span class="o">(</span>00:49<span class="o">)</span>
+ reboot   system boot  2.6.9-1.667      Thu Feb  <span class="m">3</span> 21:08          <span class="o">(</span>02:17<span class="o">)</span>
+ . . .
+
+ wtmp begins Tue Feb  <span class="m">1</span> 12:50:09 2005
+</pre></div>
+</div>
+</dd>
+<dt><strong>newgrp</strong></dt>
+<dd>Change user&#8217;s <em>group ID</em> without logging out. This permits access to
+the new group&#8217;s files. Since users may be members of multiple groups
+simultaneously, this command finds only limited use.</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Kurt Glaesemann points out that the <em>newgrp</em> command could prove
+helpful in setting the default group permissions for files a user
+writes. However, the <a class="reference external" href="system.html#CHGRPREF">chgrp</a> command might
+be more convenient for this purpose.</p>
+</div>
+<p>** Terminals**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>tty</strong></dt>
+<dd><p class="first">Echoes the name (filename) of the current user&#8217;s terminal. Note that
+each separate <em>xterm</em> window counts as a different terminal.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>tty
+/dev/pts/1
+</pre></div>
+</div>
+</dd>
+<dt><strong>stty</strong></dt>
+<dd>Shows and/or changes terminal settings. This complex command, used
+in a script, can control terminal behavior and the way output
+displays. See the info page, and study it carefully.</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-2-setting-an-erase-character">
+<h2>Exemple 2. Setting an <em>erase</em> character<a class="headerlink" href="#exemple-2-setting-an-erase-character" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># erase.sh: Using &quot;stty&quot; to set an erase character when reading input.</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;What is your name? &quot;</span>
+<span class="nb">read </span>name                      <span class="c">#  Try to backspace</span>
+                               <span class="c">#+ to erase characters of input.</span>
+                               <span class="c">#  Problems?</span>
+<span class="nb">echo</span> <span class="s2">&quot;Your name is </span><span class="nv">$name</span><span class="s2">.&quot;</span>
+
+stty erase <span class="s1">&#39;#&#39;</span>                 <span class="c">#  Set &quot;hashmark&quot; (#) as erase character.</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;What is your name? &quot;</span>
+<span class="nb">read </span>name                      <span class="c">#  Use # to erase last character typed.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Your name is </span><span class="nv">$name</span><span class="s2">.&quot;</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># Even after the script exits, the new key value remains set.</span>
+<span class="c"># Exercise: How would you reset the erase character to the default value?</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-3-secret-password-turning-off-terminal-echoing">
+<h2>Exemple 3. <em>secret password</em> : Turning off terminal echoing<a class="headerlink" href="#exemple-3-secret-password-turning-off-terminal-echoing" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># secret-pw.sh: secret password</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;Enter password &quot;</span>
+<span class="nb">read </span>passwd
+<span class="nb">echo</span> <span class="s2">&quot;password is </span><span class="nv">$passwd</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;If someone had been looking over your shoulder, &quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;your password would have been compromised.&quot;</span>
+
+<span class="nb">echo</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span>  <span class="c"># Two line-feeds in an &quot;and list.&quot;</span>
+
+
+stty -echo    <span class="c"># Turns off screen echo.</span>
+<span class="c">#   May also be done with</span>
+<span class="c">#   read -sp passwd</span>
+<span class="c">#   A big Thank You to Leigh James for pointing this out.</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;Enter password again &quot;</span>
+<span class="nb">read </span>passwd
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;password is </span><span class="nv">$passwd</span><span class="s2">&quot;</span>
+<span class="nb">echo</span>
+
+stty <span class="nb">echo</span>     <span class="c"># Restores screen echo.</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># Do an &#39;info stty&#39; for more on this useful-but-tricky command.</span>
+</pre></div>
+</div>
+<p>A creative use of <strong>stty</strong> is detecting a user keypress (without
+hitting <strong>ENTER</strong> ).</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-4-keypress-detection">
+<h2>Exemple 4. Keypress detection<a class="headerlink" href="#exemple-4-keypress-detection" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># keypress.sh: Detect a user keypress (&quot;hot keys&quot;).</span>
+
+<span class="nb">echo</span>
+
+<span class="nv">old_tty_settings</span><span class="o">=</span><span class="k">$(</span>stty -g<span class="k">)</span>   <span class="c"># Save old settings (why?).</span>
+stty -icanon
+<span class="nv">Keypress</span><span class="o">=</span><span class="k">$(</span>head -c1<span class="k">)</span>          <span class="c"># or $(dd bs=1 count=1 2&gt; /dev/null)</span>
+                              <span class="c"># on non-GNU systems</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Key pressed was \&quot;&quot;</span><span class="nv">$Keypress</span><span class="s2">&quot;\&quot;.&quot;</span>
+<span class="nb">echo</span>
+
+stty <span class="s2">&quot;</span><span class="nv">$old_tty_settings</span><span class="s2">&quot;</span>      <span class="c"># Restore old settings.</span>
+
+<span class="c"># Thanks, Stephane Chazelas.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Also see <a class="reference external" href="internalvariables.html#TIMEOUT">Example 9-3</a> and
+<a class="reference external" href="contributed-scripts.html#STOPWATCH">Example A-43</a> .</p>
+<p><strong>terminals and modes</strong></p>
+<p>Normally, a terminal works in the <em>canonical</em> mode. When a user hits
+a key, the resulting character does not immediately go to the
+program actually running in this terminal. A buffer local to the
+terminal stores keystrokes. When the user hits the <strong>ENTER</strong> key,
+this sends all the stored keystrokes to the program running. There
+is even a basic line editor inside the terminal.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>stty -a
+speed <span class="m">9600</span> baud<span class="p">;</span> rows 36<span class="p">;</span> columns 96<span class="p">;</span> <span class="nv">line</span> <span class="o">=</span> 0<span class="p">;</span>
+ <span class="nv">intr</span> <span class="o">=</span> ^C<span class="p">;</span> <span class="nv">quit</span> <span class="o">=</span> ^<span class="se">\;</span> <span class="nv">erase</span> <span class="o">=</span> ^H<span class="p">;</span> <span class="nb">kill</span> <span class="o">=</span> ^U<span class="p">;</span> <span class="nv">eof</span> <span class="o">=</span> ^D<span class="p">;</span> <span class="nv">eol</span> <span class="o">=</span> &lt;undef&gt;<span class="p">;</span> <span class="nv">eol2</span> <span class="o">=</span> &lt;undef&gt;<span class="p">;</span>
+ <span class="nv">start</span> <span class="o">=</span> ^Q<span class="p">;</span> <span class="nv">stop</span> <span class="o">=</span> ^S<span class="p">;</span> <span class="nv">susp</span> <span class="o">=</span> ^Z<span class="p">;</span> <span class="nv">rprnt</span> <span class="o">=</span> ^R<span class="p">;</span> <span class="nv">werase</span> <span class="o">=</span> ^W<span class="p">;</span> <span class="nv">lnext</span> <span class="o">=</span> ^V<span class="p">;</span> <span class="nv">flush</span> <span class="o">=</span> ^O<span class="p">;</span>
+ ...
+ isig icanon iexten <span class="nb">echo </span>echoe echok -echonl -noflsh -xcase -tostop -echoprt
+</pre></div>
+</div>
+<p>Using canonical mode, it is possible to redefine the special keys
+for the local terminal line editor.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>cat &gt; filexxx
+wha&lt;ctl-W&gt;I&lt;ctl-H&gt;foo bar&lt;ctl-U&gt;hello world&lt;ENTER&gt;
+&lt;ctl-D&gt;
+bash<span class="nv">$ </span>cat filexxx
+hello world
+bash<span class="nv">$ </span>wc -c &lt; filexxx
+12
+</pre></div>
+</div>
+<p>The process controlling the terminal receives only 12 characters (11
+alphabetic ones, plus a newline), although the user hit 26 keys.
+In non-canonical ( &#8220;raw&#8221; ) mode, every key hit (including special
+editing keys such as <strong>ctl-H</strong> ) sends a character immediately to
+the controlling process.</p>
+<p>The Bash prompt disables both ``            icanon           `` and
+``            echo           `` , since it replaces the basic
+terminal line editor with its own more elaborate one. For example,
+when you hit <strong>ctl-A</strong> at the Bash prompt, there&#8217;s no <strong>^A</strong> echoed
+by the terminal, but Bash gets a <strong>\1</strong> character, interprets it,
+and moves the cursor to the begining of the line.</p>
+<p><em>Stéphane Chazelas</em></p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>stty -a
+speed <span class="m">9600</span> baud<span class="p">;</span> rows 36<span class="p">;</span> columns 96<span class="p">;</span> <span class="nv">line</span> <span class="o">=</span> 0<span class="p">;</span>
+ <span class="nv">intr</span> <span class="o">=</span> ^C<span class="p">;</span> <span class="nv">quit</span> <span class="o">=</span> ^<span class="se">\;</span> <span class="nv">erase</span> <span class="o">=</span> ^H<span class="p">;</span> <span class="nb">kill</span> <span class="o">=</span> ^U<span class="p">;</span> <span class="nv">eof</span> <span class="o">=</span> ^D<span class="p">;</span> <span class="nv">eol</span> <span class="o">=</span> &lt;undef&gt;<span class="p">;</span> <span class="nv">eol2</span> <span class="o">=</span> &lt;undef&gt;<span class="p">;</span>
+ <span class="nv">start</span> <span class="o">=</span> ^Q<span class="p">;</span> <span class="nv">stop</span> <span class="o">=</span> ^S<span class="p">;</span> <span class="nv">susp</span> <span class="o">=</span> ^Z<span class="p">;</span> <span class="nv">rprnt</span> <span class="o">=</span> ^R<span class="p">;</span> <span class="nv">werase</span> <span class="o">=</span> ^W<span class="p">;</span> <span class="nv">lnext</span> <span class="o">=</span> ^V<span class="p">;</span> <span class="nv">flush</span> <span class="o">=</span> ^O<span class="p">;</span>
+ ...
+ isig icanon iexten <span class="nb">echo </span>echoe echok -echonl -noflsh -xcase -tostop -echoprt
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>cat &gt; filexxx
+wha&lt;ctl-W&gt;I&lt;ctl-H&gt;foo bar&lt;ctl-U&gt;hello world&lt;ENTER&gt;
+&lt;ctl-D&gt;
+bash<span class="nv">$ </span>cat filexxx
+hello world
+bash<span class="nv">$ </span>wc -c &lt; filexxx
+12
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>stty -a
+speed <span class="m">9600</span> baud<span class="p">;</span> rows 36<span class="p">;</span> columns 96<span class="p">;</span> <span class="nv">line</span> <span class="o">=</span> 0<span class="p">;</span>
+ <span class="nv">intr</span> <span class="o">=</span> ^C<span class="p">;</span> <span class="nv">quit</span> <span class="o">=</span> ^<span class="se">\;</span> <span class="nv">erase</span> <span class="o">=</span> ^H<span class="p">;</span> <span class="nb">kill</span> <span class="o">=</span> ^U<span class="p">;</span> <span class="nv">eof</span> <span class="o">=</span> ^D<span class="p">;</span> <span class="nv">eol</span> <span class="o">=</span> &lt;undef&gt;<span class="p">;</span> <span class="nv">eol2</span> <span class="o">=</span> &lt;undef&gt;<span class="p">;</span>
+ <span class="nv">start</span> <span class="o">=</span> ^Q<span class="p">;</span> <span class="nv">stop</span> <span class="o">=</span> ^S<span class="p">;</span> <span class="nv">susp</span> <span class="o">=</span> ^Z<span class="p">;</span> <span class="nv">rprnt</span> <span class="o">=</span> ^R<span class="p">;</span> <span class="nv">werase</span> <span class="o">=</span> ^W<span class="p">;</span> <span class="nv">lnext</span> <span class="o">=</span> ^V<span class="p">;</span> <span class="nv">flush</span> <span class="o">=</span> ^O<span class="p">;</span>
+ ...
+ isig icanon iexten <span class="nb">echo </span>echoe echok -echonl -noflsh -xcase -tostop -echoprt
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>cat &gt; filexxx
+wha&lt;ctl-W&gt;I&lt;ctl-H&gt;foo bar&lt;ctl-U&gt;hello world&lt;ENTER&gt;
+&lt;ctl-D&gt;
+bash<span class="nv">$ </span>cat filexxx
+hello world
+bash<span class="nv">$ </span>wc -c &lt; filexxx
+12
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>setterm</strong></dt>
+<dd><p class="first">Set certain terminal attributes. This command writes to its
+terminal&#8217;s ``         stdout        `` a string that changes the
+behavior of that terminal.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash$ setterm -cursor off
+bash$
+</pre></div>
+</div>
+<p>The <strong>setterm</strong> command can be used within a script to change the
+appearance of text written to ``         stdout        `` , although
+there are certainly <a class="reference external" href="colorizing.html#COLORIZINGREF">better tools</a>
+available for this purpose.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>setterm -bold on
+<span class="nb">echo </span>bold hello
+
+setterm -bold off
+<span class="nb">echo </span>normal hello
+</pre></div>
+</div>
+</dd>
+<dt><strong>tset</strong></dt>
+<dd><p class="first">Show or initialize terminal settings. This is a less capable version
+of <strong>stty</strong> .</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>tset -r
+Terminal <span class="nb">type </span>is xterm-xfree86.
+ Kill is control-U <span class="o">(</span>^U<span class="o">)</span>.
+ Interrupt is control-C <span class="o">(</span>^C<span class="o">)</span>.
+</pre></div>
+</div>
+</dd>
+<dt><strong>setserial</strong></dt>
+<dd><p class="first">Set or display serial port parameters. This command must be run by
+<em>root</em> and is usually found in a system setup script.</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="c"># From /etc/pcmcia/serial script:</span>
+
+<span class="nv">IRQ</span><span class="o">=</span><span class="sb">`</span>setserial /dev/<span class="nv">$DEVICEsed</span> -e <span class="s1">&#39;s/.*IRQ: //&#39;</span><span class="sb">`</span>
+setserial /dev/<span class="nv">$DEVICE</span> irq <span class="m">0</span> <span class="p">;</span> setserial /dev/<span class="nv">$DEVICE</span> irq <span class="nv">$IRQ</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>getty</strong> , <strong>agetty</strong></dt>
+<dd>The initialization process for a terminal uses <strong>getty</strong> or
+<strong>agetty</strong> to set it up for login by a user. These commands are not
+used within user shell scripts. Their scripting counterpart is
+<strong>stty</strong> .</dd>
+<dt><strong>mesg</strong></dt>
+<dd>Enables or disables write access to the current user&#8217;s terminal.
+Disabling access would prevent another user on the network to
+<a class="reference external" href="communications.html#WRITEREF">write</a> to the terminal.</dd>
+</dl>
+</div></blockquote>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<blockquote>
+<div>It can be quite annoying to have a message about ordering pizza
+suddenly appear in the middle of the text file you are editing. On a
+multi-user network, you might therefore wish to disable write access
+to your terminal when you need to avoid interruptions.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>wall</strong></dt>
+<dd><p class="first">This is an acronym for &#8221; <a class="reference external" href="communications.html#WRITEREF">write</a>
+all,&#8221; i.e., sending a message to all users at every terminal logged
+into the network. It is primarily a system administrator&#8217;s tool,
+useful, for example, when warning everyone that the system will
+shortly go down due to a problem (see <a class="reference external" href="here-docs.html#EX70">Example
+19-1</a> ).</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>wall System going down <span class="k">for</span> maintenance in <span class="m">5</span> minutes!
+Broadcast message from bozo <span class="o">(</span>pts/1<span class="o">)</span> Sun Jul  <span class="m">8</span> 13:53:27 2001...
+
+ System going down <span class="k">for</span> maintenance in <span class="m">5</span> minutes!
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">If write access to a particular terminal has been disabled with
+<strong>mesg</strong> , then <strong>wall</strong> cannot send a message to that terminal.</p>
+</div>
+<p>** Information and Statistics**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>uname</strong></dt>
+<dd><p class="first">Output system specifications (OS, kernel version, etc.) to
+``         stdout        `` . Invoked with the
+``         -a        `` option, gives verbose system info (see
+<a class="reference external" href="moreadv.html#EX41">Example 16-5</a> ). The ``         -s        ``
+option shows only the OS type.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>uname
+Linux
+
+bash<span class="nv">$ </span>uname -s
+Linux
+
+
+bash<span class="nv">$ </span>uname -a
+Linux iron.bozo 2.6.15-1.2054_FC5 <span class="c">#1 Tue Mar 14 15:48:33 EST 2006</span>
+ i686 i686 i386 GNU/Linux
+</pre></div>
+</div>
+</dd>
+<dt><strong>arch</strong></dt>
+<dd><p class="first">Show system architecture. Equivalent to <strong>uname -m</strong> . See <a class="reference external" href="testbranch.html#CASECMD">Example
+11-27</a> .</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>arch
+i686
+
+bash<span class="nv">$ </span>uname -m
+i686
+</pre></div>
+</div>
+</dd>
+<dt><strong>lastcomm</strong></dt>
+<dd>Gives information about previous commands, as stored in the
+``         /var/account/pacct        `` file. Command name and user
+name can be specified by options. This is one of the GNU accounting
+utilities.</dd>
+<dt><strong>lastlog</strong></dt>
+<dd><p class="first">List the last login time of all system users. This references the
+``         /var/log/lastlog        `` file.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>lastlog
+root          tty1                      Fri Dec  <span class="m">7</span> 18:43:21 -0700 2001
+ bin                                     **Never logged in**
+ daemon                                  **Never logged in**
+ ...
+ bozo          tty1                      Sat Dec  <span class="m">8</span> 21:14:29 -0700 2001
+
+
+
+bash<span class="nv">$ </span>lastloggrep root
+root          tty1                      Fri Dec  <span class="m">7</span> 18:43:21 -0700 2001
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<blockquote>
+<div>This command will fail if the user invoking it does not have read
+permission for the ``            /var/log/lastlog           `` file.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>lsof</strong></dt>
+<dd><p class="first">List open files. This command outputs a detailed table of all
+currently open files and gives information about their owner, size,
+the processes associated with them, and more. Of course, <strong>lsof</strong>
+may be piped to <a class="reference external" href="textproc.html#GREPREF">grep</a> and/or
+<a class="reference external" href="awk.html#AWKREF">awk</a> to parse and analyze its results.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>lsof
+COMMAND    PID    USER   FD   TYPE     DEVICE    SIZE     NODE NAME
+ init         <span class="m">1</span>    root  mem    REG        3,5   <span class="m">30748</span>    <span class="m">30303</span> /sbin/init
+ init         <span class="m">1</span>    root  mem    REG        3,5   <span class="m">73120</span>     <span class="m">8069</span> /lib/ld-2.1.3.so
+ init         <span class="m">1</span>    root  mem    REG        3,5  <span class="m">931668</span>     <span class="m">8075</span> /lib/libc-2.1.3.so
+ cardmgr    <span class="m">213</span>    root  mem    REG        3,5   <span class="m">36956</span>    <span class="m">30357</span> /sbin/cardmgr
+ ...
+</pre></div>
+</div>
+<p>The <strong>lsof</strong> command is a useful, if complex administrative tool. If
+you are unable to dismount a filesystem and get an error message
+that it is still in use, then running <em>lsof</em> helps determine which
+files are still open on that filesystem. The ``         -i        ``
+option lists open network socket files, and this can help trace
+intrusion or hack attempts.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>lsof -an -i tcp
+COMMAND  PID USER  FD  TYPE DEVICE SIZE NODE NAME
+ firefox <span class="m">2330</span> bozo  32u IPv4   <span class="m">9956</span>       TCP 66.0.118.137:57596-&gt;67.112.7.104:http ...
+ firefox <span class="m">2330</span> bozo  38u IPv4  <span class="m">10535</span>       TCP 66.0.118.137:57708-&gt;216.79.48.24:http ...
+</pre></div>
+</div>
+<p class="last">See <a class="reference external" href="networkprogramming.html#IPADDRESSES">Example 30-2</a> for an
+effective use of <strong>lsof</strong> .</p>
+</dd>
+<dt><strong>strace</strong></dt>
+<dd><p class="first"><strong>S</strong> ystem <strong>trace</strong> : diagnostic and debugging tool for tracing
+<em>system calls</em> and signals. This command and <strong>ltrace</strong> , following,
+are useful for diagnosing why a given program or package fails to
+run . . . perhaps due to missing libraries or related causes.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>strace df
+execve<span class="o">(</span><span class="s2">&quot;/bin/df&quot;</span>, <span class="o">[</span><span class="s2">&quot;df&quot;</span><span class="o">]</span>, <span class="o">[</span>/* <span class="m">45</span> vars */<span class="o">])</span> <span class="o">=</span> 0
+ uname<span class="o">({</span><span class="nv">sys</span><span class="o">=</span><span class="s2">&quot;Linux&quot;</span>, <span class="nv">node</span><span class="o">=</span><span class="s2">&quot;bozo.localdomain&quot;</span>, ...<span class="o">})</span> <span class="o">=</span> 0
+ brk<span class="o">(</span>0<span class="o">)</span>                                  <span class="o">=</span> 0x804f5e4
+
+ ...
+</pre></div>
+</div>
+<p class="last">This is the Linux equivalent of the Solaris <strong>truss</strong> command.</p>
+</dd>
+<dt><strong>ltrace</strong></dt>
+<dd><p class="first"><strong>L</strong> ibrary <strong>trace</strong> : diagnostic and debugging tool that traces
+<em>library calls</em> invoked by a given command.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>ltrace df
+__libc_start_main<span class="o">(</span>0x804a910, 1, 0xbfb589a4, 0x804fb70, 0x804fb68 &lt;unfinished ...&gt;:
+ setlocale<span class="o">(</span>6, <span class="s2">&quot;&quot;</span><span class="o">)</span>                                 <span class="o">=</span> <span class="s2">&quot;en_US.UTF-8&quot;</span>
+bindtextdomain<span class="o">(</span><span class="s2">&quot;coreutils&quot;</span>, <span class="s2">&quot;/usr/share/locale&quot;</span><span class="o">)</span> <span class="o">=</span> <span class="s2">&quot;/usr/share/locale&quot;</span>
+textdomain<span class="o">(</span><span class="s2">&quot;coreutils&quot;</span><span class="o">)</span>                          <span class="o">=</span> <span class="s2">&quot;coreutils&quot;</span>
+__cxa_atexit<span class="o">(</span>0x804b650, 0, 0, 0x8052bf0, 0xbfb58908<span class="o">)</span> <span class="o">=</span> 0
+getenv<span class="o">(</span><span class="s2">&quot;DF_BLOCK_SIZE&quot;</span><span class="o">)</span>                          <span class="o">=</span> NULL
+
+ ...
+</pre></div>
+</div>
+</dd>
+<dt><strong>nc</strong></dt>
+<dd><p class="first">The <strong>nc</strong> ( <em>netcat</em> ) utility is a complete toolkit for connecting
+to and listening to TCP and UDP ports. It is useful as a diagnostic
+and testing tool and as a component in simple script-based HTTP
+clients and servers.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>nc localhost.localdomain 25
+<span class="m">220</span> localhost.localdomain ESMTP Sendmail 8.13.1/8.13.1<span class="p">;</span>
+ Thu, <span class="m">31</span> Mar <span class="m">2005</span> 15:41:35 -0700
+</pre></div>
+</div>
+<p class="last">A real-life <a class="reference external" href="process-sub.html#NETCATEXAMPLE">usage example</a> .</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="exemple-5-checking-a-remote-server-for-identd">
+<h2>Exemple 5. Checking a remote server for <em>identd</em><a class="headerlink" href="#exemple-5-checking-a-remote-server-for-identd" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#! /bin/sh</span>
+<span class="c">## Duplicate DaveG&#39;s ident-scan thingie using netcat. Oooh, he&#39;ll be p*ssed.</span>
+<span class="c">## Args: target port [port port port ...]</span>
+<span class="c">## Hose stdout _and_ stderr together.</span>
+<span class="c">##</span>
+<span class="c">##  Advantages: runs slower than ident-scan, giving remote inetd less cause</span>
+<span class="c">##+ for alarm, and only hits the few known daemon ports you specify.</span>
+<span class="c">##  Disadvantages: requires numeric-only port args, the output sleazitude,</span>
+<span class="c">##+ and won&#39;t work for r-services when coming from high source ports.</span>
+<span class="c"># Script author: Hobbit &lt;hobbit@avian.org&gt;</span>
+<span class="c"># Used in ABS Guide with permission.</span>
+
+<span class="c"># ---------------------------------------------------</span>
+<span class="nv">E_BADARGS</span><span class="o">=</span><span class="m">65</span>       <span class="c"># Need at least two args.</span>
+<span class="nv">TWO_WINKS</span><span class="o">=</span><span class="m">2</span>        <span class="c"># How long to sleep.</span>
+<span class="nv">THREE_WINKS</span><span class="o">=</span>3
+<span class="nv">IDPORT</span><span class="o">=</span><span class="m">113</span>         <span class="c"># Authentication &quot;tap ident&quot; port.</span>
+<span class="nv">RAND1</span><span class="o">=</span>999
+<span class="nv">RAND2</span><span class="o">=</span>31337
+<span class="nv">TIMEOUT0</span><span class="o">=</span>9
+<span class="nv">TIMEOUT1</span><span class="o">=</span>8
+<span class="nv">TIMEOUT2</span><span class="o">=</span>4
+<span class="c"># ---------------------------------------------------</span>
+
+<span class="k">case</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">2</span><span class="si">}</span><span class="s2">&quot;</span> in
+  <span class="s2">&quot;&quot;</span> <span class="o">)</span> <span class="nb">echo</span> <span class="s2">&quot;Need HOST and at least one PORT.&quot;</span> <span class="p">;</span> <span class="nb">exit</span> <span class="nv">$E_BADARGS</span> <span class="p">;;</span>
+<span class="k">esac</span>
+
+<span class="c"># Ping &#39;em once and see if they *are* running identd.</span>
+nc -z -w <span class="nv">$TIMEOUT0</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="nv">$IDPORT</span> <span class="p">|</span><span class="se">\</span>
+<span class="o">{</span> <span class="nb">echo</span> <span class="s2">&quot;Oops, </span><span class="nv">$1</span><span class="s2"> isn&#39;t running identd.&quot;</span> <span class="p">;</span> <span class="nb">exit </span><span class="m">0</span> <span class="p">;</span> <span class="o">}</span>
+<span class="c">#  -z scans for listening daemons.</span>
+<span class="c">#     -w $TIMEOUT = How long to try to connect.</span>
+
+<span class="c"># Generate a randomish base port.</span>
+<span class="nv">RP</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$$</span> % <span class="nv">$RAND1</span> + <span class="nv">$RAND2</span><span class="sb">`</span>
+
+<span class="nv">TRG</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="nb">shift</span>
+
+<span class="k">while</span> <span class="nb">test</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="p">;</span> <span class="k">do</span>
+  nc -v -w <span class="nv">$TIMEOUT1</span> -p <span class="si">${</span><span class="nv">RP</span><span class="si">}</span> <span class="s2">&quot;</span><span class="nv">$TRG</span><span class="s2">&quot;</span> <span class="si">${</span><span class="nv">1</span><span class="si">}</span> &lt; /dev/null &gt; /dev/null <span class="p">&amp;</span>
+  <span class="nv">PROC</span><span class="o">=</span><span class="nv">$!</span>
+  sleep <span class="nv">$THREE_WINKS</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">1</span><span class="si">}</span><span class="s2">,</span><span class="si">${</span><span class="nv">RP</span><span class="si">}</span><span class="s2">&quot;</span>nc -w <span class="nv">$TIMEOUT2</span> -r <span class="s2">&quot;</span><span class="nv">$TRG</span><span class="s2">&quot;</span> <span class="nv">$IDPORT</span> 2&gt;<span class="p">&amp;</span>1
+  sleep <span class="nv">$TWO_WINKS</span>
+
+<span class="c"># Does this look like a lamer script or what . . . ?</span>
+<span class="c"># ABS Guide author comments: &quot;Ain&#39;t really all that bad . . .</span>
+<span class="c">#+                            kinda clever, actually.&quot;</span>
+
+  <span class="nb">kill</span> -HUP <span class="nv">$PROC</span>
+  <span class="nv">RP</span><span class="o">=</span><span class="sb">`</span>expr <span class="si">${</span><span class="nv">RP</span><span class="si">}</span> + 1<span class="sb">`</span>
+  <span class="nb">shift</span>
+<span class="k">done</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c">#  Notes:</span>
+<span class="c">#  -----</span>
+
+<span class="c">#  Try commenting out line 30 and running this script</span>
+<span class="c">#+ with &quot;localhost.localdomain 25&quot; as arguments.</span>
+
+<span class="c">#  For more of Hobbit&#39;s &#39;nc&#39; example scripts,</span>
+<span class="c">#+ look in the documentation:</span>
+<span class="c">#+ the /usr/share/doc/nc-X.XX/scripts directory.</span>
+</pre></div>
+</div>
+<p>And, of course, there&#8217;s Dr. Andrew Tridgell&#8217;s notorious one-line
+script in the BitKeeper Affair:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">echo </span>clonenc thunk.org <span class="m">5000</span> &gt; e2fsprogs.dat
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>free</strong></dt>
+<dd><p class="first">Shows memory and cache usage in tabular form. The output of this
+command lends itself to parsing, using
+<a class="reference external" href="textproc.html#GREPREF">grep</a> , <a class="reference external" href="awk.html#AWKREF">awk</a> or
+<strong>Perl</strong> . The <strong>procinfo</strong> command shows all the information that
+<strong>free</strong> does, and much more.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>free
+                total       used       free     shared    buffers     cached
+   Mem:         <span class="m">30504</span>      <span class="m">28624</span>       <span class="m">1880</span>      <span class="m">15820</span>       <span class="m">1608</span>       16376
+   -/+ buffers/cache:      <span class="m">10640</span>      19864
+   Swap:        <span class="m">68540</span>       <span class="m">3128</span>      65412
+</pre></div>
+</div>
+<p>To show unused RAM memory:</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>freegrep Mem <span class="p">|</span> awk <span class="s1">&#39;{ print $4 }&#39;</span>
+1880
+</pre></div>
+</div>
+</dd>
+<dt><strong>procinfo</strong></dt>
+<dd><p class="first">Extract and list information and statistics from the
+``          /proc         ``
+pseudo-filesystem &lt;devproc.html#DEVPROCREF&gt;`__ . This gives a very
+extensive and detailed listing.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>procinfogrep Bootup
+Bootup: Wed Mar <span class="m">21</span> 15:15:50 <span class="m">2001</span>    Load average: 0.04 0.21 0.34 3/47 6829
+</pre></div>
+</div>
+</dd>
+<dt><strong>lsdev</strong></dt>
+<dd><p class="first">List devices, that is, show installed hardware.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>lsdev
+Device            DMA   IRQ  I/O Ports
+ ------------------------------------------------
+ cascade             <span class="m">4</span>     2
+ dma                          0080-008f
+ dma1                         0000-001f
+ dma2                         00c0-00df
+ fpu                          00f0-00ff
+ ide0                     <span class="m">14</span>  01f0-01f7 03f6-03f6
+ ...
+</pre></div>
+</div>
+</dd>
+<dt><strong>du</strong></dt>
+<dd><p class="first">Show (disk) file usage, recursively. Defaults to current working
+directory, unless otherwise specified.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>du -ach
+1.0k    ./wi.sh
+ 1.0k    ./tst.sh
+ 1.0k    ./random.file
+ 6.0k    .
+ 6.0k    total
+</pre></div>
+</div>
+</dd>
+<dt><strong>df</strong></dt>
+<dd><p class="first">Shows filesystem usage in tabular form.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>df
+Filesystem           1k-blocks      Used Available Use% Mounted on
+ /dev/hda5               <span class="m">273262</span>     <span class="m">92607</span>    <span class="m">166547</span>  36% /
+ /dev/hda8               <span class="m">222525</span>    <span class="m">123951</span>     <span class="m">87085</span>  59% /home
+ /dev/hda7              <span class="m">1408796</span>   <span class="m">1075744</span>    <span class="m">261488</span>  80% /usr
+</pre></div>
+</div>
+</dd>
+<dt><strong>dmesg</strong></dt>
+<dd><p class="first">Lists all system bootup messages to ``         stdout        `` .
+Handy for debugging and ascertaining which device drivers were
+installed and which system interrupts in use. The output of
+<strong>dmesg</strong> may, of course, be parsed with
+<a class="reference external" href="textproc.html#GREPREF">grep</a> , <a class="reference external" href="sedawk.html#SEDREF">sed</a> , or
+<a class="reference external" href="awk.html#AWKREF">awk</a> from within a script.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>dmesggrep hda
+Kernel <span class="nb">command </span>line: ro <span class="nv">root</span><span class="o">=</span>/dev/hda2
+ hda: IBM-DLGA-23080, ATA DISK drive
+ hda: <span class="m">6015744</span> sectors <span class="o">(</span><span class="m">3080</span> MB<span class="o">)</span> w/96KiB Cache, <span class="nv">CHS</span><span class="o">=</span>746/128/63
+ hda: hda1 hda2 hda3 &lt; hda5 hda6 hda7 &gt; hda4
+</pre></div>
+</div>
+</dd>
+<dt><strong>stat</strong></dt>
+<dd><p class="first">Gives detailed and verbose <em>stat</em> istics on a given file (even a
+directory or device file) or set of files.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>stat test.cru
+  File: <span class="s2">&quot;test.cru&quot;</span>
+   Size: <span class="m">49970</span>        Allocated Blocks: <span class="m">100</span>          Filetype: Regular File
+   Mode: <span class="o">(</span>0664/-rw-rw-r--<span class="o">)</span>         Uid: <span class="o">(</span>  501/ bozo<span class="o">)</span>  Gid: <span class="o">(</span>  501/ bozo<span class="o">)</span>
+ Device:  3,8   Inode: <span class="m">18185</span>     Links: 1
+ Access: Sat Jun  <span class="m">2</span> 16:40:24 2001
+ Modify: Sat Jun  <span class="m">2</span> 16:40:24 2001
+ Change: Sat Jun  <span class="m">2</span> 16:40:24 2001
+</pre></div>
+</div>
+<p>If the target file does not exist, <strong>stat</strong> returns an error
+message.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>stat nonexistent-file
+nonexistent-file: No such file or directory
+</pre></div>
+</div>
+<p>In a script, you can use <strong>stat</strong> to extract information about files
+(and filesystems) and set variables accordingly.</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># fileinfo2.sh</span>
+
+<span class="c"># Per suggestion of Joël Bourquard and . . .</span>
+<span class="c"># http://www.linuxquestions.org/questions/showthread.php?t=410766</span>
+
+
+<span class="nv">FILENAME</span><span class="o">=</span>testfile.txt
+<span class="nv">file_name</span><span class="o">=</span><span class="k">$(</span>stat -c%n <span class="s2">&quot;</span><span class="nv">$FILENAME</span><span class="s2">&quot;</span><span class="k">)</span>   <span class="c"># Same as &quot;$FILENAME&quot; of course.</span>
+<span class="nv">file_owner</span><span class="o">=</span><span class="k">$(</span>stat -c%U <span class="s2">&quot;</span><span class="nv">$FILENAME</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="nv">file_size</span><span class="o">=</span><span class="k">$(</span>stat -c%s <span class="s2">&quot;</span><span class="nv">$FILENAME</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="c">#  Certainly easier than using &quot;ls -l $FILENAME&quot;</span>
+<span class="c">#+ and then parsing with sed.</span>
+<span class="nv">file_inode</span><span class="o">=</span><span class="k">$(</span>stat -c%i <span class="s2">&quot;</span><span class="nv">$FILENAME</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="nv">file_type</span><span class="o">=</span><span class="k">$(</span>stat -c%F <span class="s2">&quot;</span><span class="nv">$FILENAME</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="nv">file_access_rights</span><span class="o">=</span><span class="k">$(</span>stat -c%A <span class="s2">&quot;</span><span class="nv">$FILENAME</span><span class="s2">&quot;</span><span class="k">)</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;File name:          </span><span class="nv">$file_name</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;File owner:         </span><span class="nv">$file_owner</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;File size:          </span><span class="nv">$file_size</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;File inode:         </span><span class="nv">$file_inode</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;File type:          </span><span class="nv">$file_type</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;File access rights: </span><span class="nv">$file_access_rights</span><span class="s2">&quot;</span>
+
+<span class="nb">exit </span>0
+
+sh fileinfo2.sh
+
+File name:          testfile.txt
+File owner:         bozo
+File size:          418
+File inode:         1730378
+File <span class="nb">type</span>:          regular file
+File access rights: -rw-rw-r--
+</pre></div>
+</div>
+</dd>
+<dt><strong>vmstat</strong></dt>
+<dd><p class="first">Display virtual memory statistics.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>vmstat
+   procs                      memory    swap          io system         cpu
+ r  b  w   swpd   free   buff  cache  si  so    bi    bo   in    cs  us  sy id
+ <span class="m">0</span>  <span class="m">0</span>  <span class="m">0</span>      <span class="m">0</span>  <span class="m">11040</span>   <span class="m">2636</span>  <span class="m">38952</span>   <span class="m">0</span>   <span class="m">0</span>    <span class="m">33</span>     <span class="m">7</span>  <span class="m">271</span>    <span class="m">88</span>   <span class="m">8</span>   <span class="m">3</span> 89
+</pre></div>
+</div>
+</dd>
+<dt><strong>uptime</strong></dt>
+<dd><p class="first">Shows how long the system has been running, along with associated
+statistics.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>uptime
+10:28pm  up  1:57,  <span class="m">3</span> users,  load average: 0.17, 0.34, 0.27
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div>A <em>load average</em> of 1 or less indicates that the system handles
+processes immediately. A load average greater than 1 means that
+processes are being queued. When the load average gets above 3 (on a
+single-core processor), then system performance is significantly
+degraded.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>hostname</strong></dt>
+<dd><p class="first">Lists the system&#8217;s host name. This command sets the host name in an
+``         /etc/rc.d        `` setup script (
+``         /etc/rc.d/rc.sysinit        `` or similar). It is
+equivalent to <strong>uname -n</strong> , and a counterpart to the
+<a class="reference external" href="internalvariables.html#HOSTNAMEREF">$HOSTNAME</a> internal
+variable.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>hostname
+localhost.localdomain
+
+bash<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$HOSTNAME</span>
+localhost.localdomain
+</pre></div>
+</div>
+<p class="last">Similar to the <strong>hostname</strong> command are the <strong>domainname</strong> ,
+<strong>dnsdomainname</strong> , <strong>nisdomainname</strong> , and <strong>ypdomainname</strong>
+commands. Use these to display or set the system DNS or NIS/YP
+domain name. Various options to <strong>hostname</strong> also perform these
+functions.</p>
+</dd>
+<dt><strong>hostid</strong></dt>
+<dd><p class="first">Echo a 32-bit hexadecimal numerical identifier for the host machine.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>hostid
+7f0100
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p>This command allegedly fetches a &#8220;unique&#8221; serial number for a
+particular system. Certain product registration procedures use this
+number to brand a particular user license. Unfortunately, <strong>hostid</strong>
+only returns the machine network address in hexadecimal, with pairs
+of bytes transposed.</p>
+<p class="last">The network address of a typical non-networked Linux machine, is
+found in ``            /etc/hosts           `` .</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>cat /etc/hosts
+127.0.0.1
+localhost.localdomai
+</pre></div>
+</div>
+<p>n localhost</p>
+<blockquote>
+<div><blockquote>
+<div><p>As it happens, transposing the bytes of
+``                         127.0.0.1                       `` , we
+get ``                         0.127.1.0                       `` ,
+which translates in hex to
+``                         007f0100                       `` , the
+exact equivalent of what <strong>hostid</strong> returns, above. There exist only
+a few million other Linux machines with this identical <em>hostid</em> .</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>cat /etc/hosts
+127.0.0.1               localhost.localdomain localhost
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>cat /etc/hosts
+127.0.0.1               localhost.localdomain localhost
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>sar</strong></dt>
+<dd><p class="first">Invoking <strong>sar</strong> (System Activity Reporter) gives a very detailed
+rundown on system statistics. The Santa Cruz Operation ( &#8220;Old&#8221; SCO)
+released <strong>sar</strong> as Open Source in June, 1999.</p>
+<p>This command is not part of the base Linux distribution, but may be
+obtained as part of the <a class="reference external" href="http://perso.wanadoo.fr/sebastien.godard/">sysstat
+utilities</a> package,
+written by <a class="reference external" href="mailto:sebastien&#46;godard&#37;&#52;&#48;wanadoo&#46;fr">Sebastien Godard</a>
+.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>sar
+Linux 2.4.9 <span class="o">(</span>brooks.seringas.fr<span class="o">)</span>     09/26/03
+
+10:30:00          CPU     %user     %nice   %system   %iowait     %idle
+10:40:00          all      2.21     10.90     65.48      0.00     21.41
+10:50:00          all      3.36      0.00     72.36      0.00     24.28
+11:00:00          all      1.12      0.00     80.77      0.00     18.11
+Average:          all      2.23      3.63     72.87      0.00     21.27
+
+14:32:30          LINUX RESTART
+
+15:00:00          CPU     %user     %nice   %system   %iowait     %idle
+15:10:00          all      8.59      2.40     17.47      0.00     71.54
+15:20:00          all      4.07      1.00     11.95      0.00     82.98
+15:30:00          all      0.79      2.94      7.56      0.00     88.71
+Average:          all      6.33      1.70     14.71      0.00     77.26
+</pre></div>
+</div>
+</dd>
+<dt><strong>readelf</strong></dt>
+<dd><p class="first">Show information and statistics about a designated <em>elf</em> binary.
+This is part of the <em>binutils</em> package.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash$ readelf -h /bin/bash
+ELF Header:
+   Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00
+   Class:                             ELF32
+   Data:                              2&#39;s complement, little endian
+   Version:                           1 (current)
+   OS/ABI:                            UNIX - System V
+   ABI Version:                       0
+   Type:                              EXEC (Executable file)
+   . . .
+</pre></div>
+</div>
+</dd>
+<dt><strong>size</strong></dt>
+<dd><p class="first">The <strong>size [/path/to/binary]</strong> command gives the segment sizes of a
+binary executable or archive file. This is mainly of use to
+programmers.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>size /bin/bash
+   text    data     bss     dec     hex filename
+  <span class="m">495971</span>   <span class="m">22496</span>   <span class="m">17392</span>  <span class="m">535859</span>   82d33 /bin/bash
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<p>** System Logs**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>logger</strong></dt>
+<dd><p class="first">Appends a user-generated message to the system log (
+``         /var/log/messages        `` ). You do not have to be
+<em>root</em> to invoke <strong>logger</strong> .</p>
+<div class="highlight-sh"><div class="highlight"><pre>logger Experiencing instability in network connection at 23:10, 05/21.
+<span class="c"># Now, do a &#39;tail /var/log/messages&#39;.</span>
+</pre></div>
+</div>
+<p>By embedding a <strong>logger</strong> command in a script, it is possible to
+write debugging information to
+``         /var/log/messages        `` .</p>
+<div class="last highlight-sh"><div class="highlight"><pre>logger -t <span class="nv">$0</span> -i Logging at line <span class="s2">&quot;</span><span class="nv">$LINENO</span><span class="s2">&quot;</span>.
+<span class="c"># The &quot;-t&quot; option specifies the tag for the logger entry.</span>
+<span class="c"># The &quot;-i&quot; option records the process ID.</span>
+
+<span class="c"># tail /var/log/message</span>
+<span class="c"># ...</span>
+<span class="c"># Jul  7 20:48:58 localhost ./test.sh[1712]: Logging at line 3.</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>logrotate</strong></dt>
+<dd><p class="first">This utility manages the system log files, rotating, compressing,
+deleting, and/or e-mailing them, as appropriate. This keeps the
+``         /var/log        `` from getting cluttered with old log
+files. Usually <a class="reference external" href="system.html#CRONREF">cron</a> runs <strong>logrotate</strong> on
+a daily basis.</p>
+<p class="last">Adding an appropriate entry to
+``         /etc/logrotate.conf        `` makes it possible to manage
+personal log files, as well as system-wide ones.</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Stefano Falsetto has created
+<a class="reference external" href="http://www.gnu.org/software/rottlog/">rottlog</a> , which he
+considers to be an improved version of <strong>logrotate</strong> .</p>
+</div>
+<p>** Job Control**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>ps</strong></dt>
+<dd><p class="first">``                   P                 `` rocess
+``                   S                 `` tatistics: lists currently
+executing processes by owner and PID (process ID). This is usually
+invoked with ``         ax        `` or ``         aux        ``
+options, and may be piped to <a class="reference external" href="textproc.html#GREPREF">grep</a> or
+<a class="reference external" href="sedawk.html#SEDREF">sed</a> to search for a specific process (see
+<a class="reference external" href="internal.html#EX44">Example 15-14</a> and <a class="reference external" href="procref1.html#PIDID">Example
+29-3</a> ).</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span> ps axgrep sendmail
+<span class="m">295</span> ?       S      0:00 sendmail: accepting connections on port 25
+</pre></div>
+</div>
+<p class="last">To display system processes in graphical &#8220;tree&#8221; format: <strong>ps afjx</strong>
+or <strong>ps ax &#8211;forest</strong> .</p>
+</dd>
+<dt><strong>pgrep</strong> , <strong>pkill</strong></dt>
+<dd><p class="first">Combining the <strong>ps</strong> command with <a class="reference external" href="textproc.html#GREPREF">grep</a>
+or <a class="reference external" href="x9644.html#KILLREF">kill</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>ps agrep mingetty
+<span class="m">2212</span> tty2     Ss+    0:00 /sbin/mingetty tty2
+ <span class="m">2213</span> tty3     Ss+    0:00 /sbin/mingetty tty3
+ <span class="m">2214</span> tty4     Ss+    0:00 /sbin/mingetty tty4
+ <span class="m">2215</span> tty5     Ss+    0:00 /sbin/mingetty tty5
+ <span class="m">2216</span> tty6     Ss+    0:00 /sbin/mingetty tty6
+ <span class="m">4849</span> pts/2    S+     0:00 grep mingetty
+
+
+bash<span class="nv">$ </span>pgrep mingetty
+<span class="m">2212</span> mingetty
+ <span class="m">2213</span> mingetty
+ <span class="m">2214</span> mingetty
+ <span class="m">2215</span> mingetty
+ <span class="m">2216</span> mingetty
+</pre></div>
+</div>
+<p class="last">Compare the action of <strong>pkill</strong> with
+<a class="reference external" href="x9644.html#KILLALLREF">killall</a> .</p>
+</dd>
+<dt><strong>pstree</strong></dt>
+<dd>Lists currently executing processes in &#8220;tree&#8221; format. The
+``         -p        `` option shows the PIDs, as well as the
+process names.</dd>
+<dt><strong>top</strong></dt>
+<dd><p class="first">Continuously updated display of most cpu-intensive processes. The
+``         -b        `` option displays in text mode, so that the
+output may be parsed or accessed from a script.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>top -b
+  8:30pm  up <span class="m">3</span> min,  <span class="m">3</span> users,  load average: 0.49, 0.32, 0.13
+ <span class="m">45</span> processes: <span class="m">44</span> sleeping, <span class="m">1</span> running, <span class="m">0</span> zombie, <span class="m">0</span> stopped
+ CPU states: 13.6% user,  7.3% system,  0.0% nice, 78.9% idle
+ Mem:    78396K av,   65468K used,   12928K free,       0K shrd,    2352K buff
+ Swap:  157208K av,       0K used,  157208K free                   37244K cached
+
+   PID USER     PRI  NI  SIZE  RSS SHARE STAT %CPU %MEM   TIME COMMAND
+   <span class="m">848</span> bozo      <span class="m">17</span>   <span class="m">0</span>   <span class="m">996</span>  <span class="m">996</span>   <span class="m">800</span> R     5.6  1.2   0:00 top
+     <span class="m">1</span> root       <span class="m">8</span>   <span class="m">0</span>   <span class="m">512</span>  <span class="m">512</span>   <span class="m">444</span> S     0.0  0.6   0:04 init
+     <span class="m">2</span> root       <span class="m">9</span>   <span class="m">0</span>     <span class="m">0</span>    <span class="m">0</span>     <span class="m">0</span> SW    0.0  0.0   0:00 keventd
+   ...
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>nice</strong></p>
+<blockquote>
+<div>Run a background job with an altered priority. Priorities run from
+19 (lowest) to -20 (highest). Only <em>root</em> may set the negative
+(higher) priorities. Related commands are <strong>renice</strong> and <strong>snice</strong> ,
+which change the priority of a running process or processes, and
+<strong>skill</strong> , which sends a <a class="reference external" href="x9644.html#KILLREF">kill</a> signal to a
+process or processes.</div></blockquote>
+<dl class="docutils">
+<dt><strong>nohup</strong></dt>
+<dd>Keeps a command running even after user logs off. The command will
+run as a foreground process unless followed by &amp; . If you use
+<strong>nohup</strong> within a script, consider coupling it with a
+<a class="reference external" href="x9644.html#WAITREF">wait</a> to avoid creating an <em>orphan</em> or
+<a class="reference external" href="x9644.html#ZOMBIEREF">zombie</a> process.</dd>
+<dt><strong>pidof</strong></dt>
+<dd><p class="first">Identifies <em>process ID (PID)</em> of a running job. Since job control
+commands, such as <a class="reference external" href="x9644.html#KILLREF">kill</a> and
+<a class="reference external" href="system.html#NICE2REF">renice</a> act on the <em>PID</em> of a process (not
+its name), it is sometimes necessary to identify that <em>PID</em> . The
+<strong>pidof</strong> command is the approximate counterpart to the
+<a class="reference external" href="internalvariables.html#PPIDREF">$PPID</a> internal variable.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>pidof xclock
+880
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-6-pidof-helps-kill-a-process">
+<h2>Exemple 6. <em>pidof</em> helps kill a process<a class="headerlink" href="#exemple-6-pidof-helps-kill-a-process" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># kill-process.sh</span>
+
+<span class="nv">NOPROCESS</span><span class="o">=</span>2
+
+<span class="nv">process</span><span class="o">=</span>xxxyyyzzz  <span class="c"># Use nonexistent process.</span>
+<span class="c"># For demo purposes only...</span>
+<span class="c"># ... don&#39;t want to actually kill any actual process with this script.</span>
+<span class="c">#</span>
+<span class="c"># If, for example, you wanted to use this script to logoff the Internet,</span>
+<span class="c">#     process=pppd</span>
+
+<span class="nv">t</span><span class="o">=</span><span class="sb">`</span>pidof <span class="nv">$process</span><span class="sb">`</span>       <span class="c"># Find pid (process id) of $process.</span>
+<span class="c"># The pid is needed by &#39;kill&#39; (can&#39;t &#39;kill&#39; by program name).</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$t</span><span class="s2">&quot;</span> <span class="o">]</span>           <span class="c"># If process not present, &#39;pidof&#39; returns null.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Process </span><span class="nv">$process</span><span class="s2"> was not running.&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Nothing killed.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$NOPROCESS</span>
+<span class="k">fi</span>
+
+<span class="nb">kill</span> <span class="nv">$t</span>                  <span class="c"># May need &#39;kill -9&#39; for stubborn process.</span>
+
+<span class="c"># Need a check here to see if process allowed itself to be killed.</span>
+<span class="c"># Perhaps another &quot; t=`pidof $process` &quot; or ...</span>
+
+
+<span class="c"># This entire script could be replaced by</span>
+<span class="c">#        kill $(pidof -x process_name)</span>
+<span class="c"># or</span>
+<span class="c">#        killall process_name</span>
+<span class="c"># but it would not be as instructive.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>fuser</strong></dt>
+<dd><p class="first">Identifies the processes (by PID) that are accessing a given file,
+set of files, or directory. May also be invoked with the
+``         -k        `` option, which kills those processes. This
+has interesting implications for system security, especially in
+scripts preventing unauthorized users from accessing system
+services.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>fuser -u /usr/bin/vim
+/usr/bin/vim:         3207e<span class="o">(</span>bozo<span class="o">)</span>
+
+
+
+bash<span class="nv">$ </span>fuser -u /dev/null
+/dev/null:            3009<span class="o">(</span>bozo<span class="o">)</span>  3010<span class="o">(</span>bozo<span class="o">)</span>  3197<span class="o">(</span>bozo<span class="o">)</span>  3199<span class="o">(</span>bozo<span class="o">)</span>
+</pre></div>
+</div>
+<p>One important application for <strong>fuser</strong> is when physically inserting
+or removing storage media, such as CD ROM disks or USB flash drives.
+Sometimes trying a <a class="reference external" href="system.html#UMOUNTREF">umount</a> fails with a
+device is busy error message. This means that some user(s) and/or
+process(es) are accessing the device. An <strong>fuser -um
+/dev/device_name</strong> will clear up the mystery, so you can kill any
+relevant processes.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>umount /mnt/usbdrive
+umount: /mnt/usbdrive: device is busy
+
+
+
+bash<span class="nv">$ </span>fuser -um /dev/usbdrive
+/mnt/usbdrive:        1772c<span class="o">(</span>bozo<span class="o">)</span>
+
+bash<span class="nv">$ </span><span class="nb">kill</span> -9 1772
+bash<span class="nv">$ </span>umount /mnt/usbdrive
+</pre></div>
+</div>
+<p>The <strong>fuser</strong> command, invoked with the ``         -n        ``
+option identifies the processes accessing a <em>port</em> . This is
+especially useful in combination with <a class="reference external" href="system.html#NMAPREF">nmap</a>
+.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>root# nmap localhost.localdomain
+PORT     STATE SERVICE
+ 25/tcp   open  smtp
+
+
+
+root# fuser -un tcp 25
+25/tcp:               2095<span class="o">(</span>root<span class="o">)</span>
+
+root# ps axgrep <span class="m">2095</span> <span class="p">|</span> grep -v grep
+<span class="m">2095</span> ?        Ss     0:00 sendmail: accepting connections
+</pre></div>
+</div>
+</dd>
+<dt><strong>cron</strong></dt>
+<dd>Administrative program scheduler, performing such duties as cleaning
+up and deleting system log files and updating the slocate database.
+This is the <em>superuser</em> version of <a class="reference external" href="timedate.html#ATREF">at</a>
+(although each user may have their own ``         crontab        ``
+file which can be changed with the <strong>crontab</strong> command). It runs as
+a <a class="reference external" href="communications.html#DAEMONREF">daemon</a> and executes scheduled
+entries from ``         /etc/crontab        `` .</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Some flavors of Linux run <strong>crond</strong> , Matthew Dillon&#8217;s version of
+<strong>cron</strong> .</p>
+</div>
+<p>** Process Control and Booting**</p>
+<blockquote>
+<div><p><strong>init</strong></p>
+<blockquote>
+<div>The <strong>init</strong> command is the <a class="reference external" href="internal.html#FORKREF">parent</a> of
+all processes. Called in the final step of a bootup, <strong>init</strong>
+determines the runlevel of the system from
+``         /etc/inittab        `` . Invoked by its alias <strong>telinit</strong>
+, and by <em>root</em> only.</div></blockquote>
+<dl class="docutils">
+<dt><strong>telinit</strong></dt>
+<dd>Symlinked to <strong>init</strong> , this is a means of changing the system
+runlevel, usually done for system maintenance or emergency
+filesystem repairs. Invoked only by <em>root</em> . This command can be
+dangerous &#8211; be certain you understand it well before using!</dd>
+<dt><strong>runlevel</strong></dt>
+<dd>Shows the current and last runlevel, that is, whether the system is
+halted (runlevel ``         0        `` ), in single-user mode (
+``         1        `` ), in multi-user mode (
+``         2        `` or ``         3        `` ), in X Windows (
+``         5        `` ), or rebooting ( ``         6        `` ).
+This command accesses the ``         /var/run/utmp        `` file.</dd>
+<dt><strong>halt</strong> , <strong>shutdown</strong> , <strong>reboot</strong></dt>
+<dd>Command set to shut the system down, usually just prior to a power
+down.</dd>
+</dl>
+</div></blockquote>
+<div class="admonition warning">
+<p class="first admonition-title">Avís</p>
+<blockquote>
+<div>On some Linux distros, the <strong>halt</strong> command has 755 permissions, so
+it can be invoked by a non-root user. A careless <em>halt</em> in a
+terminal or a script may shut down the system!</div></blockquote>
+<dl class="last docutils">
+<dt><strong>service</strong></dt>
+<dd><p class="first">Starts or stops a system <em>service</em> . The startup scripts in
+``         /etc/init.d        `` and ``         /etc/rc.d        ``
+use this command to start services at bootup.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>root# /sbin/service iptables stop
+Flushing firewall rules:                                   <span class="o">[</span>  OK  <span class="o">]</span>
+ Setting chains to policy ACCEPT: filter                    <span class="o">[</span>  OK  <span class="o">]</span>
+ Unloading iptables modules:                                <span class="o">[</span>  OK  <span class="o">]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<p>** Network**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>nmap</strong></dt>
+<dd><p class="first"><strong>N</strong> etwork <strong>map</strong> per and port scanner. This command scans a
+server to locate open ports and the services associated with those
+ports. It can also report information about packet filters and
+firewalls. This is an important security tool for locking down a
+network against hacking attempts.</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">SERVER</span><span class="o">=</span><span class="nv">$HOST</span>                           <span class="c"># localhost.localdomain (127.0.0.1).</span>
+<span class="nv">PORT_NUMBER</span><span class="o">=</span><span class="m">25</span>                         <span class="c"># SMTP port.</span>
+
+nmap <span class="nv">$SERVERgrep</span> -w <span class="s2">&quot;</span><span class="nv">$PORT_NUMBER</span><span class="s2">&quot;</span>  <span class="c"># Is that particular port open?</span>
+<span class="c">#              grep -w matches whole words only,</span>
+<span class="c">#+             so this wouldn&#39;t match port 1025, for example.</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># 25/tcp     open        smtp</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>ifconfig</strong></dt>
+<dd><p class="first">Network <em>interface configuration</em> and tuning utility.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>ifconfig -a
+lo        Link encap:Local Loopback
+           inet addr:127.0.0.1  Mask:255.0.0.0
+           UP LOOPBACK RUNNING  MTU:16436  Metric:1
+           RX packets:10 errors:0 dropped:0 overruns:0 frame:0
+           TX packets:10 errors:0 dropped:0 overruns:0 carrier:0
+           collisions:0 txqueuelen:0
+           RX bytes:700 <span class="o">(</span>700.0 b<span class="o">)</span>  TX bytes:700 <span class="o">(</span>700.0 b<span class="o">)</span>
+</pre></div>
+</div>
+<p>The <strong>ifconfig</strong> command is most often used at bootup to set up the
+interfaces, or to shut them down when rebooting.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Code snippets from /etc/rc.d/init.d/network</span>
+
+<span class="c"># ...</span>
+
+<span class="c"># Check that networking is up.</span>
+<span class="o">[</span> <span class="si">${</span><span class="nv">NETWORKING</span><span class="si">}</span> <span class="o">=</span> <span class="s2">&quot;no&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">exit </span>0
+
+<span class="o">[</span> -x /sbin/ifconfig <span class="o">]</span> <span class="p">|</span><span class="nb">exit </span>0
+
+<span class="c"># ...</span>
+
+<span class="k">for</span> i in <span class="nv">$interfaces</span> <span class="p">;</span> <span class="k">do</span>
+  <span class="k">if</span> ifconfig <span class="nv">$i</span> 2&gt;/dev/nullgrep -q <span class="s2">&quot;UP&quot;</span> &gt;/dev/null 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">;</span> <span class="k">then</span>
+    action <span class="s2">&quot;Shutting down interface </span><span class="nv">$i</span><span class="s2">: &quot;</span> ./ifdown <span class="nv">$i</span> boot
+  <span class="k">fi</span>
+<span class="c">#  The GNU-specific &quot;-q&quot; option to &quot;grep&quot; means &quot;quiet&quot;, i.e.,</span>
+<span class="c">#+ producing no output.</span>
+<span class="c">#  Redirecting output to /dev/null is therefore not strictly necessary.</span>
+
+<span class="c"># ...</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Currently active devices:&quot;</span>
+<span class="nb">echo</span> <span class="sb">`</span>/sbin/ifconfiggrep ^<span class="o">[</span>a-z<span class="o">]</span> <span class="p">|</span> awk <span class="s1">&#39;{print $1}&#39;</span><span class="sb">`</span>
+<span class="c">#                            ^^^^^  should be quoted to prevent globbing.</span>
+<span class="c">#  The following also work.</span>
+<span class="c">#    echo $(/sbin/ifconfigawk &#39;/^[a-z]/ { print $1 })&#39;</span>
+<span class="c">#    echo $(/sbin/ifconfigsed -e &#39;s/ .*//&#39;)</span>
+<span class="c">#  Thanks, S.C., for additional comments.</span>
+</pre></div>
+</div>
+<p class="last">See also <a class="reference external" href="debugging.html#ONLINE">Example 32-6</a> .</p>
+</dd>
+<dt><strong>netstat</strong></dt>
+<dd><p class="first">Show current network statistics and information, such as routing
+tables and active connections. This utility accesses information in
+``         /proc/net        `` ( <a class="reference external" href="devproc.html">Chapter 29</a> ).
+See <a class="reference external" href="procref1.html#CONSTAT">Example 29-4</a> .</p>
+<p><strong>netstat -r</strong> is equivalent to <a class="reference external" href="system.html#ROUTEREF">route</a> .</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>netstat
+Active Internet connections <span class="o">(</span>w/o servers<span class="o">)</span>
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ Active UNIX domain sockets <span class="o">(</span>w/o servers<span class="o">)</span>
+ Proto RefCnt Flags       Type       State         I-Node Path
+ unix  <span class="m">11</span>     <span class="o">[</span> <span class="o">]</span>         DGRAM                    <span class="m">906</span>    /dev/log
+ unix  <span class="m">3</span>      <span class="o">[</span> <span class="o">]</span>         STREAM     CONNECTED     <span class="m">4514</span>   /tmp/.X11-unix/X0
+ unix  <span class="m">3</span>      <span class="o">[</span> <span class="o">]</span>         STREAM     CONNECTED     4513
+ . . .
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div>A <strong>netstat -lptu</strong> shows <a class="reference external" href="devref1.html#SOCKETREF">sockets</a> that
+are listening to ports, and the associated processes. This can be
+useful for determining whether a computer has been hacked or
+compromised.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>iwconfig</strong></dt>
+<dd>This is the command set for configuring a wireless network. It is
+the wireless equivalent of <strong>ifconfig</strong> , above.</dd>
+<dt><strong>ip</strong></dt>
+<dd><p class="first">General purpose utility for setting up, changing, and analyzing <em>IP</em>
+(Internet Protocol) networks and attached devices. This command is
+part of the <em>iproute2</em> package.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>ip link show
+1: lo: &lt;LOOPBACK,UP&gt; mtu <span class="m">16436</span> qdisc noqueue
+     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+ 2: eth0: &lt;BROADCAST,MULTICAST&gt; mtu <span class="m">1500</span> qdisc pfifo_fast qlen 1000
+     link/ether 00:d0:59:ce:af:da brd ff:ff:ff:ff:ff:ff
+ 3: sit0: &lt;NOARP&gt; mtu <span class="m">1480</span> qdisc noop
+     link/sit 0.0.0.0 brd 0.0.0.0
+
+
+bash<span class="nv">$ </span>ip route list
+169.254.0.0/16 dev lo  scope link
+</pre></div>
+</div>
+<p>Or, in a script:</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Script by Juan Nicolas Ruiz</span>
+<span class="c"># Used with his kind permission.</span>
+
+<span class="c"># Setting up (and stopping) a GRE tunnel.</span>
+
+
+<span class="c"># --- start-tunnel.sh ---</span>
+
+<span class="nv">LOCAL_IP</span><span class="o">=</span><span class="s2">&quot;192.168.1.17&quot;</span>
+<span class="nv">REMOTE_IP</span><span class="o">=</span><span class="s2">&quot;10.0.5.33&quot;</span>
+<span class="nv">OTHER_IFACE</span><span class="o">=</span><span class="s2">&quot;192.168.0.100&quot;</span>
+<span class="nv">REMOTE_NET</span><span class="o">=</span><span class="s2">&quot;192.168.3.0/24&quot;</span>
+
+/sbin/ip tunnel add netb mode gre remote <span class="nv">$REMOTE_IP</span> <span class="se">\</span>
+  <span class="nb">local</span> <span class="nv">$LOCAL_IP</span> ttl 255
+/sbin/ip addr add <span class="nv">$OTHER_IFACE</span> dev netb
+/sbin/ip link <span class="nb">set </span>netb up
+/sbin/ip route add <span class="nv">$REMOTE_NET</span> dev netb
+
+<span class="nb">exit </span><span class="m">0</span>  <span class="c">#############################################</span>
+
+<span class="c"># --- stop-tunnel.sh ---</span>
+
+<span class="nv">REMOTE_NET</span><span class="o">=</span><span class="s2">&quot;192.168.3.0/24&quot;</span>
+
+/sbin/ip route del <span class="nv">$REMOTE_NET</span> dev netb
+/sbin/ip link <span class="nb">set </span>netb down
+/sbin/ip tunnel del netb
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</dd>
+<dt><strong>route</strong></dt>
+<dd><p class="first">Show info about or make changes to the kernel routing table.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>route
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+ pm3-67.bozosisp *               255.255.255.255 UH       <span class="m">40</span> <span class="m">0</span>          <span class="m">0</span> ppp0
+ 127.0.0.0       *               255.0.0.0       U        <span class="m">40</span> <span class="m">0</span>          <span class="m">0</span> lo
+ default         pm3-67.bozosisp 0.0.0.0         UG       <span class="m">40</span> <span class="m">0</span>          <span class="m">0</span> ppp0
+</pre></div>
+</div>
+</dd>
+<dt><strong>iptables</strong></dt>
+<dd><p class="first">The <strong>iptables</strong> command set is a packet filtering tool used mainly
+for such security purposes as setting up network firewalls. This is
+a complex tool, and a detailed explanation of its use is beyond the
+scope of this document. <a class="reference external" href="http://www.frozentux.net/iptables-tutorial/iptables-tutorial.html">Oskar Andreasson&#8217;s
+tutorial</a>
+is a reasonable starting point.</p>
+<p class="last">See also <a class="reference external" href="system.html#IPTABLES01">shutting down *iptables*</a> and
+<a class="reference external" href="networkprogramming.html#IPADDRESSES">Example 30-2</a> .</p>
+</dd>
+<dt><strong>chkconfig</strong></dt>
+<dd><p class="first">Check network and system configuration. This command lists and
+manages the network and system services started at bootup in the
+``         /etc/rc?.d        `` directory.</p>
+<p>Originally a port from IRIX to Red Hat Linux, <strong>chkconfig</strong> may not
+be part of the core installation of some Linux flavors.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>chkconfig --list
+atd             0:off   1:off   2:off   3:on    4:on    5:on    6:off
+ rwhod           0:off   1:off   2:off   3:off   4:off   5:off   6:off
+ ...
+</pre></div>
+</div>
+</dd>
+<dt><strong>tcpdump</strong></dt>
+<dd><p class="first">Network packet &#8220;sniffer.&#8221; This is a tool for analyzing and
+troubleshooting traffic on a network by dumping packet headers that
+match specified criteria.</p>
+<p>Dump ip packet traffic between hosts <em>bozoville</em> and <em>caduceus</em> :</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>tcpdump ip host bozoville and caduceus
+</pre></div>
+</div>
+<p class="last">Of course, the output of <strong>tcpdump</strong> can be parsed with certain of
+the previously discussed <a class="reference external" href="textproc.html#TPCOMMANDLISTING1">text processing
+utilities</a> .</p>
+</dd>
+</dl>
+</div>
+<p>** Filesystem**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>mount</strong></dt>
+<dd><p class="first">Mount a filesystem, usually on an external device, such as a floppy
+or CDROM. The file ``         /etc/fstab        `` provides a handy
+listing of available filesystems, partitions, and devices, including
+options, that may be automatically or manually mounted. The file
+``         /etc/mtab        `` shows the currently mounted
+filesystems and partitions (including the virtual ones, such as
+``         /proc        `` ).</p>
+<p><strong>mount -a</strong> mounts all filesystems and partitions listed in
+``         /etc/fstab        `` , except those with a
+``         noauto        `` option. At bootup, a startup script in
+``         /etc/rc.d        `` ( ``         rc.sysinit        `` or
+something similar) invokes this to get everything mounted.</p>
+<div class="highlight-sh"><div class="highlight"><pre>mount -t iso9660 /dev/cdrom /mnt/cdrom
+<span class="c"># Mounts CD ROM. ISO 9660 is a standard CD ROM filesystem.</span>
+mount /mnt/cdrom
+<span class="c"># Shortcut, if /mnt/cdrom listed in /etc/fstab</span>
+</pre></div>
+</div>
+<p class="last">The versatile <em>mount</em> command can even mount an ordinary file on a
+block device, and the file will act as if it were a filesystem.
+<em>Mount</em> accomplishes that by associating the file with a <a class="reference external" href="devref1.html#LOOPBACKREF">loopback
+device</a> . One application of this is to
+mount and examine an ISO9660 filesystem image before burning it onto
+a CDR. ` [3]  &lt;system.html#FTN.AEN16255&gt;`__</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-7-checking-a-cd-image">
+<h2>Exemple 7. Checking a CD image<a class="headerlink" href="#exemple-7-checking-a-cd-image" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c"># As root...</span>
+
+mkdir /mnt/cdtest  <span class="c"># Prepare a mount point, if not already there.</span>
+
+mount -r -t iso9660 -o loop <span class="nb">cd</span>-image.iso /mnt/cdtest   <span class="c"># Mount the image.</span>
+<span class="c">#                  &quot;-o loop&quot; option equivalent to &quot;losetup /dev/loop0&quot;</span>
+<span class="nb">cd</span> /mnt/cdtest     <span class="c"># Now, check the image.</span>
+ls -alR            <span class="c"># List the files in the directory tree there.</span>
+                   <span class="c"># And so forth.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>umount</strong></dt>
+<dd><p class="first">Unmount a currently mounted filesystem. Before physically removing a
+previously mounted floppy or CDROM disk, the device must be
+<strong>umount</strong> ed, else filesystem corruption may result.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>umount /mnt/cdrom
+<span class="c"># You may now press the eject button and safely remove the disk.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div>The <strong>automount</strong> utility, if properly installed, can mount and
+unmount floppies or CDROM disks as they are accessed or removed. On
+&#8220;multispindle&#8221; laptops with swappable floppy and optical drives,
+this can cause problems, however.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>gnome-mount</strong></dt>
+<dd><p class="first">The newer Linux distros have deprecated <strong>mount</strong> and <strong>umount</strong> .
+The successor, for command-line mounting of removable storage
+devices, is <strong>gnome-mount</strong> . It can take the
+``         -d        `` option to mount a <a class="reference external" href="devref1.html#DEVFILEREF">device
+file</a> by its listing in
+``         /dev        `` .</p>
+<p>For example, to mount a USB flash drive:</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>gnome-mount -d /dev/sda1
+gnome-mount 0.4
+
+
+bash<span class="nv">$ </span>df
+. . .
+ /dev/sda1                <span class="m">63584</span>     <span class="m">12034</span>     <span class="m">51550</span>  19% /media/disk
+</pre></div>
+</div>
+</dd>
+<dt><strong>sync</strong></dt>
+<dd><p class="first">Forces an immediate write of all updated data from buffers to hard
+drive (synchronize drive with buffers). While not strictly
+necessary, a <strong>sync</strong> assures the sys admin or user that the data
+just changed will survive a sudden power failure. In the olden days,
+a ``                   sync;           sync                 ``
+(twice, just to make absolutely sure) was a useful precautionary
+measure before a system reboot.</p>
+<p class="last">At times, you may wish to force an immediate buffer flush, as when
+securely deleting a file (see <a class="reference external" href="extmisc.html#BLOTOUT">Example
+16-61</a> ) or when the lights begin to
+flicker.</p>
+</dd>
+<dt><strong>losetup</strong></dt>
+<dd>Sets up and configures <a class="reference external" href="devref1.html#LOOPBACKREF">loopback
+devices</a> .</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="exemple-8-creating-a-filesystem-in-a-file">
+<h2>Exemple 8. Creating a filesystem in a file<a class="headerlink" href="#exemple-8-creating-a-filesystem-in-a-file" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="nv">SIZE</span><span class="o">=</span><span class="m">1000000</span>  <span class="c"># 1 meg</span>
+
+head -c <span class="nv">$SIZE</span> &lt; /dev/zero &gt; file  <span class="c"># Set up file of designated size.</span>
+losetup /dev/loop0 file           <span class="c"># Set it up as loopback device.</span>
+mke2fs /dev/loop0                 <span class="c"># Create filesystem.</span>
+mount -o loop /dev/loop0 /mnt     <span class="c"># Mount it.</span>
+
+<span class="c"># Thanks, S.C.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>mkswap</strong></dt>
+<dd>Creates a swap partition or file. The swap area must subsequently be
+enabled with <strong>swapon</strong> .</dd>
+<dt><strong>swapon</strong> , <strong>swapoff</strong></dt>
+<dd>Enable / disable swap partitition or file. These commands usually
+take effect at bootup and shutdown.</dd>
+<dt><strong>mke2fs</strong></dt>
+<dd>Create a Linux <em>ext2</em> filesystem. This command must be invoked as
+<em>root</em> .</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-9-adding-a-new-hard-drive">
+<h2>Exemple 9. Adding a new hard drive<a class="headerlink" href="#exemple-9-adding-a-new-hard-drive" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c"># Adding a second hard drive to system.</span>
+<span class="c"># Software configuration. Assumes hardware already mounted.</span>
+<span class="c"># From an article by the author of the ABS Guide.</span>
+<span class="c"># In issue #38 of _Linux Gazette_, http://www.linuxgazette.com.</span>
+
+<span class="nv">ROOT_UID</span><span class="o">=</span><span class="m">0</span>     <span class="c"># This script must be run as root.</span>
+<span class="nv">E_NOTROOT</span><span class="o">=</span><span class="m">67</span>   <span class="c"># Non-root exit error.</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$UID</span><span class="s2">&quot;</span> -ne <span class="s2">&quot;</span><span class="nv">$ROOT_UID</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Must be root to run this script.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOTROOT</span>
+<span class="k">fi</span>
+
+<span class="c"># Use with extreme caution!</span>
+<span class="c"># If something goes wrong, you may wipe out your current filesystem.</span>
+
+
+<span class="nv">NEWDISK</span><span class="o">=</span>/dev/hdb         <span class="c"># Assumes /dev/hdb vacant. Check!</span>
+<span class="nv">MOUNTPOINT</span><span class="o">=</span>/mnt/newdisk  <span class="c"># Or choose another mount point.</span>
+
+
+fdisk <span class="nv">$NEWDISK</span>
+mke2fs -cv <span class="nv">$NEWDISK1</span>   <span class="c"># Check for bad blocks (verbose output).</span>
+<span class="c">#  Note:           ^     /dev/hdb1, *not* /dev/hdb!</span>
+mkdir <span class="nv">$MOUNTPOINT</span>
+chmod <span class="m">777</span> <span class="nv">$MOUNTPOINT</span>  <span class="c"># Makes new drive accessible to all users.</span>
+
+
+<span class="c"># Now, test ...</span>
+<span class="c"># mount -t ext2 /dev/hdb1 /mnt/newdisk</span>
+<span class="c"># Try creating a directory.</span>
+<span class="c"># If it works, umount it, and proceed.</span>
+
+<span class="c"># Final step:</span>
+<span class="c"># Add the following line to /etc/fstab.</span>
+<span class="c"># /dev/hdb1  /mnt/newdisk  ext2  defaults  1 1</span>
+
+<span class="nb">exit</span>
+</pre></div>
+</div>
+<p>See also <a class="reference external" href="system.html#CREATEFS">Example 17-8</a> and <a class="reference external" href="zeros.html#RAMDISK">Example
+31-3</a> .</p>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>mkdosfs</strong></dt>
+<dd>Create a DOS <em>FAT</em> filesystem.</dd>
+<dt><strong>tune2fs</strong></dt>
+<dd>Tune <em>ext2</em> filesystem. May be used to change filesystem parameters,
+such as maximum mount count. This must be invoked as <em>root</em> .</dd>
+</dl>
+</div></blockquote>
+<div class="admonition warning">
+<p class="first admonition-title">Avís</p>
+<blockquote>
+<div>This is an extremely dangerous command. Use it at your own risk, as
+you may inadvertently destroy your filesystem.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>dumpe2fs</strong></dt>
+<dd><p class="first">Dump (list to ``         stdout        `` ) very verbose filesystem
+info. This must be invoked as <em>root</em> .</p>
+<div class="last highlight-sh"><div class="highlight"><pre>root# dumpe2fs /dev/hda7grep <span class="s1">&#39;ount count&#39;</span>
+dumpe2fs 1.19, 13-Jul-2000 <span class="k">for</span> EXT2 FS 0.5b, 95/08/09
+ Mount count:              6
+ Maximum mount count:      20
+</pre></div>
+</div>
+</dd>
+<dt><strong>hdparm</strong></dt>
+<dd>List or change hard disk parameters. This command must be invoked as
+<em>root</em> , and it may be dangerous if misused.</dd>
+<dt><strong>fdisk</strong></dt>
+<dd>Create or change a partition table on a storage device, usually a
+hard drive. This command must be invoked as <em>root</em> .</dd>
+</dl>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Avís</p>
+<blockquote>
+<div>Use this command with extreme caution. If something goes wrong, you
+may destroy an existing filesystem.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>fsck</strong> , <strong>e2fsck</strong> , <strong>debugfs</strong></dt>
+<dd><p class="first">Filesystem check, repair, and debug command set.</p>
+<p><strong>fsck</strong> : a front end for checking a UNIX filesystem (may invoke
+other utilities). The actual filesystem type generally defaults to
+<em>ext2</em> .</p>
+<p><strong>e2fsck</strong> : ext2 filesystem checker.</p>
+<p class="last"><strong>debugfs</strong> : ext2 filesystem debugger. One of the uses of this
+versatile, but dangerous command is to (attempt to) recover deleted
+files. For advanced users only!</p>
+</dd>
+</dl>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<blockquote>
+<div>All of these should be invoked as <em>root</em> , and they can damage or
+destroy a filesystem if misused.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>badblocks</strong></dt>
+<dd><p class="first">Checks for bad blocks (physical media flaws) on a storage device.
+This command finds use when formatting a newly installed hard drive
+or testing the integrity of backup media. ` [4]</p>
+<blockquote>
+<div>&lt;system.html#FTN.AEN16504&gt;`__ As an example, <strong>badblocks /dev/fd0</strong></div></blockquote>
+<p>tests a floppy disk.</p>
+<p class="last">The <strong>badblocks</strong> command may be invoked destructively (overwrite
+all data) or in non-destructive read-only mode. If <em>root user</em> owns
+the device to be tested, as is generally the case, then <em>root</em> must
+invoke this command.</p>
+</dd>
+<dt><strong>lsusb</strong> , <strong>usbmodules</strong></dt>
+<dd><p class="first">The <strong>lsusb</strong> command lists all USB (Universal Serial Bus) buses and
+the devices hooked up to them.</p>
+<p>The <strong>usbmodules</strong> command outputs information about the driver
+modules for connected USB devices.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>lsusb
+Bus <span class="m">001</span> Device 001: ID 0000:0000
+ Device Descriptor:
+   bLength                18
+   bDescriptorType         1
+   bcdUSB               1.00
+   bDeviceClass            <span class="m">9</span> Hub
+   bDeviceSubClass         0
+   bDeviceProtocol         0
+   bMaxPacketSize0         8
+   idVendor           0x0000
+   idProduct          0x0000
+
+   . . .
+</pre></div>
+</div>
+</dd>
+<dt><strong>lspci</strong></dt>
+<dd><p class="first">Lists <em>pci</em> busses present.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>lspci
+00:00.0 Host bridge: Intel Corporation <span class="m">82845</span> 845
+ <span class="o">(</span>Brookdale<span class="o">)</span> Chipset Host Bridge <span class="o">(</span>rev 04<span class="o">)</span>
+ 00:01.0 PCI bridge: Intel Corporation <span class="m">82845</span> 845
+ <span class="o">(</span>Brookdale<span class="o">)</span> Chipset AGP Bridge <span class="o">(</span>rev 04<span class="o">)</span>
+ 00:1d.0 USB Controller: Intel Corporation 82801CA/CAM USB <span class="o">(</span>Hub <span class="c">#1) (rev 02)</span>
+ 00:1d.1 USB Controller: Intel Corporation 82801CA/CAM USB <span class="o">(</span>Hub <span class="c">#2) (rev 02)</span>
+ 00:1d.2 USB Controller: Intel Corporation 82801CA/CAM USB <span class="o">(</span>Hub <span class="c">#3) (rev 02)</span>
+ 00:1e.0 PCI bridge: Intel Corporation <span class="m">82801</span> Mobile PCI Bridge <span class="o">(</span>rev 42<span class="o">)</span>
+
+   . . .
+</pre></div>
+</div>
+</dd>
+<dt><strong>mkbootdisk</strong></dt>
+<dd><p class="first">Creates a boot floppy which can be used to bring up the system if,
+for example, the MBR (master boot record) becomes corrupted. Of
+special interest is the ``         &#8211;iso        `` option, which
+uses <strong>mkisofs</strong> to create a bootable <em>ISO9660</em> filesystem image
+suitable for burning a bootable CDR.</p>
+<p class="last">The <strong>mkbootdisk</strong> command is actually a Bash script, written by
+Erik Troan, in the ``         /sbin        `` directory.</p>
+</dd>
+<dt><strong>mkisofs</strong></dt>
+<dd>Creates an <em>ISO9660</em> filesystem suitable for a CDR image.</dd>
+<dt><strong>chroot</strong></dt>
+<dd><p class="first">CHange ROOT directory. Normally commands are fetched from
+<a class="reference external" href="internalvariables.html#PATHREF">$PATH</a> , relative to
+``         /        `` , the default <em>root directory</em> . This changes
+the <em>root</em> directory to a different one (and also changes the
+working directory to there). This is useful for security purposes,
+for instance when the system administrator wishes to restrict
+certain users, such as those
+<a class="reference external" href="communications.html#TELNETREF">telnetting</a> in, to a secured
+portion of the filesystem (this is sometimes referred to as
+confining a guest user to a &#8220;chroot jail&#8221; ). Note that after a
+<strong>chroot</strong> , the execution path for system binaries is no longer
+valid.</p>
+<p>A ``                   chroot /opt                 `` would cause
+references to ``         /usr/bin        `` to be translated to
+``         /opt/usr/bin        `` . Likewise,
+``                   chroot /aaa/bbb /bin/ls                 ``
+would redirect future instances of <strong>ls</strong> to
+``         /aaa/bbb        `` as the base directory, rather than
+``         /        `` as is normally the case. An <strong>alias XX
+&#8216;chroot /aaa/bbb ls&#8217;</strong> in a user&#8217;s
+``          ~/.bashrc         `` &lt;sample-bashrc.html&gt;`__
+effectively restricts which portion of the filesystem she may run
+command &#8220;XX&#8221; on.</p>
+<p class="last">The <strong>chroot</strong> command is also handy when running from an emergency
+boot floppy ( <strong>chroot</strong> to ``         /dev/fd0        `` ), or as
+an option to <strong>lilo</strong> when recovering from a system crash. Other
+uses include installation from a different filesystem (an
+<a class="reference external" href="filearchiv.html#RPMREF">rpm</a> option) or running a readonly
+filesystem from a CD ROM. Invoke only as <em>root</em> , and use with care.</p>
+</dd>
+</dl>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<blockquote>
+<div>It might be necessary to copy certain system files to a <em>chrooted</em>
+directory, since the normal ``            $PATH           `` can no
+longer be relied upon.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>lockfile</strong></dt>
+<dd><p class="first">This utility is part of the <strong>procmail</strong> package (
+<a class="reference external" href="http://www.procmail.org">www.procmail.org</a> ). It creates a <em>lock
+file</em> , a <em>semaphore</em> that controls access to a file, device, or
+resource.</p>
+<blockquote>
+<div>``                         Definition:                       `` A</div></blockquote>
+<p><em>semaphore</em> is a flag or signal. (The usage originated in
+railroading, where a colored flag, lantern, or striped movable arm
+<em>semaphore</em> indicated whether a particular track was in use and
+therefore unavailable for another train.) A UNIX process can check
+the appropriate semaphore to determine whether a particular resource
+is available/accessible.</p>
+<p>The lock file serves as a flag that this particular file, device, or
+resource is in use by a process (and is therefore &#8220;busy&#8221; ). The
+presence of a lock file permits only restricted access (or no
+access) to other processes.</p>
+<div class="highlight-sh"><div class="highlight"><pre>lockfile /home/bozo/lockfiles/<span class="nv">$0</span>.lock
+<span class="c"># Creates a write-protected lockfile prefixed with the name of the script.</span>
+
+lockfile /home/bozo/lockfiles/<span class="si">${</span><span class="nv">0</span><span class="p">##*/</span><span class="si">}</span>.lock
+<span class="c"># A safer version of the above, as pointed out by E. Choroba.</span>
+</pre></div>
+</div>
+<p>Lock files are used in such applications as protecting system mail
+folders from simultaneously being changed by multiple users,
+indicating that a modem port is being accessed, and showing that an
+instance of Firefox is using its cache. Scripts may check for the
+existence of a lock file created by a certain process to check if
+that process is running. Note that if a script attempts to create a
+lock file that already exists, the script will likely hang.</p>
+<p>Normally, applications create and check for lock files in the
+``         /var/lock        `` directory. ` [5]</p>
+<blockquote>
+<div>&lt;system.html#FTN.AEN16659&gt;`__ A script can test for the presence of</div></blockquote>
+<p>a lock file by something like the following.</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="nv">appname</span><span class="o">=</span>xyzip
+<span class="c"># Application &quot;xyzip&quot; created lock file &quot;/var/lock/xyzip.lock&quot;.</span>
+
+<span class="k">if</span> <span class="o">[</span> -e <span class="s2">&quot;/var/lock/</span><span class="nv">$appname</span><span class="s2">.lock&quot;</span> <span class="o">]</span>
+<span class="k">then</span>   <span class="c">#+ Prevent other programs &amp; scripts</span>
+       <span class="c">#  from accessing files/resources used by xyzip.</span>
+  ...
+</pre></div>
+</div>
+</dd>
+<dt><strong>flock</strong></dt>
+<dd><p class="first">Much less useful than the <strong>lockfile</strong> command is <strong>flock</strong> . It
+sets an &#8220;advisory&#8221; lock on a file and then executes a command while
+the lock is on. This is to prevent any other process from setting a
+lock on that file until completion of the specified command.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>flock <span class="nv">$0</span> cat <span class="nv">$0</span> &gt; lockfile__<span class="nv">$0</span>
+<span class="c">#  Set a lock on the script the above line appears in,</span>
+<span class="c">#+ while listing the script to stdout.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div>Unlike <strong>lockfile</strong> , <strong>flock</strong> does <em>not</em> automatically create a
+lock file.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>mknod</strong></dt>
+<dd>Creates block or character <a class="reference external" href="devref1.html#DEVFILEREF">device
+files</a> (may be necessary when installing
+new hardware on the system). The <strong>MAKEDEV</strong> utility has virtually
+all of the functionality of <strong>mknod</strong> , and is easier to use.</dd>
+<dt><strong>MAKEDEV</strong></dt>
+<dd>Utility for creating device files. It must be run as <em>root</em> , and in
+the ``         /dev        `` directory. It is a sort of advanced
+version of <strong>mknod</strong> .</dd>
+<dt><strong>tmpwatch</strong></dt>
+<dd>Automatically deletes files which have not been accessed within a
+specified period of time. Usually invoked by
+<a class="reference external" href="system.html#CRONREF">cron</a> to remove stale log files.</dd>
+</dl>
+</div>
+<p>** Backup**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>dump</strong> , <strong>restore</strong></dt>
+<dd><p class="first">The <strong>dump</strong> command is an elaborate filesystem backup utility,
+generally used on larger installations and networks. ` [6]</p>
+<blockquote>
+<div>&lt;system.html#FTN.AEN16748&gt;`__ It reads raw disk partitions and</div></blockquote>
+<p class="last">writes a backup file in a binary format. Files to be backed up may
+be saved to a variety of storage media, including disks and tape
+drives. The <strong>restore</strong> command restores backups made with <strong>dump</strong>
+.</p>
+</dd>
+<dt><strong>fdformat</strong></dt>
+<dd>Perform a low-level format on a floppy disk (
+``         /dev/fd0*        `` ).</dd>
+</dl>
+</div></blockquote>
+<p>** System Resources**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>ulimit</strong></dt>
+<dd><p class="first">Sets an <em>upper limit</em> on use of system resources. Usually invoked
+with the ``         -f        `` option, which sets a limit on file
+size ( <strong>ulimit -f 1000</strong> limits files to 1 meg maximum). ` [7]</p>
+<blockquote>
+<div>&lt;system.html#FTN.AEN16782&gt;`__ The ``         -t        `` option</div></blockquote>
+<p class="last">limits the coredump size ( <strong>ulimit -c 0</strong> eliminates coredumps).
+Normally, the value of <strong>ulimit</strong> would be set in
+``         /etc/profile        `` and/or
+``         ~/.bash_profile        `` (see <a class="reference external" href="files.html">Appendix
+H</a> ).</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Judicious use of <strong>ulimit</strong> can protect a system against the dreaded
+<em>fork bomb</em> .</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>   <span class="c">#!/bin/bash</span>
+   <span class="c"># This script is for</span>
+illustrative purposes o
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>nly.</dt>
+<dd><blockquote class="first">
+<div># Run it at your own</div></blockquote>
+<p>peril &#8211; it WILL freeze
+your system.</p>
+<blockquote class="last">
+<div>while true  #  Endle</div></blockquote>
+</dd>
+<dt>ss loop.</dt>
+<dd><dl class="first last docutils">
+<dt>do</dt>
+<dd>$0 &amp;      #  This</dd>
+</dl>
+</dd>
+</dl>
+<p>script invokes itself .
+. .</p>
+<blockquote>
+<div><blockquote>
+<div>#+ forks</div></blockquote>
+<p>an infinite number of t</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>imes . . .</dt>
+<dd><blockquote class="first">
+<div>#+ until</div></blockquote>
+<p class="last">the system freezes up b</p>
+</dd>
+</dl>
+<p>ecause all resources exh
+austed.</p>
+<blockquote>
+<div>done        #  This</div></blockquote>
+<p>is the notorious &#8220;sorcer
+er&#8217;s appentice&#8221; scenario
+.</p>
+<blockquote>
+<div>exit 0      #  Will</div></blockquote>
+<p>not exit here, because t
+his script will never te
+rminate.</p>
+<blockquote>
+<div><blockquote>
+<div><p>A <strong>ulimit -Hu XX</strong> (where <em>XX</em> is the user process limit) in
+``            /etc/profile           `` would abort this script when
+it exceeded the preset limit.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># This script is for illustrative purposes only.</span>
+<span class="c"># Run it at your own peril -- it WILL freeze your system.</span>
+
+<span class="k">while</span> <span class="nb">true</span>  <span class="c">#  Endless loop.</span>
+<span class="k">do</span>
+  <span class="nv">$0</span> <span class="p">&amp;</span>      <span class="c">#  This script invokes itself . . .</span>
+            <span class="c">#+ forks an infinite number of times . . .</span>
+            <span class="c">#+ until the system freezes up because all resources exhausted.</span>
+<span class="k">done</span>        <span class="c">#  This is the notorious &quot;sorcerer&#39;s appentice&quot; scenario.</span>
+
+<span class="nb">exit </span><span class="m">0</span>      <span class="c">#  Will not exit here, because this script will never terminate.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># This script is for illustrative purposes only.</span>
+<span class="c"># Run it at your own peril -- it WILL freeze your system.</span>
+
+<span class="k">while</span> <span class="nb">true</span>  <span class="c">#  Endless loop.</span>
+<span class="k">do</span>
+  <span class="nv">$0</span> <span class="p">&amp;</span>      <span class="c">#  This script invokes itself . . .</span>
+            <span class="c">#+ forks an infinite number of times . . .</span>
+            <span class="c">#+ until the system freezes up because all resources exhausted.</span>
+<span class="k">done</span>        <span class="c">#  This is the notorious &quot;sorcerer&#39;s appentice&quot; scenario.</span>
+
+<span class="nb">exit </span><span class="m">0</span>      <span class="c">#  Will not exit here, because this script will never terminate.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>quota</strong></dt>
+<dd>Display user or group disk quotas.</dd>
+<dt><strong>setquota</strong></dt>
+<dd>Set user or group disk quotas from the command-line.</dd>
+<dt><strong>umask</strong></dt>
+<dd>User file creation permissions <em>mask</em> . Limit the default file
+attributes for a particular user. All files created by that user
+take on the attributes specified by <strong>umask</strong> . The (octal) value
+passed to <strong>umask</strong> defines the file permissions <em>disabled</em> . For
+example, <strong>umask 022</strong> ensures that new files will have at most 755
+permissions (777 NAND 022). ` [8]  &lt;system.html#FTN.AEN16847&gt;`__ Of
+course, the user may later change the attributes of particular files
+with <a class="reference external" href="basic.html#CHMODREF">chmod</a> . The usual practice is to set
+the value of <strong>umask</strong> in ``         /etc/profile        `` and/or
+``         ~/.bash_profile        `` (see <a class="reference external" href="files.html">Appendix
+H</a> ).</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-10-using-umask-to-hide-an-output-file-from-prying-eyes">
+<h2>Exemple 10. Using <em>umask</em> to hide an output file from prying eyes<a class="headerlink" href="#exemple-10-using-umask-to-hide-an-output-file-from-prying-eyes" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># rot13a.sh: Same as &quot;rot13.sh&quot; script, but writes output to &quot;secure&quot; file.</span>
+
+<span class="c"># Usage: ./rot13a.sh filename</span>
+<span class="c"># or     ./rot13a.sh &lt;filename</span>
+<span class="c"># or     ./rot13a.sh and supply keyboard input (stdin)</span>
+
+<span class="nb">umask </span><span class="m">177</span>               <span class="c">#  File creation mask.</span>
+                        <span class="c">#  Files created by this script</span>
+                        <span class="c">#+ will have 600 permissions.</span>
+
+<span class="nv">OUTFILE</span><span class="o">=</span>decrypted.txt   <span class="c">#  Results output to file &quot;decrypted.txt&quot;</span>
+                        <span class="c">#+ which can only be read/written</span>
+                        <span class="c">#  by invoker of script (or root).</span>
+
+cat <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>tr <span class="s1">&#39;a-zA-Z&#39;</span> <span class="s1">&#39;n-za-mN-ZA-M&#39;</span> &gt; <span class="nv">$OUTFILE</span>
+<span class="c">#    ^^ Input from stdin or a file.   ^^^^^^^^^^ Output redirected to file.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>rdev</strong></dt>
+<dd>Get info about or make changes to root device, swap space, or video
+mode. The functionality of <strong>rdev</strong> has generally been taken over by
+<strong>lilo</strong> , but <strong>rdev</strong> remains useful for setting up a ram disk.
+This is a dangerous command, if misused.</dd>
+</dl>
+</div></blockquote>
+<p>** Modules**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>lsmod</strong></dt>
+<dd><p class="first">List installed kernel modules.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>lsmod
+Module                  Size  Used by
+ autofs                  <span class="m">9456</span>   <span class="m">2</span> <span class="o">(</span>autoclean<span class="o">)</span>
+ opl3                   <span class="m">11376</span>   0
+ serial_cs               <span class="m">5456</span>   <span class="m">0</span> <span class="o">(</span>unused<span class="o">)</span>
+ sb                     <span class="m">34752</span>   0
+ uart401                 <span class="m">6384</span>   <span class="m">0</span> <span class="o">[</span>sb<span class="o">]</span>
+ sound                  <span class="m">58368</span>   <span class="m">0</span> <span class="o">[</span>opl3 sb uart401<span class="o">]</span>
+ soundlow                 <span class="m">464</span>   <span class="m">0</span> <span class="o">[</span>sound<span class="o">]</span>
+ soundcore               <span class="m">2800</span>   <span class="m">6</span> <span class="o">[</span>sb sound<span class="o">]</span>
+ ds                      <span class="m">6448</span>   <span class="m">2</span> <span class="o">[</span>serial_cs<span class="o">]</span>
+ i82365                 <span class="m">22928</span>   2
+ pcmcia_core            <span class="m">45984</span>   <span class="m">0</span> <span class="o">[</span>serial_cs ds i82365<span class="o">]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div>Doing a <strong>cat /proc/modules</strong> gives the same information.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>insmod</strong></dt>
+<dd>Force installation of a kernel module (use <strong>modprobe</strong> instead,
+when possible). Must be invoked as <em>root</em> .</dd>
+<dt><strong>rmmod</strong></dt>
+<dd>Force unloading of a kernel module. Must be invoked as <em>root</em> .</dd>
+<dt><strong>modprobe</strong></dt>
+<dd>Module loader that is normally invoked automatically in a startup
+script. Must be invoked as <em>root</em> .</dd>
+<dt><strong>depmod</strong></dt>
+<dd>Creates module dependency file. Usually invoked from a startup
+script.</dd>
+<dt><strong>modinfo</strong></dt>
+<dd><p class="first">Output information about a loadable module.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>modinfo hid
+filename:    /lib/modules/2.4.20-6/kernel/drivers/usb/hid.o
+ description: <span class="s2">&quot;USB HID support drivers&quot;</span>
+ author:      <span class="s2">&quot;Andreas Gal, Vojtech Pavlik &lt;vojtech@suse.cz&gt;&quot;</span>
+ license:     <span class="s2">&quot;GPL&quot;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<p>** Miscellaneous**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>env</strong></dt>
+<dd><p class="first">Runs a program or script with certain <a class="reference external" href="othertypesv.html#ENVREF">environmental
+variables</a> set or changed (without
+changing the overall system environment). The
+``         [varname=xxx]        `` permits changing the
+environmental variable ``         varname        `` for the duration
+of the script. With no options specified, this command lists all the
+environmental variable settings. ` [9]</p>
+<blockquote class="last">
+<div>&lt;system.html#FTN.AEN16975&gt;`__</div></blockquote>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div>The first line of a script (the &#8220;sha-bang&#8221; line) may use <strong>env</strong></div></blockquote>
+<p class="last">when the path to the shell or interpreter is unknown.</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#! /usr/bin/env perl</span>
+
+print <span class="s2">&quot;This Perl scr</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>ipt will run,n&#8221;;</dt>
+<dd>print &#8220;even when I d</dd>
+</dl>
+<p>on&#8217;t know where to find
+Perl.n&#8221;;</p>
+<blockquote>
+<div># Good for portable</div></blockquote>
+<dl class="docutils">
+<dt>cross-platform scripts,</dt>
+<dd># where the Perl bin</dd>
+</dl>
+<p>aries may not be in the
+expected place.</p>
+<blockquote>
+<div><p># Thanks, S.C.</p>
+<p>Or even ...</p>
+</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/env bash</span>
+<span class="c"># Queries the $PATH</span>
+</pre></div>
+</div>
+<p>enviromental variable fo
+r the location of bash.</p>
+<blockquote>
+<div># Therefore ...
+# This script will r</div></blockquote>
+<p>un where Bash is not in
+its usual place, in /bin
+.</p>
+<blockquote>
+<div><blockquote>
+<div><p>...</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#! /usr/bin/env perl</span>
+
+print <span class="s2">&quot;This Perl script will run,\n&quot;</span><span class="p">;</span>
+print <span class="s2">&quot;even when I don&#39;t know where to find Perl.\n&quot;</span><span class="p">;</span>
+
+<span class="c"># Good for portable cross-platform scripts,</span>
+<span class="c"># where the Perl binaries may not be in the expected place.</span>
+<span class="c"># Thanks, S.C.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/env bash</span>
+<span class="c"># Queries the $PATH enviromental variable for the location of bash.</span>
+<span class="c"># Therefore ...</span>
+<span class="c"># This script will run where Bash is not in its usual place, in /bin.</span>
+...
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#! /usr/bin/env perl</span>
+
+print <span class="s2">&quot;This Perl script will run,\n&quot;</span><span class="p">;</span>
+print <span class="s2">&quot;even when I don&#39;t know where to find Perl.\n&quot;</span><span class="p">;</span>
+
+<span class="c"># Good for portable cross-platform scripts,</span>
+<span class="c"># where the Perl binaries may not be in the expected place.</span>
+<span class="c"># Thanks, S.C.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/env bash</span>
+<span class="c"># Queries the $PATH enviromental variable for the location of bash.</span>
+<span class="c"># Therefore ...</span>
+<span class="c"># This script will run where Bash is not in its usual place, in /bin.</span>
+...
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>ldd</strong></dt>
+<dd><p class="first">Show shared lib dependencies for an executable file.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>ldd /bin/ls
+libc.so.6 <span class="o">=</span>&gt; /lib/libc.so.6 <span class="o">(</span>0x4000c000<span class="o">)</span>
+/lib/ld-linux.so.2 <span class="o">=</span>&gt; /lib/ld-linux.so.2 <span class="o">(</span>0x80000000<span class="o">)</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>watch</strong></dt>
+<dd><p class="first">Run a command repeatedly, at specified time intervals.</p>
+<p>The default is two-second intervals, but this may be changed with
+the ``         -n        `` option.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>watch -n <span class="m">5</span> tail /var/log/messages
+<span class="c"># Shows tail end of system log, /var/log/messages, every five seconds.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div>Unfortunately, <a class="reference external" href="special-chars.html#PIPEREF">piping</a> the output of
+<strong>watch command</strong> to <a class="reference external" href="textproc.html#GREPREF">grep</a> does not work.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>strip</strong></dt>
+<dd><p class="first">Remove the debugging symbolic references from an executable binary.
+This decreases its size, but makes debugging it impossible.</p>
+<p class="last">This command often occurs in a
+<a class="reference external" href="filearchiv.html#MAKEFILEREF">Makefile</a> , but rarely in a shell
+script.</p>
+</dd>
+<dt><strong>nm</strong></dt>
+<dd>List symbols in an unstripped compiled binary.</dd>
+<dt><strong>xrandr</strong></dt>
+<dd>Command-line tool for manipulating the root window of the screen.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="exemple-11-backlight-changes-the-brightness-of-the-laptop-screen-backlight">
+<span id="system-example-backlight"></span><h2>Exemple 11. <em>Backlight</em> : changes the brightness of the (laptop) screen backlight<a class="headerlink" href="#exemple-11-backlight-changes-the-brightness-of-the-laptop-screen-backlight" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># backlight.sh</span>
+<span class="c"># reldate 02dec2011</span>
+
+<span class="c">#  A bug in Fedora Core 16/17 messes up the keyboard backlight controls.</span>
+<span class="c">#  This script is a quick-n-dirty workaround, essentially a shell wrapper</span>
+<span class="c">#+ for xrandr. It gives more control than on-screen sliders and widgets.</span>
+
+<span class="nv">OUTPUT</span><span class="o">=</span><span class="k">$(</span>xrandrgrep LV <span class="p">|</span> awk <span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span>   <span class="c"># Get display name!</span>
+<span class="nv">INCR</span><span class="o">=</span>.05      <span class="c"># For finer-grained control, set INCR to .03 or .02.</span>
+
+<span class="nv">old_brightness</span><span class="o">=</span><span class="k">$(</span>xrandr --verbosegrep rightness <span class="p">|</span> awk <span class="s1">&#39;{ print $2 }&#39;</span><span class="k">)</span>
+
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nv">bright</span><span class="o">=</span><span class="m">1</span>    <span class="c"># If no command-line arg, set brightness to 1.0 (default).</span>
+
+  <span class="k">else</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;+&quot;</span> <span class="o">]</span>
+    <span class="k">then</span>
+      <span class="nv">bright</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">&quot;scale=2; </span><span class="nv">$old_brightness</span><span class="s2"> + </span><span class="nv">$INCR</span><span class="s2">&quot;</span>bc<span class="k">)</span>   <span class="c"># +.05</span>
+
+  <span class="k">else</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span> <span class="o">]</span>
+    <span class="k">then</span>
+      <span class="nv">bright</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">&quot;scale=2; </span><span class="nv">$old_brightness</span><span class="s2"> - </span><span class="nv">$INCR</span><span class="s2">&quot;</span>bc<span class="k">)</span>   <span class="c"># -.05</span>
+
+  <span class="k">else</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;#&quot;</span> <span class="o">]</span>   <span class="c"># Echoes current brightness; does not change it.</span>
+    <span class="k">then</span>
+      <span class="nv">bright</span><span class="o">=</span><span class="nv">$old_brightness</span>
+
+  <span class="k">else</span>
+    <span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;h&quot;</span> <span class="p">|</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;H&quot;</span> <span class="o">]]</span>
+    <span class="k">then</span>
+      <span class="nb">echo</span>
+<span class="nb">      echo</span> <span class="s2">&quot;Usage:&quot;</span>
+      <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$0</span><span class="s2"> [No args]    Sets/resets brightness to default (1.0).&quot;</span>
+      <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$0</span><span class="s2"> +            Increments brightness by 0.5.&quot;</span>
+      <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$0</span><span class="s2"> -            Decrements brightness by 0.5.&quot;</span>
+      <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$0</span><span class="s2"> #            Echoes current brightness without changing it.&quot;</span>
+      <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$0</span><span class="s2"> N (number)   Sets brightness to N (useful range .7 - 1.2).&quot;</span>
+      <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$0</span><span class="s2"> h [H]        Echoes this help message.&quot;</span>
+      <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$0</span><span class="s2"> any-other    Gives xrandr usage message.&quot;</span>
+
+      <span class="nv">bright</span><span class="o">=</span><span class="nv">$old_brightness</span>
+
+  <span class="k">else</span>
+    <span class="nv">bright</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+
+      <span class="k">fi</span>
+     <span class="k">fi</span>
+    <span class="k">fi</span>
+  <span class="k">fi</span>
+<span class="k">fi</span>
+
+
+xrandr --output <span class="s2">&quot;</span><span class="nv">$OUTPUT</span><span class="s2">&quot;</span> --brightness <span class="s2">&quot;</span><span class="nv">$bright</span><span class="s2">&quot;</span>   <span class="c"># See xrandr manpage.</span>
+                                                   <span class="c"># As root!</span>
+<span class="nv">E_CHANGE0</span><span class="o">=</span><span class="nv">$?</span>
+<span class="nb">echo</span> <span class="s2">&quot;Current brightness = </span><span class="nv">$bright</span><span class="s2">&quot;</span>
+
+<span class="nb">exit</span> <span class="nv">$E_CHANGE0</span>
+
+
+<span class="c"># =========== Or, alternately . . . ==================== #</span>
+
+<span class="c">#!/bin/bash</span>
+<span class="c"># backlight2.sh</span>
+<span class="c"># reldate 20jun2012</span>
+
+<span class="c">#  A bug in Fedora Core 16/17 messes up the keyboard backlight controls.</span>
+<span class="c">#  This is a quick-n-dirty workaround, an alternate to backlight.sh.</span>
+
+<span class="nv">target_dir</span><span class="o">=</span><span class="se">\</span>
+/sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0/backlight/acpi_video0
+<span class="c"># Hardware directory.</span>
+
+<span class="nv">actual_brightness</span><span class="o">=</span><span class="k">$(</span>cat <span class="nv">$target_dir</span>/actual_brightness<span class="k">)</span>
+<span class="nv">max_brightness</span><span class="o">=</span><span class="k">$(</span>cat <span class="nv">$target_dir</span>/max_brightness<span class="k">)</span>
+<span class="nv">Brightness</span><span class="o">=</span><span class="nv">$target_dir</span>/brightness
+
+<span class="nb">let</span> <span class="s2">&quot;req_brightness = actual_brightness&quot;</span>   <span class="c"># Requested brightness.</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span> <span class="o">]</span>
+<span class="k">then</span>     <span class="c"># Decrement brightness 1 notch.</span>
+  <span class="nb">let</span> <span class="s2">&quot;req_brightness = </span><span class="nv">$actual_brightness</span><span class="s2"> - 1&quot;</span>
+<span class="k">else</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;+&quot;</span> <span class="o">]</span>
+  <span class="k">then</span>   <span class="c"># Increment brightness 1 notch.</span>
+    <span class="nb">let</span> <span class="s2">&quot;req_brightness = </span><span class="nv">$actual_brightness</span><span class="s2"> + 1&quot;</span>
+   <span class="k">fi</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$req_brightness</span> -gt <span class="nv">$max_brightness</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nv">req_brightness</span><span class="o">=</span><span class="nv">$max_brightness</span>
+<span class="k">fi</span>   <span class="c"># Do not exceed max. hardware design brightness.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Old brightness = </span><span class="nv">$actual_brightness</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Max brightness = </span><span class="nv">$max_brightness</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Requested brightness = </span><span class="nv">$req_brightness</span><span class="s2">&quot;</span>
+<span class="nb">echo</span>
+
+<span class="c"># =====================================</span>
+<span class="nb">echo</span> <span class="nv">$req_brightness</span> &gt; <span class="nv">$Brightness</span>
+<span class="c"># Must be root for this to take effect.</span>
+<span class="nv">E_CHANGE1</span><span class="o">=</span><span class="nv">$?</span>   <span class="c"># Successful?</span>
+<span class="c"># =====================================</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$?</span><span class="s2">&quot;</span> -eq <span class="m">0</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Changed brightness!&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Failed to change brightness!&quot;</span>
+<span class="k">fi</span>
+
+<span class="nv">act_brightness</span><span class="o">=</span><span class="k">$(</span>cat <span class="nv">$Brightness</span><span class="k">)</span>
+<span class="nb">echo</span> <span class="s2">&quot;Actual brightness = </span><span class="nv">$act_brightness</span><span class="s2">&quot;</span>
+
+<span class="nv">scale0</span><span class="o">=</span>2
+<span class="nv">sf</span><span class="o">=</span><span class="m">100</span> <span class="c"># Scale factor.</span>
+<span class="nv">pct</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">&quot;scale=</span><span class="nv">$scale0</span><span class="s2">; </span><span class="nv">$act_brightness</span><span class="s2"> / </span><span class="nv">$max_brightness</span><span class="s2"> * </span><span class="nv">$sf</span><span class="s2">&quot;</span>bc<span class="k">)</span>
+<span class="nb">echo</span> <span class="s2">&quot;Percentage brightness = </span><span class="nv">$pct</span><span class="s2">%&quot;</span>
+
+<span class="nb">exit</span> <span class="nv">$E_CHANGE1</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>rdist</strong></dt>
+<dd>Remote distribution client: synchronizes, clones, or backs up a file
+system on a remote server.</dd>
+</dl>
+</div></blockquote>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;system.html#AEN14695&gt;`__</p>
+<p>This is the case on a Linux machine or a UNIX system with disk quotas.</p>
+<p>` [2]  &lt;system.html#AEN14727&gt;`__</p>
+<p>The <strong>userdel</strong> command will fail if the particular user being deleted
+is still logged on.</p>
+<p>` [3]  &lt;system.html#AEN16255&gt;`__</p>
+<p>For more detail on burning CDRs, see Alex Withers&#8217; article, <a class="reference external" href="http://www2.linuxjournal.com/lj-issues/issue66/3335.html">Creating
+CDs</a> , in
+the October, 1999 issue of <a class="reference external" href="http://www.linuxjournal.com">*Linux
+Journal*</a> .</p>
+<p>` [4]  &lt;system.html#AEN16504&gt;`__</p>
+<p>The ``       -c      `` option to <a class="reference external" href="system.html#MKE2FSREF">mke2fs</a>
+also invokes a check for bad blocks.</p>
+<p>` [5]  &lt;system.html#AEN16659&gt;`__</p>
+<p>Since only <em>root</em> has write permission in the ``       /var/lock      ``
+directory, a user script cannot set a lock file there.</p>
+<p>` [6]  &lt;system.html#AEN16748&gt;`__</p>
+<p>Operators of single-user Linux systems generally prefer something
+simpler for backups, such as <strong>tar</strong> .</p>
+<p>` [7]  &lt;system.html#AEN16782&gt;`__</p>
+<p>As of the <a class="reference external" href="bashver4.html#BASH4REF">version 4 update</a> of Bash, the
+``       -f      `` and ``       -c      `` options take a block size of
+512 when in <a class="reference external" href="sha-bang.html#POSIX2REF">POSIX</a> mode. Additionally,
+there are two new options: ``       -b      `` for
+<a class="reference external" href="devref1.html#SOCKETREF">socket</a> buffer size, and ``       -T      ``
+for the limit on the number of <em>threads</em> .</p>
+<p>` [8]  &lt;system.html#AEN16847&gt;`__</p>
+<p>NAND is the logical <em>not-and</em> operator. Its effect is somewhat similar
+to subtraction.</p>
+<p>` [9]  &lt;system.html#AEN16975&gt;`__</p>
+<p>In Bash and other Bourne shell derivatives, it is possible to set
+variables in a single command&#8217;s environment.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">var1</span><span class="o">=</span>value1 <span class="nv">var2</span><span class="o">=</span>val
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>ue2 commandXXX</dt>
+<dd># $var1 and $var2 se</dd>
+</dl>
+<p>t in the environment of
+&#8216;commandXXX&#8217; only.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">var1</span><span class="o">=</span>value1 <span class="nv">var2</span><span class="o">=</span>value2 commandXXX
+<span class="c"># $var1 and $var2 set in the environment of &#39;commandXXX&#39; only.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">var1</span><span class="o">=</span>value1 <span class="nv">var2</span><span class="o">=</span>value2 commandXXX
+<span class="c"># $var1 and $var2 set in the environment of &#39;commandXXX&#39; only.</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="part5.html" class="btn btn-neutral float-right" title="XXX Part 5. Advanced Topics" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="extmisc.html" class="btn btn-neutral" title="XXX 16.9. Miscellaneous Commands"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

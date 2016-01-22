@@ -1,0 +1,583 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 4.4. Special Variable Types &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="4. Variables" href="variables.html"/>
+        <link rel="next" title="Chapter 5. Cometes" href="quoting.html"/>
+        <link rel="prev" title="4.3. Variables i Tipus" href="untyped.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="special-chars.html">XXX 3. Caràcters especials</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="variables.html">4. Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quoting.html">Chapter 5. Cometes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exit-status.html">XXX Chapter 6. Exit and Exit Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html">XXX Chapter 7. Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testconstructs.html">XXX  7.1. Test Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fto.html">XXX  7.2. File test operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparison-ops.html">XXX  7.3. Other Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedifthen.html">7.4. Condicionals aniuats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testtest.html">XXX  7.5. Testing Your Knowledge of Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations.html">XXX Chapter 8. Operations and Related Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ops.html">XXX  8.1. Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="numerical-constants.html">XXX  8.2. Numerical Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dblparens.html">XXX  8.3. The Double-Parentheses Construct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opprecedence.html">XXX  8.4. Operator Precedence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part2.html">Part 2. Conceptes bàsics</a> &raquo;</li>
+      
+          <li><a href="variables.html">4. Variables</a> &raquo;</li>
+      
+    <li>XXX  4.4. Special Variable Types</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-4-4-special-variable-types">
+<h1>XXX  4.4. Special Variable Types<a class="headerlink" href="#xxx-4-4-special-variable-types" title="Link permanent a aquest títol">¶</a></h1>
+<dl class="docutils">
+<dt>Variable local</dt>
+<dd><p class="first">Les variables locals són variables <a class="reference internal" href="subshells.html"><em>visibles</em></a> només dins d&#8217;un bloc de codi o
+funció.</p>
+<p class="last">Considera <a class="reference internal" href="localvar.html"><em>XXX Local Variables</em></a> i <a class="reference internal" href="functions.html"><em>XXX  Chapter 24. Functions</em></a>.</p>
+</dd>
+<dt>Variable d&#8217;entorn</dt>
+<dd>Les variables d&#8217;entorn afecten el comportament del sistema.</dd>
+</dl>
+<p>En un context més general, cada procés disposa d&#8217;un <em>entorn</em> o grup de variables que el procés pot
+fer referència. En aquest sentit, la shell es comporta com qualsevol altre procés. Cada cop que
+s&#8217;inicia una shell, es creen les variables que corresponen al seu entorn. Afegir noves variables
+d&#8217;entorn, o modificar el valor d&#8217;alguna existent, modifica l&#8217;entorn de la shell i el dels seus
+processos fill (comandes que executi la shell), doncs aquests hereten l&#8217;entorn de la shell.</p>
+<p>XXX TODO per aquí</p>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<p class="last">The space allotted to the environment is limited. Creating too many
+environmental variables or ones that use up excessive space may
+cause problems.</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">eval</span> <span class="s2">&quot;`seq 100</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>00 | sed -e &#8216;s/.*/export</dt>
+<dd><p class="first">var&amp;=ZZZZZZZZZZZZZZ/&#8217;<a href="#id1"><span class="problematic" id="id2">`</span></a>&#8220;</p>
+<blockquote class="last">
+<div>bash$ du
+bash: /usr/bin/du: A</div></blockquote>
+</dd>
+</dl>
+<p>rgument list too long</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">eval</span> <span class="s2">&quot;`seq 10000sed -e &#39;s/.*/export var&amp;=ZZZZZZZZZZZZZZ/&#39;`&quot;</span>
+
+bash<span class="nv">$ </span>du
+bash: /usr/bin/du: Argument list too long
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">eval</span> <span class="s2">&quot;`seq 10000sed -e &#39;s/.*/export var&amp;=ZZZZZZZZZZZZZZ/&#39;`&quot;</span>
+
+bash<span class="nv">$ </span>du
+bash: /usr/bin/du: Argument list too long
+</pre></div>
+</div>
+<p>If a script sets environmental variables, they need to be
+&#8220;exported,&#8221; that is, reported to the <em>environment</em> local to the
+script. This is the function of the
+<a class="reference external" href="internal.html#EXPORTREF">export</a> command.</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div><p>A script can <strong>export</strong> variables only to child
+<a class="reference external" href="special-chars.html#PROCESSREF">processes</a> , that is, only to
+commands or processes which that particular script initiates. A
+script invoked from the command-line
+``                         cannot                       `` export
+variables back to the command-line environment. <em>`Child
+processes &lt;internal.html#FORKREF&gt;`__ cannot export variables back to
+the parent processes that spawned them.</em></p>
+<blockquote>
+<div>``                         Definition:                       `` A</div></blockquote>
+<p><em>child process</em> is a subprocess launched by another process, its
+<a class="reference external" href="internal.html#PARENTREF">parent</a> .</p>
+</div></blockquote>
+<dl class="last docutils">
+<dt>``                 Positional parameters               ``</dt>
+<dd><dl class="first docutils">
+<dt>Arguments passed to the script from the command line ` [1]</dt>
+<dd>&lt;othertypesv.html#FTN.AEN2450&gt;`__ : ``         $0        `` ,</dd>
+</dl>
+<p>``         $1        `` , ``         $2        `` ,
+``         $3        `` . . .</p>
+<blockquote>
+<div>``         $0        `` is the name of the script itself,</div></blockquote>
+<p>``         $1        `` is the first argument,
+``         $2        `` the second, ``         $3        `` the
+third, and so forth. ` [2]  &lt;othertypesv.html#FTN.AEN2464&gt;`__ After
+``         $9        `` , the arguments must be enclosed in
+brackets, for example, ``         ${10}        `` ,
+``         ${11}        `` , ``         ${12}        `` .</p>
+<p class="last">The special variables <a class="reference external" href="internalvariables.html#APPREF">$* and $&#64;</a>
+denote <em>all</em> the positional parameters.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="exemple-5-positional-parameters">
+<h2>Exemple 5. Positional Parameters<a class="headerlink" href="#exemple-5-positional-parameters" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c"># Call this script with at least 10 parameters, for example</span>
+<span class="c"># ./scriptname 1 2 3 4 5 6 7 8 9 10</span>
+<span class="nv">MINPARAMS</span><span class="o">=</span>10
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;The name of this script is \&quot;</span><span class="nv">$0</span><span class="s2">\&quot;.&quot;</span>
+<span class="c"># Adds ./ for current directory</span>
+<span class="nb">echo</span> <span class="s2">&quot;The name of this script is \&quot;`basename </span><span class="nv">$0</span><span class="s2">`\&quot;.&quot;</span>
+<span class="c"># Strips out path name info (see &#39;basename&#39;)</span>
+
+<span class="nb">echo</span>
+
+<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>              <span class="c"># Tested variable is quoted.</span>
+<span class="k">then</span>
+ <span class="nb">echo</span> <span class="s2">&quot;Parameter #1 is </span><span class="nv">$1</span><span class="s2">&quot;</span>  <span class="c"># Need quotes to escape #</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+ <span class="nb">echo</span> <span class="s2">&quot;Parameter #2 is </span><span class="nv">$2</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$3</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+ <span class="nb">echo</span> <span class="s2">&quot;Parameter #3 is </span><span class="nv">$3</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+
+<span class="c"># ...</span>
+
+
+<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="si">${</span><span class="nv">10</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">]</span>  <span class="c"># Parameters &gt; $9 must be enclosed in {brackets}.</span>
+<span class="k">then</span>
+ <span class="nb">echo</span> <span class="s2">&quot;Parameter #10 is </span><span class="si">${</span><span class="nv">10</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;-----------------------------------&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;All the command-line parameters are: &quot;</span><span class="nv">$*</span><span class="s2">&quot;&quot;</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-lt <span class="s2">&quot;</span><span class="nv">$MINPARAMS</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span>
+<span class="nb">  echo</span> <span class="s2">&quot;This script needs at least </span><span class="nv">$MINPARAMS</span><span class="s2"> command-line arguments!&quot;</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p><em>Bracket notation</em> for positional parameters leads to a fairly
+simple way of referencing the <em>last</em> argument passed to a script on
+the command-line. This also requires <a class="reference external" href="bashver2.html#VARREFNEW">indirect
+referencing</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">args</span><span class="o">=</span><span class="nv">$# </span>          <span class="c"># Number of args passed.</span>
+<span class="nv">lastarg</span><span class="o">=</span><span class="si">${</span><span class="p">!args</span><span class="si">}</span>
+<span class="c"># Note: This is an *indirect reference* to $args ...</span>
+
+
+<span class="c"># Or:       lastarg=${!#}             (Thanks, Chris Monson.)</span>
+<span class="c"># This is an *indirect reference* to the $# variable.</span>
+<span class="c"># Note that lastarg=${!$#} doesn&#39;t work.</span>
+</pre></div>
+</div>
+<p>Some scripts can perform different operations, depending on which
+name they are invoked with. For this to work, the script needs to
+check ``         $0        `` , the name it was invoked by. ` [3]</p>
+<blockquote>
+<div>&lt;othertypesv.html#FTN.AEN2501&gt;`__ There must also exist symbolic</div></blockquote>
+<p>links to all the alternate names of the script. See <a class="reference external" href="basic.html#HELLOL">Example
+16-2</a> .</p>
+</div></blockquote>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<p>If a script expects a command-line parameter but is invoked without
+one, this may cause a <em>null variable assignment</em> , generally an
+undesirable result. One way to prevent this is to append an extra
+character to both sides of the assignment statement using the
+expected positional parameter.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">variable1_</span><span class="o">=</span><span class="nv">$1_</span>  <span class="c"># Rather than variable1=$1</span>
+<span class="c"># This will prevent an error, even if positional parameter is absent.</span>
+
+<span class="nv">critical_argument01</span><span class="o">=</span><span class="nv">$variable1_</span>
+
+<span class="c"># The extra character can be stripped off later, like so.</span>
+<span class="nv">variable1</span><span class="o">=</span><span class="si">${</span><span class="nv">variable1_</span><span class="p">/_/</span><span class="si">}</span>
+<span class="c"># Side effects only if $variable1_ begins with an underscore.</span>
+<span class="c"># This uses one of the parameter substitution templates discussed later.</span>
+<span class="c"># (Leaving out the replacement pattern results in a deletion.)</span>
+
+<span class="c">#  A more straightforward way of dealing with this is</span>
+<span class="c">#+ to simply test whether expected positional parameters have been passed.</span>
+<span class="k">if</span> <span class="o">[</span> -z <span class="nv">$1</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">exit</span> <span class="nv">$E_MISSING_POS_PARAM</span>
+<span class="k">fi</span>
+
+
+<span class="c">#  However, as Fabian Kreutz points out,</span>
+<span class="c">#+ the above method may have unexpected side-effects.</span>
+<span class="c">#  A better method is parameter substitution:</span>
+<span class="c">#         ${1:-$DefaultVal}</span>
+<span class="c">#  See the &quot;Parameter Substition&quot; section</span>
+<span class="c">#+ in the &quot;Variables Revisited&quot; chapter.</span>
+</pre></div>
+</div>
+<p class="last">&#8212;</p>
+</div>
+</div>
+<div class="section" id="exemple-6-wh-whois-domain-name-lookup">
+<h2>Exemple 6. <em>wh</em> , <em>whois</em> domain name lookup<a class="headerlink" href="#exemple-6-wh-whois-domain-name-lookup" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># ex18.sh</span>
+
+<span class="c"># Does a &#39;whois domain-name&#39; lookup on any of 3 alternate servers:</span>
+<span class="c">#                    ripe.net, cw.net, radb.net</span>
+
+<span class="c"># Place this script -- renamed &#39;wh&#39; -- in /usr/local/bin</span>
+
+<span class="c"># Requires symbolic links:</span>
+<span class="c"># ln -s /usr/local/bin/wh /usr/local/bin/wh-ripe</span>
+<span class="c"># ln -s /usr/local/bin/wh /usr/local/bin/wh-apnic</span>
+<span class="c"># ln -s /usr/local/bin/wh /usr/local/bin/wh-tucows</span>
+
+<span class="nv">E_NOARGS</span><span class="o">=</span>75
+
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` [domain-name]&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOARGS</span>
+<span class="k">fi</span>
+
+<span class="c"># Check script name and call proper server.</span>
+<span class="k">case</span> <span class="sb">`</span>basename <span class="nv">$0</span><span class="sb">`</span> in    <span class="c"># Or:    case ${0##*/} in</span>
+    <span class="s2">&quot;wh&quot;</span>       <span class="o">)</span> whois <span class="nv">$1</span>@whois.tucows.com<span class="p">;;</span>
+    <span class="s2">&quot;wh-ripe&quot;</span>  <span class="o">)</span> whois <span class="nv">$1</span>@whois.ripe.net<span class="p">;;</span>
+    <span class="s2">&quot;wh-apnic&quot;</span> <span class="o">)</span> whois <span class="nv">$1</span>@whois.apnic.net<span class="p">;;</span>
+    <span class="s2">&quot;wh-cw&quot;</span>    <span class="o">)</span> whois <span class="nv">$1</span>@whois.cw.net<span class="p">;;</span>
+    *          <span class="o">)</span> <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` [domain-name]&quot;</span><span class="p">;;</span>
+<span class="k">esac</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+<p>&#8212;</p>
+<p>The <strong>shift</strong> command reassigns the positional parameters, in effect
+shifting them to the left one notch.</p>
+<p>``         $1        `` &lt;&#8212; ``         $2        `` ,
+``         $2        `` &lt;&#8212; ``         $3        `` ,
+``         $3        `` &lt;&#8212; ``         $4        `` , etc.</p>
+<p>The old ``         $1        `` disappears, but
+<em>``          $0         `` (the script name) does not change</em> . If
+you use a large number of positional parameters to a script,
+<strong>shift</strong> lets you access those past ``         10        `` ,
+although <a class="reference external" href="othertypesv.html#BRACKETNOTATION">{bracket} notation</a>
+also permits this.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-7-using-shift">
+<h2>Exemple 7. Using <em>shift</em><a class="headerlink" href="#exemple-7-using-shift" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># shft.sh: Using &#39;shift&#39; to step through all the positional parameters.</span>
+
+<span class="c">#  Name this script something like shft.sh,</span>
+<span class="c">#+ and invoke it with some parameters.</span>
+<span class="c">#+ For example:</span>
+<span class="c">#             sh shft.sh a b c def 83 barndoor</span>
+
+<span class="k">until</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>  <span class="c"># Until all parameters used up . . .</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2"> &quot;</span>
+  <span class="nb">shift</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span>               <span class="c"># Extra linefeed.</span>
+
+<span class="c"># But, what happens to the &quot;used-up&quot; parameters?</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+<span class="c">#  Nothing echoes!</span>
+<span class="c">#  When $2 shifts into $1 (and there is no $3 to shift into $2)</span>
+<span class="c">#+ then $2 remains empty.</span>
+<span class="c">#  So, it is not a parameter *copy*, but a *move*.</span>
+
+<span class="nb">exit</span>
+
+<span class="c">#  See also the echo-params.sh script for a &quot;shiftless&quot;</span>
+<span class="c">#+ alternative method of stepping through the positional params.</span>
+</pre></div>
+</div>
+<p>The <strong>shift</strong> command can take a numerical parameter indicating how
+many positions to shift.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># shift-past.sh</span>
+
+<span class="nb">shift </span><span class="m">3</span>    <span class="c"># Shift 3 positions.</span>
+<span class="c">#  n=3; shift $n</span>
+<span class="c">#  Has the same effect.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># ======================== #</span>
+
+
+<span class="nv">$ </span>sh <span class="nb">shift</span>-past.sh <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> 5
+4
+
+<span class="c">#  However, as Eleni Fragkiadaki, points out,</span>
+<span class="c">#+ attempting a &#39;shift&#39; past the number of</span>
+<span class="c">#+ positional parameters ($#) returns an exit status of 1,</span>
+<span class="c">#+ and the positional parameters themselves do not change.</span>
+<span class="c">#  This means possibly getting stuck in an endless loop. . . .</span>
+<span class="c">#  For example:</span>
+<span class="c">#      until [ -z &quot;$1&quot; ]</span>
+<span class="c">#      do</span>
+<span class="c">#         echo -n &quot;$1 &quot;</span>
+<span class="c">#         shift 20    #  If less than 20 pos params,</span>
+<span class="c">#      done           #+ then loop never ends!</span>
+<span class="c">#</span>
+<span class="c"># When in doubt, add a sanity check. . . .</span>
+<span class="c">#           shift 20.. break::</span>
+<span class="c">#                    ^^^^^^^^</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">The <strong>shift</strong> command works in a similar fashion on parameters
+passed to a <a class="reference external" href="functions.html#FUNCTIONREF">function</a> . See <a class="reference external" href="assortedtips.html#MULTIPLICATION">Example
+36-18</a> .</p>
+</div>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;othertypesv.html#AEN2450&gt;`__</p>
+<p>Note that <a class="reference external" href="complexfunct.html#PASSEDARGS">*functions* also take positional
+parameters</a> .</p>
+<p>` [2]  &lt;othertypesv.html#AEN2464&gt;`__</p>
+<blockquote>
+<div>The process calling the script sets the ``       $0      `` parameter.</div></blockquote>
+<p>By convention, this parameter is the name of the script. See the
+<a class="reference external" href="basic.html#MANREF">manpage</a> (manual page) for <strong>execv</strong> .</p>
+<p>From the <em>command-line</em> , however, ``       $0      `` is the name of
+the shell.</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$0</span>
+bash
+
+tcsh% <span class="nb">echo</span> <span class="nv">$0</span>
+tcsh
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$0</span>
+bash
+
+tcsh% <span class="nb">echo</span> <span class="nv">$0</span>
+tcsh
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$0</span>
+bash
+
+tcsh% <span class="nb">echo</span> <span class="nv">$0</span>
+tcsh
+</pre></div>
+</div>
+<p>` [3]  &lt;othertypesv.html#AEN2501&gt;`__</p>
+<p>If the the script is <a class="reference external" href="internal.html#SOURCEREF">sourced</a> or
+<a class="reference external" href="basic.html#SYMLINKREF">symlinked</a> , then this will not work. It is
+safer to check <a class="reference external" href="debugging.html#BASHSOURCEREF">$BASH_Source</a> .</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="quoting.html" class="btn btn-neutral float-right" title="Chapter 5. Cometes" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="untyped.html" class="btn btn-neutral" title="4.3. Variables i Tipus"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

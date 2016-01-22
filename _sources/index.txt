@@ -1,0 +1,76 @@
+####################################
+Guia Avançada de Programació en Bash
+####################################
+
+*************************************************************
+Una exploració en profunditat de l'art de la programació Bash
+*************************************************************
+
+Per *Mendel Cooper*: ``<thegrendel.abs (at) gmail (dot) com>``
+
+Revisió 10 del 10 Març de 2014
+
+Traduït per *Moisès Gómez*: ``<moiatgit (a) gmail (punt) com>``
+
+Introducció
+===========
+
+Tens al davant un llibre de programació de guions en *Bash*. Està
+escrit en forma de tutorial i no pressuposa cap coneixement previ de
+programació. Això sí, avança molt ràpidament cap a un nivell
+intermedi/avançat, tot jugant amb les petites meravelles del
+GNU/Linux.
+
+Ha estat ideat per poder ser usat de diferents maneres:
+
+* com a llibre de text
+
+* com a manual d'autoaprenentatge
+
+* com a referència i font de coneixement de les tècniques de
+  programació de guions.
+
+Hi trobaràs exercicis i exemples comentats amb profusió, que et
+convidaran a fer proves pel teu compte, sota la premissa de que
+*l'única manera d'aprendre a programar guions és escrivint guions*.
+
+Aquest llibre és apte per l'ús dins de l'aula i com a introducció
+general als conceptes de programació.
+
+Aquest document, a l'igual que l'original, està lliurat al *Domini
+Públic* i per tant, no hi ha cap *Copyright*.
+
+.. note:: 
+
+    Nota del traductor: aquesta traducció s'està completant. He pensat, però, que podria ser
+    d'interès d'algú poder consultar ja aquelles parts que estiguin disponibles. Per convenció, les
+    seccions amb el títol precedit de **XXX** no estan completament traduïdes.
+
+    Si tens interès en participar d'alguna manera en la traducció, per favor, revisa el `projecte al
+    github <https://github.com/moiatgit/abs-guide-ca>`_.
+
+Dedicatòria
+===========
+
+A Anita, la font de tota la màgia.
+
+Taula de continguts
+===================
+
+.. toctree::
+   :titlesonly:
+
+   part1
+   part2
+   part3
+   part4
+   part5
+   endnotes
+   biblio
+
+Índexs i taules
+===============
+
+* :ref:`genindex`
+* :ref:`search`
+

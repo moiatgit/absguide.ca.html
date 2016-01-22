@@ -1,0 +1,1032 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Chapter 32. Debugging &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Part 5. Advanced Topics" href="part5.html"/>
+        <link rel="next" title="XXX Chapter 33. Options" href="options.html"/>
+        <link rel="prev" title="XXX Chapter 31. Of Zeros and Nulls" href="zeros.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="regexp.html">XXX Chapter 18. Regular Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="here-docs.html">XXX  Chapter 19. Document immediat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io-redirection.html">XXX  Chapter 20. I/O Redirection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subshells.html">XXX  Chapter 21. Subshells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restricted-sh.html">XXX  Chapter 22. Restricted Shells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process-sub.html">XXX  Chapter 23. Process Substitution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">XXX  Chapter 24. Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aliases.html">XXX Capítol 25. Àlies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="list-cons.html">XXX  Chapter 26. List Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrays.html">XXX  Chapter 27. Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ivr.html">XXX  Chapter 28. Indirect References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networkprogramming.html">XXX  Chapter 30. Network Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zeros.html">XXX  Chapter 31. Of Zeros and Nulls</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  Chapter 32. Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html">XXX  Chapter 33. Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gotchas.html">XXX Chapter 34. Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scrstyle.html">XXX  Chapter 35. Scripting With Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unofficialst.html">XXX  35.1. Unofficial Shell Scripting Stylesheet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellany.html">XXX  Chapter 36. Miscellany</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash2.html">XXX  Chapter 37. Bash, versions 2, 3, and 4</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part5.html">XXX Part 5. Advanced Topics</a> &raquo;</li>
+      
+    <li>XXX  Chapter 32. Debugging</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-chapter-32-debugging">
+<h1>XXX  Chapter 32. Debugging<a class="headerlink" href="#xxx-chapter-32-debugging" title="Link permanent a aquest títol">¶</a></h1>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a></p>
+<p><em>Debugging is twice as hard as writing the code in the first place.
+Therefore, if you write the code as cleverly as possible, you are, by
+definition, not smart enough to debug it.</em></p>
+<p><em>&#8211;Brian Kernighan</em></p>
+<p>The Bash shell contains no built-in debugger, and only bare-bones
+debugging-specific commands and constructs. Syntax errors or outright
+typos in the script generate cryptic error messages that are often of no
+help in debugging a non-functional script.</p>
+<div class="section" id="exemple-1-a-buggy-script">
+<h2>Exemple 1. A buggy script<a class="headerlink" href="#exemple-1-a-buggy-script" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># ex74.sh</span>
+
+<span class="c"># This is a buggy script.</span>
+<span class="c"># Where, oh where is the error?</span>
+
+<span class="nv">a</span><span class="o">=</span>37
+
+<span class="k">if</span> <span class="o">[</span><span class="nv">$a</span> -gt <span class="m">27</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="nv">$a</span>
+<span class="k">fi</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>   <span class="c"># 0! Why?</span>
+</pre></div>
+</div>
+<p>Output from script:</p>
+<div class="highlight-sh"><div class="highlight"><pre>./ex74.sh: <span class="o">[</span>37: <span class="nb">command </span>not found
+</pre></div>
+</div>
+<p>What&#8217;s wrong with the above script? Hint: after the <em>if</em> .</p>
+</div>
+<div class="section" id="exemple-2-missing-keyword">
+<h2>Exemple 2. Missing <a class="reference external" href="internal.html#KEYWORDREF">keyword</a><a class="headerlink" href="#exemple-2-missing-keyword" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># missing-keyword.sh</span>
+<span class="c"># What error message will this script generate? And why?</span>
+
+<span class="k">for</span> a in <span class="m">1</span> <span class="m">2</span> 3
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span>
+<span class="c"># done     # Required keyword &#39;done&#39; commented out in line 8.</span>
+
+<span class="nb">exit </span><span class="m">0</span>     <span class="c"># Will not exit here!</span>
+
+<span class="c"># === #</span>
+
+<span class="c"># From command line, after script terminates:</span>
+  <span class="nb">echo</span> <span class="nv">$?</span>    <span class="c"># 2</span>
+</pre></div>
+</div>
+<p>Output from script:</p>
+<div class="highlight-sh"><div class="highlight"><pre>missing-keyword.sh: line 10: syntax error: unexpected end of file
+</pre></div>
+</div>
+<p>Note that the error message does <em>not</em> necessarily reference the line in
+which the error occurs, but the line where the Bash interpreter finally
+becomes aware of the error.
+Error messages may disregard comment lines in a script when reporting
+the line number of a syntax error.</p>
+<p>What if the script executes, but does not work as expected? This is the
+all too familiar logic error.</p>
+</div>
+<div class="section" id="exemple-3-test24-another-buggy-script">
+<h2>Exemple 3. <em>test24</em> : another buggy script<a class="headerlink" href="#exemple-3-test24-another-buggy-script" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c">#  This script is supposed to delete all filenames in current directory</span>
+<span class="c">#+ containing embedded spaces.</span>
+<span class="c">#  It doesn&#39;t work.</span>
+<span class="c">#  Why not?</span>
+
+
+<span class="nv">badname</span><span class="o">=</span><span class="sb">`</span>lsgrep <span class="s1">&#39; &#39;</span><span class="sb">`</span>
+
+<span class="c"># Try this:</span>
+<span class="c"># echo &quot;$badname&quot;</span>
+
+rm <span class="s2">&quot;</span><span class="nv">$badname</span><span class="s2">&quot;</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Try to find out what&#8217;s wrong with <a class="reference external" href="debugging.html#EX75">Example 32-3</a>
+by uncommenting the ``             echo &#8220;$badname&#8221;           `` line.
+Echo statements are useful for seeing whether what you expect is
+actually what you get.</p>
+<p>In this particular case, ``             rm &#8220;$badname&#8221;           `` will
+not give the desired results because ``      $badname     `` should not
+be quoted. Placing it in quotes ensures that <strong>rm</strong> has only one
+argument (it will match only one filename). A partial fix is to remove
+to quotes from ``      $badname     `` and to reset ``      $IFS     ``
+to contain only a newline, ``             IFS=$&#8217;n&#8217;           `` .
+However, there are simpler ways of going about it.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Correct methods of deleting filenames containing spaces.</span>
+rm *<span class="se">\ </span>*
+rm *<span class="s2">&quot; &quot;</span>*
+rm *<span class="s1">&#39; &#39;</span>*
+<span class="c"># Thank you. S.C.</span>
+</pre></div>
+</div>
+<p>Summarizing the symptoms of a buggy script,</p>
+<ol class="arabic simple">
+<li>It bombs with a &#8221; syntax error &#8221; message, or</li>
+<li>It runs, but does not work as expected ( logic error ).</li>
+<li>It runs, works as expected, but has nasty side effects ( logic bomb
+).</li>
+</ol>
+<p>Tools for debugging non-working scripts include</p>
+<ol class="arabic simple">
+<li>Inserting <a class="reference external" href="internal.html#ECHOREF">echo</a> statements at critical
+points in the script to trace the variables, and otherwise give a
+snapshot of what is going on.</li>
+</ol>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<p class="last">Even better is an <strong>echo</strong> that echoes only when <em>debug</em> is on.</p>
+</div>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">### debecho (debug-e</span>
+</pre></div>
+</div>
+<p>cho), by Stefano Falsett
+o ###</p>
+<blockquote>
+<div><blockquote>
+<div>### Will echo passed</div></blockquote>
+<p>parameters only if DEBU</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>G is set to a value. ###</dt>
+<dd><blockquote class="first">
+<div><dl class="docutils">
+<dt>debecho () {</dt>
+<dd>if [ ! -z &#8220;$DEBUG&#8221;</dd>
+</dl>
+</div></blockquote>
+<dl class="last docutils">
+<dt>]; then</dt>
+<dd>echo &#8220;$1&#8221; &gt;&amp;2
+#         ^^^ t</dd>
+</dl>
+</dd>
+<dt>o stderr</dt>
+<dd><blockquote class="first">
+<div>fi</div></blockquote>
+<p>}</p>
+<p class="last">DEBUG=on
+Whatever=whatnot
+debecho $Whatever</p>
+</dd>
+</dl>
+<p># whatnot</p>
+<blockquote>
+<div>DEBUG=
+Whatever=notwhat
+debecho $Whatever</div></blockquote>
+<p># (Will not echo.)</p>
+<hr class="docutils" />
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">### debecho (debug-echo), by Stefano Falsetto ###</span>
+<span class="c">### Will echo passed parameters only if DEBUG is set to a value. ###</span>
+debecho <span class="o">()</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">[</span> ! -z <span class="s2">&quot;</span><span class="nv">$DEBUG</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+     <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> &gt;<span class="p">&amp;</span>2
+     <span class="c">#         ^^^ to stderr</span>
+  <span class="k">fi</span>
+<span class="o">}</span>
+
+<span class="nv">DEBUG</span><span class="o">=</span>on
+<span class="nv">Whatever</span><span class="o">=</span>whatnot
+debecho <span class="nv">$Whatever</span>   <span class="c"># whatnot</span>
+
+<span class="nv">DEBUG</span><span class="o">=</span>
+<span class="nv">Whatever</span><span class="o">=</span>notwhat
+debecho <span class="nv">$Whatever</span>   <span class="c"># (Will not echo.)</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">### debecho (debug-echo), by Stefano Falsetto ###</span>
+<span class="c">### Will echo passed parameters only if DEBUG is set to a value. ###</span>
+debecho <span class="o">()</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">[</span> ! -z <span class="s2">&quot;</span><span class="nv">$DEBUG</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+     <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> &gt;<span class="p">&amp;</span>2
+     <span class="c">#         ^^^ to stderr</span>
+  <span class="k">fi</span>
+<span class="o">}</span>
+
+<span class="nv">DEBUG</span><span class="o">=</span>on
+<span class="nv">Whatever</span><span class="o">=</span>whatnot
+debecho <span class="nv">$Whatever</span>   <span class="c"># whatnot</span>
+
+<span class="nv">DEBUG</span><span class="o">=</span>
+<span class="nv">Whatever</span><span class="o">=</span>notwhat
+debecho <span class="nv">$Whatever</span>   <span class="c"># (Will not echo.)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic">
+<li><p class="first">Using the <a class="reference external" href="extmisc.html#TEEREF">tee</a> filter to check processes or
+data flows at critical points.</p>
+</li>
+<li><p class="first">Setting option flags ``        -n -v -x       ``</p>
+<p>``                 sh -n scriptname               `` checks for
+syntax errors without actually running the script. This is the
+equivalent of inserting ``                 set -n               `` or
+``                 set -o noexec               `` into the script.
+Note that certain types of syntax errors can slip past this check.</p>
+<p>``                 sh -v scriptname               `` echoes each
+command before executing it. This is the equivalent of inserting
+``                 set -v               `` or
+``                 set           -o verbose               `` in the
+script.</p>
+<p>The ``        -n       `` and ``        -v       `` flags work well
+together.
+``                 sh -nv           scriptname               `` gives
+a verbose syntax check.</p>
+<p>``                 sh -x scriptname               `` echoes the
+result each command, but in an abbreviated manner. This is the
+equivalent of inserting ``                 set -x               `` or
+``                 set -o xtrace               `` in the script.</p>
+<p>Inserting ``                 set -u               `` or
+``                 set -o nounset               `` in the script runs
+it, but gives an unbound variable error message and aborts the
+script.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">set</span> -u   <span class="c"># Or   set -o nounset</span>
+
+<span class="c"># Setting a variable to null will not trigger the error/abort.</span>
+<span class="c"># unset_var=</span>
+
+<span class="nb">echo</span> <span class="nv">$unset_var</span>   <span class="c"># Unset (and undeclared) variable.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Should not echo!&quot;</span>
+
+<span class="c"># sh t2.sh</span>
+<span class="c"># t2.sh: line 6: unset_var: unbound variable</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Using an &#8220;assert&#8221; function to test a variable or condition at
+critical points in a script. (This is an idea borrowed from C.)</p>
+</li>
+</ol>
+</div>
+<div class="section" id="exemple-4-testing-a-condition-with-an-assert">
+<h2>Exemple 4. Testing a condition with an <em>assert</em><a class="headerlink" href="#exemple-4-testing-a-condition-with-an-assert" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># assert.sh</span>
+
+<span class="c">#######################################################################</span>
+assert <span class="o">()</span>                 <span class="c">#  If condition false,</span>
+<span class="o">{</span>                         <span class="c">#+ exit from script</span>
+                          <span class="c">#+ with appropriate error message.</span>
+  <span class="nv">E_PARAM_ERR</span><span class="o">=</span>98
+  <span class="nv">E_ASSERT_FAILED</span><span class="o">=</span>99
+
+
+  <span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span> <span class="o">]</span>          <span class="c">#  Not enough parameters passed</span>
+  <span class="k">then</span>                    <span class="c">#+ to assert() function.</span>
+    <span class="k">return</span> <span class="nv">$E_PARAM_ERR</span>   <span class="c">#  No damage done.</span>
+  <span class="k">fi</span>
+
+  <span class="nv">lineno</span><span class="o">=</span><span class="nv">$2</span>
+
+  <span class="k">if</span> <span class="o">[</span> ! <span class="nv">$1</span> <span class="o">]</span>
+  <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Assertion failed:  \&quot;</span><span class="nv">$1</span><span class="s2">\&quot;&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;File \&quot;</span><span class="nv">$0</span><span class="s2">\&quot;, line </span><span class="nv">$lineno</span><span class="s2">&quot;</span>    <span class="c"># Give name of file and line number.</span>
+    <span class="nb">exit</span> <span class="nv">$E_ASSERT_FAILED</span>
+  <span class="c"># else</span>
+  <span class="c">#   return</span>
+  <span class="c">#   and continue executing the script.</span>
+  <span class="k">fi</span>
+<span class="o">}</span> <span class="c"># Insert a similar assert() function into a script you need to debug.</span>
+<span class="c">#######################################################################</span>
+
+
+<span class="nv">a</span><span class="o">=</span>5
+<span class="nv">b</span><span class="o">=</span>4
+<span class="nv">condition</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> -lt </span><span class="nv">$b</span><span class="s2">&quot;</span>     <span class="c">#  Error message and exit from script.</span>
+                          <span class="c">#  Try setting &quot;condition&quot; to something else</span>
+                          <span class="c">#+ and see what happens.</span>
+
+assert <span class="s2">&quot;</span><span class="nv">$condition</span><span class="s2">&quot;</span> <span class="nv">$LINENO</span>
+<span class="c"># The remainder of the script executes only if the &quot;assert&quot; does not fail.</span>
+
+
+<span class="c"># Some commands.</span>
+<span class="c"># Some more commands . . .</span>
+<span class="nb">echo</span> <span class="s2">&quot;This statement echoes only if the \&quot;assert\&quot; does not fail.&quot;</span>
+<span class="c"># . . .</span>
+<span class="c"># More commands . . .</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic simple">
+<li>Using the <a class="reference external" href="internalvariables.html#LINENOREF">$LINENO</a> variable and
+the <a class="reference external" href="internal.html#CALLERREF">caller</a> builtin.</li>
+<li>Trapping at exit.</li>
+</ol>
+<blockquote>
+<div><p>The <a class="reference external" href="internal.html#EXITREF">exit</a> command in a script triggers a
+signal 0 , terminating the process, that is, the script itself. ` [1]</p>
+<blockquote>
+<div>&lt;debugging.html#FTN.AEN19460&gt;`__ It is often useful to trap the</div></blockquote>
+<p><em>exit</em> , forcing a &#8220;printout&#8221; of variables, for example. The <em>trap</em>
+must be the first command in the script.</p>
+</div></blockquote>
+<p>** Trapping signals**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>trap</strong></dt>
+<dd><p class="first">Specifies an action on receipt of a signal; also useful for
+debugging.</p>
+<p>A <em>signal</em> is a message sent to a process, either by the kernel or
+another process, telling it to take some specified action (usually
+to terminate). For example, hitting a
+<a class="reference external" href="special-chars.html#CTLCREF">Control-C</a> sends a user interrupt,
+an INT signal, to a running program.</p>
+<p><em>A simple instance:</em></p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="nb">trap</span> <span class="s1">&#39;&#39;</span> 2
+<span class="c"># Ignore interrupt 2 (Control-C), with no action specified.</span>
+
+<span class="nb">trap</span> <span class="s1">&#39;echo &quot;Control-C disabled.&quot;&#39;</span> 2
+<span class="c"># Message when Control-C pressed.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-5-trapping-at-exit">
+<span id="debugging-example-trappingandexit"></span><h2>Exemple 5. Trapping at exit<a class="headerlink" href="#exemple-5-trapping-at-exit" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Hunting variables with a trap.</span>
+
+<span class="nb">trap</span> <span class="s1">&#39;echo Variable Listing --- a = $a  b = $b&#39;</span> EXIT
+<span class="c">#  EXIT is the name of the signal generated upon exit from a script.</span>
+<span class="c">#</span>
+<span class="c">#  The command specified by the &quot;trap&quot; doesn&#39;t execute until</span>
+<span class="c">#+ the appropriate signal is sent.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;This prints before the \&quot;trap\&quot; --&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;even though the script sees the \&quot;trap\&quot; first.&quot;</span>
+<span class="nb">echo</span>
+
+<span class="nv">a</span><span class="o">=</span>39
+
+<span class="nv">b</span><span class="o">=</span>36
+
+<span class="nb">exit </span>0
+<span class="c">#  Note that commenting out the &#39;exit&#39; command makes no difference,</span>
+<span class="c">#+ since the script exits in any case after running out of commands.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-6-cleaning-up-after-control-c">
+<h2>Exemple 6. Cleaning up after <strong>Control-C</strong><a class="headerlink" href="#exemple-6-cleaning-up-after-control-c" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># logon.sh: A quick &#39;n dirty script to check whether you are on-line yet.</span>
+
+<span class="nb">umask </span><span class="m">177</span>  <span class="c"># Make sure temp files are not world readable.</span>
+
+
+<span class="nv">TRUE</span><span class="o">=</span>1
+<span class="nv">LOGFILE</span><span class="o">=</span>/var/log/messages
+<span class="c">#  Note that $LOGFILE must be readable</span>
+<span class="c">#+ (as root, chmod 644 /var/log/messages).</span>
+<span class="nv">TEMPFILE</span><span class="o">=</span>temp.<span class="nv">$$</span>
+<span class="c">#  Create a &quot;unique&quot; temp file name, using process id of the script.</span>
+<span class="c">#     Using &#39;mktemp&#39; is an alternative.</span>
+<span class="c">#     For example:</span>
+<span class="c">#     TEMPFILE=`mktemp temp.XXXXXX`</span>
+<span class="nv">KEYWORD</span><span class="o">=</span>address
+<span class="c">#  At logon, the line &quot;remote IP address xxx.xxx.xxx.xxx&quot;</span>
+<span class="c">#                      appended to /var/log/messages.</span>
+<span class="nv">ONLINE</span><span class="o">=</span>22
+<span class="nv">USER_INTERRUPT</span><span class="o">=</span>13
+<span class="nv">CHECK_LINES</span><span class="o">=</span>100
+<span class="c">#  How many lines in log file to check.</span>
+
+<span class="nb">trap</span> <span class="s1">&#39;rm -f $TEMPFILE; exit $USER_INTERRUPT&#39;</span> TERM INT
+<span class="c">#  Cleans up the temp file if script interrupted by control-c.</span>
+
+<span class="nb">echo</span>
+
+<span class="k">while</span> <span class="o">[</span> <span class="nv">$TRUE</span> <span class="o">]</span>  <span class="c">#Endless loop.</span>
+<span class="k">do</span>
+  tail -n <span class="nv">$CHECK_LINES</span> <span class="nv">$LOGFILE</span>&gt; <span class="nv">$TEMPFILE</span>
+  <span class="c">#  Saves last 100 lines of system log file as temp file.</span>
+  <span class="c">#  Necessary, since newer kernels generate many log messages at log on.</span>
+  <span class="nv">search</span><span class="o">=</span><span class="sb">`</span>grep <span class="nv">$KEYWORD</span> <span class="nv">$TEMPFILE</span><span class="sb">`</span>
+  <span class="c">#  Checks for presence of the &quot;IP address&quot; phrase,</span>
+  <span class="c">#+ indicating a successful logon.</span>
+
+  <span class="k">if</span> <span class="o">[</span> ! -z <span class="s2">&quot;</span><span class="nv">$search</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="c">#  Quotes necessary because of possible spaces.</span>
+  <span class="k">then</span>
+     <span class="nb">echo</span> <span class="s2">&quot;On-line&quot;</span>
+     rm -f <span class="nv">$TEMPFILE</span>    <span class="c">#  Clean up temp file.</span>
+     <span class="nb">exit</span> <span class="nv">$ONLINE</span>
+  <span class="k">else</span>
+     <span class="nb">echo</span> -n <span class="s2">&quot;.&quot;</span>        <span class="c">#  The -n option to echo suppresses newline,</span>
+                        <span class="c">#+ so you get continuous rows of dots.</span>
+  <span class="k">fi</span>
+
+  sleep 1
+<span class="k">done</span>
+
+
+<span class="c">#  Note: if you change the KEYWORD variable to &quot;Exit&quot;,</span>
+<span class="c">#+ this script can be used while on-line</span>
+<span class="c">#+ to check for an unexpected logoff.</span>
+
+<span class="c"># Exercise: Change the script, per the above note,</span>
+<span class="c">#           and prettify it.</span>
+
+<span class="nb">exit </span>0
+
+
+<span class="c"># Nick Drage suggests an alternate method:</span>
+
+<span class="k">while</span> <span class="nb">true</span>
+<span class="nb">  </span><span class="k">do</span> ifconfig ppp0grep UP 1&gt; /dev/null <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;connected&quot;</span> <span class="o">&amp;&amp;</span> <span class="nb">exit </span>0
+  <span class="nb">echo</span> -n <span class="s2">&quot;.&quot;</span>   <span class="c"># Prints dots (.....) until connected.</span>
+  sleep 2
+<span class="k">done</span>
+
+<span class="c"># Problem: Hitting Control-C to terminate this process may be insufficient.</span>
+<span class="c">#+         (Dots may keep on echoing.)</span>
+<span class="c"># Exercise: Fix this.</span>
+
+
+
+<span class="c"># Stephane Chazelas has yet another alternative:</span>
+
+<span class="nv">CHECK_INTERVAL</span><span class="o">=</span>1
+
+<span class="k">while</span> ! tail -n <span class="m">1</span> <span class="s2">&quot;</span><span class="nv">$LOGFILE</span><span class="s2">&quot;</span>grep -q <span class="s2">&quot;</span><span class="nv">$KEYWORD</span><span class="s2">&quot;</span>
+<span class="k">do</span> <span class="nb">echo</span> -n .
+   sleep <span class="nv">$CHECK_INTERVAL</span>
+<span class="k">done</span>
+<span class="nb">echo</span> <span class="s2">&quot;On-line&quot;</span>
+
+<span class="c"># Exercise: Discuss the relative strengths and weaknesses</span>
+<span class="c">#           of each of these various approaches.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-7-a-simple-implementation-of-a-progress-bar">
+<h2>Exemple 7. A Simple Implementation of a Progress Bar<a class="headerlink" href="#exemple-7-a-simple-implementation-of-a-progress-bar" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#! /bin/bash</span>
+<span class="c"># progress-bar2.sh</span>
+<span class="c"># Author: Graham Ewart (with reformatting by ABS Guide author).</span>
+<span class="c"># Used in ABS Guide with permission (thanks!).</span>
+
+<span class="c"># Invoke this script with bash. It doesn&#39;t work with sh.</span>
+
+<span class="nv">interval</span><span class="o">=</span>1
+<span class="nv">long_interval</span><span class="o">=</span>10
+
+<span class="o">{</span>
+     <span class="nb">trap</span> <span class="s2">&quot;exit&quot;</span> SIGUSR1
+     sleep <span class="nv">$interval</span><span class="p">;</span> sleep <span class="nv">$interval</span>
+     <span class="k">while</span> <span class="nb">true</span>
+<span class="nb">     </span><span class="k">do</span>
+       <span class="nb">echo</span> -n <span class="s1">&#39;.&#39;</span>     <span class="c"># Use dots.</span>
+       sleep <span class="nv">$interval</span>
+     <span class="k">done</span><span class="p">;</span> <span class="o">}</span> <span class="p">&amp;</span>         <span class="c"># Start a progress bar as a background process.</span>
+
+<span class="nv">pid</span><span class="o">=</span><span class="nv">$!</span>
+<span class="nb">trap</span> <span class="s2">&quot;echo !; kill -USR1 </span><span class="nv">$pid</span><span class="s2">; wait </span><span class="nv">$pid</span><span class="s2">&quot;</span>  EXIT        <span class="c"># To handle ^C.</span>
+
+<span class="nb">echo</span> -n <span class="s1">&#39;Long-running process &#39;</span>
+sleep <span class="nv">$long_interval</span>
+<span class="nb">echo</span> <span class="s1">&#39; Finished!&#39;</span>
+
+<span class="nb">kill</span> -USR1 <span class="nv">$pid</span>
+<span class="nb">wait</span> <span class="nv">$pid</span>              <span class="c"># Stop the progress bar.</span>
+<span class="nb">trap </span>EXIT
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+<p><a href="#id3"><span class="problematic" id="id4">|</span></a>Note</p>
+<p>The ``         DEBUG        `` argument to <strong>trap</strong> causes a specified
+action to execute after every command in a script. This permits tracing
+variables, for example.</p>
+</div>
+<div class="section" id="exemple-8-tracing-a-variable">
+<h2>Exemple 8. Tracing a variable<a class="headerlink" href="#exemple-8-tracing-a-variable" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">trap</span> <span class="s1">&#39;echo &quot;VARIABLE-TRACE&gt; \$variable = \&quot;$variable\&quot;&quot;&#39;</span> DEBUG
+<span class="c"># Echoes the value of $variable after every command.</span>
+
+<span class="nv">variable</span><span class="o">=</span>29<span class="p">;</span> <span class="nv">line</span><span class="o">=</span><span class="nv">$LINENO</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;  Just initialized \$variable to </span><span class="nv">$variable</span><span class="s2"> in line number </span><span class="nv">$line</span><span class="s2">.&quot;</span>
+
+<span class="nb">let</span> <span class="s2">&quot;variable *= 3&quot;</span><span class="p">;</span> <span class="nv">line</span><span class="o">=</span><span class="nv">$LINENO</span>
+<span class="nb">echo</span> <span class="s2">&quot;  Just multiplied \$variable by 3 in line number </span><span class="nv">$line</span><span class="s2">.&quot;</span>
+
+<span class="nb">exit </span>0
+
+<span class="c">#  The &quot;trap &#39;command1 . . . command2 . . .&#39; DEBUG&quot; construct is</span>
+<span class="c">#+ more appropriate in the context of a complex script,</span>
+<span class="c">#+ where inserting multiple &quot;echo $variable&quot; statements might be</span>
+<span class="c">#+ awkward and time-consuming.</span>
+
+<span class="c"># Thanks, Stephane Chazelas for the pointer.</span>
+
+
+Output of script:
+
+VARIABLE-TRACE&gt; <span class="nv">$variable</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+VARIABLE-TRACE&gt; <span class="nv">$variable</span> <span class="o">=</span> <span class="s2">&quot;29&quot;</span>
+  Just initialized <span class="nv">$variable</span> to 29.
+VARIABLE-TRACE&gt; <span class="nv">$variable</span> <span class="o">=</span> <span class="s2">&quot;29&quot;</span>
+VARIABLE-TRACE&gt; <span class="nv">$variable</span> <span class="o">=</span> <span class="s2">&quot;87&quot;</span>
+  Just multiplied <span class="nv">$variable</span> by 3.
+VARIABLE-TRACE&gt; <span class="nv">$variable</span> <span class="o">=</span> <span class="s2">&quot;87&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">trap</span> <span class="s1">&#39;echo &quot;VARIABLE-TRACE&gt; \$variable = \&quot;$variable\&quot;&quot;&#39;</span> DEBUG
+<span class="c"># Echoes the value of $variable after every command.</span>
+
+<span class="nv">variable</span><span class="o">=</span>29<span class="p">;</span> <span class="nv">line</span><span class="o">=</span><span class="nv">$LINENO</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;  Just initialized \$variable to </span><span class="nv">$variable</span><span class="s2"> in line number </span><span class="nv">$line</span><span class="s2">.&quot;</span>
+
+<span class="nb">let</span> <span class="s2">&quot;variable *= 3&quot;</span><span class="p">;</span> <span class="nv">line</span><span class="o">=</span><span class="nv">$LINENO</span>
+<span class="nb">echo</span> <span class="s2">&quot;  Just multiplied \$variable by 3 in line number </span><span class="nv">$line</span><span class="s2">.&quot;</span>
+
+<span class="nb">exit </span>0
+
+<span class="c">#  The &quot;trap &#39;command1 . . . command2 . . .&#39; DEBUG&quot; construct is</span>
+<span class="c">#+ more appropriate in the context of a complex script,</span>
+<span class="c">#+ where inserting multiple &quot;echo $variable&quot; statements might be</span>
+<span class="c">#+ awkward and time-consuming.</span>
+
+<span class="c"># Thanks, Stephane Chazelas for the pointer.</span>
+
+
+Output of script:
+
+VARIABLE-TRACE&gt; <span class="nv">$variable</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+VARIABLE-TRACE&gt; <span class="nv">$variable</span> <span class="o">=</span> <span class="s2">&quot;29&quot;</span>
+  Just initialized <span class="nv">$variable</span> to 29.
+VARIABLE-TRACE&gt; <span class="nv">$variable</span> <span class="o">=</span> <span class="s2">&quot;29&quot;</span>
+VARIABLE-TRACE&gt; <span class="nv">$variable</span> <span class="o">=</span> <span class="s2">&quot;87&quot;</span>
+  Just multiplied <span class="nv">$variable</span> by 3.
+VARIABLE-TRACE&gt; <span class="nv">$variable</span> <span class="o">=</span> <span class="s2">&quot;87&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">trap</span> <span class="s1">&#39;echo &quot;VARIABLE-TRACE&gt; \$variable = \&quot;$variable\&quot;&quot;&#39;</span> DEBUG
+<span class="c"># Echoes the value of $variable after every command.</span>
+
+<span class="nv">variable</span><span class="o">=</span>29<span class="p">;</span> <span class="nv">line</span><span class="o">=</span><span class="nv">$LINENO</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;  Just initialized \$variable to </span><span class="nv">$variable</span><span class="s2"> in line number </span><span class="nv">$line</span><span class="s2">.&quot;</span>
+
+<span class="nb">let</span> <span class="s2">&quot;variable *= 3&quot;</span><span class="p">;</span> <span class="nv">line</span><span class="o">=</span><span class="nv">$LINENO</span>
+<span class="nb">echo</span> <span class="s2">&quot;  Just multiplied \$variable by 3 in line number </span><span class="nv">$line</span><span class="s2">.&quot;</span>
+
+<span class="nb">exit </span>0
+
+<span class="c">#  The &quot;trap &#39;command1 . . . command2 . . .&#39; DEBUG&quot; construct is</span>
+<span class="c">#+ more appropriate in the context of a complex script,</span>
+<span class="c">#+ where inserting multiple &quot;echo $variable&quot; statements might be</span>
+<span class="c">#+ awkward and time-consuming.</span>
+
+<span class="c"># Thanks, Stephane Chazelas for the pointer.</span>
+
+
+Output of script:
+
+VARIABLE-TRACE&gt; <span class="nv">$variable</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+VARIABLE-TRACE&gt; <span class="nv">$variable</span> <span class="o">=</span> <span class="s2">&quot;29&quot;</span>
+  Just initialized <span class="nv">$variable</span> to 29.
+VARIABLE-TRACE&gt; <span class="nv">$variable</span> <span class="o">=</span> <span class="s2">&quot;29&quot;</span>
+VARIABLE-TRACE&gt; <span class="nv">$variable</span> <span class="o">=</span> <span class="s2">&quot;87&quot;</span>
+  Just multiplied <span class="nv">$variable</span> by 3.
+VARIABLE-TRACE&gt; <span class="nv">$variable</span> <span class="o">=</span> <span class="s2">&quot;87&quot;</span>
+</pre></div>
+</div>
+<p>Of course, the <strong>trap</strong> command has other uses aside from debugging,
+such as disabling certain keystrokes within a script (see <a class="reference external" href="contributed-scripts.html#STOPWATCH">Example
+A-43</a> ).</p>
+</div>
+<div class="section" id="exemple-9-running-multiple-processes-on-an-smp-box">
+<h2>Exemple 9. Running multiple processes (on an SMP box)<a class="headerlink" href="#exemple-9-running-multiple-processes-on-an-smp-box" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># parent.sh</span>
+<span class="c"># Running multiple processes on an SMP box.</span>
+<span class="c"># Author: Tedman Eng</span>
+
+<span class="c">#  This is the first of two scripts,</span>
+<span class="c">#+ both of which must be present in the current working directory.</span>
+
+
+
+
+<span class="nv">LIMIT</span><span class="o">=</span><span class="nv">$1</span>         <span class="c"># Total number of process to start</span>
+<span class="nv">NUMPROC</span><span class="o">=</span><span class="m">4</span>        <span class="c"># Number of concurrent threads (forks?)</span>
+<span class="nv">PROCID</span><span class="o">=</span><span class="m">1</span>         <span class="c"># Starting Process ID</span>
+<span class="nb">echo</span> <span class="s2">&quot;My PID is </span><span class="nv">$$</span><span class="s2">&quot;</span>
+
+<span class="k">function</span> start_thread<span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">[</span> <span class="nv">$PROCID</span> -le <span class="nv">$LIMIT</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+                ./child.sh <span class="nv">$PROCID</span><span class="p">&amp;</span>
+                <span class="nb">let</span> <span class="s2">&quot;PROCID++&quot;</span>
+        <span class="k">else</span>
+           <span class="nb">echo</span> <span class="s2">&quot;Limit reached.&quot;</span>
+           <span class="nb">wait</span>
+<span class="nb">           exit</span>
+<span class="nb">        </span><span class="k">fi</span>
+<span class="o">}</span>
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$NUMPROC</span><span class="s2">&quot;</span> -gt <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">do</span>
+        start_thread<span class="p">;</span>
+        <span class="nb">let</span> <span class="s2">&quot;NUMPROC--&quot;</span>
+<span class="k">done</span>
+
+
+<span class="k">while</span> <span class="nb">true</span>
+<span class="k">do</span>
+
+<span class="nb">trap</span> <span class="s2">&quot;start_thread&quot;</span> SIGRTMIN
+
+<span class="k">done</span>
+
+<span class="nb">exit </span>0
+
+
+
+<span class="c"># ======== Second script follows ========</span>
+
+
+<span class="c">#!/bin/bash</span>
+<span class="c"># child.sh</span>
+<span class="c"># Running multiple processes on an SMP box.</span>
+<span class="c"># This script is called by parent.sh.</span>
+<span class="c"># Author: Tedman Eng</span>
+
+<span class="nv">temp</span><span class="o">=</span><span class="nv">$RANDOM</span>
+<span class="nv">index</span><span class="o">=</span><span class="nv">$1</span>
+<span class="nb">shift</span>
+<span class="nb">let</span> <span class="s2">&quot;temp %= 5&quot;</span>
+<span class="nb">let</span> <span class="s2">&quot;temp += 4&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Starting </span><span class="nv">$index</span><span class="s2">  Time:</span><span class="nv">$temp</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+sleep <span class="si">${</span><span class="nv">temp</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;Ending </span><span class="nv">$index</span><span class="s2">&quot;</span>
+<span class="nb">kill</span> -s SIGRTMIN <span class="nv">$PPID</span>
+
+<span class="nb">exit </span>0
+
+
+<span class="c"># ======================= SCRIPT AUTHOR&#39;S NOTES ======================= #</span>
+<span class="c">#  It&#39;s not completely bug free.</span>
+<span class="c">#  I ran it with limit = 500 and after the first few hundred iterations,</span>
+<span class="c">#+ one of the concurrent threads disappeared!</span>
+<span class="c">#  Not sure if this is collisions from trap signals or something else.</span>
+<span class="c">#  Once the trap is received, there&#39;s a brief moment while executing the</span>
+<span class="c">#+ trap handler but before the next trap is set.  During this time, it may</span>
+<span class="c">#+ be possible to miss a trap signal, thus miss spawning a child process.</span>
+
+<span class="c">#  No doubt someone may spot the bug and will be writing</span>
+<span class="c">#+ . . . in the future.</span>
+
+
+
+<span class="c"># ===================================================================== #</span>
+
+
+
+<span class="c"># ----------------------------------------------------------------------#</span>
+
+
+
+<span class="c">#################################################################</span>
+<span class="c"># The following is the original script written by Vernia Damiano.</span>
+<span class="c"># Unfortunately, it doesn&#39;t work properly.</span>
+<span class="c">#################################################################</span>
+
+<span class="c">#!/bin/bash</span>
+
+<span class="c">#  Must call script with at least one integer parameter</span>
+<span class="c">#+ (number of concurrent processes).</span>
+<span class="c">#  All other parameters are passed through to the processes started.</span>
+
+
+<span class="nv">INDICE</span><span class="o">=</span><span class="m">8</span>        <span class="c"># Total number of process to start</span>
+<span class="nv">TEMPO</span><span class="o">=</span><span class="m">5</span>         <span class="c"># Maximum sleep time per process</span>
+<span class="nv">E_BADARGS</span><span class="o">=</span><span class="m">65</span>    <span class="c"># No arg(s) passed to script.</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-eq <span class="m">0</span> <span class="o">]</span> <span class="c"># Check for at least one argument passed to script.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` number_of_processes [passed params]&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+
+<span class="nv">NUMPROC</span><span class="o">=</span><span class="nv">$1</span>              <span class="c"># Number of concurrent process</span>
+<span class="nb">shift</span>
+<span class="nv">PARAMETRI</span><span class="o">=(</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span> <span class="o">)</span>      <span class="c"># Parameters of each process</span>
+
+<span class="k">function</span> avvia<span class="o">()</span> <span class="o">{</span>
+         <span class="nb">local </span>temp
+         <span class="nb">local </span>index
+         <span class="nv">temp</span><span class="o">=</span><span class="nv">$RANDOM</span>
+         <span class="nv">index</span><span class="o">=</span><span class="nv">$1</span>
+         <span class="nb">shift</span>
+<span class="nb">         let</span> <span class="s2">&quot;temp %= </span><span class="nv">$TEMPO</span><span class="s2">&quot;</span>
+         <span class="nb">let</span> <span class="s2">&quot;temp += 1&quot;</span>
+         <span class="nb">echo</span> <span class="s2">&quot;Starting </span><span class="nv">$index</span><span class="s2"> Time:</span><span class="nv">$temp</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+         sleep <span class="si">${</span><span class="nv">temp</span><span class="si">}</span>
+         <span class="nb">echo</span> <span class="s2">&quot;Ending </span><span class="nv">$index</span><span class="s2">&quot;</span>
+         <span class="nb">kill</span> -s SIGRTMIN <span class="nv">$$</span>
+<span class="o">}</span>
+
+<span class="k">function</span> parti<span class="o">()</span> <span class="o">{</span>
+         <span class="k">if</span> <span class="o">[</span> <span class="nv">$INDICE</span> -gt <span class="m">0</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+              avvia <span class="nv">$INDICE</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">PARAMETRI</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">&amp;</span>
+                <span class="nb">let</span> <span class="s2">&quot;INDICE--&quot;</span>
+         <span class="k">else</span>
+                <span class="nb">trap</span> : SIGRTMIN
+         <span class="k">fi</span>
+<span class="o">}</span>
+
+<span class="nb">trap </span>parti SIGRTMIN
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$NUMPROC</span><span class="s2">&quot;</span> -gt <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">do</span>
+         parti<span class="p">;</span>
+         <span class="nb">let</span> <span class="s2">&quot;NUMPROC--&quot;</span>
+<span class="k">done</span>
+
+<span class="nb">wait</span>
+<span class="nb">trap</span> - SIGRTMIN
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+: <span class="s">&lt;&lt;SCRIPT_AUTHOR_COMMENTS</span>
+<span class="s">I had the need to run a program, with specified options, on a number of</span>
+<span class="s">different files, using a SMP machine. So I thought [I&#39;d] keep running</span>
+<span class="s">a specified number of processes and start a new one each time . . . one</span>
+<span class="s">of these terminates.</span>
+
+<span class="s">The &quot;wait&quot; instruction does not help, since it waits for a given process</span>
+<span class="s">or *all* process started in background. So I wrote [this] bash script</span>
+<span class="s">that can do the job, using the &quot;trap&quot; instruction.</span>
+<span class="s">  --Vernia Damiano</span>
+<span class="s">SCRIPT_AUTHOR_COMMENTS</span>
+</pre></div>
+</div>
+<p><a href="#id5"><span class="problematic" id="id6">|</span></a>Note</p>
+<p>``                   trap &#8216;&#8217; SIGNAL                 `` (two adjacent
+apostrophes) disables SIGNAL for the remainder of the script.
+``                   trap SIGNAL                 `` restores the
+functioning of SIGNAL once more. This is useful to protect a critical
+portion of a script from an undesirable interrupt.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">trap</span> <span class="s1">&#39;&#39;</span> <span class="m">2</span>  <span class="c"># Signal 2 is Control-C, now disabled.</span>
+  <span class="nb">command</span>
+<span class="nb">  command</span>
+<span class="nb">  command</span>
+<span class="nb">  trap </span><span class="m">2</span>     <span class="c"># Reenables Control-C</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="bashver3.html#BASH3REF">Version 3</a> of Bash adds the following
+<a class="reference external" href="internalvariables.html#INTERNALVARIABLES1">internal variables</a> for
+use by the debugger.</p>
+<ol class="arabic">
+<li><p class="first">``           $BASH_ARGC          ``</p>
+<p>Number of command-line arguments passed to script, similar to
+``            $#           `` &lt;internalvariables.html#CLACOUNTREF&gt;`__
+.</p>
+</li>
+<li><p class="first">``           $BASH_ARGV          ``</p>
+<p>Final command-line parameter passed to script, equivalent
+``            ${!#}           `` &lt;othertypesv.html#LASTARGREF&gt;`__ .</p>
+</li>
+<li><p class="first">``           $BASH_COMMAND          ``</p>
+<p>Command currently executing.</p>
+</li>
+<li><p class="first">``           $BASH_EXECUTION_STRING          ``</p>
+<p>The <em>option string</em> following the ``           -c          ``
+<a class="reference external" href="bash-options.html#CLOPTS">option</a> to Bash.</p>
+</li>
+<li><p class="first">``           $BASH_LINENO          ``</p>
+<p>In a <a class="reference external" href="functions.html#FUNCTIONREF">function</a> , indicates the line
+number of the function call.</p>
+</li>
+<li><p class="first">``           $BASH_REMATCH          ``</p>
+<p>Array variable associated with <strong>=~</strong> <a class="reference external" href="bashver3.html#REGEXMATCHREF">conditional regex
+matching</a> .</p>
+</li>
+<li><p class="first">``           $BASH_SOURCE          ``</p>
+<p>This is the name of the script, usually the same as
+<a class="reference external" href="othertypesv.html#ARG0">$0</a> .</p>
+</li>
+<li><p class="first">``            $BASH_SUBSHELL           `` &lt;internalvariables.html#BASHSUBSHELLREF&gt;`__</p>
+</li>
+</ol>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;debugging.html#AEN19460&gt;`__</p>
+<p>By convention, ``               signal         0             `` is
+assigned to <a class="reference external" href="exit-status.html#EXITCOMMANDREF">exit</a> .</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="options.html" class="btn btn-neutral float-right" title="XXX Chapter 33. Options" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="zeros.html" class="btn btn-neutral" title="XXX Chapter 31. Of Zeros and Nulls"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

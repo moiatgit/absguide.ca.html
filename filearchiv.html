@@ -1,0 +1,1738 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 16.5. File and Archiving Commands &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Chapter 16. External Filters, Programs and Commands" href="external.html"/>
+        <link rel="next" title="XXX 16.6. Communications Commands" href="communications.html"/>
+        <link rel="prev" title="XXX 16.4. Text Processing Commands" href="textproc.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="internal.html">XXX  Chapter 15. Internal Commands and Builtins</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="external.html">XXX  Chapter 16. External Filters, Programs and Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">XXX  Chapter 17. System and Administrative Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part4.html">XXX Part 4. Commands</a> &raquo;</li>
+      
+          <li><a href="external.html">XXX  Chapter 16. External Filters, Programs and Commands</a> &raquo;</li>
+      
+    <li>XXX  16.5. File and Archiving Commands</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-16-5-file-and-archiving-commands">
+<h1>XXX  16.5. File and Archiving Commands<a class="headerlink" href="#xxx-16-5-file-and-archiving-commands" title="Link permanent a aquest títol">¶</a></h1>
+<p>** Archiving**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>tar</strong></dt>
+<dd><dl class="first docutils">
+<dt>The standard UNIX archiving utility. ` [1]</dt>
+<dd>&lt;filearchiv.html#FTN.AEN11885&gt;`__ Originally a <em>Tape ARchiving</em></dd>
+</dl>
+<p>program, it has developed into a general purpose package that can
+handle all manner of archiving with all types of destination
+devices, ranging from tape drives to regular files to even
+``         stdout        `` (see <a class="reference external" href="special-chars.html#EX58">Example
+3-4</a> ). GNU <em>tar</em> has been patched to
+accept various compression filters, for example: <strong>tar czvf
+archive_name.tar.gz *</strong> , which recursively archives and
+<a class="reference external" href="filearchiv.html#GZIPREF">gzips</a> all files in a directory tree
+except <a class="reference external" href="basic.html#DOTFILESREF">dotfiles</a> in the current working
+directory ( <a class="reference external" href="internalvariables.html#PWDREF">$PWD</a> ). ` [2]</p>
+<blockquote>
+<div>&lt;filearchiv.html#FTN.AEN11896&gt;`__</div></blockquote>
+<p>Some useful <strong>tar</strong> options:</p>
+<ol class="last arabic simple">
+<li>``           -c          `` create (a new archive)</li>
+<li>``           -x          `` extract (files from existing archive)</li>
+<li>``           &#8211;delete          `` delete (files from existing
+archive)</li>
+</ol>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<blockquote>
+<div>This option will not work on magnetic tape devices.</div></blockquote>
+<ol class="last arabic">
+<li><p class="first">``           -r          `` append (files to existing archive)</p>
+</li>
+<li><p class="first">``           -A          `` append ( <em>tar</em> files to existing
+archive)</p>
+</li>
+<li><p class="first">``           -t          `` list (contents of existing archive)</p>
+</li>
+<li><p class="first">``           -u          `` update archive</p>
+</li>
+<li><p class="first">``           -d          `` compare archive with specified
+filesystem</p>
+</li>
+<li><p class="first">``           &#8211;after-date          `` only process files with a
+date stamp <em>after</em> specified date</p>
+</li>
+<li><p class="first">``           -z          `` <a class="reference external" href="filearchiv.html#GZIPREF">gzip</a>
+the archive</p>
+<p>(compress or uncompress, depending on whether combined with the
+``           -c          `` or ``           -x          `` )
+option</p>
+</li>
+<li><p class="first">``           -j          `` <a class="reference external" href="filearchiv.html#BZIPREF">bzip2</a>
+the archive</p>
+</li>
+</ol>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<blockquote>
+<div>It may be difficult to recover data from a corrupted <em>gzipped</em> tar
+archive. When archiving important files, make multiple backups.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>shar</strong></dt>
+<dd><p class="first"><em>Shell archiving</em> utility. The text and/or binary files in a shell
+archive are concatenated without compression, and the resultant
+archive is essentially a shell script, complete with #!/bin/sh
+header, containing all the necessary unarchiving commands, as well
+as the files themselves. Unprintable binary characters in the target
+file(s) are converted to printable ASCII characters in the output
+<em>shar</em> file. <em>Shar archives</em> still show up in Usenet newsgroups, but
+otherwise <strong>shar</strong> has been replaced by <strong>tar</strong> / <strong>gzip</strong> . The
+<strong>unshar</strong> command unpacks <em>shar</em> archives.</p>
+<p class="last">The <strong>mailshar</strong> command is a Bash script that uses <strong>shar</strong> to
+concatenate multiple files into a single one for e-mailing. This
+script supports compression and
+<a class="reference external" href="filearchiv.html#UUENCODEREF">uuencoding</a> .</p>
+</dd>
+<dt><strong>ar</strong></dt>
+<dd>Creation and manipulation utility for archives, mainly used for
+binary object file libraries.</dd>
+<dt><strong>rpm</strong></dt>
+<dd><p class="first">The <em>Red Hat Package Manager</em> , or <strong>rpm</strong> utility provides a
+wrapper for source or binary archives. It includes commands for
+installing and checking the integrity of packages, among other
+things.</p>
+<p class="last">A simple <strong>rpm -i package_name.rpm</strong> usually suffices to install a
+package, though there are many more options available.</p>
+</dd>
+</dl>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<p class="last">``                         rpm -qf                       ``
+identifies which package a file originates from.</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>rpm -qf /bin/l
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>s</dt>
+<dd><p class="first">coreutils-5.2.1-31</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>rpm -qf /bin/ls
+coreutils-5.2.1-31
+</pre></div>
+</div>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>rpm -qf /bin/ls
+coreutils-5.2.1-31
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<p class="last">``                         rpm -qa                       `` gives a
+complete list of all installed <em>rpm</em> packages on a given system. An
+``                         rpm -qa package_name                       ``
+lists only the package(s) corresponding to
+``            package_name           `` .</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>rpm -qa
+redhat-logos-1.1.3-1
+ glibc-2.2.4-13
+ cracklib-2.7-12
+ dosfstools-2.7-1
+ gdbm-1.8.0-10
+ ksymoops-2.4.1-1
+ mktemp-1.5-11
+ perl-5.6.0-17
+ reiserfs-utils-3.x.
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>0j-2</dt>
+<dd><blockquote class="first">
+<div>...</div></blockquote>
+<p class="last">bash$ rpm -qa docboo</p>
+</dd>
+<dt>k-utils</dt>
+<dd>docbook-utils-0.6.9-</dd>
+</dl>
+<p>2</p>
+<blockquote>
+<div>bash$ rpm -qa docboo</div></blockquote>
+<dl class="docutils">
+<dt>k | grep docbook</dt>
+<dd>docbook-dtd31-sgml-1</dd>
+<dt>.0-10</dt>
+<dd>docbook-style-dsssl</dd>
+<dt>-1.64-3</dt>
+<dd>docbook-dtd30-sgml-</dd>
+<dt>1.0-10</dt>
+<dd>docbook-dtd40-sgml-</dd>
+<dt>1.0-11</dt>
+<dd>docbook-utils-pdf-0</dd>
+<dt>.6.9-2</dt>
+<dd>docbook-dtd41-sgml-</dd>
+<dt>1.0-10</dt>
+<dd>docbook-utils-0.6.9</dd>
+</dl>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-2</span></kbd></td>
+<td><blockquote class="first">
+<div><div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>rpm -qa
+redhat-logos-1.1.3-1
+ glibc-2.2.4-13
+ cracklib-2.7-12
+ dosfstools-2.7-1
+ gdbm-1.8.0-10
+ ksymoops-2.4.1-1
+ mktemp-1.5-11
+ perl-5.6.0-17
+ reiserfs-utils-3.x.0j-2
+ ...
+
+
+bash<span class="nv">$ </span>rpm -qa docbook-utils
+docbook-utils-0.6.9-2
+
+
+bash<span class="nv">$ </span>rpm -qa docbookgrep docbook
+docbook-dtd31-sgml-1.0-10
+ docbook-style-dsssl-1.64-3
+ docbook-dtd30-sgml-1.0-10
+ docbook-dtd40-sgml-1.0-11
+ docbook-utils-pdf-0.6.9-2
+ docbook-dtd41-sgml-1.0-10
+ docbook-utils-0.6.9-2
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>rpm -qa
+redhat-logos-1.1.3-1
+ glibc-2.2.4-13
+ cracklib-2.7-12
+ dosfstools-2.7-1
+ gdbm-1.8.0-10
+ ksymoops-2.4.1-1
+ mktemp-1.5-11
+ perl-5.6.0-17
+ reiserfs-utils-3.x.0j-2
+ ...
+
+
+bash<span class="nv">$ </span>rpm -qa docbook-utils
+docbook-utils-0.6.9-2
+
+
+bash<span class="nv">$ </span>rpm -qa docbookgrep docbook
+docbook-dtd31-sgml-1.0-10
+ docbook-style-dsssl-1.64-3
+ docbook-dtd30-sgml-1.0-10
+ docbook-dtd40-sgml-1.0-11
+ docbook-utils-pdf-0.6.9-2
+ docbook-dtd41-sgml-1.0-10
+ docbook-utils-0.6.9-2
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="last docutils">
+<dt><strong>cpio</strong></dt>
+<dd>This specialized archiving copy command ( <strong>c</strong> o <strong>p</strong> y <strong>i</strong> nput
+and <strong>o</strong> utput) is rarely seen any more, having been supplanted by
+<strong>tar</strong> / <strong>gzip</strong> . It still has its uses, such as moving a
+directory tree. With an appropriate block size (for copying)
+specified, it can be appreciably faster than <strong>tar</strong> .</dd>
+</dl>
+</td></tr>
+</tbody>
+</table>
+<div class="section" id="exemple-30-using-cpio-to-move-a-directory-tree">
+<h2>Exemple 30. Using <em>cpio</em> to move a directory tree<a class="headerlink" href="#exemple-30-using-cpio-to-move-a-directory-tree" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c"># Copying a directory tree using cpio.</span>
+
+<span class="c"># Advantages of using &#39;cpio&#39;:</span>
+<span class="c">#   Speed of copying. It&#39;s faster than &#39;tar&#39; with pipes.</span>
+<span class="c">#   Well suited for copying special files (named pipes, etc.)</span>
+<span class="c">#+  that &#39;cp&#39; may choke on.</span>
+
+<span class="nv">ARGS</span><span class="o">=</span>2
+<span class="nv">E_BADARGS</span><span class="o">=</span>65
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-ne <span class="s2">&quot;</span><span class="nv">$ARGS</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` source destination&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+
+<span class="nb">source</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="nv">destination</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+
+<span class="c">###################################################################</span>
+find <span class="s2">&quot;</span><span class="nv">$source</span><span class="s2">&quot;</span> -depthcpio -admvp <span class="s2">&quot;</span><span class="nv">$destination</span><span class="s2">&quot;</span>
+<span class="c">#               ^^^^^         ^^^^^</span>
+<span class="c">#  Read the &#39;find&#39; and &#39;cpio&#39; info pages to decipher these options.</span>
+<span class="c">#  The above works only relative to $PWD (current directory) . . .</span>
+<span class="c">#+ full pathnames are specified.</span>
+<span class="c">###################################################################</span>
+
+
+<span class="c"># Exercise:</span>
+<span class="c"># --------</span>
+
+<span class="c">#  Add code to check the exit status ($?) of the &#39;findcpio&#39; pipe</span>
+<span class="c">#+ and output appropriate error messages if anything went wrong.</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>rpm2cpio</strong></dt>
+<dd>This command extracts a <strong>cpio</strong> archive from an
+<a class="reference external" href="filearchiv.html#RPMREF">rpm</a> one.</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-31-unpacking-an-rpm-archive">
+<h2>Exemple 31. Unpacking an <em>rpm</em> archive<a class="headerlink" href="#exemple-31-unpacking-an-rpm-archive" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># de-rpm.sh: Unpack an &#39;rpm&#39; archive</span>
+
+: <span class="si">${</span><span class="nv">1</span><span class="p">?</span><span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` target-file&quot;</span><span class="si">}</span>
+<span class="c"># Must specify &#39;rpm&#39; archive name as an argument.</span>
+
+
+<span class="nv">TEMPFILE</span><span class="o">=</span><span class="nv">$$</span>.cpio                         <span class="c">#  Tempfile with &quot;unique&quot; name.</span>
+                                         <span class="c">#  $$ is process ID of script.</span>
+
+rpm2cpio &lt; <span class="nv">$1</span> &gt; <span class="nv">$TEMPFILE</span>                <span class="c">#  Converts rpm archive into</span>
+                                         <span class="c">#+ cpio archive.</span>
+cpio --make-directories -F <span class="nv">$TEMPFILE</span> -i  <span class="c">#  Unpacks cpio archive.</span>
+rm -f <span class="nv">$TEMPFILE</span>                          <span class="c">#  Deletes cpio archive.</span>
+
+<span class="nb">exit </span>0
+
+<span class="c">#  Exercise:</span>
+<span class="c">#  Add check for whether 1) &quot;target-file&quot; exists and</span>
+<span class="c">#+                       2) it is an rpm archive.</span>
+<span class="c">#  Hint:                    Parse output of &#39;file&#39; command.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>pax</strong></dt>
+<dd><p class="first">The <em>pax</em> <strong>p</strong> ortable <strong>a</strong> rchive e <strong>x</strong> change toolkit
+facilitates periodic file backups and is designed to be
+cross-compatible between various flavors of UNIX. It was designed to
+replace <a class="reference external" href="filearchiv.html#TARREF">tar</a> and
+<a class="reference external" href="filearchiv.html#CPIOREF">cpio</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre>pax -wf daily_backup.pax ~/linux-server/files
+<span class="c">#  Creates a tar archive of all files in the target directory.</span>
+<span class="c">#  Note that the options to pax must be in the correct order --</span>
+<span class="c">#+ pax -fw     has an entirely different effect.</span>
+
+pax -f daily_backup.pax
+<span class="c">#  Lists the files in the archive.</span>
+
+pax -rf daily_backup.pax ~/bsd-server/files
+<span class="c">#  Restores the backed-up files from the Linux machine</span>
+<span class="c">#+ onto a BSD one.</span>
+</pre></div>
+</div>
+<p class="last">Note that <em>pax</em> handles many of the standard archiving and
+compression commands.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>** Compression**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>gzip</strong></dt>
+<dd>The standard GNU/UNIX compression utility, replacing the inferior
+and proprietary <strong>compress</strong> . The corresponding decompression
+command is <strong>gunzip</strong> , which is the equivalent of <strong>gzip -d</strong> .</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p>The ``            -c           `` option sends the output of
+<strong>gzip</strong> to ``            stdout           `` . This is useful when
+<a class="reference external" href="special-chars.html#PIPEREF">piping</a> to other commands.</p>
+<p class="last">The <strong>zcat</strong> filter decompresses a <em>gzipped</em> file to
+``         stdout        `` , as possible input to a pipe or
+redirection. This is, in effect, a <strong>cat</strong> command that works on
+compressed files (including files processed with the older
+<a class="reference external" href="filearchiv.html#COMPRESSREF">compress</a> utility). The <strong>zcat</strong>
+command is equivalent to <strong>gzip -dc</strong> .</p>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<blockquote>
+<div><p>On some commercial UNIX systems, <strong>zcat</strong> is a synonym for
+<strong>uncompress -c</strong> , and will not work on <em>gzipped</em> files.</p>
+<p>See also <a class="reference external" href="comparison-ops.html#EX14">Example 7-7</a> .</p>
+</div></blockquote>
+<dl class="last docutils">
+<dt><strong>bzip2</strong></dt>
+<dd><p class="first">An alternate compression utility, usually more efficient (but
+slower) than <strong>gzip</strong> , especially on large files. The corresponding
+decompression command is <strong>bunzip2</strong> .</p>
+<p class="last">Similar to the <strong>zcat</strong> command, <strong>bzcat</strong> decompresses a
+<em>bzipped2-ed</em> file to ``         stdout        `` .</p>
+</dd>
+</dl>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div>Newer versions of <a class="reference external" href="filearchiv.html#TARREF">tar</a> have been patched
+with <strong>bzip2</strong> support.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>compress</strong> , <strong>uncompress</strong></dt>
+<dd>This is an older, proprietary compression utility found in
+commercial UNIX distributions. The more efficient <strong>gzip</strong> has
+largely replaced it. Linux distributions generally include a
+<strong>compress</strong> workalike for compatibility, although <strong>gunzip</strong> can
+unarchive files treated with <strong>compress</strong> .</dd>
+</dl>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<blockquote>
+<div>The <strong>znew</strong> command transforms <em>compressed</em> files into <em>gzipped</em>
+ones.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>sq</strong></dt>
+<dd>Yet another compression ( <strong>sq</strong> ueeze) utility, a filter that works
+only on sorted <a class="reference external" href="special-chars.html#ASCIIDEF">ASCII</a> word lists.
+It uses the standard invocation syntax for a filter, <strong>sq &lt;
+input-file &gt; output-file</strong> . Fast, but not nearly as efficient as
+<a class="reference external" href="filearchiv.html#GZIPREF">gzip</a> . The corresponding uncompression
+filter is <strong>unsq</strong> , invoked like <strong>sq</strong> .</dd>
+</dl>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<blockquote>
+<div>The output of <strong>sq</strong> may be piped to <strong>gzip</strong> for further
+compression.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>zip</strong> , <strong>unzip</strong></dt>
+<dd>Cross-platform file archiving and compression utility compatible
+with DOS <em>pkzip.exe</em> . &#8220;Zipped&#8221; archives seem to be a more common
+medium of file exchange on the Internet than &#8220;tarballs.&#8221;</dd>
+<dt><strong>unarc</strong> , <strong>unarj</strong> , <strong>unrar</strong></dt>
+<dd>These Linux utilities permit unpacking archives compressed with the
+DOS <em>arc.exe</em> , <em>arj.exe</em> , and <em>rar.exe</em> programs.</dd>
+<dt><strong>lzma</strong> , <strong>unlzma</strong> , <strong>lzcat</strong></dt>
+<dd>Highly efficient Lempel-Ziv-Markov compression. The syntax of <em>lzma</em>
+is similar to that of <em>gzip</em> . The <a class="reference external" href="http://www.7-zip.org/sdk.html">7-zip
+Website</a> has more information.</dd>
+<dt><strong>xz</strong> , <strong>unxz</strong> , <strong>xzcat</strong></dt>
+<dd>A new high-efficiency compression tool, backward compatible with
+<em>lzma</em> , and with an invocation syntax similar to <em>gzip</em> . For more
+information, see the <a class="reference external" href="http://en.wikipedia.org/wiki/Xz">Wikipedia
+entry</a> .</dd>
+</dl>
+</div>
+<p>** File Information**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>file</strong></dt>
+<dd><p class="first">A utility for identifying file types. The command
+``                   file file-name                 `` will return a
+file specification for ``         file-name        `` , such as
+``         ascii text        `` or ``         data        `` . It
+references the <a class="reference external" href="sha-bang.html#MAGNUMREF">magic numbers</a> found in
+``         /usr/share/magic        `` ,
+``         /etc/magic        `` , or
+``         /usr/lib/magic        `` , depending on the Linux/UNIX
+distribution.</p>
+<p>The ``         -f        `` option causes <strong>file</strong> to run in
+<a class="reference external" href="timedate.html#BATCHPROCREF">batch</a> mode, to read from a
+designated file a list of filenames to analyze. The
+``         -z        `` option, when used on a compressed target
+file, forces an attempt to analyze the uncompressed file type.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>file test.tar.gz
+test.tar.gz: gzip compressed data, deflated,
+ last modified: Sun Sep <span class="m">16</span> 13:34:51 2001, os: Unix
+
+bash file -z test.tar.gz
+test.tar.gz: GNU tar archive <span class="o">(</span>gzip compressed data, deflated,
+ last modified: Sun Sep <span class="m">16</span> 13:34:51 2001, os: Unix<span class="o">)</span>
+</pre></div>
+</div>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="c"># Find sh and Bash scripts in a given directory:</span>
+
+<span class="nv">DIRECTORY</span><span class="o">=</span>/usr/local/bin
+<span class="nv">KEYWORD</span><span class="o">=</span>Bourne
+<span class="c"># Bourne and Bourne-Again shell scripts</span>
+
+file <span class="nv">$DIRECTORY</span>/*fgrep <span class="nv">$KEYWORD</span>
+
+<span class="c"># Output:</span>
+
+<span class="c"># /usr/local/bin/burn-cd:          Bourne-Again shell script text executable</span>
+<span class="c"># /usr/local/bin/burnit:           Bourne-Again shell script text executable</span>
+<span class="c"># /usr/local/bin/cassette.sh:      Bourne shell script text executable</span>
+<span class="c"># /usr/local/bin/copy-cd:          Bourne-Again shell script text executable</span>
+<span class="c"># . . .</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-32-stripping-comments-from-c-program-files">
+<h2>Exemple 32. Stripping comments from C program files<a class="headerlink" href="#exemple-32-stripping-comments-from-c-program-files" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># strip-comment.sh: Strips out the comments (/* COMMENT */) in a C program.</span>
+
+<span class="nv">E_NOARGS</span><span class="o">=</span>0
+<span class="nv">E_ARGERROR</span><span class="o">=</span>66
+<span class="nv">E_WRONG_FILE_TYPE</span><span class="o">=</span>67
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-eq <span class="s2">&quot;</span><span class="nv">$E_NOARGS</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` C-program-file&quot;</span> &gt;<span class="p">&amp;</span><span class="m">2</span> <span class="c"># Error message to stderr.</span>
+  <span class="nb">exit</span> <span class="nv">$E_ARGERROR</span>
+<span class="k">fi</span>
+
+<span class="c"># Test for correct file type.</span>
+<span class="nb">type</span><span class="o">=</span><span class="sb">`</span>file <span class="nv">$1awk</span> <span class="s1">&#39;{ print $2, $3, $4, $5 }&#39;</span><span class="sb">`</span>
+<span class="c"># &quot;file $1&quot; echoes file type . . .</span>
+<span class="c"># Then awk removes the first field, the filename . . .</span>
+<span class="c"># Then the result is fed into the variable &quot;type.&quot;</span>
+<span class="nv">correct_type</span><span class="o">=</span><span class="s2">&quot;ASCII C program text&quot;</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$type</span><span class="s2">&quot;</span> !<span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$correct_type</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span>
+<span class="nb">  echo</span> <span class="s2">&quot;This script works on C program files only.&quot;</span>
+  <span class="nb">echo</span>
+<span class="nb">  exit</span> <span class="nv">$E_WRONG_FILE_TYPE</span>
+<span class="k">fi</span>
+
+
+<span class="c"># Rather cryptic sed script:</span>
+<span class="c">#--------</span>
+sed <span class="s1">&#39;</span>
+<span class="s1">/^\/\*/d</span>
+<span class="s1">/.*\*\//d</span>
+<span class="s1">&#39;</span> <span class="nv">$1</span>
+<span class="c">#--------</span>
+<span class="c"># Easy to understand if you take several hours to learn sed fundamentals.</span>
+
+
+<span class="c">#  Need to add one more line to the sed script to deal with</span>
+<span class="c">#+ case where line of code has a comment following it on same line.</span>
+<span class="c">#  This is left as a non-trivial exercise.</span>
+
+<span class="c">#  Also, the above code deletes non-comment lines with a &quot;*/&quot; . . .</span>
+<span class="c">#+ not a desirable result.</span>
+
+<span class="nb">exit </span>0
+
+
+<span class="c"># ----------------------------------------------------------------</span>
+<span class="c"># Code below this line will not execute because of &#39;exit 0&#39; above.</span>
+
+<span class="c"># Stephane Chazelas suggests the following alternative:</span>
+
+usage<span class="o">()</span> <span class="o">{</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` C-program-file&quot;</span> &gt;<span class="p">&amp;</span>2
+  <span class="nb">exit </span>1
+<span class="o">}</span>
+
+<span class="nv">WEIRD</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> -n -e <span class="s1">&#39;\377&#39;</span><span class="sb">`</span>   <span class="c"># or WEIRD=$&#39;\377&#39;</span>
+<span class="o">[[</span> <span class="nv">$# </span>-eq <span class="m">1</span> <span class="o">]]</span>.. usage::
+<span class="k">case</span> <span class="sb">`</span>file <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span><span class="sb">`</span> in
+  *<span class="s2">&quot;C program text&quot;</span>*<span class="o">)</span> sed -e <span class="s2">&quot;s%/\*%</span><span class="si">${</span><span class="nv">WEIRD</span><span class="si">}</span><span class="s2">%g;s%\*/%</span><span class="si">${</span><span class="nv">WEIRD</span><span class="si">}</span><span class="s2">%g&quot;</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="se">\</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>tr &#8216;377n&#8217; &#8216;n377&#8217; sed -ne &#8216;p;n&#8217; tr -d &#8216;n&#8217; | tr &#8216;377&#8217; &#8216;n&#8217;;;</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote>
+<div><a href="#id1"><span class="problematic" id="id2">*</span></a>) usage;;</div></blockquote>
+<p>esac</p>
+<p>#  This is still fooled by things like:
+#  printf(&#8220;/<em>&#8221;);
+#  or
+#  /</em>  /* buggy embedded comment <a href="#id3"><span class="problematic" id="id4">*</span></a>/
+#
+#  To handle all special cases (comments in strings, comments in string
+#+ where there is a &#8221;, \&#8221; ...),
+#+ the only way is to write a C parser (using lex or yacc perhaps?).</p>
+<p>exit 0</p>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>which</strong></dt>
+<dd><p class="first"><strong>which command</strong> gives the full path to &#8220;command.&#8221; This is useful
+for finding out whether a particular command or utility is installed
+on the system.</p>
+<p>``                   $bash which rm                 ``</p>
+<div class="highlight-sh"><div class="highlight"><pre>/usr/bin/rm
+</pre></div>
+</div>
+<p class="last">For an interesting use of this command, see <a class="reference external" href="colorizing.html#HORSERACE">Example
+36-16</a> .</p>
+</dd>
+<dt><strong>whereis</strong></dt>
+<dd><p class="first">Similar to <strong>which</strong> , above, <strong>whereis command</strong> gives the full
+path to &#8220;command,&#8221; but also to its <a class="reference external" href="basic.html#MANREF">manpage</a> .</p>
+<p>``                   $bash whereis rm                 ``</p>
+<div class="last highlight-sh"><div class="highlight"><pre>rm: /bin/rm /usr/share/man/man1/rm.1.bz2
+</pre></div>
+</div>
+</dd>
+<dt><strong>whatis</strong></dt>
+<dd><p class="first"><strong>whatis command</strong> looks up &#8220;command&#8221; in the
+``                   whatis                 `` database. This is
+useful for identifying system commands and important configuration
+files. Consider it a simplified <strong>man</strong> command.</p>
+<p>``                   $bash whatis whatis                 ``</p>
+<div class="last highlight-sh"><div class="highlight"><pre>whatis               <span class="o">(</span>1<span class="o">)</span>  - search the whatis database <span class="k">for</span> <span class="nb">complete </span>words
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-33-exploring-usr-x11r6-bin">
+<h2>Exemple 33. Exploring ``           /usr/X11R6/bin          ``<a class="headerlink" href="#exemple-33-exploring-usr-x11r6-bin" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c"># What are all those mysterious binaries in /usr/X11R6/bin?</span>
+
+<span class="nv">DIRECTORY</span><span class="o">=</span><span class="s2">&quot;/usr/X11R6/bin&quot;</span>
+<span class="c"># Try also &quot;/bin&quot;, &quot;/usr/bin&quot;, &quot;/usr/local/bin&quot;, etc.</span>
+
+<span class="k">for</span> file in <span class="nv">$DIRECTORY</span>/*
+<span class="k">do</span>
+  whatis <span class="sb">`</span>basename <span class="nv">$file</span><span class="sb">`</span>   <span class="c"># Echoes info about the binary.</span>
+<span class="k">done</span>
+
+<span class="nb">exit </span>0
+
+<span class="c">#  Note: For this to work, you must create a &quot;whatis&quot; database</span>
+<span class="c">#+ with /usr/sbin/makewhatis.</span>
+<span class="c">#  You may wish to redirect output of this script, like so:</span>
+<span class="c">#    ./what.sh &gt;&gt;whatis.db</span>
+<span class="c">#  or view it a page at a time on stdout,</span>
+<span class="c">#    ./what.shless</span>
+</pre></div>
+</div>
+<p>See also <a class="reference external" href="loops1.html#FILEINFO">Example 11-3</a> .</p>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>vdir</strong></dt>
+<dd><p class="first">Show a detailed directory listing. The effect is similar to <a class="reference external" href="basic.html#LSREF">ls
+-lb</a> .</p>
+<p>This is one of the GNU <em>fileutils</em> .</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>vdir
+total 10
+ -rw-r--r--    <span class="m">1</span> bozo  bozo      <span class="m">4034</span> Jul <span class="m">18</span> 22:04 data1.xrolo
+ -rw-r--r--    <span class="m">1</span> bozo  bozo      <span class="m">4602</span> May <span class="m">25</span> 13:58 data1.xrolo.bak
+ -rw-r--r--    <span class="m">1</span> bozo  bozo       <span class="m">877</span> Dec <span class="m">17</span>  <span class="m">2000</span> employment.xrolo
+
+bash ls -l
+total 10
+ -rw-r--r--    <span class="m">1</span> bozo  bozo      <span class="m">4034</span> Jul <span class="m">18</span> 22:04 data1.xrolo
+ -rw-r--r--    <span class="m">1</span> bozo  bozo      <span class="m">4602</span> May <span class="m">25</span> 13:58 data1.xrolo.bak
+ -rw-r--r--    <span class="m">1</span> bozo  bozo       <span class="m">877</span> Dec <span class="m">17</span>  <span class="m">2000</span> employment.xrolo
+</pre></div>
+</div>
+</dd>
+<dt><strong>locate</strong> , <strong>slocate</strong></dt>
+<dd><p class="first">The <strong>locate</strong> command searches for files using a database stored
+for just that purpose. The <strong>slocate</strong> command is the secure version
+of <strong>locate</strong> (which may be aliased to <strong>slocate</strong> ).</p>
+<p>``                   $bash locate hickson                 ``</p>
+<div class="last highlight-sh"><div class="highlight"><pre>/usr/lib/xephem/catalogs/hickson.edb
+</pre></div>
+</div>
+</dd>
+<dt><strong>getfacl</strong> , <strong>setfacl</strong></dt>
+<dd><p class="first">These commands <em>retrieve</em> or <em>set</em> the <strong>f</strong> ile <strong>a</strong> ccess <strong>c</strong>
+ontrol <strong>l</strong> ist &#8211; the <em>owner</em> , <em>group</em> , and file permissions.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>getfacl *
+<span class="c"># file: test1.txt</span>
+ <span class="c"># owner: bozo</span>
+ <span class="c"># group: bozgrp</span>
+ user::rw-
+ group::rw-
+ other::r--
+
+ <span class="c"># file: test2.txt</span>
+ <span class="c"># owner: bozo</span>
+ <span class="c"># group: bozgrp</span>
+ user::rw-
+ group::rw-
+ other::r--
+
+
+
+bash<span class="nv">$ </span>setfacl -m u:bozo:rw yearly_budget.csv
+bash<span class="nv">$ </span>getfacl yearly_budget.csv
+<span class="c"># file: yearly_budget.csv</span>
+ <span class="c"># owner: accountant</span>
+ <span class="c"># group: budgetgrp</span>
+ user::rw-
+ user:bozo:rw-
+ user:accountant:rw-
+ group::rw-
+ mask::rw-
+ other::r--
+</pre></div>
+</div>
+</dd>
+<dt><strong>readlink</strong></dt>
+<dd><p class="first">Disclose the file that a symbolic link points to.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>readlink /usr/bin/awk
+../../bin/gawk
+</pre></div>
+</div>
+</dd>
+<dt><strong>strings</strong></dt>
+<dd>Use the <strong>strings</strong> command to find printable strings in a binary or
+data file. It will list sequences of printable characters found in
+the target file. This might be handy for a quick &#8216;n dirty
+examination of a core dump or for looking at an unknown graphic
+image file (
+``                   strings image-filemore                 ``
+might show something like <em>JFIF</em> , which would identify the file as
+a <em>jpeg</em> graphic). In a script, you would probably parse the output
+of <strong>strings</strong> with <a class="reference external" href="textproc.html#GREPREF">grep</a> or
+<a class="reference external" href="sedawk.html#SEDREF">sed</a> . See <a class="reference external" href="loops1.html#BINGREP">Example
+11-8</a> and <a class="reference external" href="loops1.html#FINDSTRING">Example
+11-10</a> .</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-34-an-improved-strings-command">
+<h2>Exemple 34. An &#8220;improved&#8221; <em>strings</em> command<a class="headerlink" href="#exemple-34-an-improved-strings-command" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># wstrings.sh: &quot;word-strings&quot; (enhanced &quot;strings&quot; command)</span>
+<span class="c">#</span>
+<span class="c">#  This script filters the output of &quot;strings&quot; by checking it</span>
+<span class="c">#+ against a standard word list file.</span>
+<span class="c">#  This effectively eliminates gibberish and noise,</span>
+<span class="c">#+ and outputs only recognized words.</span>
+
+<span class="c"># ===========================================================</span>
+<span class="c">#                 Standard Check for Script Argument(s)</span>
+<span class="nv">ARGS</span><span class="o">=</span>1
+<span class="nv">E_BADARGS</span><span class="o">=</span>85
+<span class="nv">E_NOFILE</span><span class="o">=</span>86
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-ne <span class="nv">$ARGS</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` filename&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> ! -f <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>                      <span class="c"># Check if file exists.</span>
+<span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;File \&quot;</span><span class="nv">$1</span><span class="s2">\&quot; does not exist.&quot;</span>
+    <span class="nb">exit</span> <span class="nv">$E_NOFILE</span>
+<span class="k">fi</span>
+<span class="c"># ===========================================================</span>
+
+
+<span class="nv">MINSTRLEN</span><span class="o">=</span><span class="m">3</span>                           <span class="c">#  Minimum string length.</span>
+<span class="nv">WORDFILE</span><span class="o">=</span>/usr/share/dict/linux.words  <span class="c">#  Dictionary file.</span>
+<span class="c">#  May specify a different word list file</span>
+<span class="c">#+ of one-word-per-line format.</span>
+<span class="c">#  For example, the &quot;yawl&quot; word-list package,</span>
+<span class="c">#  http://bash.deta.in/yawl-0.3.2.tar.gz</span>
+
+
+<span class="nv">wlist</span><span class="o">=</span><span class="sb">`</span>strings <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>tr A-Z a-z <span class="p">|</span> tr <span class="s1">&#39;[:space:]&#39;</span> Z <span class="p">|</span> <span class="se">\</span>
+       tr -cs <span class="s1">&#39;[:alpha:]&#39;</span> Ztr -s <span class="s1">&#39;\173-\377&#39;</span> Z <span class="p">|</span> tr Z <span class="s1">&#39; &#39;</span><span class="sb">`</span>
+
+<span class="c"># Translate output of &#39;strings&#39; command with multiple passes of &#39;tr&#39;.</span>
+<span class="c">#  &quot;tr A-Z a-z&quot;  converts to lowercase.</span>
+<span class="c">#  &quot;tr &#39;[:space:]&#39;&quot;  converts whitespace characters to Z&#39;s.</span>
+<span class="c">#  &quot;tr -cs &#39;[:alpha:]&#39; Z&quot;  converts non-alphabetic characters to Z&#39;s,</span>
+<span class="c">#+ and squeezes multiple consecutive Z&#39;s.</span>
+<span class="c">#  &quot;tr -s &#39;\173-\377&#39; Z&quot;  converts all characters past &#39;z&#39; to Z&#39;s</span>
+<span class="c">#+ and squeezes multiple consecutive Z&#39;s,</span>
+<span class="c">#+ which gets rid of all the weird characters that the previous</span>
+<span class="c">#+ translation failed to deal with.</span>
+<span class="c">#  Finally, &quot;tr Z &#39; &#39;&quot; converts all those Z&#39;s to whitespace,</span>
+<span class="c">#+ which will be seen as word separators in the loop below.</span>
+
+<span class="c">#  ***********************************************************************</span>
+<span class="c">#  Note the technique of feeding/piping the output of &#39;tr&#39; back to itself,</span>
+<span class="c">#+ but with different arguments and/or options on each successive pass.</span>
+<span class="c">#  ***********************************************************************</span>
+
+
+<span class="k">for</span> word in <span class="nv">$wlist</span>                    <span class="c">#  Important:</span>
+                                      <span class="c">#  $wlist must not be quoted here.</span>
+                                      <span class="c"># &quot;$wlist&quot; does not work.</span>
+                                      <span class="c">#  Why not?</span>
+<span class="k">do</span>
+  <span class="nv">strlen</span><span class="o">=</span><span class="si">${#</span><span class="nv">word</span><span class="si">}</span>                     <span class="c">#  String length.</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$strlen</span><span class="s2">&quot;</span> -lt <span class="s2">&quot;</span><span class="nv">$MINSTRLEN</span><span class="s2">&quot;</span> <span class="o">]</span>   <span class="c">#  Skip over short strings.</span>
+  <span class="k">then</span>
+    <span class="k">continue</span>
+  <span class="k">fi</span>
+
+  grep -Fw <span class="nv">$word</span> <span class="s2">&quot;</span><span class="nv">$WORDFILE</span><span class="s2">&quot;</span>          <span class="c">#   Match whole words only.</span>
+<span class="c">#      ^^^                            #  &quot;Fixed strings&quot; and</span>
+                                      <span class="c">#+ &quot;whole words&quot; options.</span>
+<span class="k">done</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>** Comparison**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>diff</strong> , <strong>patch</strong></dt>
+<dd><p class="first"><strong>diff</strong> : flexible file comparison utility. It compares the target
+files line-by-line sequentially. In some applications, such as
+comparing word dictionaries, it may be helpful to filter the files
+through <a class="reference external" href="textproc.html#SORTREF">sort</a> and <strong>uniq</strong> before piping
+them to <strong>diff</strong> .
+``                   diff file-1           file-2                 ``
+outputs the lines in the files that differ, with carets showing
+which file each particular line belongs to.</p>
+<p>The ``         &#8211;side-by-side        `` option to <strong>diff</strong> outputs
+each compared file, line by line, in separate columns, with
+non-matching lines marked. The ``         -c        `` and
+``         -u        `` options likewise make the output of the
+command easier to interpret.</p>
+<p class="last">There are available various fancy frontends for <strong>diff</strong> , such as
+<strong>sdiff</strong> , <strong>wdiff</strong> , <strong>xdiff</strong> , and <strong>mgdiff</strong> .</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<blockquote>
+<div>The <strong>diff</strong> command returns an exit status of 0 if the compared</div></blockquote>
+<p>files are identical, and 1 if they differ (or 2 when <em>binary</em> files
+are being compared). This permits use of <strong>diff</strong> in a test
+construct within a shell script (see below).</p>
+<p>A common use for <strong>diff</strong> is generating difference files to be used
+with <strong>patch</strong> The ``         -e        `` option outputs files
+suitable for <strong>ed</strong> or <strong>ex</strong> scripts.</p>
+<p><strong>patch</strong> : flexible versioning utility. Given a difference file
+generated by <strong>diff</strong> , <strong>patch</strong> can upgrade a previous version of
+a package to a newer version. It is much more convenient to
+distribute a relatively small &#8220;diff&#8221; file than the entire body of a
+newly revised package. Kernel &#8220;patches&#8221; have become the preferred
+method of distributing the frequent releases of the Linux kernel.</p>
+<div class="highlight-sh"><div class="highlight"><pre>patch -p1 &lt;patch-file
+<span class="c"># Takes all the changes listed in &#39;patch-file&#39;</span>
+<span class="c"># and applies them to the files referenced therein.</span>
+<span class="c"># This upgrades to a newer version of the package.</span>
+</pre></div>
+</div>
+<p>Patching the kernel:</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="nb">cd</span> /usr/src
+gzip -cd patchXX.gzpatch -p0
+<span class="c"># Upgrading kernel source using &#39;patch&#39;.</span>
+<span class="c"># From the Linux kernel docs &quot;README&quot;,</span>
+<span class="c"># by anonymous author (Alan Cox?).</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">The <strong>diff</strong> command can also recursively compare directories (for
+the filenames present).</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>diff -r ~/note
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>s1 ~/notes2</dt>
+<dd>Only in /home/bozo/n</dd>
+<dt>otes1: file02</dt>
+<dd>Only in /home/bozo/</dd>
+<dt>notes1: file03</dt>
+<dd>Only in /home/bozo/</dd>
+</dl>
+<p>notes2: file04</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>diff -r ~/notes1 ~/notes2
+Only in /home/bozo/notes1: file02
+ Only in /home/bozo/notes1: file03
+ Only in /home/bozo/notes2: file04
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>diff -r ~/notes1 ~/notes2
+Only in /home/bozo/notes1: file02
+ Only in /home/bozo/notes1: file03
+ Only in /home/bozo/notes2: file04
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<p class="last">Use <strong>zdiff</strong> to compare <em>gzipped</em> files.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<blockquote>
+<div>Use <strong>diffstat</strong> to create a histogram (point-distribution graph) of
+output from <strong>diff</strong> .</div></blockquote>
+<dl class="last docutils">
+<dt><strong>diff3</strong> , <strong>merge</strong></dt>
+<dd><p class="first">An extended version of <strong>diff</strong> that compares three files at a time.
+This command returns an exit value of 0 upon successful execution,
+but unfortunately this gives no information about the results of the
+comparison.</p>
+<div class="highlight-sh"><div class="highlight"><pre>   bash<span class="nv">$ </span>diff3 file-1 file-2 file-3
+   <span class="o">====</span>
+    1:1c
+      This is line <span class="m">1</span> of <span class="s2">&quot;file-1&quot;</span>.
+    2:1c
+      This is line <span class="m">1</span> of <span class="s2">&quot;file-2&quot;</span>.
+    3:1c
+      This is line <span class="m">1</span> of <span class="s2">&quot;file-3&quot;</span>
+
+
+
+
+The **merge** <span class="o">(</span>3-way file merge<span class="o">)</span> <span class="nb">command </span>is an interesting adjunct
+</pre></div>
+</div>
+<p class="last">to <em>diff3</em> . Its syntax is
+``                   merge Mergefile file1 file2                 ``
+. The result is to output to ``         Mergefile        `` the
+changes that lead from ``         file1        `` to
+``         file2        `` . Consider this command a stripped-down
+version of <em>patch</em> .</p>
+</dd>
+<dt><strong>sdiff</strong></dt>
+<dd>Compare and/or edit two files in order to merge them into an output
+file. Because of its interactive nature, this command would find
+little use in a script.</dd>
+<dt><strong>cmp</strong></dt>
+<dd>The <strong>cmp</strong> command is a simpler version of <strong>diff</strong> , above.
+Whereas <strong>diff</strong> reports the differences between two files, <strong>cmp</strong>
+merely shows at what point they differ.</dd>
+</dl>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Like <strong>diff</strong> , <strong>cmp</strong> returns an exit status of 0 if the compared
+files are identical, and 1 if they differ. This permits use in a
+test construct within a shell script.</p>
+</div>
+</div>
+<div class="section" id="exemple-35-using-cmp-to-compare-two-files-within-a-script">
+<h2>Exemple 35. Using <em>cmp</em> to compare two files within a script.<a class="headerlink" href="#exemple-35-using-cmp-to-compare-two-files-within-a-script" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># file-comparison.sh</span>
+
+<span class="nv">ARGS</span><span class="o">=</span><span class="m">2</span>  <span class="c"># Two args to script expected.</span>
+<span class="nv">E_BADARGS</span><span class="o">=</span>85
+<span class="nv">E_UNREADABLE</span><span class="o">=</span>86
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-ne <span class="s2">&quot;</span><span class="nv">$ARGS</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` file1 file2&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[[</span> ! -r <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="p">|</span>! -r <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span> <span class="o">]]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Both files to be compared must exist and be readable.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_UNREADABLE</span>
+<span class="k">fi</span>
+
+cmp <span class="nv">$1</span> <span class="nv">$2</span> <span class="p">&amp;</span>&gt; /dev/null
+<span class="c">#   Redirection to /dev/null buries the output of the &quot;cmp&quot; command.</span>
+<span class="c">#   cmp -s $1 $2  has same result (&quot;-s&quot; silent flag to &quot;cmp&quot;)</span>
+<span class="c">#   Thank you  Anders Gustavsson for pointing this out.</span>
+<span class="c">#</span>
+<span class="c">#  Also works with &#39;diff&#39;, i.e.,</span>
+<span class="c">#+ diff $1 $2 &amp;&gt; /dev/null</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -eq <span class="m">0</span> <span class="o">]</span>         <span class="c"># Test exit status of &quot;cmp&quot; command.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;File \&quot;</span><span class="nv">$1</span><span class="s2">\&quot; is identical to file \&quot;</span><span class="nv">$2</span><span class="s2">\&quot;.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;File \&quot;</span><span class="nv">$1</span><span class="s2">\&quot; differs from file \&quot;</span><span class="nv">$2</span><span class="s2">\&quot;.&quot;</span>
+<span class="k">fi</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<blockquote>
+<div>Use <strong>zcmp</strong> on <em>gzipped</em> files.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>comm</strong></dt>
+<dd><p class="first">Versatile file comparison utility. The files must be sorted for this
+to be useful.</p>
+<p><strong>comm ``                     -options                   ``
+``                     first-file                   ``
+``                     second-file                   ``</strong></p>
+<p>``                   comm file-1 file-2                 `` outputs
+three columns:</p>
+<ul class="simple">
+<li>column 1 = lines unique to ``           file-1          ``</li>
+<li>column 2 = lines unique to ``           file-2          ``</li>
+<li>column 3 = lines common to both.</li>
+</ul>
+<p>The options allow suppressing output of one or more columns.</p>
+<ul class="simple">
+<li>``           -1          `` suppresses column
+``           1          ``</li>
+<li>``           -2          `` suppresses column
+``           2          ``</li>
+<li>``           -3          `` suppresses column
+``           3          ``</li>
+<li>``           -12          `` suppresses both columns
+``           1          `` and ``           2          `` , etc.</li>
+</ul>
+<p class="last">This command is useful for comparing &#8220;dictionaries&#8221; or <em>word lists</em>
+&#8211; sorted text files with one word per line.</p>
+</dd>
+</dl>
+</div>
+<p>** Utilities**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>basename</strong></dt>
+<dd><p class="first">Strips the path information from a file name, printing only the file
+name. The construction
+``                   basename         $0                 `` lets the
+script know its name, that is, the name it was invoked by. This can
+be used for &#8220;usage&#8221; messages if, for example a script is called with
+missing arguments:</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` arg1 arg2 ... argn&quot;</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>dirname</strong></dt>
+<dd>Strips the <strong>basename</strong> from a filename, printing only the path
+information.</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last"><strong>basename</strong> and <strong>dirname</strong> can operate on any arbitrary string.
+The argument does not need to refer to an existing file, or even be
+a filename for that matter (see <a class="reference external" href="contributed-scripts.html#DAYSBETWEEN">Example
+A-7</a> ).</p>
+</div>
+</div>
+<div class="section" id="exemple-36-basename-and-dirname">
+<h2>Exemple 36. <em>basename</em> and <em>dirname</em><a class="headerlink" href="#exemple-36-basename-and-dirname" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">address</span><span class="o">=</span>/home/bozo/daily-journal.txt
+
+<span class="nb">echo</span> <span class="s2">&quot;Basename of /home/bozo/daily-journal.txt = `basename </span><span class="nv">$address</span><span class="s2">`&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Dirname of /home/bozo/daily-journal.txt = `dirname </span><span class="nv">$address</span><span class="s2">`&quot;</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;My own home is `basename ~/`.&quot;</span>         <span class="c"># `basename ~` also works.</span>
+<span class="nb">echo</span> <span class="s2">&quot;The home of my home is `dirname ~/`.&quot;</span>  <span class="c"># `dirname ~`  also works.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>split</strong> , <strong>csplit</strong></dt>
+<dd><p class="first">These are utilities for splitting a file into smaller chunks. Their
+usual use is for splitting up large files in order to back them up
+on floppies or preparatory to e-mailing or uploading them.</p>
+<p class="last">The <strong>csplit</strong> command splits a file according to <em>context</em> , the
+split occuring where patterns are matched.</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-37-a-script-that-copies-itself-in-sections">
+<h2>Exemple 37. A script that copies itself in sections<a class="headerlink" href="#exemple-37-a-script-that-copies-itself-in-sections" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># splitcopy.sh</span>
+
+<span class="c">#  A script that splits itself into chunks,</span>
+<span class="c">#+ then reassembles the chunks into an exact copy</span>
+<span class="c">#+ of the original script.</span>
+
+<span class="nv">CHUNKSIZE</span><span class="o">=</span><span class="m">4</span>    <span class="c">#  Size of first chunk of split files.</span>
+<span class="nv">OUTPREFIX</span><span class="o">=</span>xx   <span class="c">#  csplit prefixes, by default,</span>
+               <span class="c">#+ files with &quot;xx&quot; ...</span>
+
+csplit <span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$CHUNKSIZE</span><span class="s2">&quot;</span>
+
+<span class="c"># Some comment lines for padding . . .</span>
+<span class="c"># Line 15</span>
+<span class="c"># Line 16</span>
+<span class="c"># Line 17</span>
+<span class="c"># Line 18</span>
+<span class="c"># Line 19</span>
+<span class="c"># Line 20</span>
+
+cat <span class="s2">&quot;</span><span class="nv">$OUTPREFIX</span><span class="s2">&quot;</span>* &gt; <span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">.copy&quot;</span>  <span class="c"># Concatenate the chunks.</span>
+rm <span class="s2">&quot;</span><span class="nv">$OUTPREFIX</span><span class="s2">&quot;</span>*               <span class="c"># Get rid of the chunks.</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>** Encoding and Encryption**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>sum</strong> , <strong>cksum</strong> , <strong>md5sum</strong> , <strong>sha1sum</strong></dt>
+<dd><blockquote class="first">
+<div>These are utilities for generating <em>checksums</em> . A <em>checksum</em> is a</div></blockquote>
+<p>number ` [3]  &lt;filearchiv.html#FTN.AEN12840&gt;`__ mathematically
+calculated from the contents of a file, for the purpose of checking
+its integrity. A script might refer to a list of checksums for
+security purposes, such as ensuring that the contents of key system
+files have not been altered or corrupted. For security applications,
+use the <strong>md5sum</strong> ( <strong>m</strong> essage <strong>d</strong> igest <strong>5</strong> check <strong>sum</strong> )
+command, or better yet, the newer <strong>sha1sum</strong> (Secure Hash
+Algorithm). ` [4]  &lt;filearchiv.html#FTN.AEN12849&gt;`__</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>cksum /boot/vmlinuz
+<span class="m">1670054224</span> <span class="m">804083</span> /boot/vmlinuz
+
+bash<span class="nv">$ </span><span class="nb">echo</span> -n <span class="s2">&quot;Top Secret&quot;</span>cksum
+<span class="m">3391003827</span> 10
+
+
+
+bash<span class="nv">$ </span>md5sum /boot/vmlinuz
+0f43eccea8f09e0a0b2b5cf1dcf333ba  /boot/vmlinuz
+
+bash<span class="nv">$ </span><span class="nb">echo</span> -n <span class="s2">&quot;Top Secret&quot;</span>md5sum
+8babc97a6f62a4649716f4df8d61728f  -
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p>The <strong>cksum</strong> command shows the size, in bytes, of its target,
+whether file or ``            stdout           `` .</p>
+<p class="last">The <strong>md5sum</strong> and <strong>sha1sum</strong> commands display a
+<a class="reference external" href="special-chars.html#DASHREF2">dash</a> when they receive their input
+from ``            stdout           `` .</p>
+</div>
+</div>
+<div class="section" id="exemple-38-checking-file-integrity">
+<h2>Exemple 38. Checking file integrity<a class="headerlink" href="#exemple-38-checking-file-integrity" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># file-integrity.sh: Checking whether files in a given directory</span>
+<span class="c">#                    have been tampered with.</span>
+
+<span class="nv">E_DIR_NOMATCH</span><span class="o">=</span>80
+<span class="nv">E_BAD_DBFILE</span><span class="o">=</span>81
+
+<span class="nv">dbfile</span><span class="o">=</span>File_record.md5
+<span class="c"># Filename for storing records (database file).</span>
+
+
+set_up_database <span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">echo</span> <span class="s2">&quot;&quot;</span><span class="nv">$directory</span><span class="s2">&quot;&quot;</span> &gt; <span class="s2">&quot;</span><span class="nv">$dbfile</span><span class="s2">&quot;</span>
+  <span class="c"># Write directory name to first line of file.</span>
+  md5sum <span class="s2">&quot;</span><span class="nv">$directory</span><span class="s2">&quot;</span>/* &gt;&gt; <span class="s2">&quot;</span><span class="nv">$dbfile</span><span class="s2">&quot;</span>
+  <span class="c"># Append md5 checksums and filenames.</span>
+<span class="o">}</span>
+
+check_database <span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">local </span><span class="nv">n</span><span class="o">=</span>0
+  <span class="nb">local </span>filename
+  <span class="nb">local </span>checksum
+
+  <span class="c"># ------------------------------------------- #</span>
+  <span class="c">#  This file check should be unnecessary,</span>
+  <span class="c">#+ but better safe than sorry.</span>
+
+  <span class="k">if</span> <span class="o">[</span> ! -r <span class="s2">&quot;</span><span class="nv">$dbfile</span><span class="s2">&quot;</span> <span class="o">]</span>
+  <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Unable to read checksum database file!&quot;</span>
+    <span class="nb">exit</span> <span class="nv">$E_BAD_DBFILE</span>
+  <span class="k">fi</span>
+  <span class="c"># ------------------------------------------- #</span>
+
+  <span class="k">while</span> <span class="nb">read </span>record<span class="o">[</span>n<span class="o">]</span>
+  <span class="k">do</span>
+
+    <span class="nv">directory_checked</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">record</span><span class="p">[0]</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$directory_checked</span><span class="s2">&quot;</span> !<span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$directory</span><span class="s2">&quot;</span> <span class="o">]</span>
+    <span class="k">then</span>
+      <span class="nb">echo</span> <span class="s2">&quot;Directories do not match up!&quot;</span>
+      <span class="c"># Tried to use file for a different directory.</span>
+      <span class="nb">exit</span> <span class="nv">$E_DIR_NOMATCH</span>
+    <span class="k">fi</span>
+
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$n</span><span class="s2">&quot;</span> -gt <span class="m">0</span> <span class="o">]</span>   <span class="c"># Not directory name.</span>
+    <span class="k">then</span>
+      filename<span class="o">[</span>n<span class="o">]=</span><span class="k">$(</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">record</span><span class="p">[</span><span class="nv">$n</span><span class="p">]</span><span class="si">}</span>awk <span class="s1">&#39;{ print $2 }&#39;</span> <span class="k">)</span>
+      <span class="c">#  md5sum writes records backwards,</span>
+      <span class="c">#+ checksum first, then filename.</span>
+      checksum<span class="o">[</span>n<span class="o">]=</span><span class="k">$(</span> md5sum <span class="s2">&quot;</span><span class="si">${</span><span class="nv">filename</span><span class="p">[n]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">)</span>
+
+
+      <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">record</span><span class="p">[n]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">checksum</span><span class="p">[n]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">]</span>
+      <span class="k">then</span>
+        <span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">filename</span><span class="p">[n]</span><span class="si">}</span><span class="s2"> unchanged.&quot;</span>
+
+        <span class="k">elif</span> <span class="o">[</span> <span class="s2">&quot;`basename </span><span class="si">${</span><span class="nv">filename</span><span class="p">[n]</span><span class="si">}</span><span class="s2">`&quot;</span> !<span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$dbfile</span><span class="s2">&quot;</span> <span class="o">]</span>
+               <span class="c">#  Skip over checksum database file,</span>
+               <span class="c">#+ as it will change with each invocation of script.</span>
+               <span class="c">#  ---</span>
+               <span class="c">#  This unfortunately means that when running</span>
+               <span class="c">#+ this script on $PWD, tampering with the</span>
+               <span class="c">#+ checksum database file will not be detected.</span>
+               <span class="c">#  Exercise: Fix this.</span>
+        <span class="k">then</span>
+          <span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">filename</span><span class="p">[n]</span><span class="si">}</span><span class="s2"> : CHECKSUM ERROR!&quot;</span>
+        <span class="c"># File has been changed since last checked.</span>
+        <span class="k">fi</span>
+
+      <span class="k">fi</span>
+
+
+
+    <span class="nb">let</span> <span class="s2">&quot;n+=1&quot;</span>
+  <span class="k">done</span> &lt;<span class="s2">&quot;</span><span class="nv">$dbfile</span><span class="s2">&quot;</span>       <span class="c"># Read from checksum database file.</span>
+
+<span class="o">}</span>
+
+<span class="c"># =================================================== #</span>
+<span class="c"># main ()</span>
+
+<span class="k">if</span> <span class="o">[</span> -z  <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nv">directory</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">&quot;</span>      <span class="c">#  If not specified,</span>
+<span class="k">else</span>                    <span class="c">#+ use current working directory.</span>
+  <span class="nv">directory</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+
+clear                   <span class="c"># Clear screen.</span>
+<span class="nb">echo</span> <span class="s2">&quot; Running file integrity check on </span><span class="nv">$directory</span><span class="s2">&quot;</span>
+<span class="nb">echo</span>
+
+<span class="c"># ------------------------------------------------------------------ #</span>
+  <span class="k">if</span> <span class="o">[</span> ! -r <span class="s2">&quot;</span><span class="nv">$dbfile</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="c"># Need to create database file?</span>
+  <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Setting up database file, \&quot;&quot;</span><span class="nv">$directory</span><span class="s2">&quot;/&quot;</span><span class="nv">$dbfile</span><span class="s2">&quot;\&quot;.&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+<span class="nb">    </span>set_up_database
+  <span class="k">fi</span>
+<span class="c"># ------------------------------------------------------------------ #</span>
+
+check_database          <span class="c"># Do the actual work.</span>
+
+<span class="nb">echo</span>
+
+<span class="c">#  You may wish to redirect the stdout of this script to a file,</span>
+<span class="c">#+ especially if the directory checked has many files in it.</span>
+
+<span class="nb">exit </span>0
+
+<span class="c">#  For a much more thorough file integrity check,</span>
+<span class="c">#+ consider the &quot;Tripwire&quot; package,</span>
+<span class="c">#+ http://sourceforge.net/projects/tripwire/.</span>
+</pre></div>
+</div>
+<p>Also see <a class="reference external" href="contributed-scripts.html#DIRECTORYINFO">Example A-19</a> ,
+<a class="reference external" href="colorizing.html#HORSERACE">Example 36-16</a> , and <a class="reference external" href="string-manipulation.html#RANDSTRING">Example
+10-2</a> for creative uses of
+the <strong>md5sum</strong> command.</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">There have been reports that the 128-bit <strong>md5sum</strong> can be cracked,
+so the more secure 160-bit <strong>sha1sum</strong> is a welcome new addition to
+the checksum toolkit.</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>md5sum testfil
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>e</dt>
+<dd>e181e2c8720c60522c4c</dd>
+</dl>
+<p>4c981108e367  testfile</p>
+<blockquote>
+<div>bash$ sha1sum testfi</div></blockquote>
+<dl class="docutils">
+<dt>le</dt>
+<dd>5d7425a9c08a66c3177f</dd>
+</dl>
+<p>1e31286fa40986ffc996  te
+stfile</p>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>md5sum testfile
+e181e2c8720c60522c4c4c981108e367  testfile
+
+
+bash<span class="nv">$ </span>sha1sum testfile
+5d7425a9c08a66c3177f1e31286fa40986ffc996  testfile
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>md5sum testfile
+e181e2c8720c60522c4c4c981108e367  testfile
+
+
+bash<span class="nv">$ </span>sha1sum testfile
+5d7425a9c08a66c3177f1e31286fa40986ffc996  testfile
+</pre></div>
+</div>
+<p>Security consultants have demonstrated that even <strong>sha1sum</strong> can be
+compromised. Fortunately, newer Linux distros include longer
+bit-length <strong>sha224sum</strong> , <strong>sha256sum</strong> , <strong>sha384sum</strong> , and
+<strong>sha512sum</strong> commands.</p>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>uuencode</strong></dt>
+<dd>This utility encodes binary files (images, sound files, compressed
+files, etc.) into <a class="reference external" href="special-chars.html#ASCIIDEF">ASCII</a>
+characters, making them suitable for transmission in the body of an
+e-mail message or in a newsgroup posting. This is especially useful
+where MIME (multimedia) encoding is not available.</dd>
+<dt><strong>uudecode</strong></dt>
+<dd>This reverses the encoding, decoding <em>uuencoded</em> files back into the
+original binaries.</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-39-uudecoding-encoded-files">
+<h2>Exemple 39. Uudecoding encoded files<a class="headerlink" href="#exemple-39-uudecoding-encoded-files" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Uudecodes all uuencoded files in current working directory.</span>
+
+<span class="nv">lines</span><span class="o">=</span><span class="m">35</span>        <span class="c"># Allow 35 lines for the header (very generous).</span>
+
+<span class="k">for</span> File in *   <span class="c"># Test all the files in $PWD.</span>
+<span class="k">do</span>
+  <span class="nv">search1</span><span class="o">=</span><span class="sb">`</span>head -n <span class="nv">$lines</span> <span class="nv">$Filegrep</span> begin <span class="p">|</span> wc -w<span class="sb">`</span>
+  <span class="nv">search2</span><span class="o">=</span><span class="sb">`</span>tail -n <span class="nv">$lines</span> <span class="nv">$Filegrep</span> end <span class="p">|</span> wc -w<span class="sb">`</span>
+  <span class="c">#  Uuencoded files have a &quot;begin&quot; near the beginning,</span>
+  <span class="c">#+ and an &quot;end&quot; near the end.</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$search1</span><span class="s2">&quot;</span> -gt <span class="m">0</span> <span class="o">]</span>
+  <span class="k">then</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$search2</span><span class="s2">&quot;</span> -gt <span class="m">0</span> <span class="o">]</span>
+    <span class="k">then</span>
+      <span class="nb">echo</span> <span class="s2">&quot;uudecoding - </span><span class="nv">$File</span><span class="s2"> -&quot;</span>
+      uudecode <span class="nv">$File</span>
+    <span class="k">fi</span>
+  <span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="c">#  Note that running this script upon itself fools it</span>
+<span class="c">#+ into thinking it is a uuencoded file,</span>
+<span class="c">#+ because it contains both &quot;begin&quot; and &quot;end&quot;.</span>
+
+<span class="c">#  Exercise:</span>
+<span class="c">#  --------</span>
+<span class="c">#  Modify this script to check each file for a newsgroup header,</span>
+<span class="c">#+ and skip to next if not found.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<blockquote>
+<div>The <a class="reference external" href="textproc.html#FOLDREF">fold -s</a> command may be useful
+(possibly in a pipe) to process long uudecoded text messages
+downloaded from Usenet newsgroups.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>mimencode</strong> , <strong>mmencode</strong></dt>
+<dd>The <strong>mimencode</strong> and <strong>mmencode</strong> commands process
+multimedia-encoded e-mail attachments. Although <em>mail user agents</em>
+(such as <em>pine</em> or <em>kmail</em> ) normally handle this automatically,
+these particular utilities permit manipulating such attachments
+manually from the command-line or in <a class="reference external" href="timedate.html#BATCHPROCREF">batch processing
+mode</a> by means of a shell script.</dd>
+<dt><strong>crypt</strong></dt>
+<dd>At one time, this was the standard UNIX file encryption utility. `
+[5]  &lt;filearchiv.html#FTN.AEN12969&gt;`__ Politically-motivated
+government regulations prohibiting the export of encryption software
+resulted in the disappearance of <strong>crypt</strong> from much of the UNIX
+world, and it is still missing from most Linux distributions.
+Fortunately, programmers have come up with a number of decent
+alternatives to it, among them the author&#8217;s very own
+<a class="reference external" href="ftp://metalab.unc.edu/pub/Linux/utils/file/cruft-0.2.tar.gz">cruft</a>
+(see <a class="reference external" href="contributed-scripts.html#ENCRYPTEDPW">Example A-4</a> ).</dd>
+<dt><strong>openssl</strong></dt>
+<dd><p class="first">This is an Open Source implementation of <em>Secure Sockets Layer</em>
+encryption.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># To encrypt a file:</span>
+openssl aes-128-ecb -salt -in file.txt -out file.encrypted <span class="se">\</span>
+-pass pass:my_password
+<span class="c">#          ^^^^^^^^^^^   User-selected password.</span>
+<span class="c">#       aes-128-ecb      is the encryption method chosen.</span>
+
+<span class="c"># To decrypt an openssl-encrypted file:</span>
+openssl aes-128-ecb -d -salt -in file.encrypted -out file.txt <span class="se">\</span>
+-pass pass:my_password
+<span class="c">#          ^^^^^^^^^^^   User-selected password.</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="special-chars.html#PIPEREF">Piping</a> <em>openssl</em> to/from
+<a class="reference external" href="filearchiv.html#TARREF">tar</a> makes it possible to encrypt an
+entire directory tree.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># To encrypt a directory:</span>
+
+<span class="nv">sourcedir</span><span class="o">=</span><span class="s2">&quot;/home/bozo/testfiles&quot;</span>
+<span class="nv">encrfile</span><span class="o">=</span><span class="s2">&quot;encr-dir.tar.gz&quot;</span>
+<span class="nv">password</span><span class="o">=</span>my_secret_password
+
+tar czvf - <span class="s2">&quot;</span><span class="nv">$sourcedir</span><span class="s2">&quot;</span>
+openssl des3 -salt -out <span class="s2">&quot;</span><span class="nv">$encrfile</span><span class="s2">&quot;</span> -pass pass:<span class="s2">&quot;</span><span class="nv">$password</span><span class="s2">&quot;</span>
+<span class="c">#       ^^^^   Uses des3 encryption.</span>
+<span class="c"># Writes encrypted file &quot;encr-dir.tar.gz&quot; in current working directory.</span>
+
+<span class="c"># To decrypt the resulting tarball:</span>
+openssl des3 -d -salt -in <span class="s2">&quot;</span><span class="nv">$encrfile</span><span class="s2">&quot;</span> -pass pass:<span class="s2">&quot;</span><span class="nv">$password</span><span class="s2">&quot;</span>
+tar -xzv
+<span class="c"># Decrypts and unpacks into current working directory.</span>
+</pre></div>
+</div>
+<p class="last">Of course, <em>openssl</em> has many other uses, such as obtaining signed
+<em>certificates</em> for Web sites. See the <a class="reference external" href="basic.html#INFOREF">info</a>
+page.</p>
+</dd>
+<dt><strong>shred</strong></dt>
+<dd><p class="first">Securely erase a file by overwriting it multiple times with random
+bit patterns before deleting it. This command has the same effect as
+<a class="reference external" href="extmisc.html#BLOTOUT">Example 16-61</a> , but does it in a more
+thorough and elegant manner.</p>
+<p class="last">This is one of the GNU <em>fileutils</em> .</p>
+</dd>
+</dl>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<p class="last">Advanced forensic technology may still be able to recover the
+contents of a file, even after application of <strong>shred</strong> .</p>
+</div>
+<p>** Miscellaneous**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>mktemp</strong></dt>
+<dd><p class="first">Create a <em>temporary file</em> ` [6]  &lt;filearchiv.html#FTN.AEN13030&gt;`__
+with a &#8220;unique&#8221; filename. When invoked from the command-line without
+additional arguments, it creates a zero-length file in the
+``         /tmp        `` directory.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>mktemp
+/tmp/tmp.zzsvql3154
+</pre></div>
+</div>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="nv">PREFIX</span><span class="o">=</span>filename
+<span class="nv">tempfile</span><span class="o">=</span><span class="sb">`</span>mktemp <span class="nv">$PREFIX</span>.XXXXXX<span class="sb">`</span>
+<span class="c">#                        ^^^^^^ Need at least 6 placeholders</span>
+<span class="c">#+                              in the filename template.</span>
+<span class="c">#   If no filename template supplied,</span>
+<span class="c">#+ &quot;tmp.XXXXXXXXXX&quot; is the default.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;tempfile name = </span><span class="nv">$tempfile</span><span class="s2">&quot;</span>
+<span class="c"># tempfile name = filename.QA2ZpY</span>
+<span class="c">#                 or something similar...</span>
+
+<span class="c">#  Creates a file of that name in the current working directory</span>
+<span class="c">#+ with 600 file permissions.</span>
+<span class="c">#  A &quot;umask 177&quot; is therefore unnecessary,</span>
+<span class="c">#+ but it&#39;s good programming practice nevertheless.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>make</strong></p>
+<blockquote>
+<div><p>Utility for building and compiling binary packages. This can also be
+used for any set of operations triggered by incremental changes in
+source files.</p>
+<p>The <em>make</em> command checks a ``         Makefile        `` , a list
+of file dependencies and operations to be carried out.</p>
+<p>The <em>make</em> utility is, in effect, a powerful scripting language
+similar in many ways to <em>Bash</em> , but with the capability of
+recognizing <em>dependencies</em> . For in-depth coverage of this useful
+tool set, see the <a class="reference external" href="http://www.gnu.org/manual/manual.html">GNU software documentation
+site</a> .</p>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>install</strong></dt>
+<dd>Special purpose file copying command, similar to
+<a class="reference external" href="basic.html#CPREF">cp</a> , but capable of setting permissions and
+attributes of the copied files. This command seems tailormade for
+installing software packages, and as such it shows up frequently in
+``         Makefiles        `` (in the
+``                   make           install :                 ``
+section). It could likewise prove useful in installation scripts.</dd>
+<dt><strong>dos2unix</strong></dt>
+<dd>This utility, written by Benjamin Lin and collaborators, converts
+DOS-formatted text files (lines terminated by CR-LF) to UNIX format
+(lines terminated by LF only), and
+<a class="reference external" href="gotchas.html#DOSNEWLINES">vice-versa</a> .</dd>
+<dt><strong>ptx</strong></dt>
+<dd>The <strong>ptx [targetfile]</strong> command outputs a permuted index
+(cross-reference list) of the targetfile. This may be further
+filtered and formatted in a pipe, if necessary.</dd>
+<dt><strong>more</strong> , <strong>less</strong></dt>
+<dd><p class="first">Pagers that display a text file or stream to
+``         stdout        `` , one screenful at a time. These may be
+used to filter the output of ``         stdout        `` . . . or of
+a script.</p>
+<p>An interesting application of <em>more</em> is to &#8220;test drive&#8221; a command
+sequence, to forestall potentially unpleasant consequences.</p>
+<div class="highlight-sh"><div class="highlight"><pre>ls /home/bozoawk <span class="s1">&#39;{print &quot;rm -rf &quot; $1}&#39;</span> <span class="p">|</span> more
+<span class="c">#                                            ^^^^</span>
+
+<span class="c"># Testing the effect of the following (disastrous) command-line:</span>
+<span class="c">#      ls /home/bozoawk &#39;{print &quot;rm -rf &quot; $1}&#39; | sh</span>
+<span class="c">#      Hand off to the shell to execute . . .       ^^</span>
+</pre></div>
+</div>
+<p class="last">The <em>less</em> pager has the interesting property of doing a formatted
+display of <em>man page</em> source. See <a class="reference external" href="contributed-scripts.html#MANED">Example
+A-39</a> .</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;filearchiv.html#AEN11885&gt;`__</p>
+<p>An <em>archive</em> , in the sense discussed here, is simply a set of related
+files stored in a single location.</p>
+<p>` [2]  &lt;filearchiv.html#AEN11896&gt;`__</p>
+<p>A ``               tar czvf ArchiveName.tar.gz *             `` <em>will</em>
+include dotfiles in subdirectories <em>below</em> the current working
+directory. This is an undocumented GNU <strong>tar</strong> &#8220;feature.&#8221;</p>
+<p>` [3]  &lt;filearchiv.html#AEN12840&gt;`__</p>
+<p>The checksum may be expressed as a <em>hexadecimal</em> number, or to some
+other base.</p>
+<p>` [4]  &lt;filearchiv.html#AEN12849&gt;`__</p>
+<p>For even <em>better</em> security, use the <em>sha256sum</em> , <em>sha512</em> , and
+<em>sha1pass</em> commands.</p>
+<p>` [5]  &lt;filearchiv.html#AEN12969&gt;`__</p>
+<p>This is a symmetric block cipher, used to encrypt files on a single
+system or local network, as opposed to the <em>public key</em> cipher class, of
+which <em>pgp</em> is a well-known example.</p>
+<p>` [6]  &lt;filearchiv.html#AEN13030&gt;`__</p>
+<p>Creates a temporary <em>directory</em> when invoked with the
+``       -d      `` option.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="communications.html" class="btn btn-neutral float-right" title="XXX 16.6. Communications Commands" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="textproc.html" class="btn btn-neutral" title="XXX 16.4. Text Processing Commands"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

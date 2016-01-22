@@ -1,0 +1,850 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 10.2. Substitució de paràmetres &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Part 3. Beyond the Basics" href="part3.html"/>
+        <link rel="next" title="Chapter 11. Loops and Branches" href="loops.html"/>
+        <link rel="prev" title="XXX 10.1. Manipulating Strings" href="string-manipulation.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="variables2.html">XXX  Chapter 9. Another Look at Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internalvariables.html">XXX  9.1. Internal Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="declareref.html">XXX  9.2. Typing variables: <strong>declare</strong> or <strong>typeset</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="randomvar.html">XXX  9.3. $RANDOM: generate random integer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manipulatingvars.html">XXX  Chapter 10. Manipulating Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="string-manipulation.html">XXX  10.1. Manipulating Strings</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX 10.2. Substitució de paràmetres</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loops.html">Chapter 11. Loops and Branches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loops1.html">XXX  11.1. Loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedloops.html">XXX  11.2. Nested Loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loopcontrol.html">XXX  11.3. Loop Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testbranch.html">XXX  11.4. Testing and Branching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commandsub.html">XXX  Chapter 12. Substitució de comanda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arithexp.html">XXX  Chapter 13. Arithmetic Expansion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recess-time.html">XXX  Chapter 14. Recess Time</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part3.html">XXX Part 3. Beyond the Basics</a> &raquo;</li>
+      
+    <li>XXX 10.2. Substitució de paràmetres</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-10-2-substitucio-de-parametres">
+<h1>XXX 10.2. Substitució de paràmetres<a class="headerlink" href="#xxx-10-2-substitucio-de-parametres" title="Link permanent a aquest títol">¶</a></h1>
+<p><strong>Manipulació i/o expansió de variables</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">${parametre}</span></code></dt>
+<dd><p class="first">El mateix que <code class="docutils literal"><span class="pre">$parametre</span></code>, És a dir, el valor de la variable
+<code class="docutils literal"><span class="pre">parametre</span></code>. En certs contextos, només funciona la forma menys
+ambigua de `` ${parametre} <a href="#id1"><span class="problematic" id="id2">``</span></a>.</p>
+<p>Es pot utilitzar per concatenar variables amb strings.</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="nv">el_teu_id</span><span class="o">=</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span>-a-<span class="si">${</span><span class="nv">HOSTNAME</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$el_teu_id</span><span class="s2">&quot;</span>
+<span class="c">#</span>
+<span class="nb">echo</span> <span class="s2">&quot;Antic \$PATH = </span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+<span class="nv">PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">PATH</span><span class="si">}</span>:/opt/bin  <span class="c"># Afegeix /opt/bin a $PATH durant l&#39;execució del script.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Nou \$PATH = </span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal"><span class="pre">${parametre-perdefecte}</span></code>, <code class="docutils literal"><span class="pre">${parametre:-perdefecte}</span></code></dt>
+<dd><p class="first">En cas que el paràmetre no estigui assignat, es fa servir el valor
+per defecte.</p>
+<div class="highlight-sh"><div class="highlight"><pre> <span class="nv">var1</span><span class="o">=</span>1
+ <span class="nv">var2</span><span class="o">=</span>2
+ <span class="c"># var3 no està assignada.</span>
+
+ <span class="nb">echo</span> <span class="si">${</span><span class="nv">var1</span><span class="p">-</span><span class="nv">$var2</span><span class="si">}</span>   <span class="c"># 1</span>
+ <span class="nb">echo</span> <span class="si">${</span><span class="nv">var3</span><span class="p">-</span><span class="nv">$var2</span><span class="si">}</span>   <span class="c"># 2</span>
+ <span class="c">#           ^          Atenció al prefix $.</span>
+
+
+
+ <span class="nb">echo</span> <span class="si">${</span><span class="nv">username</span><span class="p">-</span><span class="sb">`</span>whoami<span class="sb">`</span><span class="si">}</span>
+ <span class="c"># Mostra el resultat de `whoami` si la variable $username no està assignada.</span>
+
+:align: center
+:alt: Atenció
+
+Atenció
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">${parametre-perdefecte}</span></code> i <code class="docutils literal"><span class="pre">${parametre:-perdefecte}</span></code> són
+pràcticament equivalents. Els : extra només tenen sentit quan
+<code class="docutils literal"><span class="pre">parametre</span></code> està declarat però té assignat nul.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># param-sub.sh</span>
+
+<span class="c">#  El fet que una variable estigui o no declarada</span>
+<span class="c">#+ suposa l&#39;activació de l&#39;opció per defecte</span>
+<span class="c">#+ fins i tot quan el valor és nul.</span>
+
+<span class="nv">username0</span><span class="o">=</span>
+<span class="nb">echo</span> <span class="s2">&quot;username0 està declarat però té assignat el valor nul.&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;username0 = </span><span class="si">${</span><span class="nv">username0</span><span class="p">-</span><span class="sb">`</span>whoami<span class="sb">`</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="c"># No mostrarà res.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo </span>username1 no està declarat.
+<span class="nb">echo</span> <span class="s2">&quot;username1 = </span><span class="si">${</span><span class="nv">username1</span><span class="p">-</span><span class="sb">`</span>whoami<span class="sb">`</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="c"># Mostra el valor per defecte (resultat de whoami).</span>
+
+<span class="nv">username2</span><span class="o">=</span>
+<span class="nb">echo</span> <span class="s2">&quot;username2 està declarat però té assignat nul.&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;username2 = </span><span class="si">${</span><span class="nv">username2</span><span class="k">:-</span><span class="sb">`</span>whoami<span class="sb">`</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="c">#                            ^</span>
+<span class="c"># Mostra el valor per defecte donat que hem posat a la condició :- en comptes de un simple - .</span>
+<span class="c"># Compara amb la primera instància, per sobre.</span>
+
+
+<span class="c">#</span>
+
+<span class="c"># Un cop més:</span>
+
+<span class="nv">variable</span><span class="o">=</span>
+<span class="c"># variable està declarada però assignada a nul.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">variable</span><span class="p">-0</span><span class="si">}</span><span class="s2">&quot;</span>    <span class="c"># (sense sortida)</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">variable</span><span class="k">:-</span><span class="nv">1</span><span class="si">}</span><span class="s2">&quot;</span>   <span class="c"># 1</span>
+<span class="c">#               ^</span>
+
+<span class="nb">unset </span>variable
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">variable</span><span class="p">-2</span><span class="si">}</span><span class="s2">&quot;</span>    <span class="c"># 2</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">variable</span><span class="k">:-</span><span class="nv">3</span><span class="si">}</span><span class="s2">&quot;</span>   <span class="c"># 3</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Aquesta funcionalitat de <em>paràmetre per defecte</em> és útil quan cal
+definir paràmetres &#8220;no indicats&#8221; a la línia de comandes de la crida
+al script.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">DEFAULT_FILENAME</span><span class="o">=</span>generic.data
+<span class="nv">filename</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">$DEFAULT_FILENAME</span><span class="si">}</span>
+<span class="c">#  En cas que no s&#39;indiqui el contrari, les comandes al següent bloc actuen</span>
+<span class="c">#+ sobre el fitxer &quot;generic.data&quot;.</span>
+<span class="c">#  Inici del bloc de comandes</span>
+<span class="c">#  ...</span>
+<span class="c">#  ...</span>
+<span class="c">#  ...</span>
+<span class="c">#  Final del bloc de comandes</span>
+
+
+
+<span class="c">#  De l&#39;exemple &quot;hanoi2.bash&quot;:</span>
+<span class="nv">DISKS</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">E_NOPARAM</span><span class="si">}</span>   <span class="c"># Cal especificar el nombre de discos.</span>
+<span class="c">#  Assigna $DISKS al paràmetre de línia de comanda $1,</span>
+<span class="c">#+ o bé a $E_NOPARAM en cas que $1 no estigui especificat.</span>
+</pre></div>
+</div>
+<p>Mira també <a class="reference external" href="http://tldp.org/LDP/abs/html/special-chars.html#EX58">Exemple 3-4</a>, <a class="reference external" href="http://tldp.org/LDP/abs/html/zeros.html#EX73">Exemple 30-2</a>, i <a class="reference external" href="http://tldp.org/LDP/abs/html/contributed-scripts.html#COLLATZ">Exemple A-6</a>.</p>
+<p class="last">Compara aquest mètode amb l&#8217;<a class="reference external" href="http://tldp.org/LDP/abs/html/list-cons.html#ANDDEFAULT">ús d&#8217;una*llista &#8220;and&#8221;* per a suplir un
+argument de línia de comandes per
+defecte</a>.</p>
+</dd>
+</dl>
+<p><code class="docutils literal"><span class="pre">${parametre=perdefecte}</span></code>, <code class="docutils literal"><span class="pre">${parametre:=perdefecte}</span></code></p>
+<blockquote>
+<div><p>En cas que el paràmetre no estigui assignat, assigna&#8217;l a
+<em>perdefecte</em>.</p>
+<p>Les dues formes són pràcticament equivalents. El funcionament amb
+els : només es diferencia quan <code class="docutils literal"><span class="pre">$parametre</span></code> està declarat i
+assignat a nul <a class="reference external" href="#FTN.AEN6179">[1]</a> com passava més amunt.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">echo</span> <span class="si">${</span><span class="nv">var</span><span class="p">=abc</span><span class="si">}</span>   <span class="c"># abc</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">var</span><span class="p">=xyz</span><span class="si">}</span>   <span class="c"># abc</span>
+<span class="c"># $var ja se li a assignat abc i per tant no canvia.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">${parametre+altre_valor}</span></code>, <code class="docutils literal"><span class="pre">${parametre:+altre_valor}</span></code></dt>
+<dd><p class="first">Si el paràmetre està assignat, canvia el valor a <code class="docutils literal"><span class="pre">altre_valor</span></code>,
+altrament fes servir el string nul.</p>
+<p>Les dues formes són pràcticament equivalents. El funcionament amb
+els : només es diferencia quan <code class="docutils literal"><span class="pre">parametre</span></code> està declarat i
+assignat a nul (mira més amunt).</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="nb">echo</span> <span class="s2">&quot;###### \${parametre+altre_valor} ########&quot;</span>
+<span class="nb">echo</span>
+
+<span class="nv">a</span><span class="o">=</span><span class="si">${</span><span class="nv">param1</span><span class="p">+xyz</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>      <span class="c"># a =</span>
+
+<span class="nv">param2</span><span class="o">=</span>
+<span class="nv">a</span><span class="o">=</span><span class="si">${</span><span class="nv">param2</span><span class="p">+xyz</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>      <span class="c"># a = xyz</span>
+&lt;t0&gt;&lt;b1&gt;<span class="si">${</span><span class="nv">parameter</span><span class="p">=default</span><span class="si">}</span>&lt;/b1&gt;&lt;/t0&gt;, &lt;t2&gt;&lt;b3&gt;<span class="si">${</span><span class="nv">parameter</span><span class="p">:=default</span><span class="si">}</span>&lt;/b3&gt;&lt;/t2&gt;
+&lt;t0&gt;&lt;b1&gt;<span class="si">${</span><span class="nv">parametre</span><span class="p">=perdefecte</span><span class="si">}</span>&lt;/b1&gt;&lt;/t0&gt;, &lt;t2&gt;&lt;b3&gt;<span class="si">${</span><span class="nv">parametre</span><span class="p">:=perdefecte</span><span class="si">}</span>&lt;/b3&gt;&lt;/t2&gt;
+<span class="o">(</span>50%, 50%, 82%<span class="o">)</span>
+
+
+<span class="nv">param3</span><span class="o">=</span>123
+<span class="nv">a</span><span class="o">=</span><span class="si">${</span><span class="nv">param3</span><span class="p">+xyz</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>      <span class="c"># a = xyz</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;###### \${parametre:+altre_valor} ########&quot;</span>
+<span class="nb">echo</span>
+
+<span class="nv">a</span><span class="o">=</span><span class="si">${</span><span class="nv">param4</span><span class="p">:+xyz</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>      <span class="c"># a =</span>
+
+<span class="nv">param5</span><span class="o">=</span>
+<span class="nv">a</span><span class="o">=</span><span class="si">${</span><span class="nv">param5</span><span class="p">:+xyz</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>      <span class="c"># a =</span>
+<span class="c"># Resultat diferent de a=${param5+xyz}</span>
+
+<span class="nv">param6</span><span class="o">=</span>123
+<span class="nv">a</span><span class="o">=</span><span class="si">${</span><span class="nv">param6</span><span class="p">:+xyz</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>      <span class="c"># a = xyz</span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal"><span class="pre">${parametre?msg_err}</span></code>, <code class="docutils literal"><span class="pre">${parametre:?msg_err}</span></code></dt>
+<dd><p class="first">Si el paràmetre està assignat fes servir el seu valor, altrament
+mostra el missatge msg_err.</p>
+<p class="last">Les dues formes són pràcticament equivalents. El funcionament amb
+els : només es diferencia quan <code class="docutils literal"><span class="pre">$parametre</span></code> està declarat i
+assignat a nul com passava més amunt.</p>
+</dd>
+</dl>
+<div class="section" id="exemple-1-us-de-la-substitucio-de-parametres-i-els-missatges-d-error">
+<span id="parameter-substitution-missatges-error"></span><h2>Exemple 1. Ús de la substitució de paràmetres i els missatges d&#8217;error<a class="headerlink" href="#exemple-1-us-de-la-substitucio-de-parametres-i-els-missatges-d-error" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c">#  Comprovació d&#39;algunes variables d&#39;entorn del sistema.</span>
+<span class="c">#  És una bona pràctica de manteniment preventiu.</span>
+<span class="c">#  Si, per exemple, la variable d&#39;entorn $USER (el nom de la persona logada a la consola), no està assignada,</span>
+<span class="c">#+ la màquina no et podrà reconèixer!.</span>
+
+: <span class="si">${</span><span class="nv">HOSTNAME</span><span class="p">?</span><span class="si">}</span> <span class="si">${</span><span class="nv">USER</span><span class="p">?</span><span class="si">}</span> <span class="si">${</span><span class="nv">HOME</span><span class="p">?</span><span class="si">}</span> <span class="si">${</span><span class="nv">MAIL</span><span class="p">?</span><span class="si">}</span>
+  <span class="nb">echo</span>
+<span class="nb">  echo</span> <span class="s2">&quot;El nom de la màquina és </span><span class="nv">$HOSTNAME</span><span class="s2">.&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Tu ets </span><span class="nv">$USER</span><span class="s2">.&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;El teu directori d&#39;inici és </span><span class="nv">$HOME</span><span class="s2">.&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;La teva carpeta d&#39;entrada de correu es troba a </span><span class="nv">$MAIL</span><span class="s2">.&quot;</span>
+  <span class="nb">echo</span>
+<span class="nb">  echo</span> <span class="s2">&quot;Si pots llegir aquest missatge, &quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;vol dir que les variables d&#39;entorn crítiques estan definides.&quot;</span>
+  <span class="nb">echo</span>
+<span class="nb">  echo</span>
+
+<span class="c"># ------------------------------------------------------</span>
+
+<span class="c">#  L&#39;expressió ${variablename?} també pot consultar</span>
+<span class="c">#+ si una variable està assignada dins el script.</span>
+
+<span class="nv">AquestaVar</span><span class="o">=</span>Valor-daquesta-var
+<span class="c">#  Fixat, per cert, que una variable pot ser assignada</span>
+<span class="c">#+ a strings amb caràcters que no estan permesos en el seu nom.</span>
+: <span class="si">${</span><span class="nv">AquestaVar</span><span class="p">?</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;El valor de AquestaVar és </span><span class="nv">$AquestaVar</span><span class="s2">&quot;</span>.
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+
+: <span class="si">${</span><span class="nv">ZZXy23AB</span><span class="p">?</span><span class="s2">&quot;ZZXy23AB no està assignada.&quot;</span><span class="si">}</span>
+<span class="c">#  Donat que ZZXy23AB no està assignada,</span>
+<span class="c">#+ el script finalitza amb un missatge d&#39;error.</span>
+
+<span class="c"># Es pot especificar el missatge d&#39;error.</span>
+<span class="c"># : ${nomvariable?&quot;MISSATGE D&#39;ERROR&quot;}</span>
+
+
+<span class="c"># El mateix resultat que amb:   altravariable=${ZZXy23AB?}</span>
+<span class="c">#                     altravariable=${ZZXy23AB?&quot;ZXy23AB no està assignada.&quot;}</span>
+<span class="c">#</span>
+<span class="c">#                     echo ${ZZXy23AB?} &gt;/dev/null</span>
+
+<span class="c">#  Compara aquests mètodes de comprovar si una variable ha estat assignada</span>
+<span class="c">#+ amb &quot;set -u&quot; . . .</span>
+
+
+
+<span class="nb">echo</span> <span class="s2">&quot;Aquest missatge no es mostrarà perquè hores d&#39;ara el script ja haurà terminat.&quot;</span>
+
+<span class="nv">HERE</span><span class="o">=</span>0
+<span class="nb">exit</span> <span class="nv">$HERE</span>   <span class="c"># NO finalitzarà aquí!.</span>
+
+<span class="c"># De fet, el script retornarà 1 com a resultat d&#39;execució (echo $?).</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-2-us-de-la-substitucio-de-parametres-i-els-missatges-d-informacio">
+<h2>Exemple 2. Ús de la substitució de paràmetres i els missatges d&#8216;&#8220;informació&#8221;<a class="headerlink" href="#exemple-2-us-de-la-substitucio-de-parametres-i-els-missatges-d-informacio" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># usage-message.sh</span>
+
+: <span class="si">${</span><span class="nv">1</span><span class="p">?</span><span class="s2">&quot;Ús: </span><span class="nv">$0</span><span class="s2"> ARGUMENT&quot;</span><span class="si">}</span>
+<span class="c">#  El script finalitza aquí si falta el 1er paràmetre de línia de comandes.</span>
+<span class="c">#+ Mostrarà el següent missatge d&#39;error:</span>
+<span class="c">#    usage-message.sh: 1: Ús: usage-message.sh ARGUMENT</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Aquestes dues línies només s&#39;executaran si s&#39;ha especificat el paràmetre per línia de comandes.&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Paràmetre de línia de comanda = \&quot;</span><span class="nv">$1</span><span class="s2">\&quot;&quot;</span>
+
+<span class="nb">exit </span><span class="m">0</span>  <span class="c"># Finalitzarà aquí només si s&#39;ha especificar el primer paràmetre per línia de comandes.</span>
+
+<span class="c"># Pots comprovar el resultat de sortida tant passant-li el primer paràmetre per línia de comandes com no.</span>
+<span class="c"># Si li passes el paràmetre, &quot;$?&quot; serà 0.</span>
+<span class="c"># En cas contrari, &quot;$?&quot; serà 1.</span>
+</pre></div>
+</div>
+<p><strong>Ús de la substitució de paràmetres i/o l&#8217;expansió.**Les expressions
+següents complementen les operacions de strings que consideren la
+**coincidència</strong> <code class="docutils literal"><span class="pre">amb</span></code> <strong>expressió</strong> (mira l&#8217;<a class="reference external" href="http://tldp.org/LDP/abs/html/moreadv.html#EX45">Exemple 16-9</a>). Aquestes en concret es fan servir majoritàriament en l&#8217;anàlisi de camins (path) d&#8217;arxius.</p>
+<p><strong>Longitud de variables / Eliminació de substrings</strong></p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">${#var}</span></code></dt>
+<dd><p class="first"><code class="docutils literal"><span class="pre">Longitud</span> <span class="pre">del</span> <span class="pre">string</span></code> (nombre de caràcters a <code class="docutils literal"><span class="pre">$var</span></code>). Per a un
+<a class="reference external" href="http://tldp.org/LDP/abs/html/arrays.html#ARRAYREF">array</a>,
+<strong>${#array}</strong> correspon a la longitud del primer element de l&#8217;array.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">align:</th><td class="field-body">center</td>
+</tr>
+<tr class="field-even field"><th class="field-name">alt:</th><td class="field-body">Atenció</td>
+</tr>
+</tbody>
+</table>
+<p>Atenció</p>
+</div></blockquote>
+<p>Excepcions:</p>
+<ul class="last simple">
+<li><strong>${#*}</strong> i <strong>${#&#64;}</strong> retornen el <em>nombre de paràmetres</em>.</li>
+<li>En cas d&#8217;array, <strong>${#array[*]}</strong> i <strong>${#array[&#64;]}</strong> retornen el
+nombre d&#8217;elements que conté l&#8217;array.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="exemple-3-durada-d-una-variable">
+<h2>Exemple 3. Durada d&#8217;una variable<a class="headerlink" href="#exemple-3-durada-d-una-variable" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># length.sh</span>
+
+<span class="nv">E_NO_ARGS</span><span class="o">=</span>65
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-eq <span class="m">0</span> <span class="o">]</span>  <span class="c"># Per a aquesta demo cal que hi hagi arguments a la línia de comandes.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Crideu aquest script amb un o més arguments.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NO_ARGS</span>
+<span class="k">fi</span>
+
+<span class="nv">var01</span><span class="o">=</span>abcdEFGH28ij
+<span class="nb">echo</span> <span class="s2">&quot;var01 = </span><span class="si">${</span><span class="nv">var01</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Longitud de var01 = </span><span class="si">${#</span><span class="nv">var01</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="c"># Intentem-ho ara amb un espai entre els caràcters.</span>
+<span class="nv">var02</span><span class="o">=</span><span class="s2">&quot;abcd EFGH28ij&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;var02 = </span><span class="si">${</span><span class="nv">var02</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Longitud de var02 = </span><span class="si">${#</span><span class="nv">var02</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Nombre d&#39;arguments de línia de comandes passats al script = </span><span class="si">${#</span><span class="p">@</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Nombre d&#39;arguments de línia de comandes passats al script = </span><span class="si">${#</span><span class="p">*</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<p><code class="docutils literal"><span class="pre">${var#Patró}</span></code>, <code class="docutils literal"><span class="pre">${var##Patró}</span></code></p>
+<blockquote>
+<div><p><strong>${var#Patró}</strong> Elimina de <code class="docutils literal"><span class="pre">$var</span></code> la part <em>més curta</em> del patró
+que coincideixi <code class="docutils literal"><span class="pre">des</span> <span class="pre">de</span> <span class="pre">l'inici</span></code> amb el contingut de <code class="docutils literal"><span class="pre">$var</span></code>.
+NdT. No he pogut comprovar aquest funcionament. A les meves proves,
+${var#patró} elimina la cadena &#8220;Patró&#8221; de l&#8217;inici de $var en cas que
+coincideixi perfectament.</p>
+<p><strong>${var##Patríó}</strong> Elimina de <code class="docutils literal"><span class="pre">$var</span></code> la part <em>més llarga</em> de
+<code class="docutils literal"><span class="pre">$Patró</span></code> que coincideixi <code class="docutils literal"><span class="pre">des</span> <span class="pre">de</span> <span class="pre">l'inici</span></code> amb el contingut de
+<code class="docutils literal"><span class="pre">$var</span></code>. NdT. No he pogut comprovar aquest funcionament. A les
+meves proves, ${var##Patró} es comporta idènticament a ${var#Patró}
+excepte en el cas que s&#8217;afegeixi el caràcter *. Ex. ${var#*Patró}
+no sempre resulta igual a ${var##*Patró}.</p>
+<p>Veiem un exemple d&#8217;ús a l&#8217;<a class="reference external" href="http://tldp.org/LDP/abs/html/contributed-scripts.html#DAYSBETWEEN">Exemple
+A-7</a>:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Una funció de l&#39;exemple &quot;days-between.sh&quot;.</span>
+<span class="c"># Elimina els zeros inicials de l&#39;argument.</span>
+
+strip_leading_zero <span class="o">()</span> <span class="c">#  Elimina un possible zero inicial</span>
+<span class="o">{</span>                     <span class="c">#+ del paràmetre.</span>
+  <span class="k">return</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="p">#0</span><span class="si">}</span>       <span class="c">#  El &quot;1&quot; correspon al argument &quot;$1&quot;.</span>
+<span class="o">}</span>                     <span class="c">#  El &quot;0&quot; és el que volem eliminar de &quot;$1&quot;.</span>
+</pre></div>
+</div>
+<p>Una versió de Manfred Schwarb amb una variació més elaborada de
+l&#8217;anterior:</p>
+<div class="highlight-sh"><div class="highlight"><pre>strip_leading_zero2 <span class="o">()</span> <span class="c"># Elimina els possibles zeros inicials de manera que</span>
+<span class="o">{</span>                      <span class="c"># Bash no els interpreti com a valors en octal.</span>
+  <span class="nb">shopt</span> -s extglob     <span class="c"># Activa l&#39;expansió (globbing) estesa.</span>
+  <span class="nb">local </span><span class="nv">val</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="p">##+(0)</span><span class="si">}</span> <span class="c"># Guarda a la variable local val el resultat d&#39;eliminar els 0&#39;s inicials.</span>
+  <span class="nb">shopt</span> -u extglob     <span class="c"># Desactiva l&#39;expansió estesa.</span>
+  <span class="nv">_strip_leading_zero2</span><span class="o">=</span><span class="si">${</span><span class="nv">val</span><span class="k">:-</span><span class="nv">0</span><span class="si">}</span>
+                       <span class="c"># En cas que l&#39;entrada fos 0, retorna un 0 en comptes de &quot;&quot;.</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Un altre exemple d&#8217;ús:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">echo</span> <span class="sb">`</span>basename <span class="nv">$PWD</span><span class="sb">`</span>        <span class="c"># Nom del directori de treball actual (incloent el camí absolut).</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">PWD</span><span class="p">##*/</span><span class="si">}</span><span class="s2">&quot;</span>           <span class="c"># Nom del directori de treball actual (només el nom)</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="sb">`</span>basename <span class="nv">$0</span><span class="sb">`</span>          <span class="c"># Nom del script.</span>
+<span class="nb">echo</span> <span class="nv">$0</span>                     <span class="c"># Nom del script.</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">0</span><span class="p">##*/</span><span class="si">}</span><span class="s2">&quot;</span>             <span class="c"># Nom del script.</span>
+<span class="nb">echo</span>
+<span class="nv">nomfitxer</span><span class="o">=</span>test.data
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">nomfitxer</span><span class="p">##*.</span><span class="si">}</span><span class="s2">&quot;</span>      <span class="c"># dades</span>
+                            <span class="c"># Extensió del fitxer nomfitxer.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><code class="docutils literal"><span class="pre">${var%Pattern}</span></code>, <code class="docutils literal"><span class="pre">${var%%Pattern}</span></code></p>
+<blockquote>
+<div><p><strong>${var%Pattern}</strong> elimina de <code class="docutils literal"><span class="pre">$var</span></code> la part <em>més curta</em> del patró
+<code class="docutils literal"><span class="pre">$Pattern</span></code> que coincideixi amb la <code class="docutils literal"><span class="pre">part</span> <span class="pre">final</span></code> de <code class="docutils literal"><span class="pre">$var</span></code>.</p>
+<p><strong>${var%%Pattern}</strong> elimina de <code class="docutils literal"><span class="pre">$var</span></code> la part <em>més llarga</em> de
+<code class="docutils literal"><span class="pre">$Pattern</span></code> que coincideixi amb la <code class="docutils literal"><span class="pre">part</span> <span class="pre">final</span></code> de <code class="docutils literal"><span class="pre">$var</span></code>.</p>
+</div></blockquote>
+<p>La <a class="reference external" href="http://tldp.org/LDP/abs/html/bashver2.html#BASH2REF">versió 2</a> de
+Bash va afegir noves opcions.</p>
+</div>
+<div class="section" id="exemple-4-patrons-a-la-substitucio-de-parametres">
+<span id="parameter-substitution-patrons"></span><h2>Exemple 4. Patrons a la substitució de paràmetres<a class="headerlink" href="#exemple-4-patrons-a-la-substitucio-de-parametres" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># patt-matching.sh</span>
+
+<span class="c"># Patrons fent servir els operadors de substitució de paràmetres  # ## % %% .</span>
+
+<span class="nv">var1</span><span class="o">=</span>abcd12345abc6789
+<span class="nv">pattern1</span><span class="o">=</span>a*c  <span class="c"># * (comodí) coincideix amb qualsevol cosa entre a - c.</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;var1 = </span><span class="nv">$var1</span><span class="s2">&quot;</span>           <span class="c"># abcd12345abc6789</span>
+<span class="nb">echo</span> <span class="s2">&quot;var1 = </span><span class="si">${</span><span class="nv">var1</span><span class="si">}</span><span class="s2">&quot;</span>         <span class="c"># abcd12345abc6789</span>
+                              <span class="c"># (forma alternativa)</span>
+<span class="nb">echo</span> <span class="s2">&quot;Nombre de caràcters en </span><span class="si">${</span><span class="nv">var1</span><span class="si">}</span><span class="s2"> = </span><span class="si">${#</span><span class="nv">var1</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;pattern1 = </span><span class="nv">$pattern1</span><span class="s2">&quot;</span>   <span class="c"># a*c  (qualsevol cosa entre &#39;a&#39; i &#39;c&#39;)</span>
+<span class="nb">echo</span> <span class="s2">&quot;--------------&quot;</span>
+<span class="nb">echo</span> <span class="s1">&#39;${var1#$pattern1}  =&#39;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">var1</span><span class="p">#</span><span class="nv">$pattern1</span><span class="si">}</span><span class="s2">&quot;</span>    <span class="c">#         d12345abc6789</span>
+<span class="c"># La coincidència més curta possible. Elimina els tres primers caràcters abcd12345abc6789 (NdT. No l&#39;he pogut replicar)</span>
+<span class="c">#                                     ^^^^^               |-</span>
+<span class="nb">echo</span> <span class="s1">&#39;${var1##$pattern1} =&#39;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">var1</span><span class="p">##</span><span class="nv">$pattern1</span><span class="si">}</span><span class="s2">&quot;</span>   <span class="c">#                  6789</span>
+<span class="c"># La coincidència més llarga possible. Elimina els primers 12 caràcters abcd12345abc6789 (NdT. No l&#39;he pogut replicar)</span>
+<span class="c">#                                    ^^^^^                |----------</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nv">pattern2</span><span class="o">=</span>b*9            <span class="c"># qualsevol cosa entre &#39;b&#39; i &#39;9&#39;</span>
+<span class="nb">echo</span> <span class="s2">&quot;var1 = </span><span class="nv">$var1</span><span class="s2">&quot;</span>     <span class="c"># es manté abcd12345abc6789</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;pattern2 = </span><span class="nv">$pattern2</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;--------------&quot;</span>
+<span class="nb">echo</span> <span class="s1">&#39;${var1%pattern2}  =&#39;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">var1</span><span class="p">%</span><span class="nv">$pattern2</span><span class="si">}</span><span class="s2">&quot;</span>     <span class="c">#     abcd12345a</span>
+<span class="c"># La coincidència més curta possible. Elimina els darrers 6 caràcters  abcd12345abc6789</span>
+<span class="c">#                                     ^^^^                         |----</span>
+<span class="nb">echo</span> <span class="s1">&#39;${var1%%pattern2} =&#39;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">var1</span><span class="p">%%</span><span class="nv">$pattern2</span><span class="si">}</span><span class="s2">&quot;</span>    <span class="c">#     a</span>
+<span class="c"># La coincidència més llarga possible. Elimina els darrers 12 caràcters  abcd12345abc6789</span>
+<span class="c">#                                    ^^^^                 |-------------</span>
+
+<span class="c"># Recordem, # i ## actuen d&#39;esquerra a dreta (des de l&#39;inici) de la cadena,</span>
+<span class="c">#           % i %% actuen de dreta a esquerra (des del final) de la cadena.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-5-canvi-d-extensio-d-un-fitxer">
+<h2>Exemple 5. Canvi d&#8217;extensió d&#8217;un fitxer:<a class="headerlink" href="#exemple-5-canvi-d-extensio-d-un-fitxer" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># rfe.sh: Canvi d&#39;extensió d&#39;un fitxer</span>
+<span class="c">#</span>
+<span class="c">#         rfe extensio_anterior extensio_nova</span>
+<span class="c">#</span>
+<span class="c"># Exemple:</span>
+<span class="c"># per canviar tots els *.gif del directori actual per *.jpg,</span>
+<span class="c">#          rfe gif jpg</span>
+
+
+<span class="nv">E_BADARGS</span><span class="o">=</span>65
+
+<span class="k">case</span> <span class="nv">$# </span>in
+  0<span class="p">|</span>1<span class="o">)</span>             <span class="c"># Aquí la barra vertical significa disjunció &quot;o&quot; (&quot;or&quot;).</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Ús: `basename </span><span class="nv">$0</span><span class="s2">` sufix_antic sufix_nou&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>  <span class="c"># En cas de 0 o 1 arguments.</span>
+  <span class="p">;;</span>
+<span class="k">esac</span>
+
+
+<span class="k">for</span> nomfitxer in *.<span class="nv">$1</span>
+<span class="c"># Ordre invers de la llista de fitxers, tot començant amb el primer argument.</span>
+<span class="k">do</span>
+  mv <span class="nv">$nomfitxer</span> <span class="si">${</span><span class="nv">nomfitxer</span><span class="p">%</span><span class="nv">$1</span><span class="si">}</span><span class="nv">$2</span>
+  <span class="c">#  Elimina la part del fitxer que coincideixi amb el primer argument, i</span>
+  <span class="c">#+ a continuació afegeix el segon argument.</span>
+<span class="k">done</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p><strong>Expansió de variables / substitució de substrings</strong></p>
+<blockquote>
+<div>Les següents funcions van ser adoptades del <em>ksh</em>.</div></blockquote>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">${var:pos}</span></code></dt>
+<dd>Variable <code class="docutils literal"><span class="pre">var</span></code> expandida, començant des de la posició <code class="docutils literal"><span class="pre">pos</span></code>.</dd>
+<dt><code class="docutils literal"><span class="pre">${var:pos:len}</span></code></dt>
+<dd>Expansió de <code class="docutils literal"><span class="pre">len</span></code> caràcters de la variable <code class="docutils literal"><span class="pre">var</span></code> començant des
+de la posició <code class="docutils literal"><span class="pre">pos</span></code>. A l&#8217;<a class="reference external" href="http://tldp.org/LDP/abs/html/contributed-scripts.html#PW">Exemple A-13</a> es troba un exemple (creatiu) d&#8217;ús d&#8217;aquest operador.</dd>
+<dt><code class="docutils literal"><span class="pre">${var/Patró/Substitució}</span></code></dt>
+<dd><p class="first">Substitueix la primera aparició del <code class="docutils literal"><span class="pre">Patró</span></code>, a la variable <code class="docutils literal"><span class="pre">var</span></code>
+per <code class="docutils literal"><span class="pre">Substitució</span></code>.</p>
+<p class="last">En cas que no s&#8217;especifiqui <code class="docutils literal"><span class="pre">Substitució</span></code>, la primera ocurrència
+de <code class="docutils literal"><span class="pre">Patró</span></code> es substitueix per <em>no res</em>. És a dir, elimina aquesta
+part de la variable.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">${var//Patró/Substitució}</span></code></dt>
+<dd><p class="first"><strong>Substitució global.</strong> Substitueix totes les aparicions de
+<code class="docutils literal"><span class="pre">Patró</span></code> de la variable <code class="docutils literal"><span class="pre">var</span></code> per <code class="docutils literal"><span class="pre">Substitució</span></code>.</p>
+<p class="last">Com abans, si no s&#8217;especifica <code class="docutils literal"><span class="pre">Substitució</span></code> es substitueixen totes
+les ocurrències de <code class="docutils literal"><span class="pre">Patró</span></code> per <em>no res</em>. És a dir, són eliminades.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="exemple-6-analisi-de-strings-arbitraris">
+<h2>Exemple 6. Anàlisi de strings arbitraris<a class="headerlink" href="#exemple-6-analisi-de-strings-arbitraris" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>empty string.
+<span class="c">#!/bin/bash</span>
+
+<span class="nv">var1</span><span class="o">=</span>abcd-1234-defg
+<span class="nb">echo</span> <span class="s2">&quot;var1 = </span><span class="nv">$var1</span><span class="s2">&quot;</span>
+
+<span class="nv">t</span><span class="o">=</span><span class="si">${</span><span class="nv">var1</span><span class="p">#*-*</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;var1 (un cop eliminat la part inicial fins al primer - ) = </span><span class="nv">$t</span><span class="s2">&quot;</span>
+<span class="c">#  t=${var1#*-}  el string buit fa exactament el mateix,</span>
+<span class="c">#+ donat que # coincideix amb el string més curt,</span>
+<span class="c">#+ i * coincideix amb qualsevol cosa (incloent res) que precedeixi el string buit.</span>
+<span class="c"># (Agraïment per Stephane Chazelas)</span>
+
+<span class="nv">t</span><span class="o">=</span><span class="si">${</span><span class="nv">var1</span><span class="p">##*-*</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;si var1 conté un  \&quot;-\&quot; retornarà la cadena buida...   var1 = </span><span class="nv">$t</span><span class="s2">&quot;</span>
+
+
+<span class="nv">t</span><span class="o">=</span><span class="si">${</span><span class="nv">var1</span><span class="p">%*-*</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;var1 (un cop eliminat el contingut des del darrer - fins al final) = </span><span class="nv">$t</span><span class="s2">&quot;</span>
+
+<span class="nb">echo</span>
+
+<span class="c"># -------------------------------------------</span>
+<span class="nv">path_name</span><span class="o">=</span>/home/bozo/ideas/thoughts.for.today
+<span class="c"># -------------------------------------------</span>
+<span class="nb">echo</span> <span class="s2">&quot;path_name = </span><span class="nv">$path_name</span><span class="s2">&quot;</span>
+<span class="nv">t</span><span class="o">=</span><span class="si">${</span><span class="nv">path_name</span><span class="p">##/*/</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;path_name un cop eliminat els prefixos = </span><span class="nv">$t</span><span class="s2">&quot;</span>
+<span class="c"># En aquest cas, ofereix el mateix resultat que t=`basename $path_name`.</span>
+<span class="c">#  t=${path_name%/}; t=${t##*/}   és una solució més general,</span>
+<span class="c">#+ però encara falla de vegades.</span>
+<span class="c">#  En cas que $path_name acabi amb salt de línia, no funcionarà `basename $path_name`,</span>
+<span class="c">#+ mentre que l&#39;expressió anterior continuarà funcionant.</span>
+<span class="c"># (Gràcies  S.C.)</span>
+
+<span class="nv">t</span><span class="o">=</span><span class="si">${</span><span class="nv">path_name</span><span class="p">%/*.*</span><span class="si">}</span>
+<span class="c"># El mateix resultat que t=`dirname $path_name`</span>
+<span class="nb">echo</span> <span class="s2">&quot;path_name, sense l&#39;extensió= </span><span class="nv">$t</span><span class="s2">&quot;</span>
+<span class="c"># Fallarà en alguns casos, com ara amb &quot;../&quot;, &quot;/foo////&quot;, # &quot;foo/&quot;, &quot;/&quot;.</span>
+<span class="c">#  L&#39;eliminació de sufixos es complica especialment quan el nom base no té extensió</span>
+<span class="c">#+ però el directori que el conté sí que en té.</span>
+<span class="c"># (Agraïment per S.C.)</span>
+
+<span class="nb">echo</span>
+
+<span class="nv">t</span><span class="o">=</span><span class="si">${</span><span class="nv">path_name</span><span class="p">:</span><span class="nv">11</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$path_name</span><span class="s2"> sense els primers 11 caràcters = </span><span class="nv">$t</span><span class="s2">&quot;</span>
+<span class="nv">t</span><span class="o">=</span><span class="si">${</span><span class="nv">path_name</span><span class="p">:</span><span class="nv">11</span><span class="p">:</span><span class="nv">5</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$path_name</span><span class="s2"> sense els primers 11 caràcters i amb 5 de longitud = </span><span class="nv">$t</span><span class="s2">&quot;</span>
+
+<span class="nb">echo</span>
+
+<span class="nv">t</span><span class="o">=</span><span class="si">${</span><span class="nv">path_name</span><span class="p">/bozo/clown</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$path_name</span><span class="s2"> on \&quot;bozo\&quot; ha estat substituït per \&quot;clown\&quot; = </span><span class="nv">$t</span><span class="s2">&quot;</span>
+<span class="nv">t</span><span class="o">=</span><span class="si">${</span><span class="nv">path_name</span><span class="p">/today/</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$path_name</span><span class="s2"> on \&quot;today\&quot; ha estat eliminat = </span><span class="nv">$t</span><span class="s2">&quot;</span>
+<span class="nv">t</span><span class="o">=</span><span class="si">${</span><span class="nv">path_name</span><span class="p">//o/O</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$path_name</span><span class="s2"> on s&#39;ha passat totes les &quot;</span>o<span class="s2">&quot; a majúscules = </span><span class="nv">$t</span><span class="s2">&quot;</span>
+<span class="nv">t</span><span class="o">=</span><span class="si">${</span><span class="nv">path_name</span><span class="p">//o/</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$path_name</span><span class="s2"> sense cap &quot;</span>o<span class="s2">&quot; = </span><span class="nv">$t</span><span class="s2">&quot;</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">${var/#Patró/Substitució}</span></code></dt>
+<dd>Quan l&#8217;<em>inici</em> de <code class="docutils literal"><span class="pre">var</span></code> coincideix amb <code class="docutils literal"><span class="pre">Patró</span></code>, llavors
+<code class="docutils literal"><span class="pre">Substitució</span></code> apareix en comptes de <code class="docutils literal"><span class="pre">Patró</span></code>.</dd>
+<dt><code class="docutils literal"><span class="pre">${var/%Patró/Substitució}</span></code></dt>
+<dd>Quan el <em>final</em> de <code class="docutils literal"><span class="pre">var</span></code> coincideix amb <code class="docutils literal"><span class="pre">Patró</span></code>, llavors
+<code class="docutils literal"><span class="pre">Substitució</span></code> apareix en comptes de <code class="docutils literal"><span class="pre">Patró</span></code>.</dd>
+</dl>
+</div>
+<div class="section" id="exemple-7-coincidencia-de-patrons-a-l-inici-o-al-final-d-un-string">
+<h2>Exemple 7. Coincidència de patrons a l&#8217;inici o al final d&#8217;un string<a class="headerlink" href="#exemple-7-coincidencia-de-patrons-a-l-inici-o-al-final-d-un-string" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># var-match.sh:</span>
+<span class="c"># Demostració de la substitució del patró a l&#39;inici/final d&#39;un string.</span>
+
+<span class="nv">v0</span><span class="o">=</span>abc1234zip1234abc    <span class="c"># Variable original.</span>
+<span class="nb">echo</span> <span class="s2">&quot;v0 = </span><span class="nv">$v0</span><span class="s2">&quot;</span>         <span class="c"># abc1234zip1234abc</span>
+<span class="nb">echo</span>
+
+<span class="c"># Coincideix amb l&#39;inici del string.</span>
+<span class="nv">v1</span><span class="o">=</span><span class="si">${</span><span class="nv">v0</span><span class="p">/#abc/ABCDEF</span><span class="si">}</span>    <span class="c"># abc1234zip1234abc</span>
+                        <span class="c"># |-</span>
+<span class="nb">echo</span> <span class="s2">&quot;v1 = </span><span class="nv">$v1</span><span class="s2">&quot;</span>         <span class="c"># ABCDEF1234zip1234abc</span>
+                        <span class="c"># |----</span>
+
+<span class="c"># Coincideix amb el final del string.</span>
+<span class="nv">v2</span><span class="o">=</span><span class="si">${</span><span class="nv">v0</span><span class="p">/%abc/ABCDEF</span><span class="si">}</span>    <span class="c"># abc1234zip123abc</span>
+                        <span class="c">#              |-</span>
+<span class="nb">echo</span> <span class="s2">&quot;v2 = </span><span class="nv">$v2</span><span class="s2">&quot;</span>         <span class="c"># abc1234zip1234ABCDEF</span>
+                        <span class="c">#               |----</span>
+
+<span class="nb">echo</span>
+
+<span class="c">#  ----------------------------------------------------</span>
+<span class="c">#  Cal que coincideixi extactament amb l&#39;inici/final del string.</span>
+<span class="c">#+ Altrament no es realitza cap canvi.</span>
+<span class="c">#  ----------------------------------------------------</span>
+<span class="nv">v3</span><span class="o">=</span><span class="si">${</span><span class="nv">v0</span><span class="p">/#123/000</span><span class="si">}</span>       <span class="c"># Coincideix però no amb l&#39;inici.</span>
+<span class="nb">echo</span> <span class="s2">&quot;v3 = </span><span class="nv">$v3</span><span class="s2">&quot;</span>         <span class="c"># abc1234zip1234abc</span>
+                        <span class="c"># CAP CANVI.</span>
+<span class="nv">v4</span><span class="o">=</span><span class="si">${</span><span class="nv">v0</span><span class="p">/%123/000</span><span class="si">}</span>       <span class="c"># Coincideix però no amb el final.</span>
+<span class="nb">echo</span> <span class="s2">&quot;v4 = </span><span class="nv">$v4</span><span class="s2">&quot;</span>         <span class="c"># abc1234zip1234abc</span>
+                        <span class="c"># CAP CANVI.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">${!varprefix*}</span></code>, <code class="docutils literal"><span class="pre">${!varprefix&#64;}</span></code></dt>
+<dd><p class="first">Coincideix amb els <em>noms</em> de totes les variables declarades que
+comencen per <code class="docutils literal"><span class="pre">varprefix</span></code>.</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="c"># Es tracta d&#39;una variació d&#39;una referència directa que fa servir  * o @.</span>
+<span class="c"># Aquesta funcionalitat està disponible en Bash des de la versió 2.04.</span>
+
+<span class="nv">xyz23</span><span class="o">=</span>elquesigui
+<span class="nv">xyz24</span><span class="o">=</span>
+
+<span class="nv">a</span><span class="o">=</span><span class="si">${</span><span class="p">!xyz*</span><span class="si">}</span>         <span class="c">#  Expandeix als *noms* de les variables declarades</span>
+<span class="c"># ^ ^   ^           + que comencen per &quot;xyz&quot;.</span>
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>      <span class="c">#  a = xyz23 xyz24</span>
+<span class="nv">a</span><span class="o">=</span><span class="si">${</span><span class="p">!xyz@</span><span class="si">}</span>         <span class="c">#  Com abans.</span>
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>      <span class="c">#  a = xyz23 xyz24</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;---&quot;</span>
+
+<span class="nv">abc23</span><span class="o">=</span>algunaaltracosa
+<span class="nv">b</span><span class="o">=</span><span class="si">${</span><span class="p">!abc*</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;b = </span><span class="nv">$b</span><span class="s2">&quot;</span>      <span class="c">#  b = abc23</span>
+<span class="nv">c</span><span class="o">=</span><span class="si">${</span><span class="p">!b</span><span class="si">}</span>            <span class="c">#  Aquesta és la manera més habitual de fer una referència indirecta.</span>
+<span class="nb">echo</span> <span class="nv">$c</span>            <span class="c">#  una_altra_cosa</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p><a class="reference external" href="http://blamitec.wordpress.com/2011/04/13/abs-guide-10-2-substitucio-de-parametres">[1]</a></p>
+<p>Quan a un script no interactiu $parametre és null, l&#8217;execució finalitza
+amb codi de sortida
+<a class="reference external" href="http://tldp.org/LDP/abs/html/exitcodes.html#EXITCODESREF">127</a> (codi
+d&#8217;error de Bash que indica &#8220;No es troba la comanda&#8221;).</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="loops.html" class="btn btn-neutral float-right" title="Chapter 11. Loops and Branches" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="string-manipulation.html" class="btn btn-neutral" title="XXX 10.1. Manipulating Strings"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

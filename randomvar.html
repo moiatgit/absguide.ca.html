@@ -1,0 +1,1014 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 9.3. $RANDOM: generate random integer &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Part 3. Beyond the Basics" href="part3.html"/>
+        <link rel="next" title="XXX Chapter 10. Manipulating Variables" href="manipulatingvars.html"/>
+        <link rel="prev" title="XXX 9.2. Typing variables: declare or typeset" href="declareref.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="variables2.html">XXX  Chapter 9. Another Look at Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internalvariables.html">XXX  9.1. Internal Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="declareref.html">XXX  9.2. Typing variables: <strong>declare</strong> or <strong>typeset</strong></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  9.3. $RANDOM: generate random integer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manipulatingvars.html">XXX  Chapter 10. Manipulating Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="string-manipulation.html">XXX  10.1. Manipulating Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parameter-substitution.html">XXX 10.2. Substitució de paràmetres</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loops.html">Chapter 11. Loops and Branches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loops1.html">XXX  11.1. Loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedloops.html">XXX  11.2. Nested Loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loopcontrol.html">XXX  11.3. Loop Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testbranch.html">XXX  11.4. Testing and Branching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commandsub.html">XXX  Chapter 12. Substitució de comanda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arithexp.html">XXX  Chapter 13. Arithmetic Expansion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recess-time.html">XXX  Chapter 14. Recess Time</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part3.html">XXX Part 3. Beyond the Basics</a> &raquo;</li>
+      
+    <li>XXX  9.3. $RANDOM: generate random integer</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-9-3-random-generate-random-integer">
+<h1>XXX  9.3. $RANDOM: generate random integer<a class="headerlink" href="#xxx-9-3-random-generate-random-integer" title="Link permanent a aquest títol">¶</a></h1>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a></p>
+<p><em>Anyone who attempts to generate random numbers by deterministic means
+is, of course, living in a state of sin.</em></p>
+<p><em>&#8211;John von Neumann</em></p>
+<p>``      $RANDOM     `` is an internal Bash
+<a class="reference external" href="functions.html#FUNCTIONREF">function</a> (not a constant) that returns
+a <em>pseudorandom</em> ` [1]  &lt;randomvar.html#FTN.AEN5817&gt;`__ integer in the
+range 0 - 32767. It should ``             not           `` be used to
+generate an encryption key.</p>
+<div class="section" id="exemple-11-generating-random-numbers">
+<h2>Exemple 11. Generating random numbers<a class="headerlink" href="#exemple-11-generating-random-numbers" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c"># $RANDOM returns a different random integer at each invocation.</span>
+<span class="c"># Nominal range: 0 - 32767 (signed 16-bit integer).</span>
+
+<span class="nv">MAXCOUNT</span><span class="o">=</span>10
+<span class="nv">count</span><span class="o">=</span>1
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$MAXCOUNT</span><span class="s2"> random numbers:&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;-----------------&quot;</span>
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$count</span><span class="s2">&quot;</span> -le <span class="nv">$MAXCOUNT</span> <span class="o">]</span>      <span class="c"># Generate 10 ($MAXCOUNT) random integers.</span>
+<span class="k">do</span>
+  <span class="nv">number</span><span class="o">=</span><span class="nv">$RANDOM</span>
+  <span class="nb">echo</span> <span class="nv">$number</span>
+  <span class="nb">let</span> <span class="s2">&quot;count += 1&quot;</span>  <span class="c"># Increment count.</span>
+<span class="k">done</span>
+<span class="nb">echo</span> <span class="s2">&quot;-----------------&quot;</span>
+
+<span class="c"># If you need a random int within a certain range, use the &#39;modulo&#39; operator.</span>
+<span class="c"># This returns the remainder of a division operation.</span>
+
+<span class="nv">RANGE</span><span class="o">=</span>500
+
+<span class="nb">echo</span>
+
+<span class="nv">number</span><span class="o">=</span><span class="nv">$RANDOM</span>
+<span class="nb">let</span> <span class="s2">&quot;number %= </span><span class="nv">$RANGE</span><span class="s2">&quot;</span>
+<span class="c">#           ^^</span>
+<span class="nb">echo</span> <span class="s2">&quot;Random number less than </span><span class="nv">$RANGE</span><span class="s2">  ---  </span><span class="nv">$number</span><span class="s2">&quot;</span>
+
+<span class="nb">echo</span>
+
+
+
+<span class="c">#  If you need a random integer greater than a lower bound,</span>
+<span class="c">#+ then set up a test to discard all numbers below that.</span>
+
+<span class="nv">FLOOR</span><span class="o">=</span>200
+
+<span class="nv">number</span><span class="o">=</span><span class="m">0</span>   <span class="c">#initialize</span>
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$number</span><span class="s2">&quot;</span> -le <span class="nv">$FLOOR</span> <span class="o">]</span>
+<span class="k">do</span>
+  <span class="nv">number</span><span class="o">=</span><span class="nv">$RANDOM</span>
+<span class="k">done</span>
+<span class="nb">echo</span> <span class="s2">&quot;Random number greater than </span><span class="nv">$FLOOR</span><span class="s2"> ---  </span><span class="nv">$number</span><span class="s2">&quot;</span>
+<span class="nb">echo</span>
+
+   <span class="c"># Let&#39;s examine a simple alternative to the above loop, namely</span>
+   <span class="c">#       let &quot;number = $RANDOM + $FLOOR&quot;</span>
+   <span class="c"># That would eliminate the while-loop and run faster.</span>
+   <span class="c"># But, there might be a problem with that. What is it?</span>
+
+
+
+<span class="c"># Combine above two techniques to retrieve random number between two limits.</span>
+<span class="nv">number</span><span class="o">=</span><span class="m">0</span>   <span class="c">#initialize</span>
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$number</span><span class="s2">&quot;</span> -le <span class="nv">$FLOOR</span> <span class="o">]</span>
+<span class="k">do</span>
+  <span class="nv">number</span><span class="o">=</span><span class="nv">$RANDOM</span>
+  <span class="nb">let</span> <span class="s2">&quot;number %= </span><span class="nv">$RANGE</span><span class="s2">&quot;</span>  <span class="c"># Scales $number down within $RANGE.</span>
+<span class="k">done</span>
+<span class="nb">echo</span> <span class="s2">&quot;Random number between </span><span class="nv">$FLOOR</span><span class="s2"> and </span><span class="nv">$RANGE</span><span class="s2"> ---  </span><span class="nv">$number</span><span class="s2">&quot;</span>
+<span class="nb">echo</span>
+
+
+
+<span class="c"># Generate binary choice, that is, &quot;true&quot; or &quot;false&quot; value.</span>
+<span class="nv">BINARY</span><span class="o">=</span>2
+<span class="nv">T</span><span class="o">=</span>1
+<span class="nv">number</span><span class="o">=</span><span class="nv">$RANDOM</span>
+
+<span class="nb">let</span> <span class="s2">&quot;number %= </span><span class="nv">$BINARY</span><span class="s2">&quot;</span>
+<span class="c">#  Note that    let &quot;number &gt;&gt;= 14&quot;    gives a better random distribution</span>
+<span class="c">#+ (right shifts out everything except last binary digit).</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$number</span><span class="s2">&quot;</span> -eq <span class="nv">$T</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;TRUE&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;FALSE&quot;</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span>
+
+
+<span class="c"># Generate a toss of the dice.</span>
+<span class="nv">SPOTS</span><span class="o">=</span><span class="m">6</span>   <span class="c"># Modulo 6 gives range 0 - 5.</span>
+          <span class="c"># Incrementing by 1 gives desired range of 1 - 6.</span>
+          <span class="c"># Thanks, Paulo Marcel Coelho Aragao, for the simplification.</span>
+<span class="nv">die1</span><span class="o">=</span>0
+<span class="nv">die2</span><span class="o">=</span>0
+<span class="c"># Would it be better to just set SPOTS=7 and not add 1? Why or why not?</span>
+
+<span class="c"># Tosses each die separately, and so gives correct odds.</span>
+
+    <span class="nb">let</span> <span class="s2">&quot;die1 = </span><span class="nv">$RANDOM</span><span class="s2"> % </span><span class="nv">$SPOTS</span><span class="s2"> +1&quot;</span> <span class="c"># Roll first one.</span>
+    <span class="nb">let</span> <span class="s2">&quot;die2 = </span><span class="nv">$RANDOM</span><span class="s2"> % </span><span class="nv">$SPOTS</span><span class="s2"> +1&quot;</span> <span class="c"># Roll second one.</span>
+    <span class="c">#  Which arithmetic operation, above, has greater precedence --</span>
+    <span class="c">#+ modulo (%) or addition (+)?</span>
+
+
+<span class="nb">let</span> <span class="s2">&quot;throw = </span><span class="nv">$die1</span><span class="s2"> + </span><span class="nv">$die2</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Throw of the dice = </span><span class="nv">$throw</span><span class="s2">&quot;</span>
+<span class="nb">echo</span>
+
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-12-picking-a-random-card-from-a-deck">
+<h2>Exemple 12. Picking a random card from a deck<a class="headerlink" href="#exemple-12-picking-a-random-card-from-a-deck" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># pick-card.sh</span>
+
+<span class="c"># This is an example of choosing random elements of an array.</span>
+
+
+<span class="c"># Pick a card, any card.</span>
+
+<span class="nv">Suites</span><span class="o">=</span><span class="s2">&quot;Clubs</span>
+<span class="s2">Diamonds</span>
+<span class="s2">Hearts</span>
+<span class="s2">Spades&quot;</span>
+
+<span class="nv">Denominations</span><span class="o">=</span><span class="s2">&quot;2</span>
+<span class="s2">3</span>
+<span class="s2">4</span>
+<span class="s2">5</span>
+<span class="s2">6</span>
+<span class="s2">7</span>
+<span class="s2">8</span>
+<span class="s2">9</span>
+<span class="s2">10</span>
+<span class="s2">Jack</span>
+<span class="s2">Queen</span>
+<span class="s2">King</span>
+<span class="s2">Ace&quot;</span>
+
+<span class="c"># Note variables spread over multiple lines.</span>
+
+
+<span class="nv">suite</span><span class="o">=(</span><span class="nv">$Suites</span><span class="o">)</span>                <span class="c"># Read into array variable.</span>
+<span class="nv">denomination</span><span class="o">=(</span><span class="nv">$Denominations</span><span class="o">)</span>
+
+<span class="nv">num_suites</span><span class="o">=</span><span class="si">${#</span><span class="nv">suite</span><span class="p">[*]</span><span class="si">}</span>        <span class="c"># Count how many elements.</span>
+<span class="nv">num_denominations</span><span class="o">=</span><span class="si">${#</span><span class="nv">denomination</span><span class="p">[*]</span><span class="si">}</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="si">${</span><span class="nv">denomination</span><span class="p">[</span><span class="k">$((</span>RANDOM%num_denominations<span class="k">))</span><span class="p">]</span><span class="si">}</span><span class="s2"> of &quot;</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">suite</span><span class="p">[</span><span class="k">$((</span>RANDOM%num_suites<span class="k">))</span><span class="p">]</span><span class="si">}</span>
+
+
+<span class="c"># $bozo sh pick-cards.sh</span>
+<span class="c"># Jack of Clubs</span>
+
+
+<span class="c"># Thank you, &quot;jipe,&quot; for pointing out this use of $RANDOM.</span>
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-13-brownian-motion-simulation">
+<h2>Exemple 13. Brownian Motion Simulation<a class="headerlink" href="#exemple-13-brownian-motion-simulation" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># brownian.sh</span>
+<span class="c"># Author: Mendel Cooper</span>
+<span class="c"># Reldate: 10/26/07</span>
+<span class="c"># License: GPL3</span>
+
+<span class="c">#  ----------------------------------------------------------------</span>
+<span class="c">#  This script models Brownian motion:</span>
+<span class="c">#+ the random wanderings of tiny particles in a fluid,</span>
+<span class="c">#+ as they are buffeted by random currents and collisions.</span>
+<span class="c">#+ This is colloquially known as the &quot;Drunkard&#39;s Walk.&quot;</span>
+
+<span class="c">#  It can also be considered as a stripped-down simulation of a</span>
+<span class="c">#+ Galton Board, a slanted board with a pattern of pegs,</span>
+<span class="c">#+ down which rolls a succession of marbles, one at a time.</span>
+<span class="c">#+ At the bottom is a row of slots or catch basins in which</span>
+<span class="c">#+ the marbles come to rest at the end of their journey.</span>
+<span class="c">#  Think of it as a kind of bare-bones Pachinko game.</span>
+<span class="c">#  As you see by running the script,</span>
+<span class="c">#+ most of the marbles cluster around the center slot.</span>
+<span class="c">#+ This is consistent with the expected binomial distribution.</span>
+<span class="c">#  As a Galton Board simulation, the script</span>
+<span class="c">#+ disregards such parameters as</span>
+<span class="c">#+ board tilt-angle, rolling friction of the marbles,</span>
+<span class="c">#+ angles of impact, and elasticity of the pegs.</span>
+<span class="c">#  To what extent does this affect the accuracy of the simulation?</span>
+<span class="c">#  ----------------------------------------------------------------</span>
+
+<span class="nv">PASSES</span><span class="o">=</span><span class="m">500</span>            <span class="c">#  Number of particle interactions / marbles.</span>
+<span class="nv">ROWS</span><span class="o">=</span><span class="m">10</span>               <span class="c">#  Number of &quot;collisions&quot; (or horiz. peg rows).</span>
+<span class="nv">RANGE</span><span class="o">=</span><span class="m">3</span>               <span class="c">#  0 - 2 output range from $RANDOM.</span>
+<span class="nv">POS</span><span class="o">=</span><span class="m">0</span>                 <span class="c">#  Left/right position.</span>
+<span class="nv">RANDOM</span><span class="o">=</span><span class="nv">$$</span>             <span class="c">#  Seeds the random number generator from PID</span>
+                      <span class="c">#+ of script.</span>
+
+<span class="nb">declare</span> -a Slots      <span class="c"># Array holding cumulative results of passes.</span>
+<span class="nv">NUMSLOTS</span><span class="o">=</span><span class="m">21</span>           <span class="c"># Number of slots at bottom of board.</span>
+
+
+Initialize_Slots <span class="o">()</span> <span class="o">{</span> <span class="c"># Zero out all elements of the array.</span>
+<span class="k">for</span> i in <span class="k">$(</span> seq <span class="nv">$NUMSLOTS</span> <span class="k">)</span>
+<span class="k">do</span>
+  Slots<span class="o">[</span><span class="nv">$i</span><span class="o">]=</span>0
+<span class="k">done</span>
+
+<span class="nb">echo</span>                  <span class="c"># Blank line at beginning of run.</span>
+  <span class="o">}</span>
+
+
+Show_Slots <span class="o">()</span> <span class="o">{</span>
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+<span class="nb">echo</span> -n <span class="s2">&quot; &quot;</span>
+<span class="k">for</span> i in <span class="k">$(</span> seq <span class="nv">$NUMSLOTS</span> <span class="k">)</span>   <span class="c"># Pretty-print array elements.</span>
+<span class="k">do</span>
+  <span class="nb">printf</span> <span class="s2">&quot;%3d&quot;</span> <span class="si">${</span><span class="nv">Slots</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span>   <span class="c"># Allot three spaces per result.</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span> <span class="c"># Row of slots:</span>
+<span class="nb">echo</span> <span class="s2">&quot; |__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|__|&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;                                ||&quot;</span>
+<span class="nb">echo</span> <span class="c">#  Note that if the count within any particular slot exceeds 99,</span>
+     <span class="c">#+ it messes up the display.</span>
+     <span class="c">#  Running only(!) 500 passes usually avoids this.</span>
+  <span class="o">}</span>
+
+
+Move <span class="o">()</span> <span class="o">{</span>              <span class="c"># Move one unit right / left, or stay put.</span>
+  <span class="nv">Move</span><span class="o">=</span><span class="nv">$RANDOM</span>         <span class="c"># How random is $RANDOM? Well, let&#39;s see ...</span>
+  <span class="nb">let</span> <span class="s2">&quot;Move %= RANGE&quot;</span>  <span class="c"># Normalize into range of 0 - 2.</span>
+  <span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$Move</span><span class="s2">&quot;</span> in
+    <span class="m">0</span> <span class="o">)</span> <span class="p">;;</span>                   <span class="c"># Do nothing, i.e., stay in place.</span>
+    <span class="m">1</span> <span class="o">)</span> <span class="o">((</span>POS--<span class="o">))</span><span class="p">;;</span>          <span class="c"># Left.</span>
+    <span class="m">2</span> <span class="o">)</span> <span class="o">((</span>POS++<span class="o">))</span><span class="p">;;</span>          <span class="c"># Right.</span>
+    * <span class="o">)</span> <span class="nb">echo</span> -n <span class="s2">&quot;Error &quot;</span><span class="p">;;</span>   <span class="c"># Anomaly! (Should never occur.)</span>
+  <span class="k">esac</span>
+  <span class="o">}</span>
+
+
+Play <span class="o">()</span> <span class="o">{</span>                    <span class="c"># Single pass (inner loop).</span>
+<span class="nv">i</span><span class="o">=</span>0
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span> -lt <span class="s2">&quot;</span><span class="nv">$ROWS</span><span class="s2">&quot;</span> <span class="o">]</span>   <span class="c"># One event per row.</span>
+<span class="k">do</span>
+  Move
+  <span class="o">((</span>i++<span class="o">))</span><span class="p">;</span>
+<span class="k">done</span>
+
+<span class="nv">SHIFT</span><span class="o">=</span><span class="m">11</span>                     <span class="c"># Why 11, and not 10?</span>
+<span class="nb">let</span> <span class="s2">&quot;POS += </span><span class="nv">$SHIFT</span><span class="s2">&quot;</span>          <span class="c"># Shift &quot;zero position&quot; to center.</span>
+<span class="o">((</span> Slots<span class="o">[</span><span class="nv">$POS</span><span class="o">]</span>++ <span class="o">))</span>          <span class="c"># DEBUG: echo $POS</span>
+
+<span class="c"># echo -n &quot;$POS &quot;</span>
+
+  <span class="o">}</span>
+
+
+Run <span class="o">()</span> <span class="o">{</span>                     <span class="c"># Outer loop.</span>
+<span class="nv">p</span><span class="o">=</span>0
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$p</span><span class="s2">&quot;</span> -lt <span class="s2">&quot;</span><span class="nv">$PASSES</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">do</span>
+  Play
+  <span class="o">((</span> p++ <span class="o">))</span>
+  <span class="nv">POS</span><span class="o">=</span><span class="m">0</span>                      <span class="c"># Reset to zero. Why?</span>
+<span class="k">done</span>
+  <span class="o">}</span>
+
+
+<span class="c"># --------------</span>
+<span class="c"># main ()</span>
+Initialize_Slots
+Run
+Show_Slots
+<span class="c"># --------------</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c">#  Exercises:</span>
+<span class="c">#  ---------</span>
+<span class="c">#  1) Show the results in a vertical bar graph, or as an alternative,</span>
+<span class="c">#+    a scattergram.</span>
+<span class="c">#  2) Alter the script to use /dev/urandom instead of $RANDOM.</span>
+<span class="c">#     Will this make the results more random?</span>
+<span class="c">#  3) Provide some sort of &quot;animation&quot; or graphic output</span>
+<span class="c">#     for each marble played.</span>
+</pre></div>
+</div>
+<p><em>Jipe</em> points out a set of techniques for generating random numbers
+within a range.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#  Generate random number between 6 and 30.</span>
+   <span class="nv">rnumber</span><span class="o">=</span><span class="k">$((</span>RANDOM%25+6<span class="k">))</span>
+
+<span class="c">#  Generate random number in the same 6 - 30 range,</span>
+<span class="c">#+ but the number must be evenly divisible by 3.</span>
+   <span class="nv">rnumber</span><span class="o">=</span><span class="k">$((</span><span class="o">(</span>RANDOM%30/3+1<span class="o">)*</span><span class="m">3</span><span class="k">))</span>
+
+<span class="c">#  Note that this will not work all the time.</span>
+<span class="c">#  It fails if $RANDOM%30 returns 0.</span>
+
+<span class="c">#  Frank Wang suggests the following alternative:</span>
+   <span class="nv">rnumber</span><span class="o">=</span><span class="k">$((</span> RANDOM%27/3*3+6 <span class="k">))</span>
+</pre></div>
+</div>
+<p><em>Bill Gradwohl</em> came up with an improved formula that works for positive
+numbers.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">rnumber</span><span class="o">=</span><span class="k">$((</span><span class="o">(</span>RANDOM%<span class="o">(</span>max-min+divisibleBy<span class="k">))</span>/divisibleBy*divisibleBy+min<span class="o">))</span>
+</pre></div>
+</div>
+<p>Here Bill presents a versatile function that returns a random number
+between two specified values.</p>
+</div>
+<div class="section" id="exemple-14-random-between-values">
+<h2>Exemple 14. Random between values<a class="headerlink" href="#exemple-14-random-between-values" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># random-between.sh</span>
+<span class="c"># Random number between two specified values.</span>
+<span class="c"># Script by Bill Gradwohl, with minor modifications by the document author.</span>
+<span class="c"># Corrections in lines 187 and 189 by Anthony Le Clezio.</span>
+<span class="c"># Used with permission.</span>
+
+
+randomBetween<span class="o">()</span> <span class="o">{</span>
+   <span class="c">#  Generates a positive or negative random number</span>
+   <span class="c">#+ between $min and $max</span>
+   <span class="c">#+ and divisible by $divisibleBy.</span>
+   <span class="c">#  Gives a &quot;reasonably random&quot; distribution of return values.</span>
+   <span class="c">#</span>
+   <span class="c">#  Bill Gradwohl - Oct 1, 2003</span>
+
+   syntax<span class="o">()</span> <span class="o">{</span>
+   <span class="c"># Function embedded within function.</span>
+      <span class="nb">echo</span>
+<span class="nb">      echo</span>    <span class="s2">&quot;Syntax: randomBetween [min] [max] [multiple]&quot;</span>
+      <span class="nb">echo</span>
+<span class="nb">      echo</span> -n <span class="s2">&quot;Expects up to 3 passed parameters, &quot;</span>
+      <span class="nb">echo</span>    <span class="s2">&quot;but all are completely optional.&quot;</span>
+      <span class="nb">echo</span>    <span class="s2">&quot;min is the minimum value&quot;</span>
+      <span class="nb">echo</span>    <span class="s2">&quot;max is the maximum value&quot;</span>
+      <span class="nb">echo</span> -n <span class="s2">&quot;multiple specifies that the answer must be &quot;</span>
+      <span class="nb">echo</span>     <span class="s2">&quot;a multiple of this value.&quot;</span>
+      <span class="nb">echo</span>    <span class="s2">&quot;    i.e. answer must be evenly divisible by this number.&quot;</span>
+      <span class="nb">echo</span>
+<span class="nb">      echo</span>    <span class="s2">&quot;If any value is missing, defaults area supplied as: 0 32767 1&quot;</span>
+      <span class="nb">echo</span> -n <span class="s2">&quot;Successful completion returns 0, &quot;</span>
+      <span class="nb">echo</span>     <span class="s2">&quot;unsuccessful completion returns&quot;</span>
+      <span class="nb">echo</span>    <span class="s2">&quot;function syntax and 1.&quot;</span>
+      <span class="nb">echo</span> -n <span class="s2">&quot;The answer is returned in the global variable &quot;</span>
+      <span class="nb">echo</span>    <span class="s2">&quot;randomBetweenAnswer&quot;</span>
+      <span class="nb">echo</span> -n <span class="s2">&quot;Negative values for any passed parameter are &quot;</span>
+      <span class="nb">echo</span>    <span class="s2">&quot;handled correctly.&quot;</span>
+   <span class="o">}</span>
+
+   <span class="nb">local </span><span class="nv">min</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">0</span><span class="si">}</span>
+   <span class="nb">local </span><span class="nv">max</span><span class="o">=</span><span class="si">${</span><span class="nv">2</span><span class="k">:-</span><span class="nv">32767</span><span class="si">}</span>
+   <span class="nb">local </span><span class="nv">divisibleBy</span><span class="o">=</span><span class="si">${</span><span class="nv">3</span><span class="k">:-</span><span class="nv">1</span><span class="si">}</span>
+   <span class="c"># Default values assigned, in case parameters not passed to function.</span>
+
+   <span class="nb">local </span>x
+   <span class="nb">local </span>spread
+
+   <span class="c"># Let&#39;s make sure the divisibleBy value is positive.</span>
+   <span class="o">[</span> <span class="si">${</span><span class="nv">divisibleBy</span><span class="si">}</span> -lt <span class="m">0</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nv">divisibleBy</span><span class="o">=</span><span class="k">$((</span><span class="m">0</span><span class="o">-</span>divisibleBy<span class="k">))</span>
+
+   <span class="c"># Sanity check.</span>
+   <span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-gt <span class="m">3</span> -o <span class="si">${</span><span class="nv">divisibleBy</span><span class="si">}</span> -eq <span class="m">0</span> -o  <span class="si">${</span><span class="nv">min</span><span class="si">}</span> -eq <span class="si">${</span><span class="nv">max</span><span class="si">}</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+      syntax
+      <span class="k">return</span> 1
+   <span class="k">fi</span>
+
+   <span class="c"># See if the min and max are reversed.</span>
+   <span class="k">if</span> <span class="o">[</span> <span class="si">${</span><span class="nv">min</span><span class="si">}</span> -gt <span class="si">${</span><span class="nv">max</span><span class="si">}</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+      <span class="c"># Swap them.</span>
+      <span class="nv">x</span><span class="o">=</span><span class="si">${</span><span class="nv">min</span><span class="si">}</span>
+      <span class="nv">min</span><span class="o">=</span><span class="si">${</span><span class="nv">max</span><span class="si">}</span>
+      <span class="nv">max</span><span class="o">=</span><span class="si">${</span><span class="nv">x</span><span class="si">}</span>
+   <span class="k">fi</span>
+
+   <span class="c">#  If min is itself not evenly divisible by $divisibleBy,</span>
+   <span class="c">#+ then fix the min to be within range.</span>
+   <span class="k">if</span> <span class="o">[</span> <span class="k">$((</span>min/divisibleBy*divisibleBy<span class="k">))</span> -ne <span class="si">${</span><span class="nv">min</span><span class="si">}</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+      <span class="k">if</span> <span class="o">[</span> <span class="si">${</span><span class="nv">min</span><span class="si">}</span> -lt <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+         <span class="nv">min</span><span class="o">=</span><span class="k">$((</span>min/divisibleBy*divisibleBy<span class="k">))</span>
+      <span class="k">else</span>
+         <span class="nv">min</span><span class="o">=</span><span class="k">$((</span><span class="o">((</span>min/divisibleBy<span class="o">)+</span><span class="m">1</span><span class="o">)*</span>divisibleBy<span class="k">))</span>
+      <span class="k">fi</span>
+   <span class="k">fi</span>
+
+   <span class="c">#  If max is itself not evenly divisible by $divisibleBy,</span>
+   <span class="c">#+ then fix the max to be within range.</span>
+   <span class="k">if</span> <span class="o">[</span> <span class="k">$((</span>max/divisibleBy*divisibleBy<span class="k">))</span> -ne <span class="si">${</span><span class="nv">max</span><span class="si">}</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+      <span class="k">if</span> <span class="o">[</span> <span class="si">${</span><span class="nv">max</span><span class="si">}</span> -lt <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+         <span class="nv">max</span><span class="o">=</span><span class="k">$((</span><span class="o">((</span>max/divisibleBy<span class="o">)-</span><span class="m">1</span><span class="o">)*</span>divisibleBy<span class="k">))</span>
+      <span class="k">else</span>
+         <span class="nv">max</span><span class="o">=</span><span class="k">$((</span>max/divisibleBy*divisibleBy<span class="k">))</span>
+      <span class="k">fi</span>
+   <span class="k">fi</span>
+
+   <span class="c">#  ---------------------------------------------------------------------</span>
+   <span class="c">#  Now, to do the real work.</span>
+
+   <span class="c">#  Note that to get a proper distribution for the end points,</span>
+   <span class="c">#+ the range of random values has to be allowed to go between</span>
+   <span class="c">#+ 0 and abs(max-min)+divisibleBy, not just abs(max-min)+1.</span>
+
+   <span class="c">#  The slight increase will produce the proper distribution for the</span>
+   <span class="c">#+ end points.</span>
+
+   <span class="c">#  Changing the formula to use abs(max-min)+1 will still produce</span>
+   <span class="c">#+ correct answers, but the randomness of those answers is faulty in</span>
+   <span class="c">#+ that the number of times the end points ($min and $max) are returned</span>
+   <span class="c">#+ is considerably lower than when the correct formula is used.</span>
+   <span class="c">#  ---------------------------------------------------------------------</span>
+
+   <span class="nv">spread</span><span class="o">=</span><span class="k">$((</span>max-min<span class="k">))</span>
+   <span class="c">#  Omair Eshkenazi points out that this test is unnecessary,</span>
+   <span class="c">#+ since max and min have already been switched around.</span>
+   <span class="o">[</span> <span class="si">${</span><span class="nv">spread</span><span class="si">}</span> -lt <span class="m">0</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nv">spread</span><span class="o">=</span><span class="k">$((</span><span class="m">0</span><span class="o">-</span>spread<span class="k">))</span>
+   <span class="nb">let </span>spread+<span class="o">=</span>divisibleBy
+   <span class="nv">randomBetweenAnswer</span><span class="o">=</span><span class="k">$((</span><span class="o">(</span>RANDOM%spread<span class="o">)/</span>divisibleBy*divisibleBy+min<span class="k">))</span>
+
+   <span class="k">return</span> 0
+
+   <span class="c">#  However, Paulo Marcel Coelho Aragao points out that</span>
+   <span class="c">#+ when $max and $min are not divisible by $divisibleBy,</span>
+   <span class="c">#+ the formula fails.</span>
+   <span class="c">#</span>
+   <span class="c">#  He suggests instead the following formula:</span>
+   <span class="c">#    rnumber = $(((RANDOM%(max-min+1)+min)/divisibleBy*divisibleBy))</span>
+
+<span class="o">}</span>
+
+<span class="c"># Let&#39;s test the function.</span>
+<span class="nv">min</span><span class="o">=</span>-14
+<span class="nv">max</span><span class="o">=</span>20
+<span class="nv">divisibleBy</span><span class="o">=</span>3
+
+
+<span class="c">#  Generate an array of expected answers and check to make sure we get</span>
+<span class="c">#+ at least one of each answer if we loop long enough.</span>
+
+<span class="nb">declare</span> -a answer
+<span class="nv">minimum</span><span class="o">=</span><span class="si">${</span><span class="nv">min</span><span class="si">}</span>
+<span class="nv">maximum</span><span class="o">=</span><span class="si">${</span><span class="nv">max</span><span class="si">}</span>
+   <span class="k">if</span> <span class="o">[</span> <span class="k">$((</span>minimum/divisibleBy*divisibleBy<span class="k">))</span> -ne <span class="si">${</span><span class="nv">minimum</span><span class="si">}</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+      <span class="k">if</span> <span class="o">[</span> <span class="si">${</span><span class="nv">minimum</span><span class="si">}</span> -lt <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+         <span class="nv">minimum</span><span class="o">=</span><span class="k">$((</span>minimum/divisibleBy*divisibleBy<span class="k">))</span>
+      <span class="k">else</span>
+         <span class="nv">minimum</span><span class="o">=</span><span class="k">$((</span><span class="o">((</span>minimum/divisibleBy<span class="o">)+</span><span class="m">1</span><span class="o">)*</span>divisibleBy<span class="k">))</span>
+      <span class="k">fi</span>
+   <span class="k">fi</span>
+
+
+   <span class="c">#  If max is itself not evenly divisible by $divisibleBy,</span>
+   <span class="c">#+ then fix the max to be within range.</span>
+
+   <span class="k">if</span> <span class="o">[</span> <span class="k">$((</span>maximum/divisibleBy*divisibleBy<span class="k">))</span> -ne <span class="si">${</span><span class="nv">maximum</span><span class="si">}</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+      <span class="k">if</span> <span class="o">[</span> <span class="si">${</span><span class="nv">maximum</span><span class="si">}</span> -lt <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+         <span class="nv">maximum</span><span class="o">=</span><span class="k">$((</span><span class="o">((</span>maximum/divisibleBy<span class="o">)-</span><span class="m">1</span><span class="o">)*</span>divisibleBy<span class="k">))</span>
+      <span class="k">else</span>
+         <span class="nv">maximum</span><span class="o">=</span><span class="k">$((</span>maximum/divisibleBy*divisibleBy<span class="k">))</span>
+      <span class="k">fi</span>
+   <span class="k">fi</span>
+
+
+<span class="c">#  We need to generate only positive array subscripts,</span>
+<span class="c">#+ so we need a displacement that that will guarantee</span>
+<span class="c">#+ positive results.</span>
+
+<span class="nv">disp</span><span class="o">=</span><span class="k">$((</span><span class="m">0</span><span class="o">-</span>minimum<span class="k">))</span>
+<span class="k">for</span> <span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="si">${</span><span class="nv">minimum</span><span class="si">}</span><span class="p">;</span> i&lt;<span class="o">=</span><span class="si">${</span><span class="nv">maximum</span><span class="si">}</span><span class="p">;</span> i+<span class="o">=</span>divisibleBy<span class="o">))</span><span class="p">;</span> <span class="k">do</span>
+   answer<span class="o">[</span>i+disp<span class="o">]=</span>0
+<span class="k">done</span>
+
+
+<span class="c"># Now loop a large number of times to see what we get.</span>
+<span class="nv">loopIt</span><span class="o">=</span><span class="m">1000</span>   <span class="c">#  The script author suggests 100000,</span>
+              <span class="c">#+ but that takes a good long while.</span>
+
+<span class="k">for</span> <span class="o">((</span><span class="nv">i</span><span class="o">=</span>0<span class="p">;</span> i&lt;<span class="si">${</span><span class="nv">loopIt</span><span class="si">}</span><span class="p">;</span> ++i<span class="o">))</span><span class="p">;</span> <span class="k">do</span>
+
+   <span class="c">#  Note that we are specifying min and max in reversed order here to</span>
+   <span class="c">#+ make the function correct for this case.</span>
+
+   randomBetween <span class="si">${</span><span class="nv">max</span><span class="si">}</span> <span class="si">${</span><span class="nv">min</span><span class="si">}</span> <span class="si">${</span><span class="nv">divisibleBy</span><span class="si">}</span>
+
+   <span class="c"># Report an error if an answer is unexpected.</span>
+   <span class="o">[</span> <span class="si">${</span><span class="nv">randomBetweenAnswer</span><span class="si">}</span> -lt <span class="si">${</span><span class="nv">min</span><span class="si">}</span> -o <span class="si">${</span><span class="nv">randomBetweenAnswer</span><span class="si">}</span> -gt <span class="si">${</span><span class="nv">max</span><span class="si">}</span> <span class="o">]</span> <span class="se">\</span>
+   <span class="o">&amp;&amp;</span> <span class="nb">echo </span>MIN or MAX error - <span class="si">${</span><span class="nv">randomBetweenAnswer</span><span class="si">}</span>!
+   <span class="o">[</span> <span class="k">$((</span>randomBetweenAnswer%<span class="si">${</span><span class="nv">divisibleBy</span><span class="si">}</span><span class="k">))</span> -ne <span class="m">0</span> <span class="o">]</span> <span class="se">\</span>
+   <span class="o">&amp;&amp;</span> <span class="nb">echo </span>DIVISIBLE BY error - <span class="si">${</span><span class="nv">randomBetweenAnswer</span><span class="si">}</span>!
+
+   <span class="c"># Store the answer away statistically.</span>
+   answer<span class="o">[</span>randomBetweenAnswer+disp<span class="o">]=</span><span class="k">$((</span>answer<span class="o">[</span>randomBetweenAnswer+disp<span class="o">]+</span><span class="m">1</span><span class="k">))</span>
+<span class="k">done</span>
+
+
+
+<span class="c"># Let&#39;s check the results</span>
+
+<span class="k">for</span> <span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="si">${</span><span class="nv">minimum</span><span class="si">}</span><span class="p">;</span> i&lt;<span class="o">=</span><span class="si">${</span><span class="nv">maximum</span><span class="si">}</span><span class="p">;</span> i+<span class="o">=</span>divisibleBy<span class="o">))</span><span class="p">;</span> <span class="k">do</span>
+   <span class="o">[</span> <span class="si">${</span><span class="nv">answer</span><span class="p">[i+disp]</span><span class="si">}</span> -eq <span class="m">0</span> <span class="o">]</span> <span class="se">\</span>
+   <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;We never got an answer of </span><span class="nv">$i</span><span class="s2">.&quot;</span> <span class="se">\</span>
+   <span class="p">|</span><span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2"> occurred </span><span class="si">${</span><span class="nv">answer</span><span class="p">[i+disp]</span><span class="si">}</span><span class="s2"> times.&quot;</span>
+<span class="k">done</span>
+
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Just how random is ``      $RANDOM     `` ? The best way to test this is
+to write a script that tracks the distribution of &#8220;random&#8221; numbers
+generated by ``      $RANDOM     `` . Let&#8217;s roll a
+``      $RANDOM     `` die a few times . . .</p>
+</div>
+<div class="section" id="exemple-15-rolling-a-single-die-with-random">
+<h2>Exemple 15. Rolling a single die with RANDOM<a class="headerlink" href="#exemple-15-rolling-a-single-die-with-random" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># How random is RANDOM?</span>
+
+<span class="nv">RANDOM</span><span class="o">=</span><span class="nv">$$</span>       <span class="c"># Reseed the random number generator using script process ID.</span>
+
+<span class="nv">PIPS</span><span class="o">=</span><span class="m">6</span>          <span class="c"># A die has 6 pips.</span>
+<span class="nv">MAXTHROWS</span><span class="o">=</span><span class="m">600</span>   <span class="c"># Increase this if you have nothing better to do with your time.</span>
+<span class="nv">throw</span><span class="o">=</span><span class="m">0</span>         <span class="c"># Number of times the dice have been cast.</span>
+
+<span class="nv">ones</span><span class="o">=</span><span class="m">0</span>          <span class="c">#  Must initialize counts to zero,</span>
+<span class="nv">twos</span><span class="o">=</span><span class="m">0</span>          <span class="c">#+ since an uninitialized variable is null, NOT zero.</span>
+<span class="nv">threes</span><span class="o">=</span>0
+<span class="nv">fours</span><span class="o">=</span>0
+<span class="nv">fives</span><span class="o">=</span>0
+<span class="nv">sixes</span><span class="o">=</span>0
+
+print_result <span class="o">()</span>
+<span class="o">{</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;ones =   </span><span class="nv">$ones</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;twos =   </span><span class="nv">$twos</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;threes = </span><span class="nv">$threes</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;fours =  </span><span class="nv">$fours</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;fives =  </span><span class="nv">$fives</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;sixes =  </span><span class="nv">$sixes</span><span class="s2">&quot;</span>
+<span class="nb">echo</span>
+<span class="o">}</span>
+
+update_count<span class="o">()</span>
+<span class="o">{</span>
+<span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> in
+  0<span class="o">)</span> <span class="o">((</span>ones++<span class="o">))</span><span class="p">;;</span>   <span class="c"># Since a die has no &quot;zero&quot;, this corresponds to 1.</span>
+  1<span class="o">)</span> <span class="o">((</span>twos++<span class="o">))</span><span class="p">;;</span>   <span class="c"># And this to 2.</span>
+  2<span class="o">)</span> <span class="o">((</span>threes++<span class="o">))</span><span class="p">;;</span> <span class="c"># And so forth.</span>
+  3<span class="o">)</span> <span class="o">((</span>fours++<span class="o">))</span><span class="p">;;</span>
+  4<span class="o">)</span> <span class="o">((</span>fives++<span class="o">))</span><span class="p">;;</span>
+  5<span class="o">)</span> <span class="o">((</span>sixes++<span class="o">))</span><span class="p">;;</span>
+<span class="k">esac</span>
+<span class="o">}</span>
+
+<span class="nb">echo</span>
+
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$throw</span><span class="s2">&quot;</span> -lt <span class="s2">&quot;</span><span class="nv">$MAXTHROWS</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">do</span>
+  <span class="nb">let</span> <span class="s2">&quot;die1 = RANDOM % </span><span class="nv">$PIPS</span><span class="s2">&quot;</span>
+  update_count <span class="nv">$die1</span>
+  <span class="nb">let</span> <span class="s2">&quot;throw += 1&quot;</span>
+<span class="k">done</span>
+
+print_result
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c">#  The scores should distribute evenly, assuming RANDOM is random.</span>
+<span class="c">#  With $MAXTHROWS at 600, all should cluster around 100,</span>
+<span class="c">#+ plus-or-minus 20 or so.</span>
+<span class="c">#</span>
+<span class="c">#  Keep in mind that RANDOM is a ***pseudorandom*** generator,</span>
+<span class="c">#+ and not a spectacularly good one at that.</span>
+
+<span class="c">#  Randomness is a deep and complex subject.</span>
+<span class="c">#  Sufficiently long &quot;random&quot; sequences may exhibit</span>
+<span class="c">#+ chaotic and other &quot;non-random&quot; behavior.</span>
+
+<span class="c"># Exercise (easy):</span>
+<span class="c"># ---------------</span>
+<span class="c"># Rewrite this script to flip a coin 1000 times.</span>
+<span class="c"># Choices are &quot;HEADS&quot; and &quot;TAILS.&quot;</span>
+</pre></div>
+</div>
+<p>As we have seen in the last example, it is best to <em>reseed</em> the
+``             RANDOM           `` generator each time it is invoked.
+Using the same seed for ``             RANDOM           `` repeats the
+same series of numbers. ` [2]  &lt;randomvar.html#FTN.AEN5857&gt;`__ (This
+mirrors the behavior of the ``             random()           ``
+function in <em>C</em> .)</p>
+</div>
+<div class="section" id="exemple-16-reseeding-random">
+<h2>Exemple 16. Reseeding RANDOM<a class="headerlink" href="#exemple-16-reseeding-random" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># seeding-random.sh: Seeding the RANDOM variable.</span>
+<span class="c"># v 1.1, reldate 09 Feb 2013</span>
+
+<span class="nv">MAXCOUNT</span><span class="o">=</span><span class="m">25</span>       <span class="c"># How many numbers to generate.</span>
+<span class="nv">SEED</span><span class="o">=</span>
+
+random_numbers <span class="o">()</span>
+<span class="o">{</span>
+<span class="nb">local </span><span class="nv">count</span><span class="o">=</span>0
+<span class="nb">local </span>number
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$count</span><span class="s2">&quot;</span> -lt <span class="s2">&quot;</span><span class="nv">$MAXCOUNT</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">do</span>
+  <span class="nv">number</span><span class="o">=</span><span class="nv">$RANDOM</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$number</span><span class="s2"> &quot;</span>
+  <span class="nb">let</span> <span class="s2">&quot;count++&quot;</span>
+<span class="k">done</span>
+<span class="o">}</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nv">SEED</span><span class="o">=</span>1
+<span class="nv">RANDOM</span><span class="o">=</span><span class="nv">$SEED</span>      <span class="c"># Setting RANDOM seeds the random number generator.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Random seed = </span><span class="nv">$SEED</span><span class="s2">&quot;</span>
+random_numbers
+
+
+<span class="nv">RANDOM</span><span class="o">=</span><span class="nv">$SEED</span>      <span class="c"># Same seed for RANDOM . . .</span>
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;Again, with same random seed ...&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Random seed = </span><span class="nv">$SEED</span><span class="s2">&quot;</span>
+random_numbers    <span class="c"># . . . reproduces the exact same number series.</span>
+                  <span class="c">#</span>
+                  <span class="c"># When is it useful to duplicate a &quot;random&quot; series?</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nv">SEED</span><span class="o">=</span>2
+<span class="nv">RANDOM</span><span class="o">=</span><span class="nv">$SEED</span>      <span class="c"># Trying again, but with a different seed . . .</span>
+<span class="nb">echo</span> <span class="s2">&quot;Random seed = </span><span class="nv">$SEED</span><span class="s2">&quot;</span>
+random_numbers    <span class="c"># . . . gives a different number series.</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="c"># RANDOM=$$  seeds RANDOM from process id of script.</span>
+<span class="c"># It is also possible to seed RANDOM from &#39;time&#39; or &#39;date&#39; commands.</span>
+
+<span class="c"># Getting fancy...</span>
+<span class="nv">SEED</span><span class="o">=</span><span class="k">$(</span>head -1 /dev/urandomod -N <span class="m">1</span> <span class="p">|</span> awk <span class="s1">&#39;{ print $2 }&#39;</span><span class="p">|</span> sed s/^0*//<span class="k">)</span>
+<span class="c">#  Pseudo-random output fetched</span>
+<span class="c">#+ from /dev/urandom (system pseudo-random device-file),</span>
+<span class="c">#+ then converted to line of printable (octal) numbers by &quot;od&quot;,</span>
+<span class="c">#+ then &quot;awk&quot; retrieves just one number for SEED,</span>
+<span class="c">#+ finally &quot;sed&quot; removes any leading zeros.</span>
+<span class="nv">RANDOM</span><span class="o">=</span><span class="nv">$SEED</span>
+<span class="nb">echo</span> <span class="s2">&quot;Random seed = </span><span class="nv">$SEED</span><span class="s2">&quot;</span>
+random_numbers
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p><a href="#id3"><span class="problematic" id="id4">|</span></a>Note</p>
+<p>The ``         /dev/urandom        `` pseudo-device file provides a
+method of generating much more &#8220;random&#8221; pseudorandom numbers than the
+``         $RANDOM        `` variable.
+``                   dd if=/dev/urandom of=targetfile       bs=1 count=XX                 ``
+creates a file of well-scattered pseudorandom numbers. However,
+assigning these numbers to a variable in a script requires a workaround,
+such as filtering through <a class="reference external" href="extmisc.html#ODREF">od</a> (as in above
+example, <a class="reference external" href="textproc.html#RND">Example 16-14</a> , and <a class="reference external" href="contributed-scripts.html#INSERTIONSORT">Example
+A-36</a> ), or even piping to
+<a class="reference external" href="filearchiv.html#MD5SUMREF">md5sum</a> (see <a class="reference external" href="colorizing.html#HORSERACE">Example
+36-16</a> ).</p>
+<p>There are also other ways to generate pseudorandom numbers in a script.
+<strong>Awk</strong> provides a convenient means of doing this.</p>
+</div>
+<div class="section" id="exemple-17-pseudorandom-numbers-using-awk">
+<h2>Exemple 17. Pseudorandom numbers, using <a class="reference external" href="awk.html#AWKREF">awk</a><a class="headerlink" href="#exemple-17-pseudorandom-numbers-using-awk" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c">#  random2.sh: Returns a pseudorandom number in the range 0 - 1,</span>
+<span class="c">#+ to 6 decimal places. For example: 0.822725</span>
+<span class="c">#  Uses the awk rand() function.</span>
+
+<span class="nv">AWKSCRIPT</span><span class="o">=</span><span class="s1">&#39; { srand(); print rand() } &#39;</span>
+<span class="c">#           Command(s)/parameters passed to awk</span>
+<span class="c"># Note that srand() reseeds awk&#39;s random number generator.</span>
+
+
+<span class="nb">echo</span> -n <span class="s2">&quot;Random number between 0 and 1 = &quot;</span>
+
+echoawk <span class="s2">&quot;</span><span class="nv">$AWKSCRIPT</span><span class="s2">&quot;</span>
+<span class="c"># What happens if you leave out the &#39;echo&#39;?</span>
+
+<span class="nb">exit </span>0
+
+
+<span class="c"># Exercises:</span>
+<span class="c"># ---------</span>
+
+<span class="c"># 1) Using a loop construct, print out 10 different random numbers.</span>
+<span class="c">#      (Hint: you must reseed the srand() function with a different seed</span>
+<span class="c">#+     in each pass through the loop. What happens if you omit this?)</span>
+
+<span class="c"># 2) Using an integer multiplier as a scaling factor, generate random numbers</span>
+<span class="c">#+   in the range of 10 to 100.</span>
+
+<span class="c"># 3) Same as exercise #2, above, but generate random integers this time.</span>
+</pre></div>
+</div>
+<p>The <a class="reference external" href="timedate.html#DATEREF">date</a> command also lends itself to
+<a class="reference external" href="timedate.html#DATERANDREF">generating pseudorandom integer
+sequences</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c">#  random2.sh: Returns a pseudorandom number in the range 0 - 1,</span>
+<span class="c">#+ to 6 decimal places. For example: 0.822725</span>
+<span class="c">#  Uses the awk rand() function.</span>
+
+<span class="nv">AWKSCRIPT</span><span class="o">=</span><span class="s1">&#39; { srand(); print rand() } &#39;</span>
+<span class="c">#           Command(s)/parameters passed to awk</span>
+<span class="c"># Note that srand() reseeds awk&#39;s random number generator.</span>
+
+
+<span class="nb">echo</span> -n <span class="s2">&quot;Random number between 0 and 1 = &quot;</span>
+
+echoawk <span class="s2">&quot;</span><span class="nv">$AWKSCRIPT</span><span class="s2">&quot;</span>
+<span class="c"># What happens if you leave out the &#39;echo&#39;?</span>
+
+<span class="nb">exit </span>0
+
+
+<span class="c"># Exercises:</span>
+<span class="c"># ---------</span>
+
+<span class="c"># 1) Using a loop construct, print out 10 different random numbers.</span>
+<span class="c">#      (Hint: you must reseed the srand() function with a different seed</span>
+<span class="c">#+     in each pass through the loop. What happens if you omit this?)</span>
+
+<span class="c"># 2) Using an integer multiplier as a scaling factor, generate random numbers</span>
+<span class="c">#+   in the range of 10 to 100.</span>
+
+<span class="c"># 3) Same as exercise #2, above, but generate random integers this time.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c">#  random2.sh: Returns a pseudorandom number in the range 0 - 1,</span>
+<span class="c">#+ to 6 decimal places. For example: 0.822725</span>
+<span class="c">#  Uses the awk rand() function.</span>
+
+<span class="nv">AWKSCRIPT</span><span class="o">=</span><span class="s1">&#39; { srand(); print rand() } &#39;</span>
+<span class="c">#           Command(s)/parameters passed to awk</span>
+<span class="c"># Note that srand() reseeds awk&#39;s random number generator.</span>
+
+
+<span class="nb">echo</span> -n <span class="s2">&quot;Random number between 0 and 1 = &quot;</span>
+
+echoawk <span class="s2">&quot;</span><span class="nv">$AWKSCRIPT</span><span class="s2">&quot;</span>
+<span class="c"># What happens if you leave out the &#39;echo&#39;?</span>
+
+<span class="nb">exit </span>0
+
+
+<span class="c"># Exercises:</span>
+<span class="c"># ---------</span>
+
+<span class="c"># 1) Using a loop construct, print out 10 different random numbers.</span>
+<span class="c">#      (Hint: you must reseed the srand() function with a different seed</span>
+<span class="c">#+     in each pass through the loop. What happens if you omit this?)</span>
+
+<span class="c"># 2) Using an integer multiplier as a scaling factor, generate random numbers</span>
+<span class="c">#+   in the range of 10 to 100.</span>
+
+<span class="c"># 3) Same as exercise #2, above, but generate random integers this time.</span>
+</pre></div>
+</div>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;randomvar.html#AEN5817&gt;`__</p>
+<p>True &#8220;randomness,&#8221; insofar as it exists at all, can only be found in
+certain incompletely understood natural phenomena, such as radioactive
+decay. Computers only <em>simulate</em> randomness, and computer-generated
+sequences of &#8220;random&#8221; numbers are therefore referred to as
+<em>pseudorandom</em> .</p>
+<p>` [2]  &lt;randomvar.html#AEN5857&gt;`__</p>
+<p>The <em>seed</em> of a computer-generated pseudorandom number series can be
+considered an identification label. For example, think of the
+pseudorandom series with a seed of <em>23</em> as
+``               Series           #23             `` .</p>
+<p>A property of a pseurandom number series is the length of the cycle
+before it starts repeating itself. A good pseurandom generator will
+produce series with very long cycles.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="manipulatingvars.html" class="btn btn-neutral float-right" title="XXX Chapter 10. Manipulating Variables" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="declareref.html" class="btn btn-neutral" title="XXX 9.2. Typing variables: declare or typeset"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

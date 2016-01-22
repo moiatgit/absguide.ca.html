@@ -1,0 +1,719 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 7.3. Other Comparison Operators &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="Part 2. Conceptes bàsics" href="part2.html"/>
+        <link rel="next" title="7.4. Condicionals aniuats" href="nestedifthen.html"/>
+        <link rel="prev" title="XXX 7.2. File test operators" href="fto.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="special-chars.html">XXX 3. Caràcters especials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">4. Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quoting.html">Chapter 5. Cometes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exit-status.html">XXX Chapter 6. Exit and Exit Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html">XXX Chapter 7. Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testconstructs.html">XXX  7.1. Test Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fto.html">XXX  7.2. File test operators</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  7.3. Other Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedifthen.html">7.4. Condicionals aniuats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testtest.html">XXX  7.5. Testing Your Knowledge of Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations.html">XXX Chapter 8. Operations and Related Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ops.html">XXX  8.1. Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="numerical-constants.html">XXX  8.2. Numerical Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dblparens.html">XXX  8.3. The Double-Parentheses Construct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opprecedence.html">XXX  8.4. Operator Precedence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part2.html">Part 2. Conceptes bàsics</a> &raquo;</li>
+      
+    <li>XXX  7.3. Other Comparison Operators</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-7-3-other-comparison-operators">
+<h1>XXX  7.3. Other Comparison Operators<a class="headerlink" href="#xxx-7-3-other-comparison-operators" title="Link permanent a aquest títol">¶</a></h1>
+<p>Un operador de comparació binari, permet comparar dos valors.</p>
+<p>Hi ha operadors de comparació diferents pels dos tipus de valors: strings i enters.</p>
+<div class="section" id="comparacio-d-enters">
+<h2>Comparació d&#8217;enters<a class="headerlink" href="#comparacio-d-enters" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-e<var>q</var></span></kbd></td>
+<td><p class="first">is equal to</p>
+<p class="last">``                   if [ &#8220;$a&#8221; -eq &#8220;$b&#8221; ]                 ``</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-n<var>e</var></span></kbd></td>
+<td><p class="first">is not equal to</p>
+<p class="last">``                   if [ &#8220;$a&#8221; -ne &#8220;$b&#8221; ]                 ``</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-g<var>t</var></span></kbd></td>
+<td><p class="first">is greater than</p>
+<p class="last">``                   if [ &#8220;$a&#8221; -gt &#8220;$b&#8221; ]                 ``</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-g<var>e</var></span></kbd></td>
+<td><p class="first">is greater than or equal to</p>
+<p class="last">``                   if [ &#8220;$a&#8221; -ge &#8220;$b&#8221; ]                 ``</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-l<var>t</var></span></kbd></td>
+<td><p class="first">is less than</p>
+<p class="last">``                   if [ &#8220;$a&#8221; -lt &#8220;$b&#8221; ]                 ``</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-l<var>e</var></span></kbd></td>
+<td><p class="first">is less than or equal to</p>
+<p class="last">``                   if [ &#8220;$a&#8221; -le &#8220;$b&#8221; ]                 ``</p>
+</td></tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>&lt;</dt>
+<dd><p class="first">is less than (within <a class="reference external" href="dblparens.html">double parentheses</a> )</p>
+<p class="last">``                   ((&#8220;$a&#8221; &lt; &#8220;$b&#8221;))                 ``</p>
+</dd>
+<dt>&lt;=</dt>
+<dd><p class="first">is less than or equal to (within double parentheses)</p>
+<p class="last">``                   ((&#8220;$a&#8221; &lt;= &#8220;$b&#8221;))                 ``</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt>&gt;</dt>
+<dd><p class="first">is greater than (within double parentheses)</p>
+<p class="last">``                   ((&#8220;$a&#8221; &gt; &#8220;$b&#8221;))                 ``</p>
+</dd>
+<dt>&gt;=</dt>
+<dd><p class="first">is greater than or equal to (within double parentheses)</p>
+<p class="last">``                   ((&#8220;$a&#8221; &gt;= &#8220;$b&#8221;))                 ``</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="comparacio-de-strings">
+<h2>Comparació de strings<a class="headerlink" href="#comparacio-de-strings" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><p>=</p>
+<blockquote>
+<div><p>is equal to</p>
+<p>``                   if [ &#8220;$a&#8221; = &#8220;$b&#8221; ]                 ``</p>
+</div></blockquote>
+</div></blockquote>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<blockquote>
+<div><p>Note the <a class="reference external" href="special-chars.html#WHITESPACEREF">whitespace</a> framing
+the <strong>=</strong> .</p>
+<p>``                         if [ &#8220;$a&#8221;=&#8221;$b&#8221; ]                       ``
+is <em>not</em> equivalent to the above.</p>
+</div></blockquote>
+<dl class="last docutils">
+<dt>==</dt>
+<dd><p class="first">is equal to</p>
+<p>``                   if [ &#8220;$a&#8221; == &#8220;$b&#8221; ]                 ``</p>
+<p class="last">This is a synonym for = .</p>
+</dd>
+</dl>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">The == comparison operator behaves differently within a
+<a class="reference external" href="testconstructs.html#DBLBRACKETS">double-brackets</a> test than
+within single brackets.</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">[[</span> <span class="nv">$a</span> <span class="o">==</span> z* <span class="o">]]</span>   <span class="c"># T</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>rue if $a starts with an</dt>
+<dd><dl class="first last docutils">
+<dt>&#8220;z&#8221; (pattern matching).</dt>
+<dd>[[ $a == &#8220;z*&#8221; ]] # T</dd>
+</dl>
+</dd>
+<dt>rue if $a is equal to z*</dt>
+<dd><p class="first">(literal matching).</p>
+<blockquote class="last">
+<div>[ $a == z* ]     # F</div></blockquote>
+</dd>
+</dl>
+<p>ile globbing and word sp
+litting take place.</p>
+<blockquote>
+<div>[ &#8220;$a&#8221; == &#8220;z*&#8221; ] # T</div></blockquote>
+<dl class="docutils">
+<dt>rue if $a is equal to z*</dt>
+<dd><p class="first">(literal matching).</p>
+<blockquote class="last">
+<div># Thanks, StÃ©phane</div></blockquote>
+</dd>
+</dl>
+<p>Chazelas</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="o">[[</span> <span class="nv">$a</span> <span class="o">==</span> z* <span class="o">]]</span>   <span class="c"># True if $a starts with an &quot;z&quot; (pattern matching).</span>
+<span class="o">[[</span> <span class="nv">$a</span> <span class="o">==</span> <span class="s2">&quot;z*&quot;</span> <span class="o">]]</span> <span class="c"># True if $a is equal to z* (literal matching).</span>
+
+<span class="o">[</span> <span class="nv">$a</span> <span class="o">==</span> z* <span class="o">]</span>     <span class="c"># File globbing and word splitting take place.</span>
+<span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;z*&quot;</span> <span class="o">]</span> <span class="c"># True if $a is equal to z* (literal matching).</span>
+
+<span class="c"># Thanks, StÃ©phane Chazelas</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">[[</span> <span class="nv">$a</span> <span class="o">==</span> z* <span class="o">]]</span>   <span class="c"># True if $a starts with an &quot;z&quot; (pattern matching).</span>
+<span class="o">[[</span> <span class="nv">$a</span> <span class="o">==</span> <span class="s2">&quot;z*&quot;</span> <span class="o">]]</span> <span class="c"># True if $a is equal to z* (literal matching).</span>
+
+<span class="o">[</span> <span class="nv">$a</span> <span class="o">==</span> z* <span class="o">]</span>     <span class="c"># File globbing and word splitting take place.</span>
+<span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;z*&quot;</span> <span class="o">]</span> <span class="c"># True if $a is equal to z* (literal matching).</span>
+
+<span class="c"># Thanks, StÃ©phane Chazelas</span>
+</pre></div>
+</div>
+</div></blockquote>
+<blockquote id="comparison-ops-notequalto">
+<div><dl class="docutils">
+<dt>!=</dt>
+<dd><p class="first">is not equal to</p>
+<p>``                   if [ &#8220;$a&#8221; != &#8220;$b&#8221; ]                 ``</p>
+<p class="last">This operator uses pattern matching within a <a class="reference external" href="testconstructs.html#DBLBRACKETS">[[ ...
+]]</a> construct.</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt>&lt;</dt>
+<dd><p class="first">is less than, in <a class="reference external" href="special-chars.html#ASCIIDEF">ASCII</a>
+alphabetical order</p>
+<p>``                   if [[ &#8220;$a&#8221; &lt; &#8220;$b&#8221; ]]                 ``</p>
+<p>``                   if [ &#8220;$a&#8221; &lt; &#8220;$b&#8221; ]                 ``</p>
+<p class="last">Note that the &#8220;&lt;&#8221; needs to be
+<a class="reference external" href="escapingsection.html#ESCP">escaped</a> within a
+``                   [  ]                 `` construct.</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt>&gt;</dt>
+<dd><p class="first">is greater than, in ASCII alphabetical order</p>
+<p>``                   if [[ &#8220;$a&#8221; &gt; &#8220;$b&#8221; ]]                 ``</p>
+<p>``                   if [ &#8220;$a&#8221; &gt; &#8220;$b&#8221; ]                 ``</p>
+<p>Note that the &#8220;&gt;&#8221; needs to be escaped within a
+``                   [  ]                 `` construct.</p>
+<p class="last">See <a class="reference external" href="arrays.html#BUBBLE">Example 27-11</a> for an application of
+this comparison operator.</p>
+</dd>
+</dl>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-z</span></kbd></td>
+<td><p class="first">string is <em>null</em> , that is, has zero length</p>
+<div class="last highlight-sh"><div class="highlight"><pre> <span class="nv">String</span><span class="o">=</span><span class="s1">&#39;&#39;</span>   <span class="c"># Zero-length (&quot;null&quot;) string variable.</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$String</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;\$String is null.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;\$String is NOT null.&quot;</span>
+<span class="k">fi</span>     <span class="c"># $String is null.</span>
+</pre></div>
+</div>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-n</span></kbd></td>
+<td>string is not <em>null.</em></td></tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<p>The ``                         -n                       `` test
+requires that the string be quoted within the test brackets. Using
+an unquoted string with <em>! -z</em> , or even just the unquoted string
+alone within test brackets (see <a class="reference external" href="comparison-ops.html#STRTEST">Example
+7-6</a> ) normally works, however, this
+is an unsafe practice. <em>Always</em> quote a tested string. ` [1]</p>
+<blockquote class="last">
+<div>&lt;comparison-ops.html#FTN.AEN3669&gt;`__</div></blockquote>
+</div>
+</div>
+<div class="section" id="exemple-5-arithmetic-and-string-comparisons">
+<h2>Exemple 5. Arithmetic and string comparisons<a class="headerlink" href="#exemple-5-arithmetic-and-string-comparisons" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">a</span><span class="o">=</span>4
+<span class="nv">b</span><span class="o">=</span>5
+
+<span class="c">#  Here &quot;a&quot; and &quot;b&quot; can be treated either as integers or strings.</span>
+<span class="c">#  There is some blurring between the arithmetic and string comparisons,</span>
+<span class="c">#+ since Bash variables are not strongly typed.</span>
+
+<span class="c">#  Bash permits integer operations and comparisons on variables</span>
+<span class="c">#+ whose value consists of all-integer characters.</span>
+<span class="c">#  Caution advised, however.</span>
+
+<span class="nb">echo</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> -ne <span class="s2">&quot;</span><span class="nv">$b</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> is not equal to </span><span class="nv">$b</span><span class="s2">&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;(arithmetic comparison)&quot;</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> !<span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$b</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> is not equal to </span><span class="nv">$b</span><span class="s2">.&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;(string comparison)&quot;</span>
+  <span class="c">#     &quot;4&quot;  != &quot;5&quot;</span>
+  <span class="c"># ASCII 52 != ASCII 53</span>
+<span class="k">fi</span>
+
+<span class="c"># In this particular instance, both &quot;-ne&quot; and &quot;!=&quot; work.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-6-testing-whether-a-string-is-null">
+<h2>Exemple 6. Testing whether a string is <em>null</em><a class="headerlink" href="#exemple-6-testing-whether-a-string-is-null" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c">#  str-test.sh: Testing null strings and unquoted strings,</span>
+<span class="c">#+ but not strings and sealing wax, not to mention cabbages and kings . . .</span>
+
+<span class="c"># Using   if [ ... ]</span>
+
+<span class="c"># If a string has not been initialized, it has no defined value.</span>
+<span class="c"># This state is called &quot;null&quot; (not the same as zero!).</span>
+
+<span class="k">if</span> <span class="o">[</span> -n <span class="nv">$string1</span> <span class="o">]</span>    <span class="c"># string1 has not been declared or initialized.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;String \&quot;string1\&quot; is not null.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;String \&quot;string1\&quot; is null.&quot;</span>
+<span class="k">fi</span>                    <span class="c"># Wrong result.</span>
+<span class="c"># Shows $string1 as not null, although it was not initialized.</span>
+
+<span class="nb">echo</span>
+
+<span class="c"># Let&#39;s try it again.</span>
+
+<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$string1</span><span class="s2">&quot;</span> <span class="o">]</span>  <span class="c"># This time, $string1 is quoted.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;String \&quot;string1\&quot; is not null.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;String \&quot;string1\&quot; is null.&quot;</span>
+<span class="k">fi</span>                    <span class="c"># Quote strings within test brackets!</span>
+
+<span class="nb">echo</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$string1</span> <span class="o">]</span>       <span class="c"># This time, $string1 stands naked.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;String \&quot;string1\&quot; is not null.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;String \&quot;string1\&quot; is null.&quot;</span>
+<span class="k">fi</span>                    <span class="c"># This works fine.</span>
+<span class="c"># The [ ... ] test operator alone detects whether the string is null.</span>
+<span class="c"># However it is good practice to quote it (if [ &quot;$string1&quot; ]).</span>
+<span class="c">#</span>
+<span class="c"># As Stephane Chazelas points out,</span>
+<span class="c">#    if [ $string1 ]    has one argument, &quot;]&quot;</span>
+<span class="c">#    if [ &quot;$string1&quot; ]  has two arguments, the empty &quot;$string1&quot; and &quot;]&quot;</span>
+
+
+<span class="nb">echo</span>
+
+
+<span class="nv">string1</span><span class="o">=</span>initialized
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$string1</span> <span class="o">]</span>       <span class="c"># Again, $string1 stands unquoted.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;String \&quot;string1\&quot; is not null.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;String \&quot;string1\&quot; is null.&quot;</span>
+<span class="k">fi</span>                    <span class="c"># Again, gives correct result.</span>
+<span class="c"># Still, it is better to quote it (&quot;$string1&quot;), because . . .</span>
+
+
+<span class="nv">string1</span><span class="o">=</span><span class="s2">&quot;a = b&quot;</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$string1</span> <span class="o">]</span>       <span class="c"># Again, $string1 stands unquoted.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;String \&quot;string1\&quot; is not null.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;String \&quot;string1\&quot; is null.&quot;</span>
+<span class="k">fi</span>                    <span class="c"># Not quoting &quot;$string1&quot; now gives wrong result!</span>
+
+<span class="nb">exit </span><span class="m">0</span>   <span class="c"># Thank you, also, Florian Wisser, for the &quot;heads-up&quot;.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-7-zmore">
+<h2>Exemple 7. <em>zmore</em><a class="headerlink" href="#exemple-7-zmore" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># zmore</span>
+
+<span class="c"># View gzipped files with &#39;more&#39; filter.</span>
+
+<span class="nv">E_NOARGS</span><span class="o">=</span>85
+<span class="nv">E_NOTFOUND</span><span class="o">=</span>86
+<span class="nv">E_NOTGZIP</span><span class="o">=</span>87
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-eq <span class="m">0</span> <span class="o">]</span> <span class="c"># same effect as:  if [ -z &quot;$1&quot; ]</span>
+<span class="c"># $1 can exist, but be empty:  zmore &quot;&quot; arg2 arg3</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` filename&quot;</span> &gt;<span class="p">&amp;</span>2
+  <span class="c"># Error message to stderr.</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOARGS</span>
+  <span class="c"># Returns 85 as exit status of script (error code).</span>
+<span class="k">fi</span>
+
+<span class="nv">filename</span><span class="o">=</span><span class="nv">$1</span>
+
+<span class="k">if</span> <span class="o">[</span> ! -f <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span> <span class="o">]</span>   <span class="c"># Quoting $filename allows for possible spaces.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;File </span><span class="nv">$filename</span><span class="s2"> not found!&quot;</span> &gt;<span class="p">&amp;</span><span class="m">2</span>   <span class="c"># Error message to stderr.</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOTFOUND</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="si">${</span><span class="nv">filename</span><span class="p">##*.</span><span class="si">}</span> !<span class="o">=</span> <span class="s2">&quot;gz&quot;</span> <span class="o">]</span>
+<span class="c"># Using bracket in variable substitution.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;File </span><span class="nv">$1</span><span class="s2"> is not a gzipped file!&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOTGZIP</span>
+<span class="k">fi</span>
+
+zcat <span class="nv">$1more</span>
+
+<span class="c"># Uses the &#39;more&#39; filter.</span>
+<span class="c"># May substitute &#39;less&#39; if desired.</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>   <span class="c"># Script returns exit status of pipe.</span>
+<span class="c">#  Actually &quot;exit $?&quot; is unnecessary, as the script will, in any case,</span>
+<span class="c">#+ return the exit status of the last command executed.</span>
+</pre></div>
+</div>
+<p>** compound comparison**</p>
+<blockquote>
+<div><table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-a</span></kbd></td>
+<td><p class="first">logical and</p>
+<p class="last">``                   exp1 -a exp2                 `` returns true if
+<em>both</em> exp1 and exp2 are true.</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-o</span></kbd></td>
+<td><p class="first">logical or</p>
+<p class="last">``                   exp1 -o exp2                 `` returns true if
+either exp1 <em>or</em> exp2 is true.</p>
+</td></tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>These are similar to the Bash comparison operators <strong>&amp;&amp;</strong> and <strong>||</strong> ,
+used within <a class="reference external" href="testconstructs.html#DBLBRACKETS">double brackets</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">[[</span> condition1 <span class="o">&amp;&amp;</span> condition2 <span class="o">]]</span>
+</pre></div>
+</div>
+<p>The <strong>-o</strong> and <strong>-a</strong> operators work with the
+<a class="reference external" href="testconstructs.html#TTESTREF">test</a> command or occur within single
+test brackets.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$expr1</span><span class="s2">&quot;</span> -a <span class="s2">&quot;</span><span class="nv">$expr2</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Both expr1 and expr2 are true.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Either expr1 or expr2 is false.&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+<p><a href="#id1"><span class="problematic" id="id2">|</span></a>Caution</p>
+<p>But, as <em>rihad</em> points out:</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">[</span> <span class="m">1</span> -eq <span class="m">1</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -n
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>&#8220;<cite>echo true 1&gt;&amp;2</cite>&#8221; ]   #</dt>
+<dd><dl class="first last docutils">
+<dt>true</dt>
+<dd>[ 1 -eq 2 ] &amp;&amp; [ -n</dd>
+</dl>
+</dd>
+<dt>&#8220;<cite>echo true 1&gt;&amp;2</cite>&#8221; ]   #</dt>
+<dd><dl class="first last docutils">
+<dt>(no output)</dt>
+<dd># ^^^^^^^ False cond</dd>
+</dl>
+</dd>
+</dl>
+<p>ition. So far, everythin
+g as expected.</p>
+<blockquote>
+<div># However ...
+[ 1 -eq 2 -a -n &#8220;<a href="#id3"><span class="problematic" id="id4">`</span></a>ec</div></blockquote>
+<dl class="docutils">
+<dt>ho true 1&gt;&amp;2`&#8221; ]       #</dt>
+<dd><dl class="first last docutils">
+<dt>true</dt>
+<dd># ^^^^^^^ False cond</dd>
+</dl>
+</dd>
+</dl>
+<p>ition. So, why &#8220;true&#8221; ou
+tput?</p>
+<blockquote>
+<div><blockquote>
+<div># Is it because both</div></blockquote>
+<p>condition clauses withi</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>n brackets evaluate?</dt>
+<dd>[[ 1 -eq 2 &amp;&amp; -n &#8220;<a href="#id5"><span class="problematic" id="id6">`</span></a>e</dd>
+<dt>cho true 1&gt;&amp;2`&#8221; ]]     #</dt>
+<dd><dl class="first last docutils">
+<dt>(no output)</dt>
+<dd><p class="first"># No, that&#8217;s not it.</p>
+<p class="last"># Apparently &amp;&amp; and</p>
+</dd>
+</dl>
+</dd>
+<dt>|| &#8220;short-circuit&#8221; while</dt>
+<dd>-a and -o do not.</dd>
+</dl>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">[</span> <span class="m">1</span> -eq <span class="m">1</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -n <span class="s2">&quot;`echo true 1&gt;&amp;2`&quot;</span> <span class="o">]</span>   <span class="c"># true</span>
+<span class="o">[</span> <span class="m">1</span> -eq <span class="m">2</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -n <span class="s2">&quot;`echo true 1&gt;&amp;2`&quot;</span> <span class="o">]</span>   <span class="c"># (no output)</span>
+<span class="c"># ^^^^^^^ False condition. So far, everything as expected.</span>
+
+<span class="c"># However ...</span>
+<span class="o">[</span> <span class="m">1</span> -eq <span class="m">2</span> -a -n <span class="s2">&quot;`echo true 1&gt;&amp;2`&quot;</span> <span class="o">]</span>       <span class="c"># true</span>
+<span class="c"># ^^^^^^^ False condition. So, why &quot;true&quot; output?</span>
+
+<span class="c"># Is it because both condition clauses within brackets evaluate?</span>
+<span class="o">[[</span> <span class="m">1</span> -eq <span class="m">2</span> <span class="o">&amp;&amp;</span> -n <span class="s2">&quot;`echo true 1&gt;&amp;2`&quot;</span> <span class="o">]]</span>     <span class="c"># (no output)</span>
+<span class="c"># No, that&#39;s not it.</span>
+
+<span class="c"># Apparently &amp;&amp; and |&quot;short-circuit&quot; while -a and -o do not.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">[</span> <span class="m">1</span> -eq <span class="m">1</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -n <span class="s2">&quot;`echo true 1&gt;&amp;2`&quot;</span> <span class="o">]</span>   <span class="c"># true</span>
+<span class="o">[</span> <span class="m">1</span> -eq <span class="m">2</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -n <span class="s2">&quot;`echo true 1&gt;&amp;2`&quot;</span> <span class="o">]</span>   <span class="c"># (no output)</span>
+<span class="c"># ^^^^^^^ False condition. So far, everything as expected.</span>
+
+<span class="c"># However ...</span>
+<span class="o">[</span> <span class="m">1</span> -eq <span class="m">2</span> -a -n <span class="s2">&quot;`echo true 1&gt;&amp;2`&quot;</span> <span class="o">]</span>       <span class="c"># true</span>
+<span class="c"># ^^^^^^^ False condition. So, why &quot;true&quot; output?</span>
+
+<span class="c"># Is it because both condition clauses within brackets evaluate?</span>
+<span class="o">[[</span> <span class="m">1</span> -eq <span class="m">2</span> <span class="o">&amp;&amp;</span> -n <span class="s2">&quot;`echo true 1&gt;&amp;2`&quot;</span> <span class="o">]]</span>     <span class="c"># (no output)</span>
+<span class="c"># No, that&#39;s not it.</span>
+
+<span class="c"># Apparently &amp;&amp; and |&quot;short-circuit&quot; while -a and -o do not.</span>
+</pre></div>
+</div>
+<p>Refer to <a class="reference external" href="ops.html#ANDOR">Example 8-3</a> , <a class="reference external" href="arrays.html#TWODIM">Example
+27-17</a> , and <a class="reference external" href="contributed-scripts.html#WHX">Example
+A-29</a> to see compound comparison
+operators in action.</p>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;comparison-ops.html#AEN3669&gt;`__</p>
+<p>As S.C. points out, in a compound test, even quoting the string variable
+might not suffice.
+``               [ -n &#8220;$string&#8221; -o &#8220;$a&#8221; = &#8220;$b&#8221; ]             `` may
+cause an error with some versions of Bash if ``       $string      `` is
+empty. The safe way is to append an extra character to possibly empty
+variables,
+``               [ &#8220;x$string&#8221; != x -o &#8220;x$a&#8221; = &#8220;x$b&#8221; ]             ``
+(the &#8220;x&#8217;s&#8221; cancel out).</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="nestedifthen.html" class="btn btn-neutral float-right" title="7.4. Condicionals aniuats" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="fto.html" class="btn btn-neutral" title="XXX 7.2. File test operators"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

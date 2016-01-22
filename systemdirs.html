@@ -1,0 +1,281 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Appendix I. Important System Directories &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  Appendix I. Important System Directories</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-appendix-i-important-system-directories">
+<h1>XXX  Appendix I. Important System Directories<a class="headerlink" href="#xxx-appendix-i-important-system-directories" title="Link permanent a aquest títol">¶</a></h1>
+<p>Sysadmins and anyone else writing administrative scripts should be
+intimately familiar with the following system directories.</p>
+<ul>
+<li><p class="first">``        /bin       ``</p>
+<p>Binaries (executables). Basic system programs and utilities (such as
+<strong>bash</strong> ).</p>
+</li>
+<li><p class="first">``        /usr/bin       `` ` [1]  &lt;systemdirs.html#FTN.AEN23969&gt;`__</p>
+<p>More system binaries.</p>
+</li>
+<li><p class="first">``        /usr/local/bin       ``</p>
+<p>Miscellaneous binaries local to the particular machine.</p>
+</li>
+<li><p class="first">``        /sbin       ``</p>
+<p>System binaries. Basic system administrative programs and utilities
+(such as <strong>fsck</strong> ).</p>
+</li>
+<li><p class="first">``        /usr/sbin       ``</p>
+<p>More system administrative programs and utilities.</p>
+</li>
+<li><p class="first">``        /etc       ``</p>
+<p><em>Et cetera</em> . Systemwide configuration scripts.</p>
+<p>Of particular interest are the
+``         /etc/fstab        `` &lt;system.html#FSTABREF&gt;`__
+(filesystem table), ``        /etc/mtab       `` (mounted filesystem
+table), and the
+``         /etc/inittab        `` &lt;system.html#INITTABREF&gt;`__ files.</p>
+</li>
+<li><p class="first">``        /etc/rc.d       ``</p>
+<p>Boot scripts, on Red Hat and derivative distributions of Linux.</p>
+</li>
+<li><p class="first">``        /usr/share/doc       ``</p>
+<p>Documentation for installed packages.</p>
+</li>
+<li><p class="first">``        /usr/man       ``</p>
+<p>The systemwide <a class="reference external" href="basic.html#MANREF">manpages</a> .</p>
+</li>
+<li><p class="first">``        /dev       ``</p>
+<p>Device directory. Entries (but <em>not</em> mount points) for physical and
+virtual devices. See <a class="reference external" href="devproc.html">Chapter 29</a> .</p>
+</li>
+<li><p class="first">``        /proc       ``</p>
+<p>Process directory. Contains information and statistics about running
+processes and kernel parameters. See <a class="reference external" href="devproc.html">Chapter 29</a> .</p>
+</li>
+<li><p class="first">``        /sys       ``</p>
+<p>Systemwide device directory. Contains information and statistics
+about device and device names. This is newly added to Linux with the
+2.6.X kernels.</p>
+</li>
+<li><p class="first">``        /mnt       ``</p>
+<p><em>Mount</em> . Directory for mounting hard drive partitions, such as
+``        /mnt/dos       `` , and physical devices. In newer Linux
+distros, the ``        /media       `` directory has taken over as
+the preferred mount point for I/O devices.</p>
+</li>
+<li><p class="first">``        /media       ``</p>
+<p>In newer Linux distros, the preferred mount point for I/O devices,
+such as CD/DVD drives or USB flash drives.</p>
+</li>
+<li><p class="first">``        /var       ``</p>
+<p><em>Variable</em> (changeable) system files. This is a catchall &#8220;scratchpad&#8221;
+directory for data generated while a Linux/UNIX machine is running.</p>
+</li>
+<li><p class="first">``        /var/log       ``</p>
+<p>Systemwide log files.</p>
+</li>
+<li><p class="first">``        /var/spool/mail       ``</p>
+<p>User mail spool.</p>
+</li>
+<li><p class="first">``        /lib       ``</p>
+<p>Systemwide library files.</p>
+</li>
+<li><p class="first">``        /usr/lib       ``</p>
+<p>More systemwide library files.</p>
+</li>
+<li><p class="first">``        /tmp       ``</p>
+<p>System temporary files.</p>
+</li>
+<li><p class="first">``        /boot       ``</p>
+<p>System <em>boot</em> directory. The kernel, module links, system map, and
+boot manager reside here.</p>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Avís</p>
+<p class="last">Altering files in this directory may result in an unbootable system.</p>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h2>
+<p>` [1]  &lt;systemdirs.html#AEN23969&gt;`__</p>
+<p>Some early UNIX systems had a fast, small-capacity fixed disk
+(containing ``       /      `` , the root partition), and a second drive
+which was larger, but slower (containing ``       /usr      `` and other
+partitions). The most frequently used programs and utilities therefore
+resided on the small-but-fast drive, in ``       /bin      `` , and the
+others on the slower drive, in ``       /usr/bin      `` .</p>
+<p>This likewise accounts for the split between ``       /sbin      `` and
+``       /usr/sbin      `` , ``       /lib      `` and
+``       /usr/lib      `` , etc.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

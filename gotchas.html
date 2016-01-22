@@ -1,0 +1,806 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Chapter 34. Gotchas &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Part 5. Advanced Topics" href="part5.html"/>
+        <link rel="next" title="XXX Chapter 35. Scripting With Style" href="scrstyle.html"/>
+        <link rel="prev" title="XXX Chapter 33. Options" href="options.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="regexp.html">XXX Chapter 18. Regular Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="here-docs.html">XXX  Chapter 19. Document immediat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io-redirection.html">XXX  Chapter 20. I/O Redirection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subshells.html">XXX  Chapter 21. Subshells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restricted-sh.html">XXX  Chapter 22. Restricted Shells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process-sub.html">XXX  Chapter 23. Process Substitution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">XXX  Chapter 24. Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aliases.html">XXX Capítol 25. Àlies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="list-cons.html">XXX  Chapter 26. List Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrays.html">XXX  Chapter 27. Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ivr.html">XXX  Chapter 28. Indirect References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networkprogramming.html">XXX  Chapter 30. Network Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zeros.html">XXX  Chapter 31. Of Zeros and Nulls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">XXX  Chapter 32. Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html">XXX  Chapter 33. Options</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX Chapter 34. Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scrstyle.html">XXX  Chapter 35. Scripting With Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unofficialst.html">XXX  35.1. Unofficial Shell Scripting Stylesheet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellany.html">XXX  Chapter 36. Miscellany</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash2.html">XXX  Chapter 37. Bash, versions 2, 3, and 4</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part5.html">XXX Part 5. Advanced Topics</a> &raquo;</li>
+      
+    <li>XXX Chapter 34. Gotchas</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-chapter-34-gotchas">
+<h1>XXX Chapter 34. Gotchas<a class="headerlink" href="#xxx-chapter-34-gotchas" title="Link permanent a aquest títol">¶</a></h1>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a></p>
+<p><em>Turandot: *Gli enigmi sono tre, la morte una!*</em></p>
+<p><em>Caleph: *No, no! Gli enigmi sono tre, una la vita!*</em></p>
+<p><em>&#8211;Puccini</em></p>
+<p>Here are some (non-recommended!) scripting practices that will bring
+excitement into an otherwise dull life.</p>
+<ul>
+<li><p class="first">Assigning reserved words or characters to variable names.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">case</span><span class="o">=</span>value0       <span class="c"># Causes problems.</span>
+<span class="nv">23skidoo</span><span class="o">=</span>value1   <span class="c"># Also problems.</span>
+<span class="c"># Variable names starting with a digit are reserved by the shell.</span>
+<span class="c"># Try _23skidoo=value1. Starting variables with an underscore is okay.</span>
+
+<span class="c"># However . . .   using just an underscore will not work.</span>
+<span class="nv">_</span><span class="o">=</span>25
+<span class="nb">echo</span> <span class="nv">$_</span>           <span class="c"># $_ is a special variable set to last arg of last command.</span>
+<span class="c"># But . . .       _ is a valid function name!</span>
+
+xyz<span class="o">((</span>!*<span class="o">=</span>value2    <span class="c"># Causes severe problems.</span>
+<span class="c"># As of version 3 of Bash, periods are not allowed within variable names.</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Using a hyphen or other reserved characters in a variable name (or
+function name).</p>
+<div class="highlight-sh"><div class="highlight"><pre>var-1<span class="o">=</span>23
+<span class="c"># Use &#39;var_1&#39; instead.</span>
+
+<span class="k">function</span>-whatever <span class="o">()</span>   <span class="c"># Error</span>
+<span class="c"># Use &#39;function_whatever ()&#39; instead.</span>
+
+
+<span class="c"># As of version 3 of Bash, periods are not allowed within function names.</span>
+<span class="k">function</span>.whatever <span class="o">()</span>   <span class="c"># Error</span>
+<span class="c"># Use &#39;functionWhatever ()&#39; instead.</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Using the same name for a variable and a function. This can make a
+script difficult to understand.</p>
+<div class="highlight-sh"><div class="highlight"><pre>do_something <span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">echo</span> <span class="s2">&quot;This function does something with \&quot;</span><span class="nv">$1</span><span class="s2">\&quot;.&quot;</span>
+<span class="o">}</span>
+
+<span class="nv">do_something</span><span class="o">=</span>do_something
+
+do_something do_something
+
+<span class="c"># All this is legal, but highly confusing.</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Using <a class="reference external" href="special-chars.html#WHITESPACEREF">whitespace</a></p>
+</li>
+</ul>
+<blockquote>
+<div><p>inappropriately. In contrast to other programming languages, Bash can
+be quite finicky about whitespace.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">var1</span> <span class="o">=</span> <span class="m">23</span>   <span class="c"># &#39;var1=23&#39; is correct.</span>
+<span class="c"># On line above, Bash attempts to execute command &quot;var1&quot;</span>
+<span class="c"># with the arguments &quot;=&quot; and &quot;23&quot;.</span>
+
+<span class="nb">let </span><span class="nv">c</span> <span class="o">=</span> <span class="nv">$a</span> - <span class="nv">$b</span>   <span class="c"># Instead:   let c=$a-$b   or   let &quot;c = $a - $b&quot;</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$a</span> -le 5<span class="o">]</span>    <span class="c"># if [ $a -le 5 ]   is correct.</span>
+<span class="c">#           ^^      if [ &quot;$a&quot; -le 5 ]   is even better.</span>
+                  <span class="c"># [[ $a -le 5 ]] also works.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first">Not terminating with a
+<a class="reference external" href="special-chars.html#SEMICOLONREF">semicolon</a> the final command in
+a <a class="reference external" href="special-chars.html#CODEBLOCKREF">code block within curly
+brackets</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span> ls -l<span class="p">;</span> df<span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;Done.&quot;</span> <span class="o">}</span>
+<span class="c"># bash: syntax error: unexpected end of file</span>
+
+<span class="o">{</span> ls -l<span class="p">;</span> df<span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;Done.&quot;</span><span class="p">;</span> <span class="o">}</span>
+<span class="c">#                        ^     ### Final command needs semicolon.</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Assuming uninitialized variables (variables before a value is
+assigned to them) are &#8220;zeroed out&#8221; . An uninitialized variable has a
+value of <em>null</em> , <em>not</em> zero.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;uninitialized_var = </span><span class="nv">$uninitialized_var</span><span class="s2">&quot;</span>
+<span class="c"># uninitialized_var =</span>
+
+<span class="c"># However . . .</span>
+<span class="c"># if $BASH_VERSION ≥ 4.2; then</span>
+
+<span class="k">if</span> <span class="o">[[</span> ! -v uninitialized_var <span class="o">]]</span>
+<span class="k">then</span>
+  <span class="nv">uninitialized_var</span><span class="o">=</span><span class="m">0</span>   <span class="c"># Initialize it to zero!</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Mixing up <em>=</em> and <em>-eq</em> in a test. Remember, <em>=</em> is for comparing
+literal variables and <em>-eq</em> for integers.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="m">273</span> <span class="o">]</span>      <span class="c"># Is $a an integer or string?</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> -eq <span class="m">273</span> <span class="o">]</span>    <span class="c"># If $a is an integer.</span>
+
+<span class="c"># Sometimes you can interchange -eq and = without adverse consequences.</span>
+<span class="c"># However . . .</span>
+
+
+<span class="nv">a</span><span class="o">=</span>273.0   <span class="c"># Not an integer.</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="m">273</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Comparison works.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Comparison does not work.&quot;</span>
+<span class="k">fi</span>    <span class="c"># Comparison does not work.</span>
+
+<span class="c"># Same with   a=&quot; 273&quot;  and a=&quot;0273&quot;.</span>
+
+
+<span class="c"># Likewise, problems trying to use &quot;-eq&quot; with non-integer values.</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> -eq 273.0 <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>
+<span class="k">fi</span>  <span class="c"># Aborts with an error message.</span>
+<span class="c"># test.sh: [: 273.0: integer expression expected</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Misusing <a class="reference external" href="comparison-ops.html#SCOMPARISON1">string comparison</a>
+operators.</p>
+</li>
+</ul>
+<div class="section" id="exemple-1-numerical-and-string-comparison-are-not-equivalent">
+<h2>Exemple 1. Numerical and string comparison are not equivalent<a class="headerlink" href="#exemple-1-numerical-and-string-comparison-are-not-equivalent" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># bad-op.sh: Trying to use a string comparison on integers.</span>
+
+<span class="nb">echo</span>
+<span class="nv">number</span><span class="o">=</span>1
+
+<span class="c">#  The following while-loop has two errors:</span>
+<span class="c">#+ one blatant, and the other subtle.</span>
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$number</span><span class="s2">&quot;</span> &lt; <span class="m">5</span> <span class="o">]</span>    <span class="c"># Wrong! Should be:  while [ &quot;$number&quot; -lt 5 ]</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$number</span><span class="s2"> &quot;</span>
+  <span class="nb">let</span> <span class="s2">&quot;number += 1&quot;</span>
+<span class="k">done</span>
+<span class="c">#  Attempt to run this bombs with the error message:</span>
+<span class="c">#+ bad-op.sh: line 10: 5: No such file or directory</span>
+<span class="c">#  Within single brackets, &quot;&lt;&quot; must be escaped,</span>
+<span class="c">#+ and even then, it&#39;s still wrong for comparing integers.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;---------------------&quot;</span>
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$number</span><span class="s2">&quot;</span> <span class="se">\&lt;</span> <span class="m">5</span> <span class="o">]</span>    <span class="c">#  1 2 3 4</span>
+<span class="k">do</span>                          <span class="c">#</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$number</span><span class="s2"> &quot;</span>        <span class="c">#  It *seems* to work, but . . .</span>
+  <span class="nb">let</span> <span class="s2">&quot;number += 1&quot;</span>         <span class="c">#+ it actually does an ASCII comparison,</span>
+<span class="k">done</span>                        <span class="c">#+ rather than a numerical one.</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;---------------------&quot;</span>
+
+<span class="c"># This can cause problems. For example:</span>
+
+<span class="nv">lesser</span><span class="o">=</span>5
+<span class="nv">greater</span><span class="o">=</span>105
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$greater</span><span class="s2">&quot;</span> <span class="se">\&lt;</span> <span class="s2">&quot;</span><span class="nv">$lesser</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$greater</span><span class="s2"> is less than </span><span class="nv">$lesser</span><span class="s2">&quot;</span>
+<span class="k">fi</span>                          <span class="c"># 105 is less than 5</span>
+<span class="c">#  In fact, &quot;105&quot; actually is less than &quot;5&quot;</span>
+<span class="c">#+ in a string comparison (ASCII sort order).</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first">Attempting to use <a class="reference external" href="internal.html#LETREF">let</a> to set string
+variables.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">let</span> <span class="s2">&quot;a = hello, you&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span>   <span class="c"># 0</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Sometimes variables within &#8220;test&#8221; brackets ([ ]) need to be quoted
+(double quotes). Failure to do so may cause unexpected behavior. See
+<a class="reference external" href="comparison-ops.html#STRTEST">Example 7-6</a> , <a class="reference external" href="redircb.html#REDIR2">Example
+20-5</a> , and <a class="reference external" href="internalvariables.html#ARGLIST">Example
+9-6</a> .</p>
+</li>
+<li><p class="first">Quoting a variable containing whitespace <a class="reference external" href="quotingvar.html#WSQUO">prevents
+splitting</a> . Sometimes this produces
+<a class="reference external" href="quotingvar.html#VARSPLITTING">unintended consequences</a> .</p>
+</li>
+<li><p class="first">Commands issued from a script may fail to execute because the script
+owner lacks execute permission for them. If a user cannot invoke a
+command from the command-line, then putting it into a script will
+likewise fail. Try changing the attributes of the command in
+question, perhaps even setting the suid bit (as <em>root</em> , of course).</p>
+</li>
+<li><p class="first">Attempting to use <strong>-</strong> as a redirection operator (which it is not)
+will usually result in an unpleasant surprise.</p>
+<div class="highlight-sh"><div class="highlight"><pre>command1 2&gt; -command2
+<span class="c"># Trying to redirect error output of command1 into a pipe . . .</span>
+<span class="c"># . . . will not work.</span>
+
+command1 2&gt;<span class="p">&amp;</span> -command2  <span class="c"># Also futile.</span>
+
+Thanks, S.C.
+</pre></div>
+</div>
+</li>
+<li><p class="first">Using Bash <a class="reference external" href="bashver2.html#BASH2REF">version 2+</a> functionality may
+cause a bailout with error messages. Older Linux machines may have
+version 1.XX of Bash as the default installation.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">minimum_version</span><span class="o">=</span>2
+<span class="c"># Since Chet Ramey is constantly adding features to Bash,</span>
+<span class="c"># you may set $minimum_version to 2.XX, 3.XX, or whatever is appropriate.</span>
+<span class="nv">E_BAD_VERSION</span><span class="o">=</span>80
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$BASH_VERSION</span><span class="s2">&quot;</span> <span class="se">\&lt;</span> <span class="s2">&quot;</span><span class="nv">$minimum_version</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;This script works only with Bash, version </span><span class="nv">$minimum</span><span class="s2"> or greater.&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Upgrade strongly recommended.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BAD_VERSION</span>
+<span class="k">fi</span>
+
+...
+</pre></div>
+</div>
+</li>
+<li><p class="first">Using Bash-specific functionality in a <a class="reference external" href="why-shell.html#BASHDEF">Bourne
+shell</a> script (
+``                 #!/bin/sh               `` ) on a non-Linux
+machine <a class="reference external" href="gotchas.html#BINSH">may cause unexpected behavior</a> . A
+Linux system usually aliases <strong>sh</strong> to <strong>bash</strong> , but this does not
+necessarily hold true for a generic UNIX machine.</p>
+</li>
+<li><p class="first">Using undocumented features in Bash turns out to be a dangerous
+practice. In previous releases of this book there were several
+scripts that depended on the &#8220;feature&#8221; that, although the maximum
+value of an <a class="reference external" href="exit-status.html#EXITSTATUSREF">exit</a> or
+<a class="reference external" href="complexfunct.html#RETURNREF">return</a> value was 255, that limit
+did not apply to <em>negative</em> integers. Unfortunately, in version 2.05b
+and later, that loophole disappeared. See <a class="reference external" href="complexfunct.html#RETURNTEST">Example
+24-9</a> .</p>
+</li>
+<li><p class="first">In certain contexts, a misleading <a class="reference external" href="exit-status.html#EXITSTATUSREF">exit
+status</a> may be returned. This may
+occur when <a class="reference external" href="localvar.html#EXITVALANOMALY01">setting a local variable within a
+function</a> or when <a class="reference external" href="internal.html#EXITVALANOMALY02">assigning an
+arithmetic value to a variable</a> .</p>
+</li>
+<li><p class="first">The <a href="#id3"><span class="problematic" id="id4">`</span></a>exit status of an arithmetic</p>
+</li>
+</ul>
+<blockquote>
+<div><p>expression &lt;testconstructs.html#ARXS&gt;`__ is <em>not</em> equivalent to an
+<em>error code</em> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">var</span><span class="o">=</span><span class="m">1</span> <span class="o">&amp;&amp;</span> <span class="o">((</span>--var<span class="o">))</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="nv">$var</span>
+<span class="c">#        ^^^^^^^^^ Here the and-list terminates with exit status 1.</span>
+<span class="c">#                     $var doesn&#39;t echo!</span>
+<span class="nb">echo</span> <span class="nv">$?</span>   <span class="c"># 1</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first">A script with DOS-type newlines (
+``                 rn               `` ) will fail to execute,
+since ``                 #!/bin/bashrn               `` is <em>not</em>
+recognized, <em>not</em> the same as the expected
+``                 #!/bin/bashn               `` . The fix is to
+convert the script to UNIX-style newlines.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Here&quot;</span>
+
+unix2dos <span class="nv">$0</span>    <span class="c"># Script changes itself to DOS format.</span>
+chmod <span class="m">755</span> <span class="nv">$0</span>   <span class="c"># Change back to execute permission.</span>
+               <span class="c"># The &#39;unix2dos&#39; command removes execute permission.</span>
+
+./<span class="nv">$0</span>           <span class="c"># Script tries to run itself again.</span>
+               <span class="c"># But it won&#39;t work as a DOS file.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;There&quot;</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</li>
+<li><p class="first">A shell script headed by
+``                 #!/bin/sh               `` will not run in full
+Bash-compatibility mode. Some Bash-specific functions might be
+disabled. Scripts that need complete access to all the Bash-specific
+extensions should start with
+``                 #!/bin/bash               `` .</p>
+</li>
+<li><p class="first"><a class="reference external" href="here-docs.html#INDENTEDLS">Putting whitespace in front of the terminating limit
+string</a> of a <a class="reference external" href="here-docs.html#HEREDOCREF">here
+document</a> will cause unexpected
+behavior in a script.</p>
+</li>
+<li><p class="first">Putting more than one <em>echo</em> statement in a function <a href="#id5"><span class="problematic" id="id6">`</span></a>whose output</p>
+</li>
+</ul>
+<blockquote>
+<div><p>is captured &lt;assortedtips.html#RVT&gt;`__ .</p>
+<div class="highlight-sh"><div class="highlight"><pre>add2 <span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Whatever ... &quot;</span>   <span class="c"># Delete this line!</span>
+  <span class="nb">let</span> <span class="s2">&quot;retval = </span><span class="nv">$1</span><span class="s2"> + </span><span class="nv">$2</span><span class="s2">&quot;</span>
+    <span class="nb">echo</span> <span class="nv">$retval</span>
+    <span class="o">}</span>
+
+    <span class="nv">num1</span><span class="o">=</span>12
+    <span class="nv">num2</span><span class="o">=</span>43
+    <span class="nb">echo</span> <span class="s2">&quot;Sum of </span><span class="nv">$num1</span><span class="s2"> and </span><span class="nv">$num2</span><span class="s2"> = </span><span class="k">$(</span>add2 <span class="nv">$num1</span> <span class="nv">$num2</span><span class="k">)</span><span class="s2">&quot;</span>
+
+<span class="c">#   Sum of 12 and 43 = Whatever ...</span>
+<span class="c">#   55</span>
+
+<span class="c">#        The &quot;echoes&quot; concatenate.</span>
+</pre></div>
+</div>
+<p>This <a class="reference external" href="assortedtips.html#RVTCAUTION">will not work</a> .</p>
+</div></blockquote>
+<ul>
+<li><p class="first">A script may not <strong>export</strong> variables back to its <a class="reference external" href="internal.html#FORKREF">parent
+process</a> , the shell, or to the
+environment. Just as we learned in biology, a child process can
+inherit from a parent, but not vice versa.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">WHATEVER</span><span class="o">=</span>/home/bozo
+<span class="nb">export </span>WHATEVER
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash$ echo $WHATEVER
+
+bash$
+</pre></div>
+</div>
+<p>Sure enough, back at the command prompt, $WHATEVER remains unset.</p>
+</li>
+<li><p class="first">Setting and manipulating variables in a
+<a class="reference external" href="subshells.html#SUBSHELLSREF">subshell</a> , then attempting to use
+those same variables outside the scope of the subshell will result an
+unpleasant surprise.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="exemple-2-subshell-pitfalls">
+<h2>Exemple 2. Subshell Pitfalls<a class="headerlink" href="#exemple-2-subshell-pitfalls" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Pitfalls of variables in a subshell.</span>
+
+<span class="nv">outer_variable</span><span class="o">=</span>outer
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;outer_variable = </span><span class="nv">$outer_variable</span><span class="s2">&quot;</span>
+<span class="nb">echo</span>
+
+<span class="o">(</span>
+<span class="c"># Begin subshell</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;outer_variable inside subshell = </span><span class="nv">$outer_variable</span><span class="s2">&quot;</span>
+<span class="nv">inner_variable</span><span class="o">=</span>inner  <span class="c"># Set</span>
+<span class="nb">echo</span> <span class="s2">&quot;inner_variable inside subshell = </span><span class="nv">$inner_variable</span><span class="s2">&quot;</span>
+<span class="nv">outer_variable</span><span class="o">=</span>inner  <span class="c"># Will value change globally?</span>
+<span class="nb">echo</span> <span class="s2">&quot;outer_variable inside subshell = </span><span class="nv">$outer_variable</span><span class="s2">&quot;</span>
+
+<span class="c"># Will &#39;exporting&#39; make a difference?</span>
+<span class="c">#    export inner_variable</span>
+<span class="c">#    export outer_variable</span>
+<span class="c"># Try it and see.</span>
+
+<span class="c"># End subshell</span>
+<span class="o">)</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;inner_variable outside subshell = </span><span class="nv">$inner_variable</span><span class="s2">&quot;</span>  <span class="c"># Unset.</span>
+<span class="nb">echo</span> <span class="s2">&quot;outer_variable outside subshell = </span><span class="nv">$outer_variable</span><span class="s2">&quot;</span>  <span class="c"># Unchanged.</span>
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># What happens if you uncomment lines 19 and 20?</span>
+<span class="c"># Does it make a difference?</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><a class="reference external" href="special-chars.html#PIPEREF">Piping</a> <strong>echo</strong> output to a
+<a class="reference external" href="internal.html#READREF">read</a> may produce unexpected results. In
+this scenario, the <strong>read</strong> acts as if it were running in a subshell.
+Instead, use the <a class="reference external" href="internal.html#SETREF">set</a> command (as in
+<a class="reference external" href="internal.html#SETPOS">Example 15-18</a> ).</li>
+</ul>
+</div>
+<div class="section" id="exemple-3-piping-the-output-of-echo-to-a-read">
+<h2>Exemple 3. Piping the output of <em>echo</em> to a <em>read</em><a class="headerlink" href="#exemple-3-piping-the-output-of-echo-to-a-read" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c">#  badread.sh:</span>
+<span class="c">#  Attempting to use &#39;echo and &#39;read&#39;</span>
+<span class="c">#+ to assign variables non-interactively.</span>
+
+<span class="c">#   shopt -s lastpipe</span>
+
+<span class="nv">a</span><span class="o">=</span>aaa
+<span class="nv">b</span><span class="o">=</span>bbb
+<span class="nv">c</span><span class="o">=</span>ccc
+
+<span class="nb">echo</span> <span class="s2">&quot;one two three&quot;</span><span class="nb">read </span>a b c
+<span class="c"># Try to reassign a, b, and c.</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>  <span class="c"># a = aaa</span>
+<span class="nb">echo</span> <span class="s2">&quot;b = </span><span class="nv">$b</span><span class="s2">&quot;</span>  <span class="c"># b = bbb</span>
+<span class="nb">echo</span> <span class="s2">&quot;c = </span><span class="nv">$c</span><span class="s2">&quot;</span>  <span class="c"># c = ccc</span>
+<span class="c"># Reassignment failed.</span>
+
+<span class="c">### However . . .</span>
+<span class="c">##  Uncommenting line 6:</span>
+<span class="c">#   shopt -s lastpipe</span>
+<span class="c">##+ fixes the problem!</span>
+<span class="c">### This is a new feature in Bash, version 4.2.</span>
+
+<span class="c"># ------------------------------</span>
+
+<span class="c"># Try the following alternative.</span>
+
+<span class="nv">var</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="s2">&quot;one two three&quot;</span><span class="sb">`</span>
+<span class="nb">set</span> -- <span class="nv">$var</span>
+<span class="nv">a</span><span class="o">=</span><span class="nv">$1</span><span class="p">;</span> <span class="nv">b</span><span class="o">=</span><span class="nv">$2</span><span class="p">;</span> <span class="nv">c</span><span class="o">=</span><span class="nv">$3</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;-------&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>  <span class="c"># a = one</span>
+<span class="nb">echo</span> <span class="s2">&quot;b = </span><span class="nv">$b</span><span class="s2">&quot;</span>  <span class="c"># b = two</span>
+<span class="nb">echo</span> <span class="s2">&quot;c = </span><span class="nv">$c</span><span class="s2">&quot;</span>  <span class="c"># c = three</span>
+<span class="c"># Reassignment succeeded.</span>
+
+<span class="c"># ------------------------------</span>
+
+<span class="c">#  Note also that an echo to a &#39;read&#39; works within a subshell.</span>
+<span class="c">#  However, the value of the variable changes *only* within the subshell.</span>
+
+<span class="nv">a</span><span class="o">=</span>aaa          <span class="c"># Starting all over again.</span>
+<span class="nv">b</span><span class="o">=</span>bbb
+<span class="nv">c</span><span class="o">=</span>ccc
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;one two three&quot;</span><span class="o">(</span> <span class="nb">read </span>a b c<span class="p">;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Inside subshell: &quot;</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;b = </span><span class="nv">$b</span><span class="s2">&quot;</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;c = </span><span class="nv">$c</span><span class="s2">&quot;</span> <span class="o">)</span>
+<span class="c"># a = one</span>
+<span class="c"># b = two</span>
+<span class="c"># c = three</span>
+<span class="nb">echo</span> <span class="s2">&quot;-----------------&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Outside subshell: &quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>  <span class="c"># a = aaa</span>
+<span class="nb">echo</span> <span class="s2">&quot;b = </span><span class="nv">$b</span><span class="s2">&quot;</span>  <span class="c"># b = bbb</span>
+<span class="nb">echo</span> <span class="s2">&quot;c = </span><span class="nv">$c</span><span class="s2">&quot;</span>  <span class="c"># c = ccc</span>
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>In fact, as Anthony Richardson points out, piping to <em>any</em> loop can
+cause a similar problem.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Loop piping troubles.</span>
+<span class="c">#  This example by Anthony Richardson,</span>
+<span class="c">#+ with addendum by Wilbert Berendsen.</span>
+
+
+<span class="nv">foundone</span><span class="o">=</span><span class="nb">false</span>
+find <span class="nv">$HOME</span> -type f -atime +30 -size 100k
+<span class="k">while</span> <span class="nb">true</span>
+<span class="k">do</span>
+   <span class="nb">read </span>f
+   <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$f</span><span class="s2"> is over 100KB and has not been accessed in over 30 days&quot;</span>
+   <span class="nb">echo</span> <span class="s2">&quot;Consider moving the file to archives.&quot;</span>
+   <span class="nv">foundone</span><span class="o">=</span><span class="nb">true</span>
+   <span class="c"># ------------------------------------</span>
+     <span class="nb">echo</span> <span class="s2">&quot;Subshell level = </span><span class="nv">$BASH_SUBSHELL</span><span class="s2">&quot;</span>
+   <span class="c"># Subshell level = 1</span>
+   <span class="c"># Yes, we&#39;re inside a subshell.</span>
+   <span class="c"># ------------------------------------</span>
+<span class="k">done</span>
+
+<span class="c">#  foundone will always be false here since it is</span>
+<span class="c">#+ set to true inside a subshell</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$foundone</span> <span class="o">=</span> <span class="nb">false</span> <span class="o">]</span>
+<span class="k">then</span>
+   <span class="nb">echo</span> <span class="s2">&quot;No files need archiving.&quot;</span>
+<span class="k">fi</span>
+
+<span class="c"># =====================Now, here is the correct way:=================</span>
+
+<span class="nv">foundone</span><span class="o">=</span><span class="nb">false</span>
+<span class="k">for</span> f in <span class="k">$(</span>find <span class="nv">$HOME</span> -type f -atime +30 -size 100k<span class="k">)</span>  <span class="c"># No pipe here.</span>
+<span class="k">do</span>
+   <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$f</span><span class="s2"> is over 100KB and has not been accessed in over 30 days&quot;</span>
+   <span class="nb">echo</span> <span class="s2">&quot;Consider moving the file to archives.&quot;</span>
+   <span class="nv">foundone</span><span class="o">=</span><span class="nb">true</span>
+<span class="k">done</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$foundone</span> <span class="o">=</span> <span class="nb">false</span> <span class="o">]</span>
+<span class="k">then</span>
+   <span class="nb">echo</span> <span class="s2">&quot;No files need archiving.&quot;</span>
+<span class="k">fi</span>
+
+<span class="c"># ==================And here is another alternative==================</span>
+
+<span class="c">#  Places the part of the script that reads the variables</span>
+<span class="c">#+ within a code block, so they share the same subshell.</span>
+<span class="c">#  Thank you, W.B.</span>
+
+find <span class="nv">$HOME</span> -type f -atime +30 -size 100k<span class="o">{</span>
+     <span class="nv">foundone</span><span class="o">=</span><span class="nb">false</span>
+<span class="nb">     </span><span class="k">while</span> <span class="nb">read </span>f
+     <span class="k">do</span>
+       <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$f</span><span class="s2"> is over 100KB and has not been accessed in over 30 days&quot;</span>
+       <span class="nb">echo</span> <span class="s2">&quot;Consider moving the file to archives.&quot;</span>
+       <span class="nv">foundone</span><span class="o">=</span><span class="nb">true</span>
+<span class="nb">     </span><span class="k">done</span>
+
+     <span class="k">if</span> ! <span class="nv">$foundone</span>
+     <span class="k">then</span>
+       <span class="nb">echo</span> <span class="s2">&quot;No files need archiving.&quot;</span>
+     <span class="k">fi</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>A lookalike problem occurs when trying to write the
+``        stdout       `` of a <strong>tail -f</strong> piped to
+<a class="reference external" href="textproc.html#GREPREF">grep</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre>tail -f /var/log/messagesgrep <span class="s2">&quot;</span><span class="nv">$ERROR_MSG</span><span class="s2">&quot;</span> &gt;&gt; error.log
+<span class="c">#  The &quot;error.log&quot; file will not have anything written to it.</span>
+<span class="c">#  As Samuli Kaipiainen points out, this results from grep</span>
+<span class="c">#+ buffering its output.</span>
+<span class="c">#  The fix is to add the &quot;--line-buffered&quot; parameter to grep.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Using &#8220;suid&#8221; commands within scripts is risky, as it may compromise
+system security. ` [1]  &lt;gotchas.html#FTN.AEN19993&gt;`__</li>
+<li>Using shell scripts for CGI programming may be problematic. Shell
+script variables are not &#8220;typesafe,&#8221; and this can cause undesirable
+behavior as far as CGI is concerned. Moreover, it is difficult to
+&#8220;cracker-proof&#8221; shell scripts.</li>
+<li>Bash does not handle the <a class="reference external" href="internal.html#DOUBLESLASHREF">double slash ( // )
+string</a> correctly.</li>
+<li>Bash scripts written for Linux or BSD systems may need fixups to run
+on a commercial UNIX machine. Such scripts often employ the GNU set
+of commands and filters, which have greater functionality than their
+generic UNIX counterparts. This is particularly true of such text
+processing utilites as <a class="reference external" href="textproc.html#TRREF">tr</a> .</li>
+<li>Sadly, updates to Bash itself have broken older scripts that <a class="reference external" href="string-manipulation.html#PARAGRAPHSPACE">used to
+work perfectly fine</a> .
+Let us recall <a class="reference external" href="gotchas.html#UNDOCF">how risky it is to use undocumented Bash
+features</a> .</li>
+</ul>
+<p><a href="#id7"><span class="problematic" id="id8">**</span></a></p>
+<p><em>Danger is near thee &#8211;</em></p>
+<p><em>Beware, beware, beware, beware.</em></p>
+<p><em>Many brave hearts are asleep in the deep.</em></p>
+<p><em>So beware &#8211;</em></p>
+<p><em>Beware.</em></p>
+<p><em>&#8211;A.J. Lamb and H.W. Petrie</em></p>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;gotchas.html#AEN19993&gt;`__</p>
+<p>Setting the <a class="reference external" href="fto.html#SUIDREF">suid</a> permission on the script itself
+has no effect in Linux and most other UNIX flavors.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="scrstyle.html" class="btn btn-neutral float-right" title="XXX Chapter 35. Scripting With Style" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="options.html" class="btn btn-neutral" title="XXX Chapter 33. Options"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,443 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Chapter 28. Indirect References &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Part 5. Advanced Topics" href="part5.html"/>
+        <link rel="next" title="XXX Chapter 30. Network Programming" href="networkprogramming.html"/>
+        <link rel="prev" title="XXX Chapter 27. Arrays" href="arrays.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="regexp.html">XXX Chapter 18. Regular Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="here-docs.html">XXX  Chapter 19. Document immediat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io-redirection.html">XXX  Chapter 20. I/O Redirection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subshells.html">XXX  Chapter 21. Subshells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restricted-sh.html">XXX  Chapter 22. Restricted Shells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process-sub.html">XXX  Chapter 23. Process Substitution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">XXX  Chapter 24. Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aliases.html">XXX Capítol 25. Àlies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="list-cons.html">XXX  Chapter 26. List Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrays.html">XXX  Chapter 27. Arrays</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  Chapter 28. Indirect References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networkprogramming.html">XXX  Chapter 30. Network Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zeros.html">XXX  Chapter 31. Of Zeros and Nulls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">XXX  Chapter 32. Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html">XXX  Chapter 33. Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gotchas.html">XXX Chapter 34. Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scrstyle.html">XXX  Chapter 35. Scripting With Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unofficialst.html">XXX  35.1. Unofficial Shell Scripting Stylesheet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellany.html">XXX  Chapter 36. Miscellany</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash2.html">XXX  Chapter 37. Bash, versions 2, 3, and 4</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part5.html">XXX Part 5. Advanced Topics</a> &raquo;</li>
+      
+    <li>XXX  Chapter 28. Indirect References</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-chapter-28-indirect-references">
+<h1>XXX  Chapter 28. Indirect References<a class="headerlink" href="#xxx-chapter-28-indirect-references" title="Link permanent a aquest títol">¶</a></h1>
+<p>We have seen that <a class="reference external" href="varsubn.html">referencing a variable</a> ,
+``      $var     `` , fetches its <em>value</em> . But, what about the <em>value
+of a value</em> ? What about ``      $$var     `` ?</p>
+<p>The actual notation is ``             $$var           `` , usually
+preceded by an <a class="reference external" href="internal.html#EVALREF">eval</a> (and sometimes an
+<a class="reference external" href="internal.html#ECHOREF">echo</a> ). This is called an <em>indirect
+reference</em> .</p>
+<div class="section" id="exemple-1-indirect-variable-references">
+<h2>Exemple 1. Indirect Variable References<a class="headerlink" href="#exemple-1-indirect-variable-references" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># ind-ref.sh: Indirect variable referencing.</span>
+<span class="c"># Accessing the contents of the contents of a variable.</span>
+
+<span class="c"># First, let&#39;s fool around a little.</span>
+
+<span class="nv">var</span><span class="o">=</span>23
+
+<span class="nb">echo</span> <span class="s2">&quot;\$var   = </span><span class="nv">$var</span><span class="s2">&quot;</span>           <span class="c"># $var   = 23</span>
+<span class="c"># So far, everything as expected. But ...</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;\$\$var  = </span><span class="nv">$$</span><span class="s2">var&quot;</span>         <span class="c"># $$var  = 4570var</span>
+<span class="c">#  Not useful ...</span>
+<span class="c">#  \$\$ expanded to PID of the script</span>
+<span class="c">#  -- refer to the entry on the $$ variable --</span>
+<span class="c">#+ and &quot;var&quot; is echoed as plain text.</span>
+<span class="c">#  (Thank you, Jakob Bohm, for pointing this out.)</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;\\\$\$var = \$</span><span class="nv">$var</span><span class="s2">&quot;</span>       <span class="c"># \$$var = $23</span>
+<span class="c">#  As expected. The first $ is escaped and pasted on to</span>
+<span class="c">#+ the value of var ($var = 23 ).</span>
+<span class="c">#  Meaningful, but still not useful.</span>
+
+<span class="c"># Now, let&#39;s start over and do it the right way.</span>
+
+<span class="c"># ============================================== #</span>
+
+
+<span class="nv">a</span><span class="o">=</span>letter_of_alphabet   <span class="c"># Variable &quot;a&quot; holds the name of another variable.</span>
+<span class="nv">letter_of_alphabet</span><span class="o">=</span>z
+
+<span class="nb">echo</span>
+
+<span class="c"># Direct reference.</span>
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>          <span class="c"># a = letter_of_alphabet</span>
+
+<span class="c"># Indirect reference.</span>
+  <span class="nb">eval </span><span class="nv">a</span><span class="o">=</span><span class="se">\$</span><span class="nv">$a</span>
+<span class="c"># ^^^        Forcing an eval(uation), and ...</span>
+<span class="c">#        ^   Escaping the first $ ...</span>
+<span class="c"># ------------------------------------------------------------------------</span>
+<span class="c"># The &#39;eval&#39; forces an update of $a, sets it to the updated value of \$$a.</span>
+<span class="c"># So, we see why &#39;eval&#39; so often shows up in indirect reference notation.</span>
+<span class="c"># ------------------------------------------------------------------------</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Now a = </span><span class="nv">$a</span><span class="s2">&quot;</span>    <span class="c"># Now a = z</span>
+
+<span class="nb">echo</span>
+
+
+<span class="c"># Now, let&#39;s try changing the second-order reference.</span>
+
+<span class="nv">t</span><span class="o">=</span>table_cell_3
+<span class="nv">table_cell_3</span><span class="o">=</span>24
+<span class="nb">echo</span> <span class="s2">&quot;\&quot;table_cell_3\&quot; = </span><span class="nv">$table_cell_3</span><span class="s2">&quot;</span>            <span class="c"># &quot;table_cell_3&quot; = 24</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;dereferenced \&quot;t\&quot; = &quot;</span><span class="p">;</span> <span class="nb">eval echo</span> <span class="se">\$</span><span class="nv">$t</span>    <span class="c"># dereferenced &quot;t&quot; = 24</span>
+<span class="c"># In this simple case, the following also works (why?).</span>
+<span class="c">#         eval t=\$$t; echo &quot;\&quot;t\&quot; = $t&quot;</span>
+
+<span class="nb">echo</span>
+
+<span class="nv">t</span><span class="o">=</span>table_cell_3
+<span class="nv">NEW_VAL</span><span class="o">=</span>387
+<span class="nv">table_cell_3</span><span class="o">=</span><span class="nv">$NEW_VAL</span>
+<span class="nb">echo</span> <span class="s2">&quot;Changing value of \&quot;table_cell_3\&quot; to </span><span class="nv">$NEW_VAL</span><span class="s2">.&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;\&quot;table_cell_3\&quot; now </span><span class="nv">$table_cell_3</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;dereferenced \&quot;t\&quot; now &quot;</span><span class="p">;</span> <span class="nb">eval echo</span> <span class="se">\$</span><span class="nv">$t</span>
+<span class="c"># &quot;eval&quot; takes the two arguments &quot;echo&quot; and &quot;\$$t&quot; (set equal to $table_cell_3)</span>
+
+
+<span class="nb">echo</span>
+
+<span class="c"># (Thanks, Stephane Chazelas, for clearing up the above behavior.)</span>
+
+
+<span class="c">#   A more straightforward method is the ${!t} notation, discussed in the</span>
+<span class="c">#+ &quot;Bash, version 2&quot; section.</span>
+<span class="c">#   See also ex78.sh.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Indirect referencing in Bash is a multi-step process. First, take the
+name of a variable: ``         varname        `` . Then, reference it:
+``         $varname        `` . Then, reference the reference:
+``         $$varname        `` . Then, <em>escape</em> the first $ :
+``         $$varname        `` . Finally, force a reevaluation of the
+expression and assign it: <strong>eval newvar=\$$varname</strong> .</p>
+<p>Of what practical use is indirect referencing of variables? It gives
+Bash a little of the functionality of
+<a class="reference external" href="varsubn.html#POINTERREF">pointers</a> in <em>C</em> , for instance, in <a class="reference external" href="bashver2.html#RESISTOR">table
+lookup</a> . And, it also has some other very
+interesting applications. . . .</p>
+<p>Nils Radtke shows how to build &#8220;dynamic&#8221; variable names and evaluate
+their contents. This can be useful when
+<a class="reference external" href="internal.html#SOURCEREF">sourcing</a> configuration files.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+
+<span class="c"># ---------------------------------------------</span>
+<span class="c"># This could be &quot;sourced&quot; from a separate file.</span>
+<span class="nv">isdnMyProviderRemoteNet</span><span class="o">=</span>172.16.0.100
+<span class="nv">isdnYourProviderRemoteNet</span><span class="o">=</span>10.0.0.10
+<span class="nv">isdnOnlineService</span><span class="o">=</span><span class="s2">&quot;MyProvider&quot;</span>
+<span class="c"># ---------------------------------------------</span>
+
+
+<span class="nv">remoteNet</span><span class="o">=</span><span class="k">$(</span><span class="nb">eval</span> <span class="s2">&quot;echo \$</span><span class="k">$(</span><span class="nb">echo </span>isdn<span class="si">${</span><span class="nv">isdnOnlineService</span><span class="si">}</span>RemoteNet<span class="k">)</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="nv">remoteNet</span><span class="o">=</span><span class="k">$(</span><span class="nb">eval</span> <span class="s2">&quot;echo \$</span><span class="k">$(</span><span class="nb">echo </span>isdnMyProviderRemoteNet<span class="k">)</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="nv">remoteNet</span><span class="o">=</span><span class="k">$(</span><span class="nb">eval</span> <span class="s2">&quot;echo \$isdnMyProviderRemoteNet&quot;</span><span class="k">)</span>
+<span class="nv">remoteNet</span><span class="o">=</span><span class="k">$(</span><span class="nb">eval</span> <span class="s2">&quot;echo </span><span class="nv">$isdnMyProviderRemoteNet</span><span class="s2">&quot;</span><span class="k">)</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$remoteNet</span><span class="s2">&quot;</span>    <span class="c"># 172.16.0.100</span>
+
+<span class="c"># ================================================================</span>
+
+<span class="c">#  And, it gets even better.</span>
+
+<span class="c">#  Consider the following snippet given a variable named getSparc,</span>
+<span class="c">#+ but no such variable getIa64:</span>
+
+chkMirrorArchs <span class="o">()</span> <span class="o">{</span>
+  <span class="nv">arch</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span><span class="p">;</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="k">$(</span><span class="nb">eval</span> <span class="s2">&quot;echo \${</span><span class="k">$(</span><span class="nb">echo </span>get<span class="k">$(</span><span class="nb">echo</span> -ne <span class="nv">$arch</span>
+       sed <span class="s1">&#39;s/^\(.\).*/\1/g&#39;</span>tr <span class="s1">&#39;a-z&#39;</span> <span class="s1">&#39;A-Z&#39;</span><span class="p">;</span> <span class="nb">echo</span> <span class="nv">$arch</span>
+       sed <span class="s1">&#39;s/^.\(.*\)/\1/g&#39;</span><span class="k">))</span><span class="s2">:-false}&quot;</span><span class="k">)</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="nb">true</span> <span class="o">]</span>
+  <span class="k">then</span>
+     <span class="k">return</span> 0<span class="p">;</span>
+  <span class="k">else</span>
+     <span class="k">return</span> 1<span class="p">;</span>
+  <span class="k">fi</span><span class="p">;</span>
+<span class="o">}</span>
+
+<span class="nv">getSparc</span><span class="o">=</span><span class="s2">&quot;true&quot;</span>
+<span class="nb">unset </span>getIa64
+chkMirrorArchs sparc
+<span class="nb">echo</span> <span class="nv">$?</span>        <span class="c"># 0</span>
+               <span class="c"># True</span>
+
+chkMirrorArchs Ia64
+<span class="nb">echo</span> <span class="nv">$?</span>        <span class="c"># 1</span>
+               <span class="c"># False</span>
+
+<span class="c"># Notes:</span>
+<span class="c"># -----</span>
+<span class="c"># Even the to-be-substituted variable name part is built explicitly.</span>
+<span class="c"># The parameters to the chkMirrorArchs calls are all lower case.</span>
+<span class="c"># The variable name is composed of two parts: &quot;get&quot; and &quot;Sparc&quot; . . .</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-2-passing-an-indirect-reference-to-awk">
+<h2>Exemple 2. Passing an indirect reference to <em>awk</em><a class="headerlink" href="#exemple-2-passing-an-indirect-reference-to-awk" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c">#  Another version of the &quot;column totaler&quot; script</span>
+<span class="c">#+ that adds up a specified column (of numbers) in the target file.</span>
+<span class="c">#  This one uses indirect references.</span>
+
+<span class="nv">ARGS</span><span class="o">=</span>2
+<span class="nv">E_WRONGARGS</span><span class="o">=</span>85
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-ne <span class="s2">&quot;</span><span class="nv">$ARGS</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="c"># Check for proper number of command-line args.</span>
+<span class="k">then</span>
+   <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` filename column-number&quot;</span>
+   <span class="nb">exit</span> <span class="nv">$E_WRONGARGS</span>
+<span class="k">fi</span>
+
+<span class="nv">filename</span><span class="o">=</span><span class="nv">$1</span>         <span class="c"># Name of file to operate on.</span>
+<span class="nv">column_number</span><span class="o">=</span><span class="nv">$2</span>    <span class="c"># Which column to total up.</span>
+
+<span class="c">#===== Same as original script, up to this point =====#</span>
+
+
+<span class="c"># A multi-line awk script is invoked by</span>
+<span class="c">#   awk &quot;</span>
+<span class="c">#   ...</span>
+<span class="c">#   ...</span>
+<span class="c">#   ...</span>
+<span class="c">#   &quot;</span>
+
+
+<span class="c"># Begin awk script.</span>
+<span class="c"># -------------------------------------------------</span>
+awk <span class="s2">&quot;</span>
+
+<span class="s2">{ total += \$</span><span class="si">${</span><span class="nv">column_number</span><span class="si">}</span><span class="s2"> # Indirect reference</span>
+<span class="s2">}</span>
+<span class="s2">END {</span>
+<span class="s2">     print total</span>
+<span class="s2">     }</span>
+
+<span class="s2">     &quot;</span> <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span>
+<span class="c"># Note that awk doesn&#39;t need an eval preceding \$$.</span>
+<span class="c"># -------------------------------------------------</span>
+<span class="c"># End awk script.</span>
+
+<span class="c">#  Indirect variable reference avoids the hassles</span>
+<span class="c">#+ of referencing a shell variable within the embedded awk script.</span>
+<span class="c">#  Thanks, Stephane Chazelas.</span>
+
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+<p><a href="#id1"><span class="problematic" id="id2">|</span></a>Caution</p>
+<p>This method of indirect referencing is a bit tricky. If the second order
+variable changes its value, then the first order variable must be
+properly dereferenced (as in the above example). Fortunately, the
+``                   ${!variable}                 `` notation introduced
+with <a class="reference external" href="bashver2.html#BASH2REF">version 2</a> of Bash (see <a class="reference external" href="bashver2.html#EX78">Example
+37-2</a> and <a class="reference external" href="contributed-scripts.html#HASHEX2">Example
+A-22</a> ) makes indirect referencing
+more intuitive.</p>
+<p>Bash does not support pointer arithmetic, and this severely limits the
+usefulness of indirect referencing. In fact, indirect referencing in a
+scripting language is, at best, something of an afterthought.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="networkprogramming.html" class="btn btn-neutral float-right" title="XXX Chapter 30. Network Programming" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="arrays.html" class="btn btn-neutral" title="XXX Chapter 27. Arrays"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

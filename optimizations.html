@@ -1,0 +1,782 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 36.6. Optimizations &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  36.6. Optimizations</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-36-6-optimizations">
+<h1>XXX  36.6. Optimizations<a class="headerlink" href="#xxx-36-6-optimizations" title="Link permanent a aquest títol">¶</a></h1>
+<p>Most shell scripts are quick &#8216;n dirty solutions to non-complex problems.
+As such, optimizing them for speed is not much of an issue. Consider the
+case, though, where a script carries out an important task, does it
+well, but runs too slowly. Rewriting it in a compiled language may not
+be a palatable option. The simplest fix would be to rewrite the parts of
+the script that slow it down. Is it possible to apply principles of code
+optimization even to a lowly shell script?</p>
+<p>Check the loops in the script. Time consumed by repetitive operations
+adds up quickly. If at all possible, remove time-consuming operations
+from within loops.</p>
+<p>Use <a class="reference external" href="internal.html#BUILTINREF">builtin</a> commands in preference to
+system commands. Builtins execute faster and usually do not launch a
+subshell when invoked.</p>
+<p>Avoid unnecessary commands, particularly in a
+<a class="reference external" href="special-chars.html#PIPEREF">pipe</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre>cat <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>grep <span class="s2">&quot;</span><span class="nv">$word</span><span class="s2">&quot;</span>
+
+grep <span class="s2">&quot;</span><span class="nv">$word</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>
+
+<span class="c">#  The above command-lines have an identical effect,</span>
+<span class="c">#+ but the second runs faster since it launches one fewer subprocess.</span>
+</pre></div>
+</div>
+<p>The <a class="reference external" href="basic.html#CATREF">cat</a> command seems especially prone to
+overuse in scripts.</p>
+<p>Disabling certain Bash options can speed up scripts.</p>
+<p>As Erik Brandsberg points out:</p>
+<p>If you don&#8217;t need <a class="reference external" href="bashver4.html#UNICODEREF">Unicode</a> support, you
+can get potentially a 2x or more improvement in speed by simply setting
+the ``                   LC_ALL                 `` variable.</p>
+<div class="highlight-sh"><div class="highlight"><pre>   export LC_ALL=C
+
+   [specifies the locale as ANSI C,
+   thereby disabling Unicode support]
+
+[In an example script ...]
+
+Without [Unicode support]:
+erik@erik-desktop:~/capture$ time ./cap-ngrep.sh
+live2.pcap &gt; out.txt
+
+  real        0m20.483s
+  user        1m34.470s
+  sys         0m12.869s
+
+With [Unicode support]:
+erik@erik-desktop:~/capture$ time ./cap-ngrep.sh
+live2.pcap &gt; out.txt
+
+  real        0m50.232s
+  user        3m51.118s
+  sys         0m11.221s
+
+A large part of the overhead that is optimized is, I believe,
+regex match using [[ string =~ REGEX ]],
+but it may help with other portions of the code as well.
+I hadn&#39;t [seen it] mentioned that this optimization helped
+with Bash, but I had seen it helped with &quot;grep,&quot;
+so why not try?
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>   export LC_ALL=C
+
+   [specifies the locale as ANSI C,
+   thereby disabling Unicode support]
+
+[In an example script ...]
+
+Without [Unicode support]:
+erik@erik-desktop:~/capture$ time ./cap-ngrep.sh
+live2.pcap &gt; out.txt
+
+  real        0m20.483s
+  user        1m34.470s
+  sys         0m12.869s
+
+With [Unicode support]:
+erik@erik-desktop:~/capture$ time ./cap-ngrep.sh
+live2.pcap &gt; out.txt
+
+  real        0m50.232s
+  user        3m51.118s
+  sys         0m11.221s
+
+A large part of the overhead that is optimized is, I believe,
+regex match using [[ string =~ REGEX ]],
+but it may help with other portions of the code as well.
+I hadn&#39;t [seen it] mentioned that this optimization helped
+with Bash, but I had seen it helped with &quot;grep,&quot;
+so why not try?
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>   export LC_ALL=C
+
+   [specifies the locale as ANSI C,
+   thereby disabling Unicode support]
+
+[In an example script ...]
+
+Without [Unicode support]:
+erik@erik-desktop:~/capture$ time ./cap-ngrep.sh
+live2.pcap &gt; out.txt
+
+  real        0m20.483s
+  user        1m34.470s
+  sys         0m12.869s
+
+With [Unicode support]:
+erik@erik-desktop:~/capture$ time ./cap-ngrep.sh
+live2.pcap &gt; out.txt
+
+  real        0m50.232s
+  user        3m51.118s
+  sys         0m11.221s
+
+A large part of the overhead that is optimized is, I believe,
+regex match using [[ string =~ REGEX ]],
+but it may help with other portions of the code as well.
+I hadn&#39;t [seen it] mentioned that this optimization helped
+with Bash, but I had seen it helped with &quot;grep,&quot;
+so why not try?
+</pre></div>
+</div>
+<p><a href="#id1"><span class="problematic" id="id2">|</span></a>Note</p>
+<p>Certain operators, notably <a class="reference external" href="moreadv.html#EXPRREF">expr</a> , are very
+inefficient and might be replaced by <a class="reference external" href="dblparens.html">double
+parentheses</a> arithmetic expansion. See <a class="reference external" href="contributed-scripts.html#TESTEXECTIME">Example
+A-59</a> .</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>Math tests
+
+math via <span class="k">$((</span> <span class="k">))</span>
+real          0m0.29
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>4s</dt>
+<dd>user          0m0.28</dd>
+<dt>8s</dt>
+<dd>sys           0m0.00</dd>
+</dl>
+<p>8s</p>
+<blockquote>
+<div>math via expr:
+real          1m17.8</div></blockquote>
+<dl class="docutils">
+<dt>79s   # Much slower!</dt>
+<dd>user          0m3.60</dd>
+<dt>0s</dt>
+<dd>sys           0m8.76</dd>
+</dl>
+<p>5s</p>
+<blockquote>
+<div>math via let:
+real          0m0.36</div></blockquote>
+<dl class="docutils">
+<dt>4s</dt>
+<dd>user          0m0.37</dd>
+<dt>2s</dt>
+<dd>sys           0m0.00</dd>
+</dl>
+<p>0s</p>
+<hr class="docutils" />
+<p><a class="reference external" href="tests.html#IFTHEN">Condition testing</a> constructs in scripts deserve
+close scrutiny. Substitute <a class="reference external" href="testbranch.html#CASEESAC1">case</a> for
+<a class="reference external" href="tests.html#IFTHEN">if-then</a> constructs and combine tests when
+possible, to minimize script execution time. Again, refer to <a class="reference external" href="contributed-scripts.html#TESTEXECTIME">Example
+A-59</a> .</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>Test using <span class="s2">&quot;case&quot;</span> co
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>nstruct:</dt>
+<dd>real          0m0.32</dd>
+<dt>9s</dt>
+<dd>user          0m0.32</dd>
+<dt>0s</dt>
+<dd>sys           0m0.00</dd>
+</dl>
+<p>0s</p>
+<blockquote>
+<div>Test with if [], no</div></blockquote>
+<dl class="docutils">
+<dt>quotes:</dt>
+<dd>real          0m0.43</dd>
+<dt>8s</dt>
+<dd>user          0m0.43</dd>
+<dt>2s</dt>
+<dd>sys           0m0.00</dd>
+</dl>
+<p>8s</p>
+<blockquote>
+<div>Test with if [], quo</div></blockquote>
+<dl class="docutils">
+<dt>tes:</dt>
+<dd>real          0m0.47</dd>
+<dt>6s</dt>
+<dd>user          0m0.45</dd>
+<dt>2s</dt>
+<dd>sys           0m0.02</dd>
+</dl>
+<p>4s</p>
+<blockquote>
+<div>Test with if [], usi</div></blockquote>
+<dl class="docutils">
+<dt>ng -eq:</dt>
+<dd>real          0m0.45</dd>
+<dt>7s</dt>
+<dd>user          0m0.45</dd>
+<dt>6s</dt>
+<dd>sys           0m0.00</dd>
+</dl>
+<p>0s</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>Math tests
+
+math via <span class="k">$((</span> <span class="k">))</span>
+real          0m0.294s
+user          0m0.288s
+sys           0m0.008s
+
+math via expr:
+real          1m17.879s   <span class="c"># Much slower!</span>
+user          0m3.600s
+sys           0m8.765s
+
+math via <span class="nb">let</span>:
+real          0m0.364s
+user          0m0.372s
+sys           0m0.000s
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>Test using <span class="s2">&quot;case&quot;</span> construct:
+real          0m0.329s
+user          0m0.320s
+sys           0m0.000s
+
+
+Test with <span class="k">if</span> <span class="o">[]</span>, no quotes:
+real          0m0.438s
+user          0m0.432s
+sys           0m0.008s
+
+
+Test with <span class="k">if</span> <span class="o">[]</span>, quotes:
+real          0m0.476s
+user          0m0.452s
+sys           0m0.024s
+
+
+Test with <span class="k">if</span> <span class="o">[]</span>, using -eq:
+real          0m0.457s
+user          0m0.456s
+sys           0m0.000s
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>Math tests
+
+math via <span class="k">$((</span> <span class="k">))</span>
+real          0m0.294s
+user          0m0.288s
+sys           0m0.008s
+
+math via expr:
+real          1m17.879s   <span class="c"># Much slower!</span>
+user          0m3.600s
+sys           0m8.765s
+
+math via <span class="nb">let</span>:
+real          0m0.364s
+user          0m0.372s
+sys           0m0.000s
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>Test using <span class="s2">&quot;case&quot;</span> construct:
+real          0m0.329s
+user          0m0.320s
+sys           0m0.000s
+
+
+Test with <span class="k">if</span> <span class="o">[]</span>, no quotes:
+real          0m0.438s
+user          0m0.432s
+sys           0m0.008s
+
+
+Test with <span class="k">if</span> <span class="o">[]</span>, quotes:
+real          0m0.476s
+user          0m0.452s
+sys           0m0.024s
+
+
+Test with <span class="k">if</span> <span class="o">[]</span>, using -eq:
+real          0m0.457s
+user          0m0.456s
+sys           0m0.000s
+</pre></div>
+</div>
+<p><a href="#id3"><span class="problematic" id="id4">|</span></a>Note</p>
+<p>Erik Brandsberg recommends using <a class="reference external" href="bashver4.html#ASSOCARR">associative
+arrays</a> in preference to conventional
+numeric-indexed arrays in most cases. When overwriting values in a
+numeric array, there is a significant performance penalty vs.
+associative arrays. Running a test script confirms this. See <a class="reference external" href="contributed-scripts.html#ASSOCARRTEST">Example
+A-60</a> .</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>Assignment tests
+
+Assigning a simple v
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>ariable</dt>
+<dd>real          0m0.41</dd>
+<dt>8s</dt>
+<dd>user          0m0.41</dd>
+<dt>6s</dt>
+<dd>sys           0m0.00</dd>
+</dl>
+<p>4s</p>
+<blockquote>
+<div>Assigning a numeric</div></blockquote>
+<dl class="docutils">
+<dt>index array entry</dt>
+<dd>real          0m0.58</dd>
+<dt>2s</dt>
+<dd>user          0m0.56</dd>
+<dt>4s</dt>
+<dd>sys           0m0.01</dd>
+</dl>
+<p>6s</p>
+<blockquote>
+<div>Overwriting a numeri</div></blockquote>
+<dl class="docutils">
+<dt>c index array entry</dt>
+<dd>real          0m21.9</dd>
+<dt>31s</dt>
+<dd>user          0m21.9</dd>
+<dt>13s</dt>
+<dd>sys           0m0.01</dd>
+</dl>
+<p>6s</p>
+<blockquote>
+<div>Linear reading of nu</div></blockquote>
+<dl class="docutils">
+<dt>meric index array</dt>
+<dd>real          0m0.42</dd>
+<dt>2s</dt>
+<dd>user          0m0.41</dd>
+<dt>6s</dt>
+<dd>sys           0m0.00</dd>
+</dl>
+<p>4s</p>
+<blockquote>
+<div>Assigning an associa</div></blockquote>
+<dl class="docutils">
+<dt>tive array entry</dt>
+<dd>real          0m1.80</dd>
+<dt>0s</dt>
+<dd>user          0m1.79</dd>
+<dt>6s</dt>
+<dd>sys           0m0.00</dd>
+</dl>
+<p>4s</p>
+<blockquote>
+<div>Overwriting an assoc</div></blockquote>
+<dl class="docutils">
+<dt>iative array entry</dt>
+<dd>real          0m1.79</dd>
+<dt>8s</dt>
+<dd>user          0m1.78</dd>
+<dt>4s</dt>
+<dd>sys           0m0.01</dd>
+</dl>
+<p>2s</p>
+<blockquote>
+<div>Linear reading an as</div></blockquote>
+<dl class="docutils">
+<dt>sociative array entry</dt>
+<dd>real          0m0.42</dd>
+<dt>0s</dt>
+<dd>user          0m0.42</dd>
+<dt>0s</dt>
+<dd>sys           0m0.00</dd>
+</dl>
+<p>0s</p>
+<blockquote>
+<div>Assigning a random n</div></blockquote>
+<p>umber to a simple variab
+le</p>
+<blockquote>
+<div>real          0m0.40</div></blockquote>
+<dl class="docutils">
+<dt>2s</dt>
+<dd>user          0m0.38</dd>
+<dt>8s</dt>
+<dd>sys           0m0.01</dd>
+</dl>
+<p>6s</p>
+<blockquote>
+<div>Assigning a sparse n</div></blockquote>
+<dl class="docutils">
+<dt>umeric index array entry</dt>
+<dd><dl class="first last docutils">
+<dt>randomly into 64k cells</dt>
+<dd>real          0m12.6</dd>
+</dl>
+</dd>
+<dt>78s</dt>
+<dd>user          0m12.6</dd>
+<dt>49s</dt>
+<dd>sys           0m0.02</dd>
+</dl>
+<p>8s</p>
+<blockquote>
+<div>Reading sparse numer</div></blockquote>
+<dl class="docutils">
+<dt>ic index array entry</dt>
+<dd>real          0m0.08</dd>
+<dt>7s</dt>
+<dd>user          0m0.08</dd>
+<dt>4s</dt>
+<dd>sys           0m0.00</dd>
+</dl>
+<p>0s</p>
+<blockquote>
+<div>Assigning a sparse a</div></blockquote>
+<p>ssociative array entry r
+andomly into 64k cells</p>
+<blockquote>
+<div>real          0m0.69</div></blockquote>
+<dl class="docutils">
+<dt>8s</dt>
+<dd>user          0m0.69</dd>
+<dt>6s</dt>
+<dd>sys           0m0.00</dd>
+</dl>
+<p>4s</p>
+<blockquote>
+<div>Reading sparse assoc</div></blockquote>
+<dl class="docutils">
+<dt>iative index array entry</dt>
+<dd>real          0m0.08</dd>
+<dt>3s</dt>
+<dd>user          0m0.08</dd>
+<dt>4s</dt>
+<dd>sys           0m0.00</dd>
+</dl>
+<p>0s</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>Assignment tests
+
+Assigning a simple variable
+real          0m0.418s
+user          0m0.416s
+sys           0m0.004s
+
+Assigning a numeric index array entry
+real          0m0.582s
+user          0m0.564s
+sys           0m0.016s
+
+Overwriting a numeric index array entry
+real          0m21.931s
+user          0m21.913s
+sys           0m0.016s
+
+Linear reading of numeric index array
+real          0m0.422s
+user          0m0.416s
+sys           0m0.004s
+
+Assigning an associative array entry
+real          0m1.800s
+user          0m1.796s
+sys           0m0.004s
+
+Overwriting an associative array entry
+real          0m1.798s
+user          0m1.784s
+sys           0m0.012s
+
+Linear reading an associative array entry
+real          0m0.420s
+user          0m0.420s
+sys           0m0.000s
+
+Assigning a random number to a simple variable
+real          0m0.402s
+user          0m0.388s
+sys           0m0.016s
+
+Assigning a sparse numeric index array entry randomly into 64k cells
+real          0m12.678s
+user          0m12.649s
+sys           0m0.028s
+
+Reading sparse numeric index array entry
+real          0m0.087s
+user          0m0.084s
+sys           0m0.000s
+
+Assigning a sparse associative array entry randomly into 64k cells
+real          0m0.698s
+user          0m0.696s
+sys           0m0.004s
+
+Reading sparse associative index array entry
+real          0m0.083s
+user          0m0.084s
+sys           0m0.000s
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>Assignment tests
+
+Assigning a simple variable
+real          0m0.418s
+user          0m0.416s
+sys           0m0.004s
+
+Assigning a numeric index array entry
+real          0m0.582s
+user          0m0.564s
+sys           0m0.016s
+
+Overwriting a numeric index array entry
+real          0m21.931s
+user          0m21.913s
+sys           0m0.016s
+
+Linear reading of numeric index array
+real          0m0.422s
+user          0m0.416s
+sys           0m0.004s
+
+Assigning an associative array entry
+real          0m1.800s
+user          0m1.796s
+sys           0m0.004s
+
+Overwriting an associative array entry
+real          0m1.798s
+user          0m1.784s
+sys           0m0.012s
+
+Linear reading an associative array entry
+real          0m0.420s
+user          0m0.420s
+sys           0m0.000s
+
+Assigning a random number to a simple variable
+real          0m0.402s
+user          0m0.388s
+sys           0m0.016s
+
+Assigning a sparse numeric index array entry randomly into 64k cells
+real          0m12.678s
+user          0m12.649s
+sys           0m0.028s
+
+Reading sparse numeric index array entry
+real          0m0.087s
+user          0m0.084s
+sys           0m0.000s
+
+Assigning a sparse associative array entry randomly into 64k cells
+real          0m0.698s
+user          0m0.696s
+sys           0m0.004s
+
+Reading sparse associative index array entry
+real          0m0.083s
+user          0m0.084s
+sys           0m0.000s
+</pre></div>
+</div>
+<p>Use the <a class="reference external" href="timedate.html#TIMREF">time</a> and
+<a class="reference external" href="x9644.html#TIMESREF">times</a> tools to profile computation-intensive
+commands. Consider rewriting time-critical code sections in C, or even
+in assembler.</p>
+<p>Try to minimize file I/O. Bash is not particularly efficient at handling
+files, so consider using more appropriate tools for this within the
+script, such as <a class="reference external" href="awk.html#AWKREF">awk</a> or
+<a class="reference external" href="wrapper.html#PERLREF">Perl</a> .</p>
+<dl class="docutils">
+<dt>Write your scripts in a modular and coherent form, ` [1]</dt>
+<dd>&lt;optimizations.html#FTN.AEN20452&gt;`__ so they can be reorganized and</dd>
+</dl>
+<p>tightened up as necessary. Some of the optimization techniques
+applicable to high-level languages may work for scripts, but others,
+such as <em>loop unrolling</em> , are mostly irrelevant. Above all, use common
+sense.</p>
+<p>For an excellent demonstration of how optimization can dramatically
+reduce the execution time of a script, see <a class="reference external" href="mathc.html#MONTHLYPMT">Example
+16-47</a> .</p>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h2>
+<p>` [1]  &lt;optimizations.html#AEN20452&gt;`__</p>
+<p>This usually means liberal use of
+<a class="reference external" href="functions.html#FUNCTIONREF">functions</a> .</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,260 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 20.3. Applications &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  20.3. Applications</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-20-3-applications">
+<h1>XXX  20.3. Applications<a class="headerlink" href="#xxx-20-3-applications" title="Link permanent a aquest títol">¶</a></h1>
+<p>Clever use of I/O redirection permits parsing and stitching together
+snippets of command output (see <a class="reference external" href="internal.html#READREDIR">Example
+15-7</a> ). This permits generating report and
+log files.</p>
+<div class="section" id="exemple-12-logging-events">
+<h2>Exemple 12. Logging events<a class="headerlink" href="#exemple-12-logging-events" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># logevents.sh</span>
+<span class="c"># Author: Stephane Chazelas.</span>
+<span class="c"># Used in ABS Guide with permission.</span>
+
+<span class="c"># Event logging to a file.</span>
+<span class="c"># Must be run as root (for write access in /var/log).</span>
+
+<span class="nv">ROOT_UID</span><span class="o">=</span><span class="m">0</span>     <span class="c"># Only users with $UID 0 have root privileges.</span>
+<span class="nv">E_NOTROOT</span><span class="o">=</span><span class="m">67</span>   <span class="c"># Non-root exit error.</span>
+
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$UID</span><span class="s2">&quot;</span> -ne <span class="s2">&quot;</span><span class="nv">$ROOT_UID</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Must be root to run this script.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOTROOT</span>
+<span class="k">fi</span>
+
+
+<span class="nv">FD_DEBUG1</span><span class="o">=</span>3
+<span class="nv">FD_DEBUG2</span><span class="o">=</span>4
+<span class="nv">FD_DEBUG3</span><span class="o">=</span>5
+
+<span class="c"># === Uncomment one of the two lines below to activate script. ===</span>
+<span class="c"># LOG_EVENTS=1</span>
+<span class="c"># LOG_VARS=1</span>
+
+
+log<span class="o">()</span>  <span class="c"># Writes time and date to log file.</span>
+<span class="o">{</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="k">$(</span>date<span class="k">)</span><span class="s2">  </span><span class="nv">$*</span><span class="s2">&quot;</span> &gt;<span class="p">&amp;</span><span class="m">7</span>     <span class="c"># This *appends* the date to the file.</span>
+<span class="c">#     ^^^^^^^  command substitution</span>
+                           <span class="c"># See below.</span>
+<span class="o">}</span>
+
+
+
+<span class="k">case</span> <span class="nv">$LOG_LEVEL</span> in
+ 1<span class="o">)</span> <span class="nb">exec </span>3&gt;<span class="p">&amp;</span><span class="m">2</span>         4&gt; /dev/null 5&gt; /dev/null<span class="p">;;</span>
+ 2<span class="o">)</span> <span class="nb">exec </span>3&gt;<span class="p">&amp;</span><span class="m">2</span>         4&gt;<span class="p">&amp;</span><span class="m">2</span>         5&gt; /dev/null<span class="p">;;</span>
+ 3<span class="o">)</span> <span class="nb">exec </span>3&gt;<span class="p">&amp;</span><span class="m">2</span>         4&gt;<span class="p">&amp;</span><span class="m">2</span>         5&gt;<span class="p">&amp;</span>2<span class="p">;;</span>
+ *<span class="o">)</span> <span class="nb">exec </span>3&gt; /dev/null 4&gt; /dev/null 5&gt; /dev/null<span class="p">;;</span>
+<span class="k">esac</span>
+
+<span class="nv">FD_LOGVARS</span><span class="o">=</span>6
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$LOG_VARS</span> <span class="o">]]</span>
+<span class="k">then</span> <span class="nb">exec </span>6&gt;&gt; /var/log/vars.log
+<span class="k">else</span> <span class="nb">exec </span>6&gt; /dev/null                     <span class="c"># Bury output.</span>
+<span class="k">fi</span>
+
+<span class="nv">FD_LOGEVENTS</span><span class="o">=</span>7
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$LOG_EVENTS</span> <span class="o">]]</span>
+<span class="k">then</span>
+  <span class="c"># exec 7 &gt;(exec gawk &#39;{print strftime(), $0}&#39; &gt;&gt; /var/log/event.log)</span>
+  <span class="c"># Above line fails in versions of Bash more recent than 2.04. Why?</span>
+  <span class="nb">exec </span>7&gt;&gt; /var/log/event.log              <span class="c"># Append to &quot;event.log&quot;.</span>
+  log                                      <span class="c"># Write time and date.</span>
+<span class="k">else</span> <span class="nb">exec </span>7&gt; /dev/null                     <span class="c"># Bury output.</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;DEBUG3: beginning&quot;</span> &gt;<span class="p">&amp;</span><span class="si">${</span><span class="nv">FD_DEBUG3</span><span class="si">}</span>
+
+ls -l &gt;<span class="p">&amp;</span><span class="m">5</span> 2&gt;<span class="p">&amp;</span><span class="m">4</span>                             <span class="c"># command1 &gt;&amp;5 2&gt;&amp;4</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Done&quot;</span>                                <span class="c"># command2</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;sending mail&quot;</span> &gt;<span class="p">&amp;</span><span class="si">${</span><span class="nv">FD_LOGEVENTS</span><span class="si">}</span>
+<span class="c"># Writes &quot;sending mail&quot; to file descriptor #7.</span>
+
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

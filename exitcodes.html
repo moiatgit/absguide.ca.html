@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Appendix E. Exit Codes With Special Meanings &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  Appendix E. Exit Codes With Special Meanings</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-appendix-e-exit-codes-with-special-meanings">
+<h1>XXX  Appendix E. Exit Codes With Special Meanings<a class="headerlink" href="#xxx-appendix-e-exit-codes-with-special-meanings" title="Link permanent a aquest títol">¶</a></h1>
+<p><strong>Table E-1. *Reserved* Exit Codes</strong></p>
+<p>Exit Code Number</p>
+<p>Meaning</p>
+<p>Example</p>
+<p>Comments</p>
+<p>``        1       ``</p>
+<p>Catchall for general errors</p>
+<p>let &#8220;var1 = 1/0&#8221;</p>
+<p>Miscellaneous errors, such as &#8220;divide by zero&#8221; and other impermissible
+operations</p>
+<p>``        2       ``</p>
+<p>Misuse of shell builtins (according to Bash documentation)</p>
+<p>empty_function() {}</p>
+<p><a class="reference external" href="debugging.html#MISSINGKEYWORD">Missing keyword</a> or command, or
+permission problem (and <a class="reference external" href="filearchiv.html#DIFFERR2">*diff* return code on a failed binary file
+comparison</a> ).</p>
+<p>``        126       ``</p>
+<p>Command invoked cannot execute</p>
+<p>/dev/null</p>
+<p>Permission problem or command is not an executable</p>
+<p>``        127       ``</p>
+<blockquote>
+<div>&#8220;command not found&#8221;</div></blockquote>
+<p>illegal_command</p>
+<p>Possible problem with ``        $PATH       `` or a typo</p>
+<p>``        128       ``</p>
+<p>Invalid argument to <a class="reference external" href="exit-status.html#EXITCOMMANDREF">exit</a></p>
+<p>exit 3.14159</p>
+<p><strong>exit</strong> takes only integer args in the range 0 - 255 (see first
+footnote)</p>
+<p>``        128+n       ``</p>
+<p>Fatal error signal &#8220;n&#8221;</p>
+<p><em>kill -9</em> ``        $PPID       `` of script</p>
+<p>``                 $?               `` returns 137 (128 + 9)</p>
+<p>``        130       ``</p>
+<p>Script terminated by Control-C</p>
+<p><em>Ctl-C</em></p>
+<p>Control-C is fatal error signal 2 , (130 = 128 + 2, see above)</p>
+<p>``        255*       ``</p>
+<p>Exit status out of range</p>
+<p>exit -1</p>
+<p><strong>exit</strong> takes only integer args in the range 0 - 255</p>
+<dl class="docutils">
+<dt>According to the above table, exit codes 1 - 2, 126 - 165, and 255 ` [1]</dt>
+<dd>&lt;exitcodes.html#FTN.AEN23629&gt;`__ have special meanings, and should</dd>
+</dl>
+<p>therefore be avoided for user-specified exit parameters. Ending a script
+with <em>exit 127</em> would certainly cause confusion when troubleshooting (is
+the error code a &#8220;command not found&#8221; or a user-defined one?). However,
+many scripts use an <em>exit 1</em> as a general bailout-upon-error. Since exit
+code 1 signifies so many possible errors, it is not particularly useful
+in debugging.</p>
+<p>There has been an attempt to systematize exit status numbers (see
+``      /usr/include/sysexits.h     `` ), but this is intended for C and
+C++ programmers. A similar standard for scripting might be appropriate.
+The author of this document proposes restricting user-defined exit codes
+to the range 64 - 113 (in addition to 0 , for success), to conform with
+the C/C++ standard. This would allot 50 valid codes, and make
+troubleshooting scripts more straightforward. ` [2]</p>
+<blockquote>
+<div>&lt;exitcodes.html#FTN.AEN23647&gt;`__ All user-defined exit codes in the</div></blockquote>
+<p>accompanying examples to this document conform to this standard, except
+where overriding circumstances exist, as in <a class="reference external" href="internalvariables.html#TMDIN">Example
+9-2</a> .</p>
+<p><a href="#id1"><span class="problematic" id="id2">|</span></a>Note</p>
+<p>Issuing a <a class="reference external" href="internalvariables.html#XSTATVARREF">$?</a> from the
+command-line after a shell script exits gives results consistent with
+the table above only from the Bash or <em>sh</em> prompt. Running the <em>C-shell</em>
+or <em>tcsh</em> may give different values in some cases.</p>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h2>
+<p>` [1]  &lt;exitcodes.html#AEN23629&gt;`__</p>
+<blockquote>
+<div>Out of range exit values can result in unexpected exit codes. An exit</div></blockquote>
+<p>value greater than 255 returns an exit code
+<a class="reference external" href="ops.html#MODULOREF">modulo</a> 256 . For example, <em>exit 3809</em> gives an
+exit code of 225 (3809 % 256 = 225).</p>
+<p>` [2]  &lt;exitcodes.html#AEN23647&gt;`__</p>
+<p>An update of ``       /usr/include/sysexits.h      `` allocates
+previously unused exit codes from 64 - 78 . It may be anticipated that
+the range of unallotted exit codes will be further restricted in the
+future. The author of this document will <em>not</em> do fixups on the
+scripting examples to conform to the changing standard. This should not
+cause any problems, since there is no overlap or conflict in usage of
+exit codes between compiled C/C++ binaries and shell scripts.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

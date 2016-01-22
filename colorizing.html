@@ -1,0 +1,963 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 36.5. “Colorizing” Scripts &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  36.5.  &#8220;Colorizing&#8221;  Scripts</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-36-5-colorizing-scripts">
+<h1>XXX  36.5.  &#8220;Colorizing&#8221;  Scripts<a class="headerlink" href="#xxx-36-5-colorizing-scripts" title="Link permanent a aquest títol">¶</a></h1>
+<p>The ANSI ` [1]  &lt;colorizing.html#FTN.AEN20259&gt;`__ escape sequences set
+screen attributes, such as bold text, and color of foreground and
+background. <a class="reference external" href="dosbatch.html#DOSBATCH1">DOS batch files</a> commonly used
+ANSI escape codes for <em>color</em> output, and so can Bash scripts.</p>
+<div class="section" id="exemple-13-a-colorized-address-database">
+<h2>Exemple 13. A &#8220;colorized&#8221; address database<a class="headerlink" href="#exemple-13-a-colorized-address-database" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># ex30a.sh: &quot;Colorized&quot; version of ex30.sh.</span>
+<span class="c">#            Crude address database</span>
+
+
+clear                                   <span class="c"># Clear the screen.</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;          &quot;</span>
+<span class="nb">echo</span> -e <span class="s1">&#39;\E[37;44m&#39;</span><span class="s2">&quot;\033[1mContact List\033[0m&quot;</span>
+                                        <span class="c"># White on blue background</span>
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+<span class="nb">echo</span> -e <span class="s2">&quot;\033[1mChoose one of the following persons:\033[0m&quot;</span>
+                                        <span class="c"># Bold</span>
+tput sgr0                               <span class="c"># Reset attributes.</span>
+<span class="nb">echo</span> <span class="s2">&quot;(Enter only the first letter of name.)&quot;</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> -en <span class="s1">&#39;\E[47;34m&#39;</span><span class="s2">&quot;\033[1mE\033[0m&quot;</span>   <span class="c"># Blue</span>
+tput sgr0                               <span class="c"># Reset colors to &quot;normal.&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;vans, Roland&quot;</span>                     <span class="c"># &quot;[E]vans, Roland&quot;</span>
+<span class="nb">echo</span> -en <span class="s1">&#39;\E[47;35m&#39;</span><span class="s2">&quot;\033[1mJ\033[0m&quot;</span>   <span class="c"># Magenta</span>
+tput sgr0
+<span class="nb">echo</span> <span class="s2">&quot;ambalaya, Mildred&quot;</span>
+<span class="nb">echo</span> -en <span class="s1">&#39;\E[47;32m&#39;</span><span class="s2">&quot;\033[1mS\033[0m&quot;</span>   <span class="c"># Green</span>
+tput sgr0
+<span class="nb">echo</span> <span class="s2">&quot;mith, Julie&quot;</span>
+<span class="nb">echo</span> -en <span class="s1">&#39;\E[47;31m&#39;</span><span class="s2">&quot;\033[1mZ\033[0m&quot;</span>   <span class="c"># Red</span>
+tput sgr0
+<span class="nb">echo</span> <span class="s2">&quot;ane, Morris&quot;</span>
+<span class="nb">echo</span>
+
+<span class="nb">read </span>person
+
+<span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$person</span><span class="s2">&quot;</span> in
+<span class="c"># Note variable is quoted.</span>
+
+  <span class="s2">&quot;E&quot;&quot;e&quot;</span> <span class="o">)</span>
+  <span class="c"># Accept upper or lowercase input.</span>
+  <span class="nb">echo</span>
+<span class="nb">  echo</span> <span class="s2">&quot;Roland Evans&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;4321 Flash Dr.&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Hardscrabble, CO 80753&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;(303) 734-9874&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;(303) 734-9892 fax&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;revans@zzy.net&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Business partner &amp; old friend&quot;</span>
+  <span class="p">;;</span>
+
+  <span class="s2">&quot;J&quot;&quot;j&quot;</span> <span class="o">)</span>
+  <span class="nb">echo</span>
+<span class="nb">  echo</span> <span class="s2">&quot;Mildred Jambalaya&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;249 E. 7th St., Apt. 19&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;New York, NY 10009&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;(212) 533-2814&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;(212) 533-9972 fax&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;milliej@loisaida.com&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Girlfriend&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Birthday: Feb. 11&quot;</span>
+  <span class="p">;;</span>
+
+<span class="c"># Add info for Smith &amp; Zane later.</span>
+
+          * <span class="o">)</span>
+   <span class="c"># Default option.</span>
+   <span class="c"># Empty input (hitting RETURN) fits here, too.</span>
+   <span class="nb">echo</span>
+<span class="nb">   echo</span> <span class="s2">&quot;Not yet in database.&quot;</span>
+  <span class="p">;;</span>
+
+<span class="k">esac</span>
+
+tput sgr0                               <span class="c"># Reset colors to &quot;normal.&quot;</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-14-drawing-a-box">
+<h2>Exemple 14. Drawing a box<a class="headerlink" href="#exemple-14-drawing-a-box" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Draw-box.sh: Drawing a box using ASCII characters.</span>
+
+<span class="c"># Script by Stefano Palmeri, with minor editing by document author.</span>
+<span class="c"># Minor edits suggested by Jim Angstadt.</span>
+<span class="c"># Used in the ABS Guide with permission.</span>
+
+
+<span class="c">######################################################################</span>
+<span class="c">###  draw_box function doc  ###</span>
+
+<span class="c">#  The &quot;draw_box&quot; function lets the user</span>
+<span class="c">#+ draw a box in a terminal.</span>
+<span class="c">#</span>
+<span class="c">#  Usage: draw_box ROW COLUMN HEIGHT WIDTH [COLOR]</span>
+<span class="c">#  ROW and COLUMN represent the position</span>
+<span class="c">#+ of the upper left angle of the box you&#39;re going to draw.</span>
+<span class="c">#  ROW and COLUMN must be greater than 0</span>
+<span class="c">#+ and less than current terminal dimension.</span>
+<span class="c">#  HEIGHT is the number of rows of the box, and must be &gt; 0.</span>
+<span class="c">#  HEIGHT + ROW must be &lt;= than current terminal height.</span>
+<span class="c">#  WIDTH is the number of columns of the box and must be &gt; 0.</span>
+<span class="c">#  WIDTH + COLUMN must be &lt;= than current terminal width.</span>
+<span class="c">#</span>
+<span class="c"># E.g.: If your terminal dimension is 20x80,</span>
+<span class="c">#  draw_box 2 3 10 45 is good</span>
+<span class="c">#  draw_box 2 3 19 45 has bad HEIGHT value (19+2 &gt; 20)</span>
+<span class="c">#  draw_box 2 3 18 78 has bad WIDTH value (78+3 &gt; 80)</span>
+<span class="c">#</span>
+<span class="c">#  COLOR is the color of the box frame.</span>
+<span class="c">#  This is the 5th argument and is optional.</span>
+<span class="c">#  0=black 1=red 2=green 3=tan 4=blue 5=purple 6=cyan 7=white.</span>
+<span class="c">#  If you pass the function bad arguments,</span>
+<span class="c">#+ it will just exit with code 65,</span>
+<span class="c">#+ and no messages will be printed on stderr.</span>
+<span class="c">#</span>
+<span class="c">#  Clear the terminal before you start to draw a box.</span>
+<span class="c">#  The clear command is not contained within the function.</span>
+<span class="c">#  This allows the user to draw multiple boxes, even overlapping ones.</span>
+
+<span class="c">###  end of draw_box function doc  ###</span>
+<span class="c">######################################################################</span>
+
+draw_box<span class="o">(){</span>
+
+<span class="c">#=============#</span>
+<span class="nv">HORZ</span><span class="o">=</span><span class="s2">&quot;-&quot;</span>
+<span class="nv">VERT</span><span class="o">=</span><span class="s2">&quot;|&quot;</span>
+<span class="nv">CORNER_CHAR</span><span class="o">=</span><span class="s2">&quot;+&quot;</span>
+
+<span class="nv">MINARGS</span><span class="o">=</span>4
+<span class="nv">E_BADARGS</span><span class="o">=</span>65
+<span class="c">#=============#</span>
+
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-lt <span class="s2">&quot;</span><span class="nv">$MINARGS</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>          <span class="c"># If args are less than 4, exit.</span>
+    <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+
+<span class="c"># Looking for non digit chars in arguments.</span>
+<span class="c"># Probably it could be done better (exercise for the reader?).</span>
+<span class="k">if</span> <span class="nb">echo</span> <span class="nv">$@</span>tr -d <span class="o">[</span>:blank:<span class="o">]</span> <span class="p">|</span> tr -d <span class="o">[</span>:digit:<span class="o">]</span> <span class="p">|</span> grep . <span class="p">&amp;</span>&gt; /dev/null<span class="p">;</span> <span class="k">then</span>
+   <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+
+<span class="nv">BOX_HEIGHT</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$3</span> - 1<span class="sb">`</span>   <span class="c">#  -1 correction needed because angle char &quot;+&quot;</span>
+<span class="nv">BOX_WIDTH</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$4</span> - 1<span class="sb">`</span>    <span class="c">#+ is a part of both box height and width.</span>
+<span class="nv">T_ROWS</span><span class="o">=</span><span class="sb">`</span>tput lines<span class="sb">`</span>        <span class="c">#  Define current terminal dimension</span>
+<span class="nv">T_COLS</span><span class="o">=</span><span class="sb">`</span>tput cols<span class="sb">`</span>         <span class="c">#+ in rows and columns.</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$1</span> -lt <span class="m">1</span> <span class="o">]</span> <span class="p">|</span><span class="o">[</span> <span class="nv">$1</span> -gt <span class="nv">$T_ROWS</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>    <span class="c">#  Start checking if arguments</span>
+   <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>                             <span class="c">#+ are correct.</span>
+<span class="k">fi</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$2</span> -lt <span class="m">1</span> <span class="o">]</span> <span class="p">|</span><span class="o">[</span> <span class="nv">$2</span> -gt <span class="nv">$T_COLS</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+   <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+<span class="k">if</span> <span class="o">[</span> <span class="sb">`</span>expr <span class="nv">$1</span> + <span class="nv">$BOX_HEIGHT</span> + 1<span class="sb">`</span> -gt <span class="nv">$T_ROWS</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+   <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+<span class="k">if</span> <span class="o">[</span> <span class="sb">`</span>expr <span class="nv">$2</span> + <span class="nv">$BOX_WIDTH</span> + 1<span class="sb">`</span> -gt <span class="nv">$T_COLS</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+   <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$3</span> -lt <span class="m">1</span> <span class="o">]</span> <span class="p">|</span><span class="o">[</span> <span class="nv">$4</span> -lt <span class="m">1</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+   <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>                                 <span class="c"># End checking arguments.</span>
+
+plot_char<span class="o">(){</span>                       <span class="c"># Function within a function.</span>
+   <span class="nb">echo</span> -e <span class="s2">&quot;\E[</span><span class="si">${</span><span class="nv">1</span><span class="si">}</span><span class="s2">;</span><span class="si">${</span><span class="nv">2</span><span class="si">}</span><span class="s2">H&quot;</span><span class="nv">$3</span>
+<span class="o">}</span>
+
+<span class="nb">echo</span> -ne <span class="s2">&quot;\E[3</span><span class="si">${</span><span class="nv">5</span><span class="si">}</span><span class="s2">m&quot;</span>               <span class="c"># Set box frame color, if defined.</span>
+
+<span class="c"># start drawing the box</span>
+
+<span class="nv">count</span><span class="o">=</span><span class="m">1</span>                                         <span class="c">#  Draw vertical lines using</span>
+<span class="k">for</span> <span class="o">((</span> <span class="nv">r</span><span class="o">=</span><span class="nv">$1</span><span class="p">;</span> count&lt;<span class="o">=</span><span class="nv">$BOX_HEIGHT</span><span class="p">;</span> r++<span class="o">))</span><span class="p">;</span> <span class="k">do</span>      <span class="c">#+ plot_char function.</span>
+  plot_char <span class="nv">$r</span> <span class="nv">$2</span> <span class="nv">$VERT</span>
+  <span class="nb">let </span><span class="nv">count</span><span class="o">=</span>count+1
+<span class="k">done</span>
+
+<span class="nv">count</span><span class="o">=</span>1
+<span class="nv">c</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$2</span> + <span class="nv">$BOX_WIDTH</span><span class="sb">`</span>
+<span class="k">for</span> <span class="o">((</span> <span class="nv">r</span><span class="o">=</span><span class="nv">$1</span><span class="p">;</span> count&lt;<span class="o">=</span><span class="nv">$BOX_HEIGHT</span><span class="p">;</span> r++<span class="o">))</span><span class="p">;</span> <span class="k">do</span>
+  plot_char <span class="nv">$r</span> <span class="nv">$c</span> <span class="nv">$VERT</span>
+  <span class="nb">let </span><span class="nv">count</span><span class="o">=</span>count+1
+<span class="k">done</span>
+
+<span class="nv">count</span><span class="o">=</span><span class="m">1</span>                                        <span class="c">#  Draw horizontal lines using</span>
+<span class="k">for</span> <span class="o">((</span> <span class="nv">c</span><span class="o">=</span><span class="nv">$2</span><span class="p">;</span> count&lt;<span class="o">=</span><span class="nv">$BOX_WIDTH</span><span class="p">;</span> c++<span class="o">))</span><span class="p">;</span> <span class="k">do</span>      <span class="c">#+ plot_char function.</span>
+  plot_char <span class="nv">$1</span> <span class="nv">$c</span> <span class="nv">$HORZ</span>
+  <span class="nb">let </span><span class="nv">count</span><span class="o">=</span>count+1
+<span class="k">done</span>
+
+<span class="nv">count</span><span class="o">=</span>1
+<span class="nv">r</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$1</span> + <span class="nv">$BOX_HEIGHT</span><span class="sb">`</span>
+<span class="k">for</span> <span class="o">((</span> <span class="nv">c</span><span class="o">=</span><span class="nv">$2</span><span class="p">;</span> count&lt;<span class="o">=</span><span class="nv">$BOX_WIDTH</span><span class="p">;</span> c++<span class="o">))</span><span class="p">;</span> <span class="k">do</span>
+  plot_char <span class="nv">$r</span> <span class="nv">$c</span> <span class="nv">$HORZ</span>
+  <span class="nb">let </span><span class="nv">count</span><span class="o">=</span>count+1
+<span class="k">done</span>
+
+plot_char <span class="nv">$1</span> <span class="nv">$2</span> <span class="nv">$CORNER_CHAR</span>                   <span class="c"># Draw box angles.</span>
+plot_char <span class="nv">$1</span> <span class="sb">`</span>expr <span class="nv">$2</span> + <span class="nv">$BOX_WIDTH</span><span class="sb">`</span> <span class="nv">$CORNER_CHAR</span>
+plot_char <span class="sb">`</span>expr <span class="nv">$1</span> + <span class="nv">$BOX_HEIGHT</span><span class="sb">`</span> <span class="nv">$2</span> <span class="nv">$CORNER_CHAR</span>
+plot_char <span class="sb">`</span>expr <span class="nv">$1</span> + <span class="nv">$BOX_HEIGHT</span><span class="sb">`</span> <span class="sb">`</span>expr <span class="nv">$2</span> + <span class="nv">$BOX_WIDTH</span><span class="sb">`</span> <span class="nv">$CORNER_CHAR</span>
+
+<span class="nb">echo</span> -ne <span class="s2">&quot;\E[0m&quot;</span>             <span class="c">#  Restore old colors.</span>
+
+<span class="nv">P_ROWS</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$T_ROWS</span> - 1<span class="sb">`</span>    <span class="c">#  Put the prompt at bottom of the terminal.</span>
+
+<span class="nb">echo</span> -e <span class="s2">&quot;\E[</span><span class="si">${</span><span class="nv">P_ROWS</span><span class="si">}</span><span class="s2">;1H&quot;</span>
+<span class="o">}</span>
+
+
+<span class="c"># Now, let&#39;s try drawing a box.</span>
+clear                       <span class="c"># Clear the terminal.</span>
+<span class="nv">R</span><span class="o">=</span><span class="m">2</span>      <span class="c"># Row</span>
+<span class="nv">C</span><span class="o">=</span><span class="m">3</span>      <span class="c"># Column</span>
+<span class="nv">H</span><span class="o">=</span><span class="m">10</span>     <span class="c"># Height</span>
+<span class="nv">W</span><span class="o">=</span><span class="m">45</span>     <span class="c"># Width</span>
+<span class="nv">col</span><span class="o">=</span><span class="m">1</span>    <span class="c"># Color (red)</span>
+draw_box <span class="nv">$R</span> <span class="nv">$C</span> <span class="nv">$H</span> <span class="nv">$W</span> <span class="nv">$col</span>   <span class="c"># Draw the box.</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># Exercise:</span>
+<span class="c"># --------</span>
+<span class="c"># Add the option of printing text within the drawn box.</span>
+</pre></div>
+</div>
+<p>The simplest, and perhaps most useful ANSI escape sequence is bold text,
+<strong>\033[1m ... \033[0m</strong> . The \033 represents an
+<a class="reference external" href="escapingsection.html#ESCP">escape</a> , the &#8220;[1&#8221; turns on the bold
+attribute, while the &#8220;[0&#8221; switches it off. The &#8220;m&#8221; terminates each term
+of the escape sequence.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo</span> -e <span class="s2">&quot;\033[1mThis is bold text.\033[0m&quot;</span>
+</pre></div>
+</div>
+<p>A similar escape sequence switches on the underline attribute (on an
+<em>rxvt</em> and an <em>aterm</em> ).</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo</span> -e <span class="s2">&quot;\033[4mThis is underlined text.\033[0m&quot;</span>
+</pre></div>
+</div>
+<p><a href="#id1"><span class="problematic" id="id2">|</span></a>Note</p>
+<p>With an <strong>echo</strong> , the ``         -e        `` option enables the escape
+sequences.</p>
+<p>Other escape sequences change the text and/or background color.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo</span> -e <span class="s1">&#39;\E[34;47mThis prints in blue.&#39;</span><span class="p">;</span> tput sgr0
+
+
+bash<span class="nv">$ </span><span class="nb">echo</span> -e <span class="s1">&#39;\E[33;44m&#39;</span><span class="s2">&quot;yellow text on blue background&quot;</span><span class="p">;</span> tput sgr0
+
+
+bash<span class="nv">$ </span><span class="nb">echo</span> -e <span class="s1">&#39;\E[1;33;44m&#39;</span><span class="s2">&quot;BOLD yellow text on blue background&quot;</span><span class="p">;</span> tput sgr0
+</pre></div>
+</div>
+<p><a href="#id3"><span class="problematic" id="id4">|</span></a>Note</p>
+<p>It&#8217;s usually advisable to set the <em>bold</em> attribute for light-colored
+foreground text.</p>
+<p>The <strong>tput sgr0</strong> restores the terminal settings to normal. Omitting
+this lets all subsequent output from that particular terminal remain
+blue.</p>
+<p><a href="#id5"><span class="problematic" id="id6">|</span></a>Note</p>
+<p>Since <strong>tput sgr0</strong> fails to restore terminal settings under certain
+circumstances, <strong>echo -ne \E[0m</strong> may be a better choice.</p>
+<p>Use the following template for writing colored text on a colored
+background.</p>
+<p>``                   echo -e &#8216;E[COLOR1;COLOR2mSome text goes here.&#8217;                 ``</p>
+<p>The &#8220;\E[&#8221; begins the escape sequence. The semicolon-separated numbers
+&#8220;COLOR1&#8221; and &#8220;COLOR2&#8221; specify a foreground and a background color,
+according to the table below. (The order of the numbers does not matter,
+since the foreground and background numbers fall in non-overlapping
+ranges.) The &#8220;m&#8221; terminates the escape sequence, and the text begins
+immediately after that.</p>
+<p>Note also that <a class="reference external" href="varsubn.html#SNGLQUO">single quotes</a> enclose the
+remainder of the command sequence following the <strong>echo -e</strong> .</p>
+<p>The numbers in the following table work for an <em>rxvt</em> terminal. Results
+may vary for other terminal emulators.</p>
+<p><strong>Table 36-1. Numbers representing colors in Escape Sequences</strong></p>
+<p>Color</p>
+<p>Foreground</p>
+<p>Background</p>
+<p>``        black       ``</p>
+<p>30</p>
+<p>40</p>
+<p>``        red       ``</p>
+<p>31</p>
+<p>41</p>
+<p>``        green       ``</p>
+<p>32</p>
+<p>42</p>
+<p>``        yellow       ``</p>
+<p>33</p>
+<p>43</p>
+<p>``        blue       ``</p>
+<p>34</p>
+<p>44</p>
+<p>``        magenta       ``</p>
+<p>35</p>
+<p>45</p>
+<p>``        cyan       ``</p>
+<p>36</p>
+<p>46</p>
+<p>``        white       ``</p>
+<p>37</p>
+<p>47</p>
+</div>
+<div class="section" id="exemple-15-echoing-colored-text">
+<h2>Exemple 15. Echoing colored text<a class="headerlink" href="#exemple-15-echoing-colored-text" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># color-echo.sh: Echoing text messages in color.</span>
+
+<span class="c"># Modify this script for your own purposes.</span>
+<span class="c"># It&#39;s easier than hand-coding color.</span>
+
+<span class="nv">black</span><span class="o">=</span><span class="s1">&#39;\E[30;47m&#39;</span>
+<span class="nv">red</span><span class="o">=</span><span class="s1">&#39;\E[31;47m&#39;</span>
+<span class="nv">green</span><span class="o">=</span><span class="s1">&#39;\E[32;47m&#39;</span>
+<span class="nv">yellow</span><span class="o">=</span><span class="s1">&#39;\E[33;47m&#39;</span>
+<span class="nv">blue</span><span class="o">=</span><span class="s1">&#39;\E[34;47m&#39;</span>
+<span class="nv">magenta</span><span class="o">=</span><span class="s1">&#39;\E[35;47m&#39;</span>
+<span class="nv">cyan</span><span class="o">=</span><span class="s1">&#39;\E[36;47m&#39;</span>
+<span class="nv">white</span><span class="o">=</span><span class="s1">&#39;\E[37;47m&#39;</span>
+
+
+<span class="nb">alias </span><span class="nv">Reset</span><span class="o">=</span><span class="s2">&quot;tput sgr0&quot;</span>      <span class="c">#  Reset text attributes to normal</span>
+                             <span class="c">#+ without clearing screen.</span>
+
+
+cecho <span class="o">()</span>                     <span class="c"># Color-echo.</span>
+                             <span class="c"># Argument $1 = message</span>
+                             <span class="c"># Argument $2 = color</span>
+<span class="o">{</span>
+<span class="nb">local </span><span class="nv">default_msg</span><span class="o">=</span><span class="s2">&quot;No message passed.&quot;</span>
+                             <span class="c"># Doesn&#39;t really need to be a local variable.</span>
+
+<span class="nv">message</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">$default_msg</span><span class="si">}</span>   <span class="c"># Defaults to default message.</span>
+<span class="nv">color</span><span class="o">=</span><span class="si">${</span><span class="nv">2</span><span class="k">:-</span><span class="nv">$black</span><span class="si">}</span>           <span class="c"># Defaults to black, if not specified.</span>
+
+  <span class="nb">echo</span> -e <span class="s2">&quot;</span><span class="nv">$color</span><span class="s2">&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$message</span><span class="s2">&quot;</span>
+  Reset                      <span class="c"># Reset to normal.</span>
+
+  <span class="k">return</span>
+<span class="o">}</span>
+
+
+<span class="c"># Now, let&#39;s try it out.</span>
+<span class="c"># ----------------------------------------------------</span>
+cecho <span class="s2">&quot;Feeling blue...&quot;</span> <span class="nv">$blue</span>
+cecho <span class="s2">&quot;Magenta looks more like purple.&quot;</span> <span class="nv">$magenta</span>
+cecho <span class="s2">&quot;Green with envy.&quot;</span> <span class="nv">$green</span>
+cecho <span class="s2">&quot;Seeing red?&quot;</span> <span class="nv">$red</span>
+cecho <span class="s2">&quot;Cyan, more familiarly known as aqua.&quot;</span> <span class="nv">$cyan</span>
+cecho <span class="s2">&quot;No color passed (defaults to black).&quot;</span>
+       <span class="c"># Missing $color argument.</span>
+cecho <span class="s2">&quot;\&quot;Empty\&quot; color passed (defaults to black).&quot;</span> <span class="s2">&quot;&quot;</span>
+       <span class="c"># Empty $color argument.</span>
+cecho
+       <span class="c"># Missing $message and $color arguments.</span>
+cecho <span class="s2">&quot;&quot;</span> <span class="s2">&quot;&quot;</span>
+       <span class="c"># Empty $message and $color arguments.</span>
+<span class="c"># ----------------------------------------------------</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># Exercises:</span>
+<span class="c"># ---------</span>
+<span class="c"># 1) Add the &quot;bold&quot; attribute to the &#39;cecho ()&#39; function.</span>
+<span class="c"># 2) Add options for colored backgrounds.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-16-a-horserace-game">
+<h2>Exemple 16. A &#8220;horserace&#8221; game<a class="headerlink" href="#exemple-16-a-horserace-game" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># horserace.sh: Very simple horserace simulation.</span>
+<span class="c"># Author: Stefano Palmeri</span>
+<span class="c"># Used with permission.</span>
+
+<span class="c">################################################################</span>
+<span class="c">#  Goals of the script:</span>
+<span class="c">#  playing with escape sequences and terminal colors.</span>
+<span class="c">#</span>
+<span class="c">#  Exercise:</span>
+<span class="c">#  Edit the script to make it run less randomly,</span>
+<span class="c">#+ set up a fake betting shop . . .</span>
+<span class="c">#  Um . . . um . . . it&#39;s starting to remind me of a movie . . .</span>
+<span class="c">#</span>
+<span class="c">#  The script gives each horse a random handicap.</span>
+<span class="c">#  The odds are calculated upon horse handicap</span>
+<span class="c">#+ and are expressed in European(?) style.</span>
+<span class="c">#  E.g., odds=3.75 means that if you bet $1 and win,</span>
+<span class="c">#+ you receive $3.75.</span>
+<span class="c">#</span>
+<span class="c">#  The script has been tested with a GNU/Linux OS,</span>
+<span class="c">#+ using xterm and rxvt, and konsole.</span>
+<span class="c">#  On a machine with an AMD 900 MHz processor,</span>
+<span class="c">#+ the average race time is 75 seconds.</span>
+<span class="c">#  On faster computers the race time would be lower.</span>
+<span class="c">#  So, if you want more suspense, reset the USLEEP_ARG variable.</span>
+<span class="c">#</span>
+<span class="c">#  Script by Stefano Palmeri.</span>
+<span class="c">################################################################</span>
+
+<span class="nv">E_RUNERR</span><span class="o">=</span>65
+
+<span class="c"># Check if md5sum and bc are installed.</span>
+<span class="k">if</span> ! which bc <span class="p">&amp;</span>&gt; /dev/null<span class="p">;</span> <span class="k">then</span>
+   <span class="nb">echo </span>bc is not installed.
+   <span class="nb">echo</span> <span class="s2">&quot;Can\&#39;t run . . . &quot;</span>
+   <span class="nb">exit</span> <span class="nv">$E_RUNERR</span>
+<span class="k">fi</span>
+<span class="k">if</span> ! which md5sum <span class="p">&amp;</span>&gt; /dev/null<span class="p">;</span> <span class="k">then</span>
+   <span class="nb">echo </span>md5sum is not installed.
+   <span class="nb">echo</span> <span class="s2">&quot;Can\&#39;t run . . . &quot;</span>
+   <span class="nb">exit</span> <span class="nv">$E_RUNERR</span>
+<span class="k">fi</span>
+
+<span class="c">#  Set the following variable to slow down script execution.</span>
+<span class="c">#  It will be passed as the argument for usleep (man usleep)</span>
+<span class="c">#+ and is expressed in microseconds (500000 = half a second).</span>
+<span class="nv">USLEEP_ARG</span><span class="o">=</span>0
+
+<span class="c">#  Clean up the temp directory, restore terminal cursor and</span>
+<span class="c">#+ terminal colors -- if script interrupted by Ctl-C.</span>
+<span class="nb">trap</span> <span class="s1">&#39;echo -en &quot;\E[?25h&quot;; echo -en &quot;\E[0m&quot;; stty echo;\</span>
+<span class="s1">tput cup 20 0; rm -fr  $HORSE_RACE_TMP_DIR&#39;</span>  TERM EXIT
+<span class="c">#  See the chapter on debugging for an explanation of &#39;trap.&#39;</span>
+
+<span class="c"># Set a unique (paranoid) name for the temp directory the script needs.</span>
+<span class="nv">HORSE_RACE_TMP_DIR</span><span class="o">=</span><span class="nv">$HOME</span>/.horserace-<span class="sb">`</span>date +%s<span class="sb">`</span>-<span class="sb">`</span>head -c10 /dev/urandom <span class="se">\</span>
+</pre></div>
+</div>
+<p>md5sum | head -c30`</p>
+<blockquote>
+<div><p># Create the temp directory and move right in.
+mkdir $HORSE_RACE_TMP_DIR
+cd $HORSE_RACE_TMP_DIR</p>
+<p>#  This function moves the cursor to line $1 column $2 and then prints $3.
+#  E.g.: &#8220;move_and_echo 5 10 linux&#8221; is equivalent to
+#+ &#8220;tput cup 4 9; echo linux&#8221;, but with one command instead of two.
+#  Note: &#8220;tput cup&#8221; defines 0 0 the upper left angle of the terminal,
+#+ echo defines 1 1 the upper left angle of the terminal.
+move_and_echo() {</p>
+<blockquote>
+<div>echo -ne &#8220;E[${1};${2}H&#8221;&#8220;$3&#8221;</div></blockquote>
+<p>}</p>
+<p># Function to generate a pseudo-random number between 1 and 9.
+random_1_9 ()
+{</p>
+<blockquote>
+<div>head -c10 /dev/urandommd5sum | tr -d [a-z] | tr -d 0 | cut -c1</div></blockquote>
+<p>}</p>
+<p>#  Two functions that simulate &#8220;movement,&#8221; when drawing the horses.
+draw_horse_one() {</p>
+<blockquote>
+<div>echo -n &#8221; &#8220;//$MOVE_HORSE//</div></blockquote>
+<p>}
+draw_horse_two(){</p>
+<blockquote>
+<div>echo -n &#8221; &#8220;\\$MOVE_HORSE\\</div></blockquote>
+<p>}</p>
+<p># Define current terminal dimension.
+N_COLS=`tput cols`
+N_LINES=`tput lines`</p>
+<p># Need at least a 20-LINES X 80-COLUMNS terminal. Check it.
+if [ $N_COLS -lt 80 ] <a href="#id7"><span class="problematic" id="id8">|</span></a>[ $N_LINES -lt 20 ]; then</p>
+<blockquote>
+<div>echo &#8220;<cite>basename $0</cite> needs a 80-cols X 20-lines terminal.&#8221;
+echo &#8220;Your terminal is ${N_COLS}-cols X ${N_LINES}-lines.&#8221;
+exit $E_RUNERR</div></blockquote>
+<p>fi</p>
+<p># Start drawing the race field.</p>
+<p># Need a string of 80 chars. See below.
+BLANK80=`seq -s &#8220;&#8221; 100head -c80`</p>
+<p>clear</p>
+<p># Set foreground and background colors to white.
+echo -ne &#8216;E[37;47m&#8217;</p>
+<p># Move the cursor on the upper left angle of the terminal.
+tput cup 0 0</p>
+<p># Draw six white lines.
+for n in <cite>seq 5</cite>; do</p>
+<blockquote>
+<div>echo $BLANK80   # Use the 80 chars string to colorize the terminal.</div></blockquote>
+<p>done</p>
+<p># Sets foreground color to black.
+echo -ne &#8216;E[30m&#8217;</p>
+<p>move_and_echo 3 1 &#8220;START  1&#8221;
+move_and_echo 3 75 FINISH
+move_and_echo 1 5 &#8220;|&#8221;
+move_and_echo 1 80 &#8220;|&#8221;
+move_and_echo 2 5 &#8220;|&#8221;
+move_and_echo 2 80 &#8220;|&#8221;
+move_and_echo 4 5 &#8221; 2&#8221;
+move_and_echo 4 80 &#8220;|&#8221;
+move_and_echo 5 5 &#8220;V  3&#8221;
+move_and_echo 5 80 &#8220;V&#8221;</p>
+<p># Set foreground color to red.
+echo -ne &#8216;E[31m&#8217;</p>
+<p># Some ASCII art.
+move_and_echo 1 8 &#8221;..&#64;&#64;&#64;..&#64;&#64;&#64;&#64;&#64;...&#64;&#64;&#64;&#64;&#64;.&#64;...&#64;..&#64;&#64;&#64;&#64;...&#8221;
+move_and_echo 2 8 &#8221;.&#64;...&#64;...&#64;.......&#64;...&#64;...&#64;.&#64;.......&#8221;
+move_and_echo 3 8 &#8221;.&#64;&#64;&#64;&#64;&#64;...&#64;.......&#64;...&#64;&#64;&#64;&#64;&#64;.&#64;&#64;&#64;&#64;....&#8221;
+move_and_echo 4 8 &#8221;.&#64;...&#64;...&#64;.......&#64;...&#64;...&#64;.&#64;.......&#8221;
+move_and_echo 5 8 &#8221;.&#64;...&#64;...&#64;.......&#64;...&#64;...&#64;..&#64;&#64;&#64;&#64;...&#8221;
+move_and_echo 1 43 &#8220;&#64;&#64;&#64;&#64;...&#64;&#64;&#64;...&#64;&#64;&#64;&#64;..&#64;&#64;&#64;&#64;..&#64;&#64;&#64;&#64;.&#8221;
+move_and_echo 2 43 &#8220;&#64;...&#64;.&#64;...&#64;.&#64;.....&#64;.....&#64;.....&#8221;
+move_and_echo 3 43 &#8220;&#64;&#64;&#64;&#64;..&#64;&#64;&#64;&#64;&#64;.&#64;.....&#64;&#64;&#64;&#64;...&#64;&#64;&#64;..&#8221;
+move_and_echo 4 43 &#8220;&#64;..&#64;..&#64;...&#64;.&#64;.....&#64;.........&#64;.&#8221;
+move_and_echo 5 43 &#8220;&#64;...&#64;.&#64;...&#64;..&#64;&#64;&#64;&#64;..&#64;&#64;&#64;&#64;.&#64;&#64;&#64;&#64;..&#8221;</p>
+<p># Set foreground and background colors to green.
+echo -ne &#8216;E[32;42m&#8217;</p>
+<p># Draw  eleven green lines.
+tput cup 5 0
+for n in <cite>seq 11</cite>; do</p>
+<blockquote>
+<div>echo $BLANK80</div></blockquote>
+<p>done</p>
+<p># Set foreground color to black.
+echo -ne &#8216;E[30m&#8217;
+tput cup 5 0</p>
+<p># Draw the fences.
+echo &#8220;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++&#8221;</p>
+<p>tput cup 15 0
+echo &#8220;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++&#8221;</p>
+<p># Set foreground and background colors to white.
+echo -ne &#8216;E[37;47m&#8217;</p>
+<p># Draw three white lines.
+for n in <cite>seq 3</cite>; do</p>
+<blockquote>
+<div>echo $BLANK80</div></blockquote>
+<p>done</p>
+<p># Set foreground color to black.
+echo -ne &#8216;E[30m&#8217;</p>
+<p># Create 9 files to stores handicaps.
+for n in <cite>seq 10 7 68</cite>; do</p>
+<blockquote>
+<div>touch $n</div></blockquote>
+<p>done</p>
+<p># Set the first type of &#8220;horse&#8221; the script will draw.
+HORSE_TYPE=2</p>
+<p>#  Create position-file and odds-file for every &#8220;horse&#8221;.
+#+ In these files, store the current position of the horse,
+#+ the type and the odds.
+for HN in <cite>seq 9</cite>; do</p>
+<blockquote>
+<div><p>touch horse_${HN}_position
+touch odds_${HN}
+echo -1 &gt; horse_${HN}_position
+echo $HORSE_TYPE &gt;&gt;  horse_${HN}_position
+# Define a random handicap for horse.</p>
+<blockquote>
+<div>HANDICAP=`random_1_9`</div></blockquote>
+<p># Check if the random_1_9 function returned a good value.
+while ! echo $HANDICAPgrep [1-9] &amp;&gt; /dev/null; do</p>
+<blockquote>
+<div>HANDICAP=`random_1_9`</div></blockquote>
+<p>done
+# Define last handicap position for horse.
+LHP=`expr $HANDICAP * 7 + 3`
+for FILE in <cite>seq 10 7 $LHP</cite>; do</p>
+<blockquote>
+<div>echo $HN &gt;&gt; $FILE</div></blockquote>
+<p>done</p>
+<p># Calculate odds.
+case $HANDICAP in</p>
+<blockquote>
+<div><ol class="arabic">
+<li><dl class="first docutils">
+<dt>ODDS=`echo $HANDICAP * 0.25 + 1.25bc`</dt>
+<dd><p class="first last">echo $ODDS &gt; odds_${HN}</p>
+</dd>
+</dl>
+</li>
+</ol>
+<p>;;
+23) ODDS=`echo $HANDICAP * 0.40 + 1.25 | bc`</p>
+<blockquote>
+<div>echo $ODDS &gt; odds_${HN}</div></blockquote>
+<p>;;
+45 | 6) ODDS=`echo $HANDICAP * 0.55 + 1.25 | bc`</p>
+<blockquote>
+<div>echo $ODDS &gt; odds_${HN}</div></blockquote>
+<p>;;
+78) ODDS=`echo $HANDICAP * 0.75 + 1.25 | bc`</p>
+<blockquote>
+<div>echo $ODDS &gt; odds_${HN}</div></blockquote>
+<p>;;
+9) ODDS=`echo $HANDICAP * 0.90 + 1.25bc`</p>
+<blockquote>
+<div>echo $ODDS &gt; odds_${HN}</div></blockquote>
+</div></blockquote>
+<p>esac</p>
+</div></blockquote>
+<p>done</p>
+<p># Print odds.
+print_odds() {
+tput cup 6 0
+echo -ne &#8216;E[30;42m&#8217;
+for HN in <cite>seq 9</cite>; do</p>
+<blockquote>
+<div>echo &#8220;#$HN odds-&gt;&#8221; <cite>cat odds_${HN}</cite></div></blockquote>
+<p>done
+}</p>
+<p># Draw the horses at starting line.
+draw_horses() {
+tput cup 6 0
+echo -ne &#8216;E[30;42m&#8217;
+for HN in <cite>seq 9</cite>; do</p>
+<blockquote>
+<div>echo /\$HN/\&#8221;                               &#8220;</div></blockquote>
+<p>done
+}</p>
+<p>print_odds</p>
+<p>echo -ne &#8216;E[47m&#8217;
+# Wait for a enter key press to start the race.
+# The escape sequence &#8216;E[?25l&#8217; disables the cursor.
+tput cup 17 0
+echo -e &#8216;E[?25l&#8217;Press [enter] key to start the race...
+read -s</p>
+<p>#  Disable normal echoing in the terminal.
+#  This avoids key presses that might &#8220;contaminate&#8221; the screen
+#+ during the race.
+stty -echo</p>
+<p># &#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;
+# Start the race.</p>
+<p>draw_horses
+echo -ne &#8216;E[37;47m&#8217;
+move_and_echo 18 1 $BLANK80
+echo -ne &#8216;E[30m&#8217;
+move_and_echo 18 1 Starting...
+sleep 1</p>
+<p># Set the column of the finish line.
+WINNING_POS=74</p>
+<p># Define the time the race started.
+START_TIME=`date +%s`</p>
+<p># COL variable needed by following &#8220;while&#8221; construct.
+COL=0</p>
+<p>while [ $COL -lt $WINNING_POS ]; do</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote>
+<div><p>MOVE_HORSE=0</p>
+<p># Check if the random_1_9 function has returned a good value.
+while ! echo $MOVE_HORSEgrep [1-9] &amp;&gt; /dev/null; do</p>
+<blockquote>
+<div>MOVE_HORSE=`random_1_9`</div></blockquote>
+<p>done</p>
+<p># Define old type and position of the &#8220;randomized horse&#8221;.
+HORSE_TYPE=`cat  horse_${MOVE_HORSE}_positiontail -n 1`
+COL=$(expr <cite>cat  horse_${MOVE_HORSE}_positionhead -n 1</cite>)</p>
+<p>ADD_POS=1
+# Check if the current position is an handicap position.
+if seq 10 7 68grep -w $COL &amp;&gt; /dev/null; then</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>if grep -w $MOVE_HORSE $COL &amp;&gt; /dev/null; then</dt>
+<dd>ADD_POS=0
+grep -v -w  $MOVE_HORSE $COL &gt; ${COL}_new
+rm -f $COL
+mv -f ${COL}_new $COL
+else ADD_POS=1</dd>
+</dl>
+<p>fi</p>
+</div></blockquote>
+<p>else ADD_POS=1
+fi
+COL=`expr $COL + $ADD_POS`
+echo $COL &gt;  horse_${MOVE_HORSE}_position  # Store new position.</p>
+</div></blockquote>
+<dl class="docutils">
+<dt># Choose the type of horse to draw.</dt>
+<dd><dl class="first docutils">
+<dt>case $HORSE_TYPE in</dt>
+<dd>1) HORSE_TYPE=2; DRAW_HORSE=draw_horse_two
+;;
+2) HORSE_TYPE=1; DRAW_HORSE=draw_horse_one</dd>
+</dl>
+<p>esac
+echo $HORSE_TYPE &gt;&gt;  horse_${MOVE_HORSE}_position
+# Store current type.</p>
+<p># Set foreground color to black and background to green.
+echo -ne &#8216;E[30;42m&#8217;</p>
+<p class="last"># Move the cursor to new horse position.
+tput cup <cite>expr $MOVE_HORSE + 5</cite> </p>
+</dd>
+</dl>
+</div></blockquote>
+<p><cite>cat  horse_${MOVE_HORSE}_positionhead -n 1</cite></p>
+<blockquote>
+<div><p># Draw the horse.
+$DRAW_HORSE</p>
+<blockquote>
+<div><p>usleep $USLEEP_ARG</p>
+<p># When all horses have gone beyond field line 15, reprint odds.
+touch fieldline15
+if [ $COL = 15 ]; then</p>
+<blockquote>
+<div>echo $MOVE_HORSE &gt;&gt; fieldline15</div></blockquote>
+<p>fi
+if [ <cite>wc -l fieldline15cut -f1 -d &#8221; &#8220;</cite> = 9 ]; then</p>
+<blockquote>
+<div>print_odds
+: &gt; fieldline15</div></blockquote>
+<p>fi</p>
+</div></blockquote>
+<p># Define the leading horse.
+HIGHEST_POS=`cat <a href="#id9"><span class="problematic" id="id10">*</span></a>positionsort -n | tail -1`</p>
+<p># Set background color to white.
+echo -ne &#8216;E[47m&#8217;
+tput cup 17 0
+echo -n Current leader: <cite>grep -w $HIGHEST_POS *positioncut -c7</cite></p>
+</div></blockquote>
+<p>&#8221;                              &#8220;</p>
+</div></blockquote>
+<p>done</p>
+<p># Define the time the race finished.
+FINISH_TIME=`date +%s`</p>
+<p># Set background color to green and enable blinking text.
+echo -ne &#8216;E[30;42m&#8217;
+echo -en &#8216;E[5m&#8217;</p>
+<p># Make the winning horse blink.
+tput cup <cite>expr $MOVE_HORSE + 5</cite> <cite>cat  horse_${MOVE_HORSE}_positionhead -n 1</cite>
+$DRAW_HORSE</p>
+<p># Disable blinking text.
+echo -en &#8216;E[25m&#8217;</p>
+<p># Set foreground and background color to white.
+echo -ne &#8216;E[37;47m&#8217;
+move_and_echo 18 1 $BLANK80</p>
+<p># Set foreground color to black.
+echo -ne &#8216;E[30m&#8217;</p>
+<p># Make winner blink.
+tput cup 17 0
+echo -e &#8220;E[5mWINNER: $MOVE_HORSEE[25m&#8221;&#8221;  Odds: <cite>cat odds_${MOVE_HORSE}</cite>&#8220;&#8221;  Race time: <cite>expr $FINISH_TIME - $START_TIME</cite> secs&#8221;</p>
+<p># Restore cursor and old colors.
+echo -en &#8220;E[?25h&#8221;
+echo -en &#8220;E[0m&#8221;</p>
+<p># Restore echoing.
+stty echo</p>
+<p># Remove race temp directory.
+rm -rf $HORSE_RACE_TMP_DIR</p>
+<p>tput cup 19 0</p>
+<p>exit 0</p>
+</div></blockquote>
+<p>See also <a class="reference external" href="contributed-scripts.html#HASHEXAMPLE">Example A-21</a> ,
+<a class="reference external" href="contributed-scripts.html#HOMEWORK">Example A-44</a> , <a class="reference external" href="contributed-scripts.html#SHOWALLC">Example
+A-52</a> , and <a class="reference external" href="contributed-scripts.html#PETALS">Example
+A-40</a> .</p>
+<p><a href="#id11"><span class="problematic" id="id12">|</span></a>Caution</p>
+<p>There is, however, a major problem with all this. <em>ANSI escape sequences
+are emphatically `non-portable &lt;portabilityissues.html&gt;`__ .</em> What works
+fine on some terminal emulators (or the console) may work differently,
+or not at all, on others. A &#8220;colorized&#8221; script that looks stunning on
+the script author&#8217;s machine may produce unreadable output on someone
+else&#8217;s. This somewhat compromises the usefulness of colorizing scripts,
+and possibly relegates this technique to the status of a gimmick.
+Colorized scripts are probably inappropriate in a commercial setting,
+i.e., your supervisor might disapprove.</p>
+<p>Alister&#8217;s <a class="reference external" href="http://code.google.com/p/ansi-color/">ansi-color</a> utility
+(based on <a class="reference external" href="http://bash.deta.in/color-1.1.tar.gz">Moshe Jacobson&#8217;s color
+utility</a> considerably
+simplifies using ANSI escape sequences. It substitutes a clean and
+logical syntax for the clumsy constructs just discussed.</p>
+<p>Henry/teikedvl has likewise created a utility (
+<a class="reference external" href="http://scriptechocolor.sourceforge.net/">http://scriptechocolor.sourceforge.net/</a> ) to simplify creation of
+colorized scripts.</p>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;colorizing.html#AEN20259&gt;`__</p>
+<blockquote>
+<div>ANSI is, of course, the acronym for the American National Standards</div></blockquote>
+<p>Institute. This august body establishes and maintains various technical
+and industrial standards.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

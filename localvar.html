@@ -1,0 +1,1312 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Local Variables &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX Local Variables</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-local-variables">
+<h1>XXX Local Variables<a class="headerlink" href="#xxx-local-variables" title="Link permanent a aquest títol">¶</a></h1>
+<p><strong>What makes a variable *local*?</strong></p>
+<dl class="docutils">
+<dt>local variables</dt>
+<dd>A variable declared as <em>local</em> is one that is visible only within
+the <a class="reference external" href="special-chars.html#CODEBLOCKREF">block of code</a> in which it
+appears. It has local <a class="reference external" href="subshells.html#SCOPEREF">scope</a>. In a
+function, a <em>local variable</em> has meaning only within that function
+block. <a class="reference external" href="localvar.html#FTN.AEN18568">[1]</a></dd>
+</dl>
+<div class="section" id="exemple-12-local-variable-visibility">
+<h2>Exemple 12. Local variable visibility<a class="headerlink" href="#exemple-12-local-variable-visibility" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># ex62.sh: Global and local variables inside a function.</span>
+
+func <span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">local </span><span class="nv">loc_var</span><span class="o">=</span><span class="m">23</span>       <span class="c"># Declared as local variable.</span>
+  <span class="nb">echo</span>                   <span class="c"># Uses the &#39;local&#39; builtin.</span>
+  <span class="nb">echo</span> <span class="s2">&quot;\&quot;loc_var\&quot; in function = </span><span class="nv">$loc_var</span><span class="s2">&quot;</span>
+  <span class="nv">global_var</span><span class="o">=</span><span class="m">999</span>         <span class="c"># Not declared as local.</span>
+                         <span class="c"># Therefore, defaults to global.</span>
+  <span class="nb">echo</span> <span class="s2">&quot;\&quot;global_var\&quot; in function = </span><span class="nv">$global_var</span><span class="s2">&quot;</span>
+<span class="o">}</span>
+
+func
+
+<span class="c"># Now, to see if local variable &quot;loc_var&quot; exists outside the functio n.</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;\&quot;loc_var\&quot; outside function = </span><span class="nv">$loc_var</span><span class="s2">&quot;</span>
+                                      <span class="c"># $loc_var outside function =</span>
+                                      <span class="c"># No, $loc_var not visible glo bally.</span>
+<span class="nb">echo</span> <span class="s2">&quot;\&quot;global_var\&quot; outside function = </span><span class="nv">$global_var</span><span class="s2">&quot;</span>
+                                      <span class="c"># $global_var outside function = 999</span>
+                                      <span class="c"># $global_var is visible globa lly.</span>
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+<span class="c">#  In contrast to C, a Bash variable declared inside a function</span>
+<span class="c">#+ is local ONLY if declared as such.</span>
+</pre></div>
+</div>
+<p>Caution
+Before a function is
+called, <em>all</em> variables
+declared within the
+function are invisible
+outside the body of the
+function, not just those
+explicitly declared as
+<em>local</em>.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+
+
+
+
+
+
+func <span class="o">()</span>
+
+
+
+<span class="o">{</span>
+
+
+
+<span class="nv">global_var</span><span class="o">=</span><span class="m">37</span>    <span class="c">#</span>
+     Visible only within th
+   e <span class="k">function</span> block
+
+                         <span class="c">#</span>
+   + before the <span class="k">function</span> ha
+   s been called.
+
+        <span class="o">}</span>                <span class="c">#</span>
+     END OF FUNCTION
+
+
+
+
+
+
+<span class="nb">echo</span> <span class="s2">&quot;global_var =</span>
+<span class="nv">$global_var</span><span class="s2">&quot;</span>  <span class="c"># global_</span>
+   <span class="nv">var</span> <span class="o">=</span>
+
+
+          <span class="c">#  Functi on &quot;func&quot; has not yet be en called,</span>
+
+
+
+
+          <span class="c">#+ so $gl obal_var is not visible he re.</span>
+
+
+
+
+
+
+
+func
+
+
+
+<span class="nb">echo</span> <span class="s2">&quot;global_var = </span><span class="nv">$global_var</span><span class="s2">&quot;</span>  <span class="c"># global_ var = 37</span>
+
+          <span class="c"># Has bee n set by function call.</span>
+</pre></div>
+</div>
+<p>Note</p>
+<p>As Evgeniy Ivanov points out, when declaring and setting a local variable in a single command, apparently the order of operations is to <em>first set the variable, and only afterwards restrict it to local scope</em>.  This is reflected in the <a class="reference external" href="exit-status.html#EXITSTATUSREF">return value</a>.</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/b ash</span>
+
+
+
+
+
+
+
+
+
+
+<span class="nb">echo</span> <span class="s2">&quot;== OUTSIDE Functi on (global)==&quot;</span>
+
+
+
+<span class="nv">t</span><span class="o">=</span><span class="k">$(</span><span class="nb">exit </span>1<span class="k">)</span>
+
+
+
+
+<span class="nb">echo</span> <span class="nv">$?</span>
+<span class="c"># 1</span>
+
+
+
+
+
+<span class="c"># As expe cted.</span>
+
+
+
+<span class="nb">echo</span>
+
+
+
+
+
+
+
+
+
+
+
+<span class="k">function</span> <span class="m">0</span> <span class="o">()</span>
+
+
+
+
+<span class="o">{</span>
+
+
+
+
+
+
+
+
+
+
+
+<span class="nb">echo</span> <span class="s2">&quot;== INSIDE Functio n==&quot;</span>
+
+
+
+<span class="nb">echo</span> <span class="s2">&quot;Gl obal&quot;</span>
+
+
+
+
+<span class="nv">t0</span><span class="o">=</span><span class="k">$(</span>exi t 1<span class="k">)</span>
+
+
+
+
+<span class="nb">echo</span> <span class="nv">$?</span>
+<span class="c"># 1</span>
+
+
+
+
+
+<span class="c"># As expe cted.</span>
+
+
+
+
+
+
+
+
+
+<span class="nb">echo</span>
+
+
+
+
+
+<span class="nb">echo</span> <span class="s2">&quot;Lo cal declared &amp; assigned in s ame command.&quot;</span>
+
+
+<span class="nb">local </span><span class="nv">t1</span> <span class="o">=</span><span class="k">$(</span><span class="nb">exit </span>1<span class="k">)</span>
+
+
+
+<span class="nb">echo</span> <span class="nv">$?</span>
+<span class="c"># 0</span>
+
+
+
+
+
+<span class="c"># Unexpec ted!</span>
+
+
+
+<span class="c">#  Appar ently, the var iable assignme nt takes place before</span>
+
+<span class="c">#+ the l ocal declarati on.</span>
+
+
+
+<span class="c">#+ The r eturn value is for the latte r.</span>
+
+
+
+
+
+
+
+
+<span class="nb">echo</span>
+
+
+
+
+
+<span class="nb">echo</span> <span class="s2">&quot;Lo cal declared, then assigned (separate comm ands).&quot;</span> <span class="nb">local </span>t2 <span class="nv">t2</span><span class="o">=</span><span class="k">$(</span>exi t 1<span class="k">)</span> <span class="nb">echo</span> <span class="nv">$?</span>  <span class="c"># 1 # As expe cted.</span>
+
+
+
+
+
+
+
+
+
+<span class="o">}</span>
+
+
+
+
+
+
+
+
+
+
+
+<span class="k">function</span> 0
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<div class="section" id="local-variables-and-recursion">
+<h3>24.2.1. Local variables and recursion.<a class="headerlink" href="#local-variables-and-recursion" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div><p><em>Recur sion</em> is an intere sting and someti mes useful form of <em>self- refere nce</em>.  <a class="reference external" href="biblio.html#MAYERREF">Herbe rt Mayer</a> _ define s it as &#8221;. . .  expres sing an algori thm by using a simple r versio n of that same algori thm . . .&#8221;</p>
+<p>Consid er a defini tion define d in terms of itself , <a href="#id1"><span class="problematic" id="id2">`[2] &lt; localv ar.htm l#FTN.  AEN186 07&gt;`__</span></a> an expres sion implic it in its own expres sion, <a href="#id1"><span class="problematic" id="id3">`[3] &lt; localv ar.htm l#FTN.  AEN186 10&gt;`__</span></a> <em>a snake swallo wing its own tail</em>, <a href="#id1"><span class="problematic" id="id4">`[4] &lt; localv ar.htm l#FTN.  AEN186 14&gt;`__</span></a> or . .  . a functi on that calls itself .  <a href="#id1"><span class="problematic" id="id5">`[5] &lt; localv ar.htm l#FTN.  AEN186 17&gt;`__</span></a></p>
+<p><strong>Exam ple 24-13.  Demons tratio n of a simple recurs ive functi on</strong></p>
+</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre>    #!/bin
+    /bash
+
+
+
+
+
+
+
+
+
+
+
+    # recu
+    rsion-
+    demo.s
+    h
+
+
+
+
+
+
+
+
+
+    # Demo
+    nstrat
+    ion of
+     recur
+    sion.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    RECURS
+    IONS=9
+       # H
+    ow man
+    y time
+    s to r
+    ecurse
+    .
+
+
+
+
+
+     r_coun
+     t=0
+        # M
+     ust be
+      globa
+     l. Why
+     ?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     recurs
+     e ()
+
+
+
+
+
+
+
+
+
+
+
+     {
+
+
+
+
+
+
+
+
+
+
+
+
+       var=
+     &quot;$1&quot;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       whil
+     e [ &quot;$
+     var&quot; -
+     ge 0 ]
+
+
+
+
+
+
+
+
+
+       do
+
+
+
+
+
+
+
+
+
+
+
+
+         ec
+     ho &quot;Re
+     cursio
+     n coun
+     t = &quot;$
+     r_coun
+     t&quot;  +-
+     +  \$v
+     ar = &quot;
+     $var&quot;&quot;
+
+
+
+         ((
+      var--
+      )); (
+     ( r_co
+     unt++
+     ))
+
+
+
+
+
+
+
+         re
+     curse
+     &quot;$var&quot;
+       #  F
+     unctio
+     n call
+     s itse
+     lf (re
+     curses
+     )
+
+
+
+       done
+
+
+       #+ u
+     ntil w
+     hat co
+     nditio
+     n is m
+     et?
+
+
+
+
+     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     recurs
+     e $REC
+     URSION
+     S
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     exit $
+     ?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**Exam
+ple
+24-14.
+Anothe
+r
+simple
+demons
+tratio
+n**
+
++-----
+------
+------
+------
+------
+------
+------
+------
+------
+------
+------
+------
+---+
+ .. c
+ode::
+PROGRA
+MLISTI
+NG
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#!/bin
+/bash
+
+
+
+
+
+
+
+
+
+
+
+# recu
+rsion-
+def.sh
+
+
+
+
+
+
+
+
+
+
+# A sc
+ript t
+hat de
+fines
+&quot;recur
+sion&quot;
+in a r
+ather
+graphi
+c way.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+RECURS
+IONS=1
+0
+
+
+
+
+
+
+
+
+
+
+r_coun
+t=0
+
+
+
+
+
+
+
+
+
+
+
+sp=&quot; &quot;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+define
+_recur
+sion (
+)
+
+
+
+
+
+
+
+
+
+{
+
+
+
+
+
+
+
+
+
+
+
+
+  ((r_
+count+
++))
+
+
+
+
+
+
+
+
+
+
+  sp=&quot;
+$sp&quot;&quot;
+&quot;
+
+
+
+
+
+
+
+
+
+
+  echo
+ -n &quot;$
+sp&quot;
+
+
+
+
+
+
+
+
+
+
+  echo
+ &quot;\&quot;Th
+e act
+of rec
+urring
+ ... \
+&quot;&quot;   #
+ Per 1
+913 We
+bster&#39;
+s dict
+io
+ nary
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  whil
+e [ $r
+_count
+ -le $
+RECURS
+IONS ]
+
+
+
+
+
+
+
+  do
+
+
+
+
+
+
+
+
+
+
+
+
+    de
+fine_r
+ecursi
+on
+
+
+
+
+
+
+
+
+
+  done
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+echo
+
+
+
+
+
+
+
+
+
+
+
+
+echo &quot;
+Recurs
+ion: &quot;
+
+
+
+
+
+
+
+
+
+
+define
+_recur
+sion
+
+
+
+
+
+
+
+
+
+
+echo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+exit $
+?
+</pre></div>
+</div>
+<p>Local variables are a useful tool for writing recursive code, but this
+practice generally involves a great deal of computational overhead and
+is definitely <em>not</em> recommended in a shell script.
+<a class="reference external" href="localvar.html#FTN.AEN18632">[6]</a></p>
+</div>
+</div>
+<div class="section" id="exemple-15-recursion-using-a-local-variable">
+<h2>Exemple 15. Recursion, using a local variable<a class="headerlink" href="#exemple-15-recursion-using-a-local-variable" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c">#               factorial</span>
+<span class="c">#               ---------</span>
+
+
+<span class="c"># Does bash permit recursion?</span>
+<span class="c"># Well, yes, but...</span>
+<span class="c"># It&#39;s so slow that you gotta have rocks in your head to try it.</span>
+
+
+<span class="nv">MAX_ARG</span><span class="o">=</span>5
+<span class="nv">E_WRONG_ARGS</span><span class="o">=</span>85
+<span class="nv">E_RANGE_ERR</span><span class="o">=</span>86
+
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` number&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_WRONG_ARGS</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> -gt <span class="nv">$MAX_ARG</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Out of range (</span><span class="nv">$MAX_ARG</span><span class="s2"> is maximum).&quot;</span>
+  <span class="c">#  Let&#39;s get real now.</span>
+  <span class="c">#  If you want greater range than this,</span>
+  <span class="c">#+ rewrite it in a Real Programming Language.</span>
+  <span class="nb">exit</span> <span class="nv">$E_RANGE_ERR</span>
+<span class="k">fi</span>
+
+fact <span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">local </span><span class="nv">number</span><span class="o">=</span><span class="nv">$1</span>
+  <span class="c">#  Variable &quot;number&quot; must be declared as local,</span>
+  <span class="c">#+ otherwise this doesn&#39;t work.</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$number</span><span class="s2">&quot;</span> -eq <span class="m">0</span> <span class="o">]</span>
+  <span class="k">then</span>
+    <span class="nv">factorial</span><span class="o">=</span><span class="m">1</span>    <span class="c"># Factorial of 0 = 1.</span>
+  <span class="k">else</span>
+    <span class="nb">let</span> <span class="s2">&quot;decrnum = number - 1&quot;</span>
+    fact <span class="nv">$decrnum</span>  <span class="c"># Recursive function call (the function calls its elf).</span>
+    <span class="nb">let</span> <span class="s2">&quot;factorial = </span><span class="nv">$number</span><span class="s2"> * </span><span class="nv">$?</span><span class="s2">&quot;</span>
+  <span class="k">fi</span>
+
+  <span class="k">return</span> <span class="nv">$factorial</span>
+<span class="o">}</span>
+
+fact <span class="nv">$1</span>
+<span class="nb">echo</span> <span class="s2">&quot;Factorial of </span><span class="nv">$1</span><span class="s2"> is </span><span class="nv">$?</span><span class="s2">.&quot;</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<p>Also see <a class="reference external" href="contributed-scripts.html#PRIMES">Example A-15</a> for an
+example of recursion in a script. Be aware that recursion is
+resource-intensive and executes slowly, and is therefore generally not
+appropriate in a script.</p>
+<p><a class="reference external" href="localvar.html#AEN18568">[1]</a></p>
+<p>However, as Thomas Braunberger points out, a local variable declared in
+a function <em>is also visible to functions called by the parent function.</em></p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+function1 <span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">local </span><span class="nv">func1var</span><span class="o">=</span>20
+
+  <span class="nb">echo</span> <span class="s2">&quot;Within function1, \$func1var = </span><span class="nv">$func1var</span><span class="s2">.&quot;</span>
+
+  function2
+<span class="o">}</span>
+
+function2 <span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Within function2, \$func1var = </span><span class="nv">$func1var</span><span class="s2">.&quot;</span>
+<span class="o">}</span>
+
+function1
+
+<span class="nb">exit </span>0
+
+
+<span class="c"># Output of the script:</span>
+
+<span class="c"># Within function1, $func1var = 20.</span>
+<span class="c"># Within function2, $func1var = 20.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>This is documented in the Bash manual:</p>
+<p>&#8220;Local can only be used within a function; it makes the variable name
+have a visible scope restricted to that function <em>and its children</em>.&#8221;
+[emphasis added] <em>The ABS Guide author considers this behavior to be a
+bug.</em></p>
+<p><a class="reference external" href="localvar.html#AEN18607">[2]</a></p>
+<p>Otherwise known as <em>redundancy</em>.</p>
+<p><a class="reference external" href="localvar.html#AEN18610">[3]</a></p>
+<p>Otherwise known as <em>tautology</em>.</p>
+<p><a class="reference external" href="localvar.html#AEN18614">[4]</a></p>
+<p>Otherwise known as a <em>metaphor</em>.</p>
+<p><a class="reference external" href="localvar.html#AEN18617">[5]</a></p>
+<p>Otherwise known as a <em>recursive function</em>.</p>
+<p><a class="reference external" href="localvar.html#AEN18632">[6]</a></p>
+<p>Too many levels of recursion may crash a script with a segfault.</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c">#  Warning: Running this script could possibly lock up your system!</span>
+<span class="c">#  If you&#39;re lucky, it will segfault before using up all available m emory.</span>
+
+recursive_function <span class="o">()</span>
+<span class="o">{</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>     <span class="c"># Makes the function do something, and hastens the seg fault.</span>
+<span class="o">((</span> <span class="nv">$1</span> &lt; <span class="nv">$2</span> <span class="o">))</span> <span class="o">&amp;&amp;</span> recursive_function <span class="k">$((</span> <span class="nv">$1</span> <span class="o">+</span> <span class="m">1</span> <span class="k">))</span> <span class="nv">$2</span><span class="p">;</span>
+<span class="c">#  As long as 1st parameter is less than 2nd,</span>
+<span class="c">#+ increment 1st and recurse.</span>
+<span class="o">}</span>
+
+recursive_function <span class="m">1</span> <span class="m">50000</span>  <span class="c"># Recurse 50,000 levels!</span>
+<span class="c">#  Most likely segfaults (depending on stack size, set by ulimit -m) .</span>
+
+<span class="c">#  Recursion this deep might cause even a C program to segfault,</span>
+<span class="c">#+ by using up all the memory allotted to the stack.</span>
+
+
+<span class="nb">echo</span> <span class="s2">&quot;This will probably not print.&quot;</span>
+<span class="nb">exit </span><span class="m">0</span>  <span class="c"># This script will not exit normally.</span>
+
+<span class="c">#  Thanks, Stéphane Chazelas.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<hr class="docutils" />
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

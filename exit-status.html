@@ -1,0 +1,496 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Chapter 6. Exit and Exit Status &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="Part 2. Conceptes bàsics" href="part2.html"/>
+        <link rel="next" title="XXX Chapter 7. Tests" href="tests.html"/>
+        <link rel="prev" title="XXX 5.2. Escapament" href="escapingsection.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="special-chars.html">XXX 3. Caràcters especials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">4. Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quoting.html">Chapter 5. Cometes</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX Chapter 6. Exit and Exit Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html">XXX Chapter 7. Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testconstructs.html">XXX  7.1. Test Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fto.html">XXX  7.2. File test operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparison-ops.html">XXX  7.3. Other Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedifthen.html">7.4. Condicionals aniuats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testtest.html">XXX  7.5. Testing Your Knowledge of Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations.html">XXX Chapter 8. Operations and Related Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ops.html">XXX  8.1. Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="numerical-constants.html">XXX  8.2. Numerical Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dblparens.html">XXX  8.3. The Double-Parentheses Construct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opprecedence.html">XXX  8.4. Operator Precedence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part2.html">Part 2. Conceptes bàsics</a> &raquo;</li>
+      
+    <li>XXX Chapter 6. Exit and Exit Status</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-chapter-6-exit-and-exit-status">
+<h1>XXX Chapter 6. Exit and Exit Status<a class="headerlink" href="#xxx-chapter-6-exit-and-exit-status" title="Link permanent a aquest títol">¶</a></h1>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a></p>
+<p><em>... there are dark corners in the Bourne shell, and people use all of
+them.</em></p>
+<p><em>&#8211;Chet Ramey</em></p>
+<blockquote>
+<div>The <strong>exit</strong> command terminates a script, just as in a <strong>C</strong> program.</div></blockquote>
+<p>It can also return a value, which is available to the script&#8217;s parent
+process.</p>
+<blockquote>
+<div>Every command returns an <em>exit status</em> (sometimes referred to as a</div></blockquote>
+<p><em>return status</em> or <em>exit code</em> ). A successful command returns a 0 ,
+while an unsuccessful one returns a non-zero value that usually can be
+interpreted as an <em>error code</em> . Well-behaved UNIX commands, programs,
+and utilities return a 0 exit code upon successful completion, though
+there are some exceptions.</p>
+<p>Likewise, <a class="reference external" href="functions.html#FUNCTIONREF">functions</a> within a script and
+the script itself return an exit status. The last command executed in
+the function or script determines the exit status. Within a script, an
+``             exit                        nnn               `` command
+may be used to deliver an ``               nnn             `` exit
+status to the shell ( ``               nnn             `` must be an
+integer in the 0 - 255 range).</p>
+<p><a href="#id3"><span class="problematic" id="id4">|</span></a>Note</p>
+<p>When a script ends with an <strong>exit</strong> that has no parameter, the exit
+status of the script is the exit status of the last command executed in
+the script (previous to the <strong>exit</strong> ).</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+COMMAND_1
+
+. . .
+
+COMMAND_LAST
+
+<span class="c"># Will exit with sta</span>
+</pre></div>
+</div>
+<p>tus of last command.</p>
+<blockquote>
+<div>exit</div></blockquote>
+<p>The equivalent of a bare <strong>exit</strong> is <strong>exit $?</strong> or even just omitting
+the <strong>exit</strong> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+COMMAND_1
+
+. . .
+
+COMMAND_LAST
+
+<span class="c"># Will exit with sta</span>
+</pre></div>
+</div>
+<p>tus of last command.</p>
+<blockquote>
+<div>exit $?</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+COMMAND1
+
+. . .
+
+COMMAND_LAST
+
+<span class="c"># Will exit with sta</span>
+</pre></div>
+</div>
+<p>tus of last command.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+COMMAND_1
+
+. . .
+
+COMMAND_LAST
+
+<span class="c"># Will exit with status of last command.</span>
+
+<span class="nb">exit</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+COMMAND_1
+
+. . .
+
+COMMAND_LAST
+
+<span class="c"># Will exit with status of last command.</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+COMMAND1
+
+. . .
+
+COMMAND_LAST
+
+<span class="c"># Will exit with status of last command.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+COMMAND_1
+
+. . .
+
+COMMAND_LAST
+
+<span class="c"># Will exit with status of last command.</span>
+
+<span class="nb">exit</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+COMMAND_1
+
+. . .
+
+COMMAND_LAST
+
+<span class="c"># Will exit with status of last command.</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+COMMAND1
+
+. . .
+
+COMMAND_LAST
+
+<span class="c"># Will exit with status of last command.</span>
+</pre></div>
+</div>
+<p>``      $?     `` reads the exit status of the last command executed.
+After a function returns, ``      $?     `` gives the exit status of the
+last command executed in the function. This is Bash&#8217;s way of giving
+functions a &#8220;return value.&#8221; ` [1]  &lt;exit-status.html#FTN.AEN2981&gt;`__</p>
+<blockquote>
+<div>Following the execution of a <a class="reference external" href="special-chars.html#PIPEREF">pipe</a> , a</div></blockquote>
+<p>``      $?     `` gives the exit status of the last command executed.</p>
+<p>After a script terminates, a ``      $?     `` from the command-line
+gives the exit status of the script, that is, the last command executed
+in the script, which is, by convention, ``             0           `` on
+success or an integer in the range 1 - 255 on error.</p>
+<div class="section" id="exemple-1-exit-exit-status">
+<h2>Exemple 1. exit / exit status<a class="headerlink" href="#exemple-1-exit-exit-status" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo </span>hello
+<span class="nb">echo</span> <span class="nv">$?</span>    <span class="c"># Exit status 0 returned because command executed successfully.</span>
+
+lskdf      <span class="c"># Unrecognized command.</span>
+<span class="nb">echo</span> <span class="nv">$?</span>    <span class="c"># Non-zero exit status returned -- command failed to execute.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span><span class="m">113</span>   <span class="c"># Will return 113 to shell.</span>
+           <span class="c"># To verify this, type &quot;echo $?&quot; after script terminates.</span>
+
+<span class="c">#  By convention, an &#39;exit 0&#39; indicates success,</span>
+<span class="c">#+ while a non-zero exit value means an error or anomalous condition.</span>
+<span class="c">#  See the &quot;Exit Codes With Special Meanings&quot; appendix.</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="internalvariables.html#XSTATVARREF">$?</a> is especially useful for
+testing the result of a command in a script (see <a class="reference external" href="filearchiv.html#FILECOMP">Example
+16-35</a> and <a class="reference external" href="textproc.html#LOOKUP">Example
+16-20</a> ).</p>
+<p><a href="#id5"><span class="problematic" id="id6">|</span></a>Note</p>
+<p>The <a class="reference external" href="special-chars.html#NOTREF">!</a> , the <em>logical not</em> qualifier,
+reverses the outcome of a test or command, and this affects its <a class="reference external" href="exit-status.html#EXITSTATUSREF">exit
+status</a> .</p>
+</div>
+<div class="section" id="exemple-2-negating-a-condition-using">
+<span id="exit-status-negatingconditionwithbang"></span><h2>Exemple 2. Negating a condition using !<a class="headerlink" href="#exemple-2-negating-a-condition-using" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># Demostració d&#39;ús del ! per negar una condició</span>
+
+<span class="nb">true</span>    <span class="c"># la funció &quot;builtin&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;El valor de sortida de \&quot;true\&quot; = </span><span class="nv">$?</span><span class="s2">&quot;</span>     <span class="c"># 0</span>
+
+! <span class="nb">true</span>
+<span class="nb">echo</span> <span class="s2">&quot;El valor de sortida de \&quot;! true\&quot; = </span><span class="nv">$?</span><span class="s2">&quot;</span>   <span class="c"># 1</span>
+<span class="c"># Atenció: ! necessita un espai que el separi de la comanda.</span>
+<span class="c"># !true   genera un error de comanda desconeguda</span>
+<span class="c"># El operador &#39;!&#39; sense separació amb la comanda, invoca el mecanisme </span>
+<span class="c"># d&#39;historial de comandes de Bash.</span>
+
+<span class="nb">true</span>
+!true
+<span class="c"># En aquest cas, no hi ha error, però tampoc no es produeix la negació.</span>
+<span class="c"># L&#39;efecte és simplement la repetició de la comanda anterior (true).</span>
+
+<span class="c"># ============================================================================</span>
+<span class="c"># Quan precdeim una &#39;pipe&#39; amb !, s&#39;inverteix el valor que retorna.</span>
+ls <span class="p">|</span> comanda_inexistent     <span class="c"># bash: comanda_inexistent: no s&#39;ha trobat l&#39;ordre</span>
+<span class="nb">echo</span> <span class="nv">$?</span>                <span class="c"># 127</span>
+
+! ls <span class="p">|</span> comanda_inexistent   <span class="c"># bash: comanda_inexistent: no s&#39;ha trobat l&#39;ordre</span>
+<span class="nb">echo</span> <span class="nv">$?</span>                <span class="c"># 0</span>
+<span class="c"># Fixat que, mentre que ! no ha canviat l&#39;execució de la pipe, si ha modificat</span>
+<span class="c"># el valor de retorn.</span>
+<span class="c"># ============================================================================</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">true</span>    <span class="c"># The &quot;true&quot; builtin.</span>
+<span class="nb">echo</span> <span class="s2">&quot;exit status of \&quot;true\&quot; = </span><span class="nv">$?</span><span class="s2">&quot;</span>     <span class="c"># 0</span>
+
+! <span class="nb">true</span>
+<span class="nb">echo</span> <span class="s2">&quot;exit status of \&quot;! true\&quot; = </span><span class="nv">$?</span><span class="s2">&quot;</span>   <span class="c"># 1</span>
+<span class="c"># Note that the &quot;!&quot; needs a space between it and the command.</span>
+<span class="c">#    !true   leads to a &quot;command not found&quot; error</span>
+<span class="c">#</span>
+<span class="c"># The &#39;!&#39; operator prefixing a command invokes the Bash history mechanism.</span>
+
+<span class="nb">true</span>
+!true
+<span class="c"># No error this time, but no negation either.</span>
+<span class="c"># It just repeats the previous command (true).</span>
+
+
+<span class="c"># =========================================================== #</span>
+<span class="c"># Preceding a _pipe_ with ! inverts the exit status returned.</span>
+lsbogus_command     <span class="c"># bash: bogus_command: command not found</span>
+<span class="nb">echo</span> <span class="nv">$?</span>                <span class="c"># 127</span>
+
+! lsbogus_command   <span class="c"># bash: bogus_command: command not found</span>
+<span class="nb">echo</span> <span class="nv">$?</span>                <span class="c"># 0</span>
+<span class="c"># Note that the ! does not change the execution of the pipe.</span>
+<span class="c"># Only the exit status changes.</span>
+<span class="c"># =========================================================== #</span>
+
+<span class="c"># Thanks, StÃ©phane Chazelas and Kristopher Newsome.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">true</span>    <span class="c"># The &quot;true&quot; builtin.</span>
+<span class="nb">echo</span> <span class="s2">&quot;exit status of \&quot;true\&quot; = </span><span class="nv">$?</span><span class="s2">&quot;</span>     <span class="c"># 0</span>
+
+! <span class="nb">true</span>
+<span class="nb">echo</span> <span class="s2">&quot;exit status of \&quot;! true\&quot; = </span><span class="nv">$?</span><span class="s2">&quot;</span>   <span class="c"># 1</span>
+<span class="c"># Note that the &quot;!&quot; needs a space between it and the command.</span>
+<span class="c">#    !true   leads to a &quot;command not found&quot; error</span>
+<span class="c">#</span>
+<span class="c"># The &#39;!&#39; operator prefixing a command invokes the Bash history mechanism.</span>
+
+<span class="nb">true</span>
+!true
+<span class="c"># No error this time, but no negation either.</span>
+<span class="c"># It just repeats the previous command (true).</span>
+
+
+<span class="c"># =========================================================== #</span>
+<span class="c"># Preceding a _pipe_ with ! inverts the exit status returned.</span>
+lsbogus_command     <span class="c"># bash: bogus_command: command not found</span>
+<span class="nb">echo</span> <span class="nv">$?</span>                <span class="c"># 127</span>
+
+! lsbogus_command   <span class="c"># bash: bogus_command: command not found</span>
+<span class="nb">echo</span> <span class="nv">$?</span>                <span class="c"># 0</span>
+<span class="c"># Note that the ! does not change the execution of the pipe.</span>
+<span class="c"># Only the exit status changes.</span>
+<span class="c"># =========================================================== #</span>
+
+<span class="c"># Thanks, StÃ©phane Chazelas and Kristopher Newsome.</span>
+</pre></div>
+</div>
+<p><a href="#id7"><span class="problematic" id="id8">|</span></a>Caution</p>
+<p>Certain exit status codes have <a class="reference external" href="exitcodes.html#EXITCODESREF">reserved
+meanings</a> and should not be
+user-specified in a script.</p>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;exit-status.html#AEN2981&gt;`__</p>
+<p>In those instances when there is no
+<a class="reference external" href="complexfunct.html#RETURNREF">return</a> terminating the function.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tests.html" class="btn btn-neutral float-right" title="XXX Chapter 7. Tests" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="escapingsection.html" class="btn btn-neutral" title="XXX 5.2. Escapament"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

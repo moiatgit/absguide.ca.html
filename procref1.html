@@ -1,0 +1,534 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 29.2. `` /proc `` &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  29.2. ``      /proc     ``</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-29-2-proc">
+<h1>XXX  29.2. ``      /proc     ``<a class="headerlink" href="#xxx-29-2-proc" title="Link permanent a aquest títol">¶</a></h1>
+<p>The ``      /proc     `` directory is actually a pseudo-filesystem. The
+files in ``      /proc     `` mirror currently running system and kernel
+<a class="reference external" href="special-chars.html#PROCESSREF">processes</a> and contain information
+and statistics about them.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>cat /proc/devices
+Character devices:
+   <span class="m">1</span> mem
+   <span class="m">2</span> pty
+   <span class="m">3</span> ttyp
+   <span class="m">4</span> ttyS
+   <span class="m">5</span> cua
+   <span class="m">7</span> vcs
+  <span class="m">10</span> misc
+  <span class="m">14</span> sound
+  <span class="m">29</span> fb
+  <span class="m">36</span> netlink
+ <span class="m">128</span> ptm
+ <span class="m">136</span> pts
+ <span class="m">162</span> raw
+ <span class="m">254</span> pcmcia
+
+ Block devices:
+   <span class="m">1</span> ramdisk
+   <span class="m">2</span> fd
+   <span class="m">3</span> ide0
+   <span class="m">9</span> md
+
+
+
+bash<span class="nv">$ </span>cat /proc/interrupts
+           CPU0
+   0:      <span class="m">84505</span>          XT-PIC  timer
+   1:       <span class="m">3375</span>          XT-PIC  keyboard
+   2:          <span class="m">0</span>          XT-PIC  cascade
+   5:          <span class="m">1</span>          XT-PIC  soundblaster
+   8:          <span class="m">1</span>          XT-PIC  rtc
+  12:       <span class="m">4231</span>          XT-PIC  PS/2 Mouse
+  14:     <span class="m">109373</span>          XT-PIC  ide0
+ NMI:          0
+ ERR:          0
+
+
+bash<span class="nv">$ </span>cat /proc/partitions
+major minor  <span class="c">#blocks  name     rio rmerge rsect ruse wio wmerge wsect wuse running use aveq</span>
+
+    <span class="m">3</span>     <span class="m">0</span>    <span class="m">3007872</span> hda <span class="m">4472</span> <span class="m">22260</span> <span class="m">114520</span> <span class="m">94240</span> <span class="m">3551</span> <span class="m">18703</span> <span class="m">50384</span> <span class="m">549710</span> <span class="m">0</span> <span class="m">111550</span> 644030
+    <span class="m">3</span>     <span class="m">1</span>      <span class="m">52416</span> hda1 <span class="m">27</span> <span class="m">395</span> <span class="m">844</span> <span class="m">960</span> <span class="m">4</span> <span class="m">2</span> <span class="m">14</span> <span class="m">180</span> <span class="m">0</span> <span class="m">800</span> 1140
+    <span class="m">3</span>     <span class="m">2</span>          <span class="m">1</span> hda2 <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> 0
+    <span class="m">3</span>     <span class="m">4</span>     <span class="m">165280</span> hda4 <span class="m">10</span> <span class="m">0</span> <span class="m">20</span> <span class="m">210</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">210</span> 210
+    ...
+
+
+
+bash<span class="nv">$ </span>cat /proc/loadavg
+0.13 0.42 0.27 2/44 1119
+
+
+
+bash<span class="nv">$ </span>cat /proc/apm
+1.16 1.2 0x03 0x01 0xff 0x80 -1% -1 ?
+
+
+
+bash<span class="nv">$ </span>cat /proc/acpi/battery/BAT0/info
+present:                 yes
+ design capacity:         <span class="m">43200</span> mWh
+ last full capacity:      <span class="m">36640</span> mWh
+ battery technology:      rechargeable
+ design voltage:          <span class="m">10800</span> mV
+ design capacity warning: <span class="m">1832</span> mWh
+ design capacity low:     <span class="m">200</span> mWh
+ capacity granularity 1:  <span class="m">1</span> mWh
+ capacity granularity 2:  <span class="m">1</span> mWh
+ model number:            IBM-02K6897
+ serial number:            1133
+ battery <span class="nb">type</span>:            LION
+ OEM info:                Panasonic
+
+
+
+bash<span class="nv">$ </span>fgrep Mem /proc/meminfo
+MemTotal:       <span class="m">515216</span> kB
+ MemFree:        <span class="m">266248</span> kB
+</pre></div>
+</div>
+<p>Shell scripts may extract data from certain of the files in
+``      /proc     `` . ` [1]  &lt;procref1.html#FTN.AEN19180&gt;`__</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">FS</span><span class="o">=</span>iso                       <span class="c"># ISO filesystem support in kernel?</span>
+
+grep <span class="nv">$FS</span> /proc/filesystems   <span class="c"># iso9660</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">kernel_version</span><span class="o">=</span><span class="k">$(</span> awk <span class="s1">&#39;{ print $3 }&#39;</span> /proc/version <span class="k">)</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">CPU</span><span class="o">=</span><span class="k">$(</span> awk <span class="s1">&#39;/model name/ {print $5}&#39;</span> &lt; /proc/cpuinfo <span class="k">)</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$CPU</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;Pentium(R)&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  run_some_commands
+  ...
+<span class="k">else</span>
+  run_other_commands
+  ...
+<span class="k">fi</span>
+
+
+
+<span class="nv">cpu_speed</span><span class="o">=</span><span class="k">$(</span> fgrep <span class="s2">&quot;cpu MHz&quot;</span> /proc/cpuinfoawk <span class="s1">&#39;{print $4}&#39;</span> <span class="k">)</span>
+<span class="c">#  Current operating speed (in MHz) of the cpu on your machine.</span>
+<span class="c">#  On a laptop this may vary, depending on use of battery</span>
+<span class="c">#+ or AC power.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># get-commandline.sh</span>
+<span class="c"># Get the command-line parameters of a process.</span>
+
+<span class="nv">OPTION</span><span class="o">=</span>cmdline
+
+<span class="c"># Identify PID.</span>
+<span class="nv">pid</span><span class="o">=</span><span class="k">$(</span> <span class="nb">echo</span> <span class="k">$(</span>pidof <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span><span class="k">)</span>awk <span class="s1">&#39;{ print $1 }&#39;</span> <span class="k">)</span>
+<span class="c"># Get only first            ^^^^^^^^^^^^^^^^^^ of multiple instances.</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Process ID of (first instance of) &quot;</span><span class="nv">$1</span><span class="s2">&quot; = </span><span class="nv">$pid</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;Command-line arguments: &quot;</span>
+cat /proc/<span class="s2">&quot;</span><span class="nv">$pid</span><span class="s2">&quot;</span>/<span class="s2">&quot;</span><span class="nv">$OPTION</span><span class="s2">&quot;</span>xargs -0 <span class="nb">echo</span>
+<span class="c">#   Formats output:        ^^^^^^^^^^^^^^^</span>
+<span class="c">#   (Thanks, Han Holl, for the fixup!)</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+
+<span class="c"># For example:</span>
+<span class="c"># sh get-commandline.sh xterm</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li></li>
+</ul>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">devfile</span><span class="o">=</span><span class="s2">&quot;/proc/bus/usb/devices&quot;</span>
+<span class="nv">text</span><span class="o">=</span><span class="s2">&quot;Spd&quot;</span>
+<span class="nv">USB1</span><span class="o">=</span><span class="s2">&quot;Spd=12&quot;</span>
+<span class="nv">USB2</span><span class="o">=</span><span class="s2">&quot;Spd=480&quot;</span>
+
+
+<span class="nv">bus_speed</span><span class="o">=</span><span class="k">$(</span>fgrep -m <span class="m">1</span> <span class="s2">&quot;</span><span class="nv">$text</span><span class="s2">&quot;</span> <span class="nv">$devfileawk</span> <span class="s1">&#39;{print $9}&#39;</span><span class="k">)</span>
+<span class="c">#                 ^^^^ Stop after first match.</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$bus_speed</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$USB1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;USB 1.1 port found.&quot;</span>
+  <span class="c"># Do something appropriate for USB 1.1.</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+<p><a href="#id1"><span class="problematic" id="id2">|</span></a>Note</p>
+<p>It is even possible to control certain peripherals with commands sent to
+the ``         /proc        `` directory.</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>root# <span class="nb">echo </span>on &gt;
+</pre></div>
+</div>
+<p>/proc/acpi/ibm/light</p>
+<hr class="docutils" />
+<p>This turns on the <em>Thinklight</em> in certain models of IBM/Lenovo
+Thinkpads. (May not work on all Linux distros.)
+Of course, caution is advised when writing to ``         /proc        ``
+.</p>
+<div class="highlight-sh"><div class="highlight"><pre>root# <span class="nb">echo </span>on &gt; /proc/acpi/ibm/light
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>root# <span class="nb">echo </span>on &gt; /proc/acpi/ibm/light
+</pre></div>
+</div>
+<p>The ``      /proc     `` directory contains subdirectories with unusual
+numerical names. Every one of these names maps to the <a class="reference external" href="internalvariables.html#PPIDREF">process
+ID</a> of a currently running process.
+Within each of these subdirectories, there are a number of files that
+hold useful information about the corresponding process. The
+``      stat     `` and ``      status     `` files keep running
+statistics on the process, the ``      cmdline     `` file holds the
+command-line arguments the process was invoked with, and the
+``      exe     `` file is a symbolic link to the complete path name of
+the invoking process. There are a few more such files, but these seem to
+be the most interesting from a scripting standpoint.</p>
+<div class="section" id="exemple-3-finding-the-process-associated-with-a-pid">
+<h2>Exemple 3. Finding the process associated with a PID<a class="headerlink" href="#exemple-3-finding-the-process-associated-with-a-pid" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># pid-identifier.sh:</span>
+<span class="c"># Gives complete path name to process associated with pid.</span>
+
+<span class="nv">ARGNO</span><span class="o">=</span><span class="m">1</span>  <span class="c"># Number of arguments the script expects.</span>
+<span class="nv">E_WRONGARGS</span><span class="o">=</span>65
+<span class="nv">E_BADPID</span><span class="o">=</span>66
+<span class="nv">E_NOSUCHPROCESS</span><span class="o">=</span>67
+<span class="nv">E_NOPERMISSION</span><span class="o">=</span>68
+<span class="nv">PROCFILE</span><span class="o">=</span>exe
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-ne <span class="nv">$ARGNO</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` PID-number&quot;</span> &gt;<span class="p">&amp;</span><span class="m">2</span>  <span class="c"># Error message &gt;stderr.</span>
+  <span class="nb">exit</span> <span class="nv">$E_WRONGARGS</span>
+<span class="k">fi</span>
+
+<span class="nv">pidno</span><span class="o">=</span><span class="k">$(</span> ps axgrep <span class="nv">$1</span> <span class="p">|</span> awk <span class="s1">&#39;{ print $1 }&#39;</span> <span class="p">|</span> grep <span class="nv">$1</span> <span class="k">)</span>
+<span class="c"># Checks for pid in &quot;ps&quot; listing, field #1.</span>
+<span class="c"># Then makes sure it is the actual process, not the process invoked by this script.</span>
+<span class="c"># The last &quot;grep $1&quot; filters out this possibility.</span>
+<span class="c">#</span>
+<span class="c">#    pidno=$( ps axawk &#39;{ print $1 }&#39; | grep $1 )</span>
+<span class="c">#    also works, as Teemu Huovila, points out.</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$pidno</span><span class="s2">&quot;</span> <span class="o">]</span>  <span class="c">#  If, after all the filtering, the result is a zero-length string,</span>
+<span class="k">then</span>                <span class="c">#+ no running process corresponds to the pid given.</span>
+  <span class="nb">echo</span> <span class="s2">&quot;No such process running.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOSUCHPROCESS</span>
+<span class="k">fi</span>
+
+<span class="c"># Alternatively:</span>
+<span class="c">#   if ! ps $1 &gt; /dev/null 2&gt;&amp;1</span>
+<span class="c">#   then                # no running process corresponds to the pid given.</span>
+<span class="c">#     echo &quot;No such process running.&quot;</span>
+<span class="c">#     exit $E_NOSUCHPROCESS</span>
+<span class="c">#    fi</span>
+
+<span class="c"># To simplify the entire process, use &quot;pidof&quot;.</span>
+
+
+<span class="k">if</span> <span class="o">[</span> ! -r <span class="s2">&quot;/proc/</span><span class="nv">$1</span><span class="s2">/</span><span class="nv">$PROCFILE</span><span class="s2">&quot;</span> <span class="o">]</span>  <span class="c"># Check for read permission.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Process </span><span class="nv">$1</span><span class="s2"> running, but...&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Can&#39;t get read permission on /proc/</span><span class="nv">$1</span><span class="s2">/</span><span class="nv">$PROCFILE</span><span class="s2">.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOPERMISSION</span>  <span class="c"># Ordinary user can&#39;t access some files in /proc.</span>
+<span class="k">fi</span>
+
+<span class="c"># The last two tests may be replaced by:</span>
+<span class="c">#    if ! kill -0 $1 &gt; /dev/null 2&gt;&amp;1 # &#39;0&#39; is not a signal, but</span>
+                                      <span class="c"># this will test whether it is possible</span>
+                                      <span class="c"># to send a signal to the process.</span>
+<span class="c">#    then echo &quot;PID doesn&#39;t exist or you&#39;re not its owner&quot; &gt;&amp;2</span>
+<span class="c">#    exit $E_BADPID</span>
+<span class="c">#    fi</span>
+
+
+
+<span class="nv">exe_file</span><span class="o">=</span><span class="k">$(</span> ls -l /proc/<span class="nv">$1grep</span> <span class="s2">&quot;exe&quot;</span> <span class="p">|</span> awk <span class="s1">&#39;{ print $11 }&#39;</span> <span class="k">)</span>
+<span class="c"># Or       exe_file=$( ls -l /proc/$1/exeawk &#39;{print $11}&#39; )</span>
+<span class="c">#</span>
+<span class="c">#  /proc/pid-number/exe is a symbolic link</span>
+<span class="c">#+ to the complete path name of the invoking process.</span>
+
+<span class="k">if</span> <span class="o">[</span> -e <span class="s2">&quot;</span><span class="nv">$exe_file</span><span class="s2">&quot;</span> <span class="o">]</span>  <span class="c">#  If /proc/pid-number/exe exists,</span>
+<span class="k">then</span>                   <span class="c">#+ then the corresponding process exists.</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Process #</span><span class="nv">$1</span><span class="s2"> invoked by </span><span class="nv">$exe_file</span><span class="s2">.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;No such process running.&quot;</span>
+<span class="k">fi</span>
+
+
+<span class="c">#  This elaborate script can *almost* be replaced by</span>
+<span class="c">#       ps axgrep $1 | awk &#39;{ print $5 }&#39;</span>
+<span class="c">#  However, this will not work...</span>
+<span class="c">#+ because the fifth field of &#39;ps&#39; is argv[0] of the process,</span>
+<span class="c">#+ not the executable file path.</span>
+<span class="c">#</span>
+<span class="c"># However, either of the following would work.</span>
+<span class="c">#       find /proc/$1/exe -printf &#39;%l\n&#39;</span>
+<span class="c">#       lsof -aFn -p $1 -d txtsed -ne &#39;s/^n//p&#39;</span>
+
+<span class="c"># Additional commentary by Stephane Chazelas.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-4-on-line-connect-status">
+<h2>Exemple 4. On-line connect status<a class="headerlink" href="#exemple-4-on-line-connect-status" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># connect-stat.sh</span>
+<span class="c">#  Note that this script may need modification</span>
+<span class="c">#+ to work with a wireless connection.</span>
+
+<span class="nv">PROCNAME</span><span class="o">=</span>pppd        <span class="c"># ppp daemon</span>
+<span class="nv">PROCFILENAME</span><span class="o">=</span>status  <span class="c"># Where to look.</span>
+<span class="nv">NOTCONNECTED</span><span class="o">=</span>85
+<span class="nv">INTERVAL</span><span class="o">=</span><span class="m">2</span>           <span class="c"># Update every 2 seconds.</span>
+
+<span class="nv">pidno</span><span class="o">=</span><span class="k">$(</span> ps axgrep -v <span class="s2">&quot;ps ax&quot;</span> <span class="p">|</span> grep -v grep <span class="p">|</span> grep <span class="nv">$PROCNAME</span>
+awk <span class="s1">&#39;{ print $1 }&#39;</span> <span class="k">)</span>
+
+<span class="c"># Finding the process number of &#39;pppd&#39;, the &#39;ppp daemon&#39;.</span>
+<span class="c"># Have to filter out the process lines generated by the search itself.</span>
+<span class="c">#</span>
+<span class="c">#  However, as Oleg Philon points out,</span>
+<span class="c">#+ this could have been considerably simplified by using &quot;pidof&quot;.</span>
+<span class="c">#  pidno=$( pidof $PROCNAME )</span>
+<span class="c">#</span>
+<span class="c">#  Moral of the story:</span>
+<span class="c">#+ When a command sequence gets too complex, look for a shortcut.</span>
+
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$pidno</span><span class="s2">&quot;</span> <span class="o">]</span>   <span class="c"># If no pid, then process is not running.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Not connected.&quot;</span>
+<span class="c"># exit $NOTCONNECTED</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Connected.&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+<span class="k">fi</span>
+
+<span class="k">while</span> <span class="o">[</span> <span class="nb">true</span> <span class="o">]</span>       <span class="c"># Endless loop, script can be improved here.</span>
+<span class="k">do</span>
+
+  <span class="k">if</span> <span class="o">[</span> ! -e <span class="s2">&quot;/proc/</span><span class="nv">$pidno</span><span class="s2">/</span><span class="nv">$PROCFILENAME</span><span class="s2">&quot;</span> <span class="o">]</span>
+  <span class="c"># While process running, then &quot;status&quot; file exists.</span>
+  <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Disconnected.&quot;</span>
+<span class="c">#   exit $NOTCONNECTED</span>
+  <span class="k">fi</span>
+
+netstat -sgrep <span class="s2">&quot;packets received&quot;</span>  <span class="c"># Get some connect statistics.</span>
+netstat -sgrep <span class="s2">&quot;packets delivered&quot;</span>
+
+
+  sleep <span class="nv">$INTERVAL</span>
+  <span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="k">done</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># As it stands, this script must be terminated with a Control-C.</span>
+
+<span class="c">#    Exercises:</span>
+<span class="c">#    ---------</span>
+<span class="c">#    Improve the script so it exits on a &quot;q&quot; keystroke.</span>
+<span class="c">#    Make the script more user-friendly in other ways.</span>
+<span class="c">#    Fix the script to work with wireless/DSL connections.</span>
+</pre></div>
+</div>
+<p><a href="#id3"><span class="problematic" id="id4">|</span></a>Warning</p>
+<p>In general, it is dangerous to <em>write</em> to the files in
+``         /proc        `` , as this can corrupt the filesystem or crash
+the machine.</p>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;procref1.html#AEN19180&gt;`__</p>
+<p>Certain system commands, such as <a class="reference external" href="system.html#PROCINFOREF">procinfo</a>
+, <a class="reference external" href="system.html#FREEREF">free</a> , <a class="reference external" href="system.html#VMSTATREF">vmstat</a> ,
+<a class="reference external" href="system.html#LSDEVREF">lsdev</a> , and
+<a class="reference external" href="system.html#UPTIMEREF">uptime</a> do this as well.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

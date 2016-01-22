@@ -1,0 +1,862 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX O.2. Writing Scripts &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  O.2. Writing Scripts</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-o-2-writing-scripts">
+<h1>XXX  O.2. Writing Scripts<a class="headerlink" href="#xxx-o-2-writing-scripts" title="Link permanent a aquest títol">¶</a></h1>
+<p>Write a script to carry out each of the following tasks.</p>
+<p>** EASY**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>Self-reproducing Script</strong></dt>
+<dd><p class="first">Write a script that backs itself up, that is, copies itself to a
+file named ``         backup.sh        `` .</p>
+<p class="last">Hint: Use the <a class="reference external" href="basic.html#CATREF">cat</a> command and the
+appropriate <a class="reference external" href="othertypesv.html#SCRNAMEPARAM">positional parameter</a>
+.</p>
+</dd>
+<dt><strong>Home Directory Listing</strong></dt>
+<dd>Perform a recursive directory listing on the user&#8217;s home directory
+and save the information to a file. Compress the file, have the
+script prompt the user to insert a USB flash drive, then press
+<strong>ENTER</strong> . Finally, save the file to the flash drive after making
+certain the flash drive has properly mounted by parsing the output
+of <a class="reference external" href="system.html#DFREF">df</a> . Note that the flash drive must be
+<em>unmounted</em> before it is removed.</dd>
+</dl>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a>Converting <a class="reference external" href="loops1.html#FORLOOPREF1">for</a> loops to</p>
+</div></blockquote>
+<p><a class="reference external" href="loops1.html#WHILELOOPREF">while</a> and
+<a class="reference external" href="loops1.html#UNTILLOOPREF">until</a> loops**</p>
+<blockquote>
+<div><blockquote>
+<div><p>Convert the <em>for loops</em> in <a class="reference external" href="loops1.html#EX22">Example 11-1</a> to
+<em>while loops</em> . Hint: store the data in an
+<a class="reference external" href="arrays.html#ARRAYREF">array</a> and step through the array
+elements.</p>
+<p>Having already done the &#8220;heavy lifting,&#8221; now convert the loops in
+the example to <em>until loops</em> .</p>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>Changing the line spacing of a text file</strong></dt>
+<dd><p class="first">Write a script that reads each line of a target file, then writes
+the line back to ``         stdout        `` , but with an extra
+blank line following. This has the effect of <em>double-spacing</em> the
+file.</p>
+<p>Include all necessary code to check whether the script gets the
+necessary command-line argument (a filename), and whether the
+specified file exists.</p>
+<p>When the script runs correctly, modify it to <em>triple-space</em> the
+target file.</p>
+<p class="last">Finally, write a script to remove all blank lines from the target
+file, <em>single-spacing</em> it.</p>
+</dd>
+<dt><strong>Backwards Listing</strong></dt>
+<dd>Write a script that echoes itself to ``         stdout        `` ,
+but <em>backwards</em> .</dd>
+<dt><strong>Automatically Decompressing Files</strong></dt>
+<dd>Given a list of filenames as input, this script queries each target
+file (parsing the output of the <a class="reference external" href="filearchiv.html#FILEREF">file</a>
+command) for the type of compression used on it. Then the script
+automatically invokes the appropriate decompression command (
+<strong>gunzip</strong> , <strong>bunzip2</strong> , <strong>unzip</strong> , <strong>uncompress</strong> , or
+whatever). If a target file is not compressed, the script emits a
+warning message, but takes no other action on that particular file.</dd>
+<dt><strong>Unique System ID</strong></dt>
+<dd>Generate a &#8220;unique&#8221; 6-digit hexadecimal identifier for your
+computer. Do <em>not</em> use the flawed <a class="reference external" href="system.html#HOSTIDREF">hostid</a>
+command. Hint: <strong>`md5sum &lt;filearchiv.html#MD5SUMREF&gt;`__
+``           /etc/passwd          `` &lt;files.html#DATAFILESREF1&gt;`__</strong>
+, then select the first 6 digits of output.</dd>
+<dt><strong>Backup</strong></dt>
+<dd><p class="first">Archive as a &#8220;tarball&#8221; ( ``         <a href="#id3"><span class="problematic" id="id4">*</span></a>.tar.gz        `` file) all the
+files in your home directory tree (
+``         /home/your-name        `` ) that have been modified in
+the last 24 hours. Hint: use <a class="reference external" href="moreadv.html#FINDREF">find</a> .</p>
+<p class="last">Optional: you may use this as the basis of a <em>backup</em> script.</p>
+</dd>
+<dt><strong>Checking whether a process is still running</strong></dt>
+<dd>Given a <a class="reference external" href="special-chars.html#PROCESSIDREF">process ID</a> ( <em>PID</em> )
+as an argument, this script will check, at user-specified intervals,
+whether the given process is still running. You may use the
+<a class="reference external" href="system.html#PPSSREF">ps</a> and <a class="reference external" href="timedate.html#SLEEPREF">sleep</a>
+commands.</dd>
+<dt><strong>Primes</strong></dt>
+<dd>Print (to ``         stdout        `` ) all prime numbers between
+60000 and 63000. The output should be nicely formatted in columns
+(hint: use <a class="reference external" href="internal.html#PRINTFREF">printf</a> ).</dd>
+<dt><strong>Lottery Numbers</strong></dt>
+<dd>One type of lottery involves picking five different numbers, in the
+range of 1 - 50. Write a script that generates five pseudorandom
+numbers in this range, <em>with no duplicates</em> . The script will give
+the option of echoing the numbers to ``         stdout        `` or
+saving them to a file, along with the date and time the particular
+number set was generated. (If your script consistently generates
+<em>winning</em> lottery numbers, then you can retire on the proceeds and
+leave shell scripting to those of us who have to work for a living.)</dd>
+</dl>
+</div></blockquote>
+<p>** INTERMEDIATE**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>Integer or String</strong></dt>
+<dd><p class="first">Write a script <a class="reference external" href="functions.html#FUNCTIONREF">function</a> that
+determines if an argument passed to it is an integer or a string.
+The function will return TRUE (0) if passed an integer, and FALSE
+(1) if passed a string.</p>
+<p>Hint: What does the following expression return when
+``         $1        `` is <em>not</em> an integer?</p>
+<p class="last">``         expr $1 + 0        ``</p>
+</dd>
+<dt><strong>`ASCII &lt;special-chars.html#ASCIIDEF&gt;`__ to Integer</strong></dt>
+<dd>The <em>atoi</em> function in <strong>C</strong> converts a string character to an
+integer. Write a shell script function that performs the same
+operation. Likewise, write a shell script function that does the
+inverse, mirroring the <strong>C</strong> <em>itoa</em> function which converts an
+integer into an ASCII character.</dd>
+<dt><strong>Managing Disk Space</strong></dt>
+<dd>List, one at a time, all files larger than 100K in the
+``         /home/username        `` directory tree. Give the user
+the option to delete or compress the file, then proceed to show the
+next one. Write to a logfile the names of all deleted files and the
+deletion times.</dd>
+<dt><strong>Banner</strong></dt>
+<dd>Simulate the functionality of the deprecated
+<a class="reference external" href="extmisc.html#BANNERREF">banner</a> command in a script.</dd>
+<dt><strong>Removing Inactive Accounts</strong></dt>
+<dd>Inactive accounts on a network server waste disk space and may
+become a security risk. Write an administrative script (to be
+invoked by <em>root</em> or the <a class="reference external" href="system.html#CRONREF">cron daemon</a> )
+that checks for and deletes user accounts that have not been
+accessed within the last 90 days.</dd>
+<dt><strong>Enforcing Disk Quotas</strong></dt>
+<dd><p class="first">Write a script for a multi-user system that checks users&#8217; disk
+usage. If a user surpasses a preset limit (500 MB, for example) in
+her ``         /home/username        `` directory, then the script
+automatically sends her a &#8220;pigout&#8221; warning e-mail.</p>
+<p class="last">The script will use the <a class="reference external" href="system.html#DUREF">du</a> and
+<a class="reference external" href="communications.html#COMMMAIL1">mail</a> commands. As an option, it
+will allow setting and enforcing quotas using the
+<a class="reference external" href="system.html#QUOTAREF">quota</a> and
+<a class="reference external" href="system.html#SETQUOTAREF">setquota</a> commands.</p>
+</dd>
+<dt><strong>Logged in User Information</strong></dt>
+<dd><p class="first">For all logged in users, show their real names and the time and date
+of their last login.</p>
+<p class="last">Hint: use <a class="reference external" href="system.html#WHOREF">who</a> ,
+<a class="reference external" href="system.html#LASTLOGREF">lastlog</a> , and parse
+``          /etc/passwd         `` &lt;files.html#DATAFILESREF1&gt;`__ .</p>
+</dd>
+<dt><strong>Safe Delete</strong></dt>
+<dd><p class="first">Implement, as a script, a &#8220;safe&#8221; delete command,
+``         sdel.sh        `` . Filenames passed as command-line
+arguments to this script are not deleted, but instead
+<a class="reference external" href="filearchiv.html#GZIPREF">gzipped</a> if not already compressed (use
+<a class="reference external" href="filearchiv.html#FILEREF">file</a> to check), then moved to a
+``         ~/TRASH        `` directory. Upon invocation, the script
+checks the ``         ~/TRASH        `` directory for files older
+than 48 hours and <a class="reference external" href="basic.html#RMREF">permanently deletes</a> them.
+(An better alternative might be to have a second script handle this,
+periodically invoked by the <a class="reference external" href="system.html#CRONREF">cron daemon</a> .)</p>
+<p class="last"><em>Extra credit:</em> Write the script so it can handle files and
+directories <a class="reference external" href="basic.html#RMRECURS">recursively</a> . This would give
+it the capability of &#8220;safely deleting&#8221; entire directory structures.</p>
+</dd>
+<dt><strong>Making Change</strong></dt>
+<dd><p class="first">What is the most efficient way to make change for $1.68, using only
+coins in common circulations (up to 25c)? It&#8217;s 6 quarters, 1 dime, a
+nickel, and three cents.</p>
+<p class="last">Given any arbitrary command-line input in dollars and cents
+($*.??), calculate the change, using the minimum number of coins.
+If your home country is not the United States, you may use your
+local currency units instead. The script will need to parse the
+command-line input, then change it to multiples of the smallest
+monetary unit (cents or whatever). Hint: look at <a class="reference external" href="complexfunct.html#EX61">Example
+24-8</a> .</p>
+</dd>
+<dt><strong>Quadratic Equations</strong></dt>
+<dd><p class="first">Solve a <em>quadratic</em> equation of the form
+``                   Ax^2 + Bx + C = 0                 `` . Have a
+script take as arguments the coefficients,
+``                   A                 `` ,
+``                   B                 `` , and
+``                   C                 `` , and return the solutions
+to five decimal places.</p>
+<p class="last">Hint: pipe the coefficients to <a class="reference external" href="mathc.html#BCREF">bc</a> , using the
+well-known formula,
+``                   x = ( -B +/- sqrt( B^2 - 4AC ) ) / 2A                 ``
+.</p>
+</dd>
+<dt><strong>Table of Logarithms</strong></dt>
+<dd><p class="first">Using the <a class="reference external" href="mathc.html#BCREF">bc</a> and
+<a class="reference external" href="internal.html#PRINTFREF">printf</a> commands, print out a
+nicely-formatted table of eight-place natural logarithms in the
+interval between 0.00 and 100.00, in steps of .01.</p>
+<p class="last">Hint: <em>bc</em> requires the ``         -l        `` option to load the
+math library.</p>
+</dd>
+<dt><strong>Unicode Table</strong></dt>
+<dd><p class="first">Using <a class="reference external" href="asciitable.html#ASCIISH">Example T-1</a> as a template, write
+a script that prints to a file a complete
+<a class="reference external" href="bashver4.html#UNICODEREF">Unicode</a> table.</p>
+<p class="last">Hint: Use the ``         -e        `` option to
+<a class="reference external" href="internal.html#ECHOREF">echo</a> : <strong>echo -e &#8216;\uXXXX&#8217;</strong> , where
+``                   XXXX                 `` is the Unicode
+numerical character designation. This requires <a class="reference external" href="bashver4.html#BASH42">version
+4.2</a> or later of Bash.</p>
+</dd>
+<dt><strong>Sum of Matching Numbers</strong></dt>
+<dd><p class="first">Find the sum of all five-digit numbers (in the range 10000 - 99999)
+containing <em>exactly two</em> out of the following set of digits: { 4, 5,
+6 }. These may repeat within the same number, and if so, they count
+once for each occurrence.</p>
+<p class="last">Some examples of <em>matching numbers</em> are 42057, 74638, and 89515.</p>
+</dd>
+<dt><strong>Lucky Numbers</strong></dt>
+<dd>A <em>lucky number</em> is one whose individual digits add up to 7, in
+successive additions. For example, 62431 is a <em>lucky number</em> (6 + 2
++ 4 + 3 + 1 = 16, 1 + 6 = 7). Find all the <em>lucky numbers</em> between
+1000 and 10000.</dd>
+<dt><strong>Craps</strong></dt>
+<dd>Borrowing the ASCII graphics from <a class="reference external" href="contributed-scripts.html#PETALS">Example
+A-40</a> , write a script that
+plays the well-known gambling game of <em>craps</em> . The script will
+accept bets from one or more players, roll the dice, and keep track
+of wins and losses, as well as of each player&#8217;s bankroll.</dd>
+<dt><strong>Tic-tac-toe</strong></dt>
+<dd><p class="first">Write a script that plays the child&#8217;s game of <em>tic-tac-toe</em> against
+a human player. The script will let the human choose whether to take
+the first move. The script will follow an optimal strategy, and
+therefore never lose. To simplify matters, you may use ASCII
+graphics:</p>
+<div class="last highlight-sh"><div class="highlight"><pre>ox
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<p>x
+o</p>
+<blockquote>
+<div><blockquote>
+<div>Your move, human (row, column)?</div></blockquote>
+<dl class="docutils">
+<dt><strong>Alphabetizing a String</strong></dt>
+<dd>Alphabetize (in ASCII order) an arbitrary string read from the
+command-line.</dd>
+<dt><strong>Parsing</strong></dt>
+<dd>Parse
+``          /etc/passwd         `` &lt;files.html#DATAFILESREF1&gt;`__ ,
+and output its contents in nice, easy-to-read tabular form.</dd>
+<dt><strong>Logging Logins</strong></dt>
+<dd>Parse ``         /var/log/messages        `` to produce a nicely
+formatted file of user logins and login times. The script may need
+to run as <em>root</em> . (Hint: Search for the string &#8220;LOGIN.&#8221; )</dd>
+<dt><strong>Pretty-Printing a Data File</strong></dt>
+<dd><p class="first">Certain database and spreadsheet packages use save-files with the
+fields separated by commas, commonly referred to as <em>comma-separated
+values</em> or CSVs. Other applications often need to parse these files.</p>
+<p>Given a data file with comma-separated
+<a class="reference external" href="special-chars.html#FIELDREF">fields</a> , of the form:</p>
+<div class="highlight-sh"><div class="highlight"><pre>Jones,Bill,235 S. Williams St.,Denver,CO,80221,<span class="o">(</span>303<span class="o">)</span> 244-7989
+Smith,Tom,404 Polk Ave.,Los Angeles,CA,90003,<span class="o">(</span>213<span class="o">)</span> 879-5612
+...
+</pre></div>
+</div>
+<p class="last">Reformat the data and print it out to ``        stdout       `` in
+labeled, evenly-spaced columns.</p>
+</dd>
+<dt><strong>Justification</strong></dt>
+<dd>Given ASCII text input either from ``         stdin        `` or a
+file, adjust the word spacing to right-justify each line to a
+user-specified line-width, then send the output to
+``         stdout        `` .</dd>
+<dt><strong>Mailing List</strong></dt>
+<dd>Using the <a class="reference external" href="communications.html#COMMMAIL1">mail</a> command, write a
+script that manages a simple mailing list. The script automatically
+e-mails the monthly company newsletter, read from a specified text
+file, and sends it to all the addresses on the mailing list, which
+the script reads from another specified file.</dd>
+<dt><strong>Generating Passwords</strong></dt>
+<dd>Generate pseudorandom 8-character passwords, using characters in the
+ranges [0-9], [A-Z], [a-z]. Each password must contain at least two
+digits.</dd>
+<dt><strong>Monitoring a User</strong></dt>
+<dd><p class="first">You suspect that one particular user on the network has been abusing
+her privileges and possibly attempting to hack the system. Write a
+script to automatically monitor and log her activities when she&#8217;s
+signed on. The log file will save entries for the previous week, and
+delete those entries more than seven days old.</p>
+<p class="last">You may use <a class="reference external" href="system.html#LASTREF">last</a> ,
+<a class="reference external" href="system.html#LASTLOGREF">lastlog</a> , and
+<a class="reference external" href="system.html#LASTCOMMREF">lastcomm</a> to aid your surveillance of
+the suspected fiend.</p>
+</dd>
+<dt><strong>Checking for Broken Links</strong></dt>
+<dd>Using <a class="reference external" href="communications.html#LYNXREF">lynx</a> with the
+``         -traversal        `` option, write a script that checks a
+Web site for broken links.</dd>
+</dl>
+</div></blockquote>
+<p>** DIFFICULT**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>Testing Passwords</strong></dt>
+<dd><p class="first">Write a script to check and validate passwords. The object is to
+flag &#8220;weak&#8221; or easily guessed password candidates.</p>
+<p>A trial password will be input to the script as a command-line
+parameter. To be considered acceptable, a password must meet the
+following minimum qualifications:</p>
+<ul class="simple">
+<li>Minimum length of 8 characters</li>
+<li>Must contain at least one numeric character</li>
+<li>Must contain at least one of the following non-alphabetic
+characters: &#64; , # , $ , % , &amp; , * , + , - , =</li>
+</ul>
+<p>Optional:</p>
+<ul class="simple">
+<li>Do a dictionary check on every sequence of at least four
+consecutive alphabetic characters in the password under test.
+This will eliminate passwords containing embedded &#8220;words&#8221; found
+in a standard dictionary.</li>
+<li>Enable the script to check all the passwords on your system.
+These do not reside in
+``            /etc/passwd           `` &lt;files.html#DATAFILESREF1&gt;`__
+.</li>
+</ul>
+<p class="last">This exercise tests mastery of <a class="reference external" href="regexp.html#REGEXREF">Regular
+Expressions</a> .</p>
+</dd>
+<dt><strong>Cross Reference</strong></dt>
+<dd>Write a script that generates a <em>cross-reference</em> ( <em>concordance</em> )
+on a target file. The output will be a listing of all word
+occurrences in the target file, along with the line numbers in which
+each word occurs. Traditionally, <em>linked list</em> constructs would be
+used in such applications. Therefore, you should investigate
+<a class="reference external" href="arrays.html#ARRAYREF">arrays</a> in the course of this exercise.
+<a class="reference external" href="textproc.html#WF">Example 16-12</a> is probably <em>not</em> a good place
+to start.</dd>
+<dt><strong>Square Root</strong></dt>
+<dd><p class="first">Write a script to calculate square roots of numbers using <em>Newton&#8217;s
+Method</em> .</p>
+<p>The algorithm for this, expressed as a snippet of Bash
+<a class="reference external" href="assortedtips.html#PSEUDOCODEREF">pseudo-code</a> is:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#  (Isaac) Newton&#39;s Method for speedy extraction</span>
+<span class="c">#+ of square roots.</span>
+
+<span class="nv">guess</span> <span class="o">=</span> <span class="nv">$argument</span>
+<span class="c">#  $argument is the number to find the square root of.</span>
+<span class="c">#  $guess is each successive calculated &quot;guess&quot; -- or trial solution --</span>
+<span class="c">#+ of the square root.</span>
+<span class="c">#  Our first &quot;guess&quot; at a square root is the argument itself.</span>
+
+<span class="nv">oldguess</span> <span class="o">=</span> 0
+<span class="c"># $oldguess is the previous $guess.</span>
+
+<span class="nv">tolerance</span> <span class="o">=</span> .000001
+<span class="c"># To how close a tolerance we wish to calculate.</span>
+
+<span class="nv">loopcnt</span> <span class="o">=</span> 0
+<span class="c"># Let&#39;s keep track of how many times through the loop.</span>
+<span class="c"># Some arguments will require more loop iterations than others.</span>
+
+
+<span class="k">while</span> <span class="o">[</span> ABS<span class="o">(</span> <span class="nv">$guess</span> <span class="nv">$oldguess</span> <span class="o">)</span> -gt <span class="nv">$tolerance</span> <span class="o">]</span>
+<span class="c">#       ^^^^^^^^^^^^^^^^^^^^^^^ Fix up syntax, of course.</span>
+
+<span class="c">#      &quot;ABS&quot; is a (floating point) function to find the absolute value</span>
+<span class="c">#+      of the difference between the two terms.</span>
+<span class="c">#             So, as long as difference between current and previous</span>
+<span class="c">#+            trial solution (guess) exceeds the tolerance, keep looping.</span>
+
+<span class="k">do</span>
+   <span class="nv">oldguess</span> <span class="o">=</span> <span class="nv">$guess</span>  <span class="c"># Update $oldguess to previous $guess.</span>
+
+<span class="c">#  =======================================================</span>
+   <span class="nv">guess</span> <span class="o">=</span> <span class="o">(</span> <span class="nv">$oldguess</span> + <span class="o">(</span> <span class="nv">$argument</span> / <span class="nv">$oldguess</span> <span class="o">)</span> <span class="o">)</span> / 2.0
+<span class="c">#        = 1/2 ( ($oldguess **2 + $argument) / $oldguess )</span>
+<span class="c">#  equivalent to:</span>
+<span class="c">#        = 1/2 ( $oldguess + $argument / $oldguess )</span>
+<span class="c">#  that is, &quot;averaging out&quot; the trial solution and</span>
+<span class="c">#+ the proportion of argument deviation</span>
+<span class="c">#+ (in effect, splitting the error in half).</span>
+<span class="c">#  This converges on an accurate solution</span>
+<span class="c">#+ with surprisingly few loop iterations . . .</span>
+<span class="c">#+ for arguments &gt; $tolerance, of course.</span>
+<span class="c">#  =======================================================</span>
+
+   <span class="o">((</span> loopcnt++ <span class="o">))</span>     <span class="c"># Update loop counter.</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<p class="last">It&#8217;s a simple enough recipe, and <em>seems</em> at first glance easy enough
+to convert into a working Bash script. The problem, though, is that
+Bash has <a class="reference external" href="ops.html#NOFLOATINGPOINT">no native support for floating point
+numbers</a> . So, the script writer needs
+to use <a class="reference external" href="mathc.html#BCREF">bc</a> or possibly
+<a class="reference external" href="awk.html#AWKREF">awk</a> to convert the numbers and do the
+calculations. It could get rather messy . . .</p>
+</dd>
+<dt><strong>Logging File Accesses</strong></dt>
+<dd>Log all accesses to the files in ``         /etc        `` during
+the course of a single day. This information should include the
+filename, user name, and access time. If any alterations to the
+files take place, that will be flagged. Write this data as tabular
+(tab-separated) formatted records in a logfile.</dd>
+<dt><strong>Monitoring Processes</strong></dt>
+<dd>Write a script to continually monitor all running processes and to
+keep track of how many child processes each parent spawns. If a
+process spawns more than five children, then the script sends an
+e-mail to the system administrator (or <em>root</em> ) with all relevant
+information, including the time, PID of the parent, PIDs of the
+children, etc. The script appends a report to a log file every ten
+minutes.</dd>
+<dt><strong>Strip Comments</strong></dt>
+<dd>Strip all comments from a shell script whose name is specified on
+the command-line. Note that the initial <a class="reference external" href="sha-bang.html#SHABANGREF">#!
+line</a> must not be stripped out.</dd>
+<dt><strong>Strip HTML Tags</strong></dt>
+<dd>Strip all the HTML tags from a specified HTML file, then reformat it
+into lines between 60 and 75 characters in length. Reset paragraph
+and block spacing, as appropriate, and convert HTML tables to their
+approximate text equivalent.</dd>
+<dt><strong>XML Conversion</strong></dt>
+<dd><p class="first">Convert an XML file to both HTML and text format.</p>
+<p class="last">Optional: A script that converts Docbook/SGML to XML.</p>
+</dd>
+<dt><strong>Chasing Spammers</strong></dt>
+<dd><p class="first">Write a script that analyzes a spam e-mail by doing DNS lookups on
+the IP addresses in the headers to identify the relay hosts as well
+as the originating ISP. The script will forward the unaltered spam
+message to the responsible ISPs. Of course, it will be necessary to
+filter out <em>your own ISP&#8217;s IP address</em> , so you don&#8217;t end up
+complaining about yourself.</p>
+<p>As necessary, use the appropriate <a class="reference external" href="communications.html#COMMUNINFO1">network analysis
+commands</a> .</p>
+<p>For some ideas, see <a class="reference external" href="communications.html#ISSPAMMER">Example
+16-41</a> and <a class="reference external" href="contributed-scripts.html#ISSPAMMER2">Example
+A-28</a> .</p>
+<p class="last">Optional: Write a script that searches through a list of e-mail
+messages and deletes the spam according to specified filters.</p>
+</dd>
+<dt><strong>Creating man pages</strong></dt>
+<dd><p class="first">Write a script that automates the process of creating <a class="reference external" href="basic.html#MANREF">man
+pages</a> .</p>
+<p>Given a text file which contains information to be formatted into a
+<em>man page</em> , the script will read the file, then invoke the
+appropriate <a class="reference external" href="textproc.html#GROFFREF">groff</a> commands to output
+the corresponding <em>man page</em> to ``         stdout        `` . The
+text file contains blocks of information under the standard <em>man
+page</em> headings, i.e., NAME, SYNOPSIS, DESCRIPTION, etc.</p>
+<p class="last"><a class="reference external" href="contributed-scripts.html#MANED">Example A-39</a> is an instructive
+first step.</p>
+</dd>
+<dt><strong>Hex Dump</strong></dt>
+<dd><p class="first">Do a hex(adecimal) dump on a binary file specified as an argument to
+the script. The output should be in neat tabular
+<a class="reference external" href="special-chars.html#FIELDREF">fields</a> , with the first field
+showing the address, each of the next 8 fields a 4-byte hex number,
+and the final field the ASCII equivalent of the previous 8 fields.</p>
+<p class="last">The obvious followup to this is to extend the hex dump script into a
+disassembler. Using a lookup table, or some other clever gimmick,
+convert the hex values into 80x86 op codes.</p>
+</dd>
+<dt><strong>Emulating a Shift Register</strong></dt>
+<dd>Using <a class="reference external" href="arrays.html#STACKEX">Example 27-15</a> as an inspiration,
+write a script that emulates a 64-bit shift register as an
+<a class="reference external" href="arrays.html#ARRAYREF">array</a> . Implement functions to <em>load</em> the
+register, <em>shift left</em> , <em>shift right</em> , and <em>rotate</em> it. Finally,
+write a function that interprets the register contents as eight
+8-bit ASCII characters.</dd>
+<dt><strong>Calculating Determinants</strong></dt>
+<dd><dl class="first docutils">
+<dt>Write a script that calculates determinants ` [1]</dt>
+<dd>&lt;writingscripts.html#FTN.AEN25254&gt;`__ by</dd>
+</dl>
+<p class="last"><a class="reference external" href="localvar.html#RECURSIONREF0">recursively</a> expanding the <em>minors</em>
+. Use a 4 x 4 determinant as a test case.</p>
+</dd>
+<dt><strong>Hidden Words</strong></dt>
+<dd><p class="first">Write a &#8220;word-find&#8221; puzzle generator, a script that hides 10 input
+words in a 10 x 10 array of random letters. The words may be hidden
+across, down, or diagonally.</p>
+<p class="last">Optional: Write a script that <em>solves</em> word-find puzzles. To keep
+this from becoming too difficult, the solution script will find only
+horizontal and vertical words. (Hint: Treat each row and column as a
+string, and search for substrings.)</p>
+</dd>
+<dt><strong>Anagramming</strong></dt>
+<dd>Anagram 4-letter input. For example, the anagrams of <em>word</em> are: <em>do
+or rod row word</em> . You may use
+``         /usr/share/dict/linux.words        `` as the reference
+list.</dd>
+<dt><strong>Word Ladders</strong></dt>
+<dd><p class="first">A &#8220;word ladder&#8221; is a sequence of words, with each successive word in
+the sequence differing from the previous one by a single letter.</p>
+<p>For example, to &#8220;ladder&#8221; from <em>mark</em> to <em>vase</em> :</p>
+<div class="highlight-sh"><div class="highlight"><pre>mark --&gt; park --&gt; part --&gt; past --&gt; vast --&gt; vase
+         ^           ^       ^      ^           ^
+</pre></div>
+</div>
+<p class="last">Write a script that solves word ladder puzzles. Given a starting and
+an ending word, the script will list all intermediate steps in the
+&#8220;ladder.&#8221; Note that <em>all</em> words in the sequence must be legitimate
+dictionary words.</p>
+</dd>
+<dt><strong>Fog Index</strong></dt>
+<dd><p class="first">The &#8220;fog index&#8221; of a passage of text estimates its reading
+difficulty, as a number corresponding roughly to a school grade
+level. For example, a passage with a fog index of 12 should be
+comprehensible to anyone with 12 years of schooling.</p>
+<p>The Gunning version of the fog index uses the following algorithm.</p>
+<ol class="arabic">
+<li><p class="first">Choose a section of the text at least 100 words in length.</p>
+</li>
+<li><p class="first">Count the number of sentences (a portion of a sentence truncated
+by the boundary of the text section counts as one).</p>
+</li>
+<li><p class="first">Find the average number of words per sentence.</p>
+<p>AVE_WDS_SEN = TOTAL_WORDS / SENTENCES</p>
+</li>
+<li><p class="first">Count the number of &#8220;difficult&#8221; words in the segment &#8211; those
+containing at least 3 syllables. Divide this quantity by total
+words to get the proportion of difficult words.</p>
+<p>PRO_DIFF_WORDS = LONG_WORDS / TOTAL_WORDS</p>
+</li>
+<li><p class="first">The Gunning fog index is the sum of the above two quantities,
+multiplied by 0.4, then rounded to the nearest integer.</p>
+<p>G_FOG_INDEX = int ( 0.4 * ( AVE_WDS_SEN + PRO_DIFF_WORDS )
+)</p>
+</li>
+</ol>
+<p>Step 4 is by far the most difficult portion of the exercise. There
+exist various algorithms for estimating the syllable count of a
+word. A rule-of-thumb formula might consider the number of letters
+in a word and the vowel-consonant mix.</p>
+<p class="last">A strict interpretation of the Gunning fog index does not count
+compound words and proper nouns as &#8220;difficult&#8221; words, but this would
+enormously complicate the script.</p>
+</dd>
+<dt><strong>Calculating PI using Buffon&#8217;s Needle</strong></dt>
+<dd><p class="first">The Eighteenth Century French mathematician de Buffon came up with a
+novel experiment. Repeatedly drop a needle of length
+``                   n                 `` onto a wooden floor
+composed of long and narrow parallel boards. The cracks separating
+the equal-width floorboards are a fixed distance
+``                   d                 `` apart. Keep track of the
+total drops and the number of times the needle intersects a crack on
+the floor. The ratio of these two quantities turns out to be a
+fractional multiple of PI.</p>
+<p>In the spirit of <a class="reference external" href="mathc.html#CANNON">Example 16-50</a> , write a
+script that runs a Monte Carlo simulation of <em>Buffon&#8217;s Needle</em> . To
+simplify matters, set the needle length equal to the distance
+between the cracks, ``                   n = d                 `` .</p>
+<p class="last">Hint: there are actually two critical variables: the distance from
+the center of the needle to the nearest crack, and the inclination
+angle of the needle to that crack. You may use
+<a class="reference external" href="mathc.html#BCREF">bc</a> to handle the calculations.</p>
+</dd>
+<dt><strong>Playfair Cipher</strong></dt>
+<dd><p class="first">Implement the Playfair (Wheatstone) Cipher in a script.</p>
+<p>The Playfair Cipher encrypts text by substitution of <em>digrams</em>
+(2-letter groupings). It is traditional to use a 5 x 5 letter
+scrambled-alphabet <em>key square</em> for the encryption and decryption.</p>
+<div class="highlight-sh"><div class="highlight"><pre>   C O D E S
+   A B F G H
+   I K L M N
+   P Q R T U
+   V W X Y Z
+
+Each letter of the alphabet appears once, except &quot;I&quot; also represents
+&quot;J&quot;. The arbitrarily chosen key word, &quot;CODES&quot; comes first, then all
+the rest of the alphabet, in order from left to right, skipping letters
+already used.
+
+To encrypt, separate the plaintext message into digrams (2-letter
+groups). If a group has two identical letters, delete the second, and
+form a new group. If there is a single letter left over at the end,
+insert a &quot;null&quot; character, typically an &quot;X.&quot;
+
+THIS IS A TOP SECRET MESSAGE
+
+TH IS IS AT OP SE CR ET ME SA GE
+
+
+
+For each digram, there are three possibilities.
+-----------------------------------------------
+
+1) Both letters will be on the same row of the key square:
+   For each letter, substitute the one immediately to the right, in that
+   row. If necessary, wrap around left to the beginning of the row.
+
+or
+
+2) Both letters will be in the same column of the key square:
+   For each letter, substitute the one immediately below it, in that
+   row. If necessary, wrap around to the top of the column.
+
+or
+
+3) Both letters will form the corners of a rectangle within the key square:
+   For each letter, substitute the one on the other corner the rectangle
+   which lies on the same row.
+
+
+The &quot;TH&quot; digram falls under case #3.
+G H
+M N
+T U           (Rectangle with &quot;T&quot; and &quot;H&quot; at corners)
+
+T --&gt; U
+H --&gt; G
+
+
+The &quot;SE&quot; digram falls under case #1.
+C O D E S     (Row containing &quot;S&quot; and &quot;E&quot;)
+
+S --&gt; C  (wraps around left to beginning of row)
+E --&gt; S
+
+=========================================================================
+
+To decrypt encrypted text, reverse the above procedure under cases #1
+and #2 (move in opposite direction for substitution). Under case #3,
+just take the remaining two corners of the rectangle.
+
+
+Helen Fouche Gaines&#39; classic work, ELEMENTARY CRYPTANALYSIS (1939), gives a
+fairly detailed description of the Playfair Cipher and its solution methods.
+</pre></div>
+</div>
+<p>This script will have three main sections</p>
+<ol class="arabic simple">
+<li>Generating the <em>key square</em> , based on a user-input keyword.</li>
+<li>Encrypting a <em>plaintext</em> message.</li>
+<li>Decrypting encrypted text.</li>
+</ol>
+<p class="last">The script will make extensive use of
+<a class="reference external" href="arrays.html#ARRAYREF">arrays</a> and
+<a class="reference external" href="functions.html#FUNCTIONREF">functions</a> . You may use <a class="reference external" href="contributed-scripts.html#GRONSFELD">Example
+A-56</a> as an inspiration.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>&#8211;</p>
+<p>Please do not send the author your solutions to these exercises. There
+are more appropriate ways to impress him with your cleverness, such as
+submitting bugfixes and suggestions for improving the book.</p>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h2>
+<p>` [1]  &lt;writingscripts.html#AEN25254&gt;`__</p>
+<p>For all you clever types who failed intermediate algebra, a
+<em>determinant</em> is a numerical value associated with a multidimensional
+<em>matrix</em> ( <a class="reference external" href="arrays.html#ARRAYREF">array</a> of numbers).</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>For the simple <span class="k">case</span>
+</pre></div>
+</div>
+<p>of a 2 x 2 determinant:</p>
+<blockquote>
+<div><blockquote>
+<div><a href="#id5"><span class="problematic" id="id6">|a  b|</span></a>
+<a href="#id7"><span class="problematic" id="id8">|b  a|</span></a></div></blockquote>
+<p>The solution is a*a</p>
+</div></blockquote>
+<ul class="simple">
+<li>b*b, where &#8220;a&#8221; and &#8220;b&#8221;</li>
+</ul>
+<blockquote>
+<div>represent numbers.</div></blockquote>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>For the simple <span class="k">case</span> of a <span class="m">2</span> x <span class="m">2</span> determinant:
+
+  <span class="p">|</span>a  b
+  <span class="p">|</span>b  a
+
+The solution is a*a - b*b, where <span class="s2">&quot;a&quot;</span> and <span class="s2">&quot;b&quot;</span> represent numbers.
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>For the simple <span class="k">case</span> of a <span class="m">2</span> x <span class="m">2</span> determinant:
+
+  <span class="p">|</span>a  b
+  <span class="p">|</span>b  a
+
+The solution is a*a - b*b, where <span class="s2">&quot;a&quot;</span> and <span class="s2">&quot;b&quot;</span> represent numbers.
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

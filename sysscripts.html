@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 17.1. Analyzing a System Script &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  17.1. Analyzing a System Script</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-17-1-analyzing-a-system-script">
+<h1>XXX  17.1. Analyzing a System Script<a class="headerlink" href="#xxx-17-1-analyzing-a-system-script" title="Link permanent a aquest títol">¶</a></h1>
+<p>Using our knowledge of administrative commands, let us examine a system
+script. One of the shortest and simplest to understand scripts is
+&#8220;killall,&#8221; ` [1]  &lt;sysscripts.html#FTN.AEN17079&gt;`__ used to suspend
+running processes at system shutdown.</p>
+<div class="section" id="exemple-12-killall-from-etc-rc-d-init-d">
+<h2>Exemple 12. <em>killall</em> , from ``        /etc/rc.d/init.d       ``<a class="headerlink" href="#exemple-12-killall-from-etc-rc-d-init-d" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/sh</span>
+
+<span class="c"># --&gt; Comments added by the author of this document marked by &quot;# --&gt;&quot;.</span>
+
+<span class="c"># --&gt; This is part of the &#39;rc&#39; script package</span>
+<span class="c"># --&gt; by Miquel van Smoorenburg, &lt;miquels@drinkel.nl.mugnet.org&gt;.</span>
+
+<span class="c"># --&gt; This particular script seems to be Red Hat / FC specific</span>
+<span class="c"># --&gt; (may not be present in other distributions).</span>
+
+<span class="c">#  Bring down all unneeded services that are still running</span>
+<span class="c">#+ (there shouldn&#39;t be any, so this is just a sanity check)</span>
+
+<span class="k">for</span> i in /var/lock/subsys/*<span class="p">;</span> <span class="k">do</span>
+        <span class="c"># --&gt; Standard for/in loop, but since &quot;do&quot; is on same line,</span>
+        <span class="c"># --&gt; it is necessary to add &quot;;&quot;.</span>
+        <span class="c"># Check if the script is there.</span>
+        <span class="o">[</span> ! -f <span class="nv">$i</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="k">continue</span>
+        <span class="c"># --&gt; This is a clever use of an &quot;and list&quot;, equivalent to:</span>
+        <span class="c"># --&gt; if [ ! -f &quot;$i&quot; ]; then continue</span>
+
+        <span class="c"># Get the subsystem name.</span>
+        <span class="nv">subsys</span><span class="o">=</span><span class="si">${</span><span class="nv">i</span><span class="p">#/var/lock/subsys/</span><span class="si">}</span>
+        <span class="c"># --&gt; Match variable name, which, in this case, is the file name.</span>
+        <span class="c"># --&gt; This is the exact equivalent of subsys=`basename $i`.</span>
+
+        <span class="c"># --&gt;  It gets it from the lock file name</span>
+        <span class="c"># --&gt;+ (if there is a lock file,</span>
+        <span class="c"># --&gt;+ that&#39;s proof the process has been running).</span>
+        <span class="c"># --&gt;  See the &quot;lockfile&quot; entry, above.</span>
+
+
+        <span class="c"># Bring the subsystem down.</span>
+        <span class="k">if</span> <span class="o">[</span> -f /etc/rc.d/init.d/<span class="nv">$subsys</span>.init <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+           /etc/rc.d/init.d/<span class="nv">$subsys</span>.init stop
+        <span class="k">else</span>
+           /etc/rc.d/init.d/<span class="nv">$subsys</span> stop
+        <span class="c"># --&gt;  Suspend running jobs and daemons.</span>
+        <span class="c"># --&gt;  Note that &quot;stop&quot; is a positional parameter,</span>
+        <span class="c"># --&gt;+ not a shell builtin.</span>
+        <span class="k">fi</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<p>That wasn&#8217;t so bad. Aside from a little fancy footwork with variable
+matching, there is no new material there.</p>
+<p><strong>Exercise 1.</strong> In ``       /etc/rc.d/init.d      `` , analyze the
+<strong>halt</strong> script. It is a bit longer than <strong>killall</strong> , but similar in
+concept. Make a copy of this script somewhere in your home directory and
+experiment with it (do <em>not</em> run it as <em>root</em> ). Do a simulated run with
+the ``       -vn      `` flags (
+``               sh       -vn scriptname             `` ). Add extensive
+comments. Change the commands to <a class="reference external" href="internal.html#ECHOREF">echos</a> .</p>
+<p><strong>Exercise 2.</strong> Look at some of the more complex scripts in
+``       /etc/rc.d/init.d      `` . Try to understand at least portions
+of them. Follow the above procedure to analyze them. For some additional
+insight, you might also examine the file ``       sysvinitfiles      ``
+in ``       /usr/share/doc/initscripts-?.??      `` , which is part of
+the &#8220;initscripts&#8221; documentation.</p>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;sysscripts.html#AEN17079&gt;`__</p>
+<p>The <em>killall</em> system script should not be confused with the
+<a class="reference external" href="x9644.html#KILLALLREF">killall</a> command in ``       /usr/bin      ``
+.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

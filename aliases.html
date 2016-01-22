@@ -1,0 +1,367 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Capítol 25. Àlies &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Part 5. Advanced Topics" href="part5.html"/>
+        <link rel="next" title="XXX Chapter 26. List Constructs" href="list-cons.html"/>
+        <link rel="prev" title="XXX Chapter 24. Functions" href="functions.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="regexp.html">XXX Chapter 18. Regular Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="here-docs.html">XXX  Chapter 19. Document immediat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io-redirection.html">XXX  Chapter 20. I/O Redirection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subshells.html">XXX  Chapter 21. Subshells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restricted-sh.html">XXX  Chapter 22. Restricted Shells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process-sub.html">XXX  Chapter 23. Process Substitution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">XXX  Chapter 24. Functions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX Capítol 25. Àlies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="list-cons.html">XXX  Chapter 26. List Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrays.html">XXX  Chapter 27. Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ivr.html">XXX  Chapter 28. Indirect References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networkprogramming.html">XXX  Chapter 30. Network Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zeros.html">XXX  Chapter 31. Of Zeros and Nulls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">XXX  Chapter 32. Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html">XXX  Chapter 33. Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gotchas.html">XXX Chapter 34. Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scrstyle.html">XXX  Chapter 35. Scripting With Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unofficialst.html">XXX  35.1. Unofficial Shell Scripting Stylesheet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellany.html">XXX  Chapter 36. Miscellany</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash2.html">XXX  Chapter 37. Bash, versions 2, 3, and 4</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part5.html">XXX Part 5. Advanced Topics</a> &raquo;</li>
+      
+    <li>XXX Capítol 25. Àlies</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-capitol-25-alies">
+<h1>XXX Capítol 25. Àlies<a class="headerlink" href="#xxx-capitol-25-alies" title="Link permanent a aquest títol">¶</a></h1>
+<p>En Bash, un <em>àlies</em> no és més que una drecera de teclat, una
+abreviació, una manera d&#8217;evitar escriure una seqüència llarga de
+comandes. Si, per exemple, incloem <code class="docutils literal"><span class="pre">alias</span> <span class="pre">lm=&quot;ls</span> <span class="pre">-lmore&quot;</span></code> en el
+fitxer <a class="reference internal" href="sample-bashrc.html"><em>~/.bashrc</em></a>, cada cop que escrivim <code class="docutils literal"><span class="pre">lm</span></code>
+a la línia de comandes<a class="footnote-reference" href="#primeraparaula" id="id1">[1]</a>, automàticament serà
+reemplaçat per la comanda <code class="docutils literal"><span class="pre">ls</span> <span class="pre">-lmore</span></code>.</p>
+<p>Tot plegat, podem estalviar-nos escriure un munt a la línia de
+comandes i evitar-nos haver de recordar combinacions complexes de
+comandes i opcions.</p>
+<p>Un altre exemple, si definim l&#8217;àlies <code class="docutils literal"><span class="pre">alias</span> <span class="pre">rm=&quot;rm</span> <span class="pre">-i&quot;</span></code>, podem
+evitar-nos molts problemes esborrant accidentalment fitxers
+importants, donat que sempre que fem servir <code class="docutils literal"><span class="pre">rm</span></code> (comanda per
+eliminar fitxers), ens demanarà confirmació en comptes d&#8217;eliminar els
+fitxers directament.</p>
+<p>Dins d&#8217;un guió, els àlies no tenen gaire utilitat. Fora bo que els
+àlies disposessin de part de la funcionalitat del preprocessador de C,
+com ara l&#8217;expansió de macros. Malauradament Bash no és capaç
+d&#8217;expandir arguments dins del cos d&#8217;un àlies<a class="footnote-reference" href="#posicionals" id="id2">[2]</a>.
+És més, dins d&#8217;un guió no es pot ni
+expandir un àlies dins d&#8217;una &#8220;sentència composta&#8221; com ara les
+sentències <a class="reference internal" href="tests.html"><em>if/then</em></a>, els bucles, i les funcions.
+Una altra limitació és que els àlies no s&#8217;expandeixen recursivament.
+Quasi sempre, tot el que es pugui aconseguir amb un àlies, ho podrem
+realitzar molt més efectivament amb una <a class="reference internal" href="functions.html"><em>funció</em></a>.</p>
+<div class="section" id="exemple-1-alies-dins-d-un-guio">
+<h2>Exemple 1. Àlies dins d&#8217;un guió<a class="headerlink" href="#exemple-1-alies-dins-d-un-guio" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># alias.sh</span>
+
+<span class="c"># Cal executar la següent opció per a poder expandir els àlies</span>
+<span class="nb">shopt</span> -s expand_aliases
+
+
+<span class="c"># Una mica d&#39;humor per començar</span>
+<span class="nb">alias </span><span class="nv">Jesse_James</span><span class="o">=</span><span class="s1">&#39;echo &quot;\&quot;Alias Jesse James\&quot; va ser una comedia del 1959 protagonitzada per Bob Hope.&quot;&#39;</span>
+Jesse_James
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span><span class="p">;</span>
+
+<span class="c"># Podem fer servir tant cometes dobles com simples a l&#39;hora de definir un àlies</span>
+<span class="nb">alias </span><span class="nv">ll</span><span class="o">=</span><span class="s2">&quot;ls -l&quot;</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Provant el nou àlies \&quot;ll\&quot;:&quot;</span>
+ll /etc/pa*   <span class="c">#* L&#39;àlies funciona!</span>
+
+<span class="nb">echo</span>
+
+<span class="nv">directori</span><span class="o">=</span>/etc/
+<span class="nv">prefix</span><span class="o">=</span>pa*  <span class="c"># Comprovem si el comodín causa problemes</span>
+<span class="nb">echo</span> <span class="s2">&quot;Variables \&quot;directori\&quot; + \&quot;prefix\&quot; = </span><span class="nv">$directori$prefix</span><span class="s2">&quot;</span>
+<span class="nb">echo</span>
+
+<span class="nb">alias </span><span class="nv">lll</span><span class="o">=</span><span class="s2">&quot;ls -l </span><span class="nv">$directori$prefix</span><span class="s2">&quot;</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Provant l&#39;àlies \&quot;lll\&quot;:&quot;</span>
+lll         <span class="c"># Resultarà en la llista de fitxers a /etc/ que continguin</span>
+            <span class="c"># pa* o bé que estiguin en un subdirectori que comenci amb pa*</span>
+
+<span class="c"># Comprovat: un àlies pot gestionar variables concatenades, incloent comodins.</span>
+
+
+
+
+<span class="nv">TRUE</span><span class="o">=</span>1
+
+<span class="nb">echo</span>
+
+<span class="k">if</span> <span class="o">[</span> TRUE <span class="o">]</span>
+<span class="k">then</span>
+    <span class="nb">alias </span><span class="nv">rr</span><span class="o">=</span><span class="s2">&quot;ls -l&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Provant l&#39;àlies \&quot;rr\&quot; dins d&#39;un bloc if/then:&quot;</span>
+    rr /etc/pa*   <span class="c">#* Apareix un missatge d&#39;error de comanda no trobada!</span>
+    <span class="c"># És a dir, els àlies no s&#39;expandeixen dins de sentències compostes.</span>
+    <span class="nb">echo</span> <span class="s2">&quot;En canvi, els àlies definits fora del bloc sí que són reconeguts:&quot;</span>
+    ll /etc/pa*
+<span class="k">fi</span>
+
+<span class="nb">echo</span>
+
+<span class="nv">comptador</span><span class="o">=</span>0
+<span class="k">while</span> <span class="o">[</span> <span class="nv">$comptador</span> -lt <span class="m">3</span> <span class="o">]</span>
+<span class="k">do</span>
+    <span class="nb">alias </span><span class="nv">rrr</span><span class="o">=</span><span class="s2">&quot;ls -l&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Provant l&#39;àlies \&quot;rrr\&quot; dins d&#39;un bucle \&quot;while\&quot;:&quot;</span>
+    rrr /etc/pa*    <span class="c">#* Aquí tampoc no s&#39;expandirà l&#39;àlies.</span>
+                    <span class="c"># Es mostrarà l&#39;error de comanda no trobada!</span>
+    <span class="nb">let </span>comptador+<span class="o">=</span>1
+<span class="k">done</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nb">alias </span><span class="nv">xyz</span><span class="o">=</span><span class="s1">&#39;cat $0&#39;</span>  <span class="c"># Mostra el codi d&#39;aquest guió.</span>
+                    <span class="c"># Atenció a les cometes simples.</span>
+xyz
+<span class="c">#  Sembla que funciona,</span>
+<span class="c">#+ malgrat la documentació de Bash suggereix que no hauria de fer-ho.</span>
+<span class="c">#</span>
+<span class="c">#  Amb tot, tal i com Steve Jacobson indica,</span>
+<span class="c">#+ el paràmetre &quot;$0&quot; s&#39;expandeix immediàtament en el moment de la declaració de l&#39;àlies.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>La comanda <code class="docutils literal"><span class="pre">unalias</span></code> elimina els àlies prèviament definits amb
+<code class="docutils literal"><span class="pre">alias</span></code>.</p>
+</div>
+<div class="section" id="exemple-2-unalias-assignant-i-desassignant-un-alies">
+<h2>Exemple 2. unalias: assignant i desassignant un àlies<a class="headerlink" href="#exemple-2-unalias-assignant-i-desassignant-un-alies" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># unalias.sh</span>
+
+<span class="nb">shopt</span> -s expand_aliases  <span class="c"># Permet l&#39;expansió d&#39;àlies.</span>
+
+<span class="nb">alias </span><span class="nv">llm</span><span class="o">=</span><span class="s1">&#39;ls -almore&#39;</span>
+llm
+
+<span class="nb">echo</span>
+
+<span class="nb">unalias </span>llm              <span class="c"># desassigna l&#39;àlies.</span>
+llm
+<span class="c"># Ara genera un error perquè &#39;llm&#39; ja no està reconegut.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>./unalias.sh
+total 6
+drwxrwxr-x    <span class="m">2</span> bozo     bozo         <span class="m">3072</span> Feb  <span class="m">6</span> 14:04 .
+drwxr-xr-x   <span class="m">40</span> bozo     bozo         <span class="m">2048</span> Feb  <span class="m">6</span> 14:04 ..
+-rwxr-xr-x    <span class="m">1</span> bozo     bozo          <span class="m">199</span> Feb  <span class="m">6</span> 14:04 unalias.sh
+
+./unalias.sh: line 12: llm: no s<span class="s1">&#39;ha trobat l&#39;</span>ordre
+</pre></div>
+</div>
+<p class="rubric">Anotacions</p>
+<table class="docutils footnote" frame="void" id="primeraparaula" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Com a primera paraula d&#8217;una comanda. Evidentment,
+un àlies només té sentit a l&#8217;inici d&#8217;una comanda.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="posicionals" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>No obstant, els àlies semblen expandir paràmetres
+posicionals.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="list-cons.html" class="btn btn-neutral float-right" title="XXX Chapter 26. List Constructs" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="functions.html" class="btn btn-neutral" title="XXX Chapter 24. Functions"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

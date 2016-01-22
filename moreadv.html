@@ -1,0 +1,1152 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 16.2. Complex Commands &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Chapter 16. External Filters, Programs and Commands" href="external.html"/>
+        <link rel="next" title="XXX 16.4. Text Processing Commands" href="textproc.html"/>
+        <link rel="prev" title="XXX 16.1. Basic Commands" href="basic.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="internal.html">XXX  Chapter 15. Internal Commands and Builtins</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="external.html">XXX  Chapter 16. External Filters, Programs and Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">XXX  Chapter 17. System and Administrative Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part4.html">XXX Part 4. Commands</a> &raquo;</li>
+      
+          <li><a href="external.html">XXX  Chapter 16. External Filters, Programs and Commands</a> &raquo;</li>
+      
+    <li>XXX  16.2. Complex Commands</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-16-2-complex-commands">
+<h1>XXX  16.2. Complex Commands<a class="headerlink" href="#xxx-16-2-complex-commands" title="Link permanent a aquest títol">¶</a></h1>
+<p>** Commands for more advanced users**</p>
+<blockquote id="moreadv-find-exec">
+<div><p><strong>find</strong></p>
+<blockquote>
+<div><p>-exec ``                   COMMAND                 `` \;</p>
+<p>Carries out ``                   COMMAND                 `` on each
+file that <strong>find</strong> matches. The command sequence terminates with ;
+(the &#8221;;&#8221; is <a class="reference external" href="escapingsection.html#ESCP">escaped</a> to make certain
+the shell passes it to <strong>find</strong> literally, without interpreting it
+as a special character).</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>find ~/ -name <span class="s1">&#39;*.txt&#39;</span>
+/home/bozo/.kde/share/apps/karm/karmdata.txt
+ /home/bozo/misc/irmeyc.txt
+ /home/bozo/test-scripts/1.txt
+</pre></div>
+</div>
+<p>If ``                   COMMAND                 `` contains {} ,
+then <strong>find</strong> substitutes the full path name of the selected file
+for &#8220;{}&#8221; .</p>
+<div class="highlight-sh"><div class="highlight"><pre>find ~/ -name <span class="s1">&#39;core*&#39;</span> -exec rm <span class="o">{}</span> <span class="se">\;</span>
+<span class="c"># Removes all core dump files from user&#39;s home directory.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>find /home/bozo/projects -mtime -1
+<span class="c">#                               ^   Note minus sign!</span>
+<span class="c">#  Lists all files in /home/bozo/projects directory tree</span>
+<span class="c">#+ that were modified within the last day (current_day - 1).</span>
+<span class="c">#</span>
+find /home/bozo/projects -mtime 1
+<span class="c">#  Same as above, but modified *exactly* one day ago.</span>
+<span class="c">#</span>
+<span class="c">#  mtime = last modification time of the target file</span>
+<span class="c">#  ctime = last status change time (via &#39;chmod&#39; or otherwise)</span>
+<span class="c">#  atime = last access time</span>
+
+<span class="nv">DIR</span><span class="o">=</span>/home/bozo/junk_files
+find <span class="s2">&quot;</span><span class="nv">$DIR</span><span class="s2">&quot;</span> -type f -atime +5 -exec rm <span class="o">{}</span> <span class="se">\;</span>
+<span class="c">#                          ^           ^^</span>
+<span class="c">#  Curly brackets are placeholder for the path name output by &quot;find.&quot;</span>
+<span class="c">#</span>
+<span class="c">#  Deletes all files in &quot;/home/bozo/junk_files&quot;</span>
+<span class="c">#+ that have not been accessed in *at least* 5 days (plus sign ... +5).</span>
+<span class="c">#</span>
+<span class="c">#  &quot;-type filetype&quot;, where</span>
+<span class="c">#  f = regular file</span>
+<span class="c">#  d = directory</span>
+<span class="c">#  l = symbolic link, etc.</span>
+<span class="c">#</span>
+<span class="c">#  (The &#39;find&#39; manpage and info page have complete option listings.)</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>find /etc -exec grep <span class="s1">&#39;[0-9][0-9]*[.][0-9][0-9]*[.][0-9][0-9]*[.][0-9][0-9]*&#39;</span> <span class="o">{}</span> <span class="se">\;</span>
+
+<span class="c"># Finds all IP addresses (xxx.xxx.xxx.xxx) in /etc directory files.</span>
+<span class="c"># There a few extraneous hits. Can they be filtered out?</span>
+
+<span class="c"># Possibly by:</span>
+
+find /etc -type f -exec cat <span class="s1">&#39;{}&#39;</span> <span class="se">\;</span>tr -c <span class="s1">&#39;.[:digit:]&#39;</span> <span class="s1">&#39;\n&#39;</span> <span class="se">\</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<dl class="docutils">
+<dt>grep &#8216;^[^.][^.]*.[^.][^.]*.[^.][^.]*.[^.][^.]*$&#8217;</dt>
+<dd><p class="first">#
+#  [:digit:] is one of the character classes
+#+ introduced with the POSIX 1003.2 standard.</p>
+<p class="last"># Thanks, StÃ©phane Chazelas.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">The ``            -exec           `` option to <strong>find</strong> should not
+be confused with the <a class="reference external" href="internal.html#EXECREF">exec</a> shell builtin.</p>
+</div>
+<div class="section" id="exemple-3-badname-eliminate-file-names-in-current-directory-containing-bad-characters-and-whitespace">
+<h2>Exemple 3. <em>Badname</em> , eliminate file names in current directory containing bad characters and <a class="reference external" href="special-chars.html#WHITESPACEREF">whitespace</a> .<a class="headerlink" href="#exemple-3-badname-eliminate-file-names-in-current-directory-containing-bad-characters-and-whitespace" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># badname.sh</span>
+<span class="c"># Delete filenames in current directory containing bad characters.</span>
+
+<span class="k">for</span> filename in *
+<span class="k">do</span>
+  <span class="nv">badname</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span>sed -n /<span class="o">[</span><span class="se">\+\{\;\&quot;\\\=\?</span>~<span class="se">\(\)\&lt;\&gt;\&amp;\*\|\$</span><span class="o">]</span>/p<span class="sb">`</span>
+<span class="c"># badname=`echo &quot;$filename&quot;sed -n &#39;/[+{;&quot;\=?~()&lt;&gt;&amp;*|$]/p&#39;`  also works.</span>
+<span class="c"># Deletes files containing these nasties:     + { ; &quot; \ = ? ~ ( ) &lt; &gt; &amp; *$</span>
+<span class="c">#</span>
+  rm <span class="nv">$badname</span> 2&gt;/dev/null
+<span class="c">#             ^^^^^^^^^^^ Error messages deep-sixed.</span>
+<span class="k">done</span>
+
+<span class="c"># Now, take care of files containing all manner of whitespace.</span>
+find . -name <span class="s2">&quot;* *&quot;</span> -exec rm -f <span class="o">{}</span> <span class="se">\;</span>
+<span class="c"># The path name of the file that _find_ finds replaces the &quot;{}&quot;.</span>
+<span class="c"># The &#39;\&#39; ensures that the &#39;;&#39; is interpreted literally, as end of command.</span>
+
+<span class="nb">exit </span>0
+
+<span class="c">#---------------------------------------------------------------------</span>
+<span class="c"># Commands below this line will not execute because of _exit_ command.</span>
+
+<span class="c"># An alternative to the above script:</span>
+find . -name <span class="s1">&#39;*[+{;&quot;\\=?~()&lt;&gt;&amp;*|$ ]*&#39;</span> -maxdepth <span class="m">0</span> <span class="se">\</span>
+-exec rm -f <span class="s1">&#39;{}&#39;</span> <span class="se">\;</span>
+<span class="c">#  The &quot;-maxdepth 0&quot; option ensures that _find_ will not search</span>
+<span class="c">#+ subdirectories below $PWD.</span>
+
+<span class="c"># (Thanks, S.C.)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-4-deleting-a-file-by-its-inode-number">
+<h2>Exemple 4. Deleting a file by its <em>inode</em> number<a class="headerlink" href="#exemple-4-deleting-a-file-by-its-inode-number" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># idelete.sh: Deleting a file by its inode number.</span>
+
+<span class="c">#  This is useful when a filename starts with an illegal character,</span>
+<span class="c">#+ such as ? or -.</span>
+
+<span class="nv">ARGCOUNT</span><span class="o">=</span><span class="m">1</span>                      <span class="c"># Filename arg must be passed to script.</span>
+<span class="nv">E_WRONGARGS</span><span class="o">=</span>70
+<span class="nv">E_FILE_NOT_EXIST</span><span class="o">=</span>71
+<span class="nv">E_CHANGED_MIND</span><span class="o">=</span>72
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-ne <span class="s2">&quot;</span><span class="nv">$ARGCOUNT</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` filename&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_WRONGARGS</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> ! -e <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;File \&quot;&quot;</span><span class="nv">$1</span><span class="s2">&quot;\&quot; does not exist.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_FILE_NOT_EXIST</span>
+<span class="k">fi</span>
+
+<span class="nv">inum</span><span class="o">=</span><span class="sb">`</span>ls -igrep <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="p">|</span> awk <span class="s1">&#39;{print $1}&#39;</span><span class="sb">`</span>
+<span class="c"># inum = inode (index node) number of file</span>
+<span class="c"># -----------------------------------------------------------------------</span>
+<span class="c"># Every file has an inode, a record that holds its physical address info.</span>
+<span class="c"># -----------------------------------------------------------------------</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> -n <span class="s2">&quot;Are you absolutely sure you want to delete \&quot;</span><span class="nv">$1</span><span class="s2">\&quot; (y/n)? &quot;</span>
+<span class="c"># The &#39;-v&#39; option to &#39;rm&#39; also asks this.</span>
+<span class="nb">read </span>answer
+<span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$answer</span><span class="s2">&quot;</span> in
+<span class="o">[</span>nN<span class="o">])</span> <span class="nb">echo</span> <span class="s2">&quot;Changed your mind, huh?&quot;</span>
+      <span class="nb">exit</span> <span class="nv">$E_CHANGED_MIND</span>
+      <span class="p">;;</span>
+*<span class="o">)</span>    <span class="nb">echo</span> <span class="s2">&quot;Deleting file \&quot;</span><span class="nv">$1</span><span class="s2">\&quot;.&quot;</span><span class="p">;;</span>
+<span class="k">esac</span>
+
+find . -inum <span class="nv">$inum</span> -exec rm <span class="o">{}</span> <span class="se">\;</span>
+<span class="c">#                           ^^</span>
+<span class="c">#        Curly brackets are placeholder</span>
+<span class="c">#+       for text output by &quot;find.&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;File &quot;</span><span class="se">\&quot;</span><span class="nv">$1</span><span class="s2">&quot;\&quot; deleted!&quot;</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>The <strong>find</strong> command also works without the
+``         -exec        `` option.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c">#  Find suid root files.</span>
+<span class="c">#  A strange suid file might indicate a security hole,</span>
+<span class="c">#+ or even a system intrusion.</span>
+
+<span class="nv">directory</span><span class="o">=</span><span class="s2">&quot;/usr/sbin&quot;</span>
+<span class="c"># Might also try /sbin, /bin, /usr/bin, /usr/local/bin, etc.</span>
+<span class="nv">permissions</span><span class="o">=</span><span class="s2">&quot;+4000&quot;</span>  <span class="c"># suid root (dangerous!)</span>
+
+
+<span class="k">for</span> file in <span class="k">$(</span> find <span class="s2">&quot;</span><span class="nv">$directory</span><span class="s2">&quot;</span> -perm <span class="s2">&quot;</span><span class="nv">$permissions</span><span class="s2">&quot;</span> <span class="k">)</span>
+<span class="k">do</span>
+  ls -ltF --author <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="filearchiv.html#EX48">Example 16-30</a> , <a class="reference external" href="special-chars.html#EX58">Example
+3-4</a> , and <a class="reference external" href="loops1.html#FINDSTRING">Example
+11-10</a> for scripts using <strong>find</strong> . Its
+<a class="reference external" href="basic.html#MANREF">manpage</a> provides more detail on this complex
+and powerful command.</p>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>xargs</strong></dt>
+<dd><p class="first">A filter for feeding arguments to a command, and also a tool for
+assembling the commands themselves. It breaks a data stream into
+small enough chunks for filters and commands to process. Consider it
+as a powerful replacement for
+<a class="reference external" href="commandsub.html#BACKQUOTESREF">backquotes</a> . In situations where
+<a class="reference external" href="commandsub.html#COMMANDSUBREF">command substitution</a> fails with
+a too many arguments error, substituting <strong>xargs</strong> often works. `
+[1]  &lt;moreadv.html#FTN.AEN10465&gt;`__ Normally, <strong>xargs</strong> reads from
+``         stdin        `` or from a pipe, but it can also be given
+the output of a file.</p>
+<p>The default command for <strong>xargs</strong> is
+<a class="reference external" href="internal.html#ECHOREF">echo</a> . This means that input piped to
+<strong>xargs</strong> may have linefeeds and other whitespace characters
+stripped out.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash$ ls -l
+total 0
+ -rw-rw-r--    1 bozo  bozo         0 Jan 29 23:58 file1
+ -rw-rw-r--    1 bozo  bozo         0 Jan 29 23:58 file2
+
+
+
+bash$ ls -lxargs
+total 0 -rw-rw-r-- 1 bozo bozo 0 Jan 29 23:58 file1 -rw-rw-r-- 1 bozo bozo 0 Jan...
+
+
+
+bash$ find ~/mail -type fxargs grep &quot;Linux&quot;
+./misc:User-Agent: slrn/0.9.8.1 (Linux)
+ ./sent-mail-jul-2005: hosted by the Linux Documentation Project.
+ ./sent-mail-jul-2005: (Linux Documentation Project Site, rtf version)
+ ./sent-mail-jul-2005: Subject: Criticism of Bozo&#39;s Windows/Linux article
+ ./sent-mail-jul-2005: while mentioning that the Linux ext2/ext3 filesystem
+ . . .
+</pre></div>
+</div>
+<p class="last">``                   lsxargs -p -l gzip                 ``
+<a class="reference external" href="filearchiv.html#GZIPREF">gzips</a> every file in current directory,
+one at a time, prompting before each operation.</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Note that <em>xargs</em> processes the arguments passed to it sequentially,
+<em>one at a time</em> .</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>find /usr/bin
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">xargs file
+/usr/bin:          d</div>
+</div>
+<dl class="docutils">
+<dt>irectory</dt>
+<dd>/usr/bin/foomatic-p</dd>
+</dl>
+<p>pd-options:          per
+l script text executable</p>
+<blockquote>
+<div><blockquote>
+<div>. . .</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>find /usr/binxargs file
+/usr/bin:          directory
+ /usr/bin/foomatic-ppd-options:          perl script text executable
+ . . .
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>find /usr/binxargs file
+/usr/bin:          directory
+ /usr/bin/foomatic-ppd-options:          perl script text executable
+ . . .
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<p>An interesting <em>xargs</em> option is
+``            -n                                       NN                         ``
+, which limits to
+``                         NN                       `` the number of
+arguments passed.</p>
+<p class="last">``                         lsxargs -n 8 echo                       ``
+lists the files in the current directory in
+``            8           `` columns.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<p>Another useful option is ``            -0           `` , in
+combination with
+``                         find           -print0                       ``
+or ``                         grep -lZ                       `` .
+This allows handling arguments containing whitespace or quotes.</p>
+<p>``                         find / -type f -print0xargs -0 grep -liwZ GUI | xargs -0 rm -f                       ``</p>
+<p>``                         grep -rliwZ GUI /xargs -0 rm -f                       ``</p>
+<p>Either of the above will remove any file containing &#8220;GUI&#8221; .
+<em>(Thanks, S.C.)</em></p>
+<p class="last">Or:</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>cat /proc/<span class="s2">&quot;</span><span class="nv">$pid</span><span class="s2">&quot;</span>/<span class="s2">&quot;</span><span class="nv">$O</span><span class="s2"></span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>PTION&#8221; | xargs -0 echo</dt>
+<dd><dl class="first docutils">
+<dt>#  Formats output:</dt>
+<dd></dd>
+</dl>
+<p class="last">#  From Han Holl&#8217;s f</p>
+</dd>
+</dl>
+<p>ixup of &#8220;get-commandline
+.sh&#8221;</p>
+<blockquote>
+<div>#+ script in &#8220;/dev a</div></blockquote>
+<p>nd /proc&#8221; chapter.</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>cat /proc/<span class="s2">&quot;</span><span class="nv">$pid</span><span class="s2">&quot;</span>/<span class="s2">&quot;</span><span class="nv">$OPTION</span><span class="s2">&quot;</span>xargs -0 <span class="nb">echo</span>
+<span class="c">#  Formats output:         ^^^^^^^^^^^^^^^</span>
+<span class="c">#  From Han Holl&#39;s fixup of &quot;get-commandline.sh&quot;</span>
+<span class="c">#+ script in &quot;/dev and /proc&quot; chapter.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>cat /proc/<span class="s2">&quot;</span><span class="nv">$pid</span><span class="s2">&quot;</span>/<span class="s2">&quot;</span><span class="nv">$OPTION</span><span class="s2">&quot;</span>xargs -0 <span class="nb">echo</span>
+<span class="c">#  Formats output:         ^^^^^^^^^^^^^^^</span>
+<span class="c">#  From Han Holl&#39;s fixup of &quot;get-commandline.sh&quot;</span>
+<span class="c">#+ script in &quot;/dev and /proc&quot; chapter.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<p class="last">The ``            -P           `` option to <em>xargs</em> permits running
+processes in parallel. This speeds up execution in a machine with a
+multicore CPU.</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+ls *gif <span class="p">|</span> xargs -t -
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>n1 -P2 gif2png</dt>
+<dd># Converts all the g</dd>
+</dl>
+<p>if images in current dir
+ectory to png.</p>
+<blockquote>
+<div># Options:
+# =======
+# -t    Print comman</div></blockquote>
+<dl class="docutils">
+<dt>d to stderr.</dt>
+<dd># -n1   At most 1 ar</dd>
+<dt>gument per command line.</dt>
+<dd># -P2   Run up to 2</dd>
+</dl>
+<p>processes simultaneously
+.</p>
+<blockquote>
+<div><blockquote>
+<div># Thank you, Roberto</div></blockquote>
+<p>Polli, for the inspirat</p>
+</div></blockquote>
+<p>ion.</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+ls *gifxargs -t -n1 -P2 gif2png
+<span class="c"># Converts all the gif images in current directory to png.</span>
+
+<span class="c"># Options:</span>
+<span class="c"># =======</span>
+<span class="c"># -t    Print command to stderr.</span>
+<span class="c"># -n1   At most 1 argument per command line.</span>
+<span class="c"># -P2   Run up to 2 processes simultaneously.</span>
+
+<span class="c"># Thank you, Roberto Polli, for the inspiration.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+ls *gifxargs -t -n1 -P2 gif2png
+<span class="c"># Converts all the gif images in current directory to png.</span>
+
+<span class="c"># Options:</span>
+<span class="c"># =======</span>
+<span class="c"># -t    Print command to stderr.</span>
+<span class="c"># -n1   At most 1 argument per command line.</span>
+<span class="c"># -P2   Run up to 2 processes simultaneously.</span>
+
+<span class="c"># Thank you, Roberto Polli, for the inspiration.</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-5-logfile-using-xargs-to-monitor-system-log">
+<h2>Exemple 5. Logfile: Using <em>xargs</em> to monitor system log<a class="headerlink" href="#exemple-5-logfile-using-xargs-to-monitor-system-log" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c"># Generates a log file in current directory</span>
+<span class="c"># from the tail end of /var/log/messages.</span>
+
+<span class="c"># Note: /var/log/messages must be world readable</span>
+<span class="c"># if this script invoked by an ordinary user.</span>
+<span class="c">#         #root chmod 644 /var/log/messages</span>
+
+<span class="nv">LINES</span><span class="o">=</span>5
+
+<span class="o">(</span> date<span class="p">;</span> uname -a <span class="o">)</span> &gt;&gt;logfile
+<span class="c"># Time and machine name</span>
+<span class="nb">echo</span> ---------------------------------------------------------- &gt;&gt;logfile
+tail -n <span class="nv">$LINES</span> /var/log/messagesxargs <span class="p">|</span> fmt -s &gt;&gt;logfile
+<span class="nb">echo</span> &gt;&gt;logfile
+<span class="nb">echo</span> &gt;&gt;logfile
+
+<span class="nb">exit </span>0
+
+<span class="c">#  Note:</span>
+<span class="c">#  ----</span>
+<span class="c">#  As Frank Wang points out,</span>
+<span class="c">#+ unmatched quotes (either single or double quotes) in the source file</span>
+<span class="c">#+ may give xargs indigestion.</span>
+<span class="c">#</span>
+<span class="c">#  He suggests the following substitution for line 15:</span>
+<span class="c">#  tail -n $LINES /var/log/messagestr -d &quot;\&quot;&#39;&quot; | xargs | fmt -s &gt;&gt;logfile</span>
+
+
+
+<span class="c">#  Exercise:</span>
+<span class="c">#  --------</span>
+<span class="c">#  Modify this script to track changes in /var/log/messages at intervals</span>
+<span class="c">#+ of 20 minutes.</span>
+<span class="c">#  Hint: Use the &quot;watch&quot; command.</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="moreadv.html#CURLYBRACKETSREF">As in **find**</a> , a curly bracket
+pair serves as a placeholder for replacement text.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-6-copying-files-in-current-directory-to-another">
+<h2>Exemple 6. Copying files in current directory to another<a class="headerlink" href="#exemple-6-copying-files-in-current-directory-to-another" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># copydir.sh</span>
+
+<span class="c">#  Copy (verbose) all files in current directory ($PWD)</span>
+<span class="c">#+ to directory specified on command-line.</span>
+
+<span class="nv">E_NOARGS</span><span class="o">=</span>85
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>   <span class="c"># Exit if no argument given.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` directory-to-copy-to&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOARGS</span>
+<span class="k">fi</span>
+
+ls .xargs -i -t cp ./<span class="o">{}</span> <span class="nv">$1</span>
+<span class="c">#            ^^ ^^      ^^</span>
+<span class="c">#  -t is &quot;verbose&quot; (output command-line to stderr) option.</span>
+<span class="c">#  -i is &quot;replace strings&quot; option.</span>
+<span class="c">#  {} is a placeholder for output text.</span>
+<span class="c">#  This is similar to the use of a curly-bracket pair in &quot;find.&quot;</span>
+<span class="c">#</span>
+<span class="c">#  List the files in current directory (ls .),</span>
+<span class="c">#+ pass the output of &quot;ls&quot; as arguments to &quot;xargs&quot; (-i -t options),</span>
+<span class="c">#+ then copy (cp) these arguments ({}) to new directory ($1).</span>
+<span class="c">#</span>
+<span class="c">#  The net result is the exact equivalent of</span>
+<span class="c">#+   cp * $1</span>
+<span class="c">#+ unless any of the filenames has embedded &quot;whitespace&quot; characters.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-7-killing-processes-by-name">
+<h2>Exemple 7. Killing processes by name<a class="headerlink" href="#exemple-7-killing-processes-by-name" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># kill-byname.sh: Killing processes by name.</span>
+<span class="c"># Compare this script with kill-process.sh.</span>
+
+<span class="c">#  For instance,</span>
+<span class="c">#+ try &quot;./kill-byname.sh xterm&quot; --</span>
+<span class="c">#+ and watch all the xterms on your desktop disappear.</span>
+
+<span class="c">#  Warning:</span>
+<span class="c">#  -------</span>
+<span class="c">#  This is a fairly dangerous script.</span>
+<span class="c">#  Running it carelessly (especially as root)</span>
+<span class="c">#+ can cause data loss and other undesirable effects.</span>
+
+<span class="nv">E_BADARGS</span><span class="o">=</span>66
+
+<span class="k">if</span> <span class="nb">test</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>  <span class="c"># No command-line arg supplied?</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` Process(es)_to_kill&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+
+
+<span class="nv">PROCESS_NAME</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+ps axgrep <span class="s2">&quot;</span><span class="nv">$PROCESS_NAME</span><span class="s2">&quot;</span> <span class="p">|</span> awk <span class="s1">&#39;{print $1}&#39;</span> <span class="p">|</span> xargs -i <span class="nb">kill</span> <span class="o">{}</span> 2<span class="p">&amp;</span>&gt;/dev/null
+<span class="c">#                                                       ^^      ^^</span>
+
+<span class="c"># ---------------------------------------------------------------</span>
+<span class="c"># Notes:</span>
+<span class="c"># -i is the &quot;replace strings&quot; option to xargs.</span>
+<span class="c"># The curly brackets are the placeholder for the replacement.</span>
+<span class="c"># 2&amp;&gt;/dev/null suppresses unwanted error messages.</span>
+<span class="c">#</span>
+<span class="c"># Can  grep &quot;$PROCESS_NAME&quot; be replaced by pidof &quot;$PROCESS_NAME&quot;?</span>
+<span class="c"># ---------------------------------------------------------------</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c">#  The &quot;killall&quot; command has the same effect as this script,</span>
+<span class="c">#+ but using it is not quite as educational.</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-8-word-frequency-analysis-using-xargs">
+<h2>Exemple 8. Word frequency analysis using <em>xargs</em><a class="headerlink" href="#exemple-8-word-frequency-analysis-using-xargs" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># wf2.sh: Crude word frequency analysis on a text file.</span>
+
+<span class="c"># Uses &#39;xargs&#39; to decompose lines of text into single words.</span>
+<span class="c"># Compare this example to the &quot;wf.sh&quot; script later on.</span>
+
+
+<span class="c"># Check for input file on command-line.</span>
+<span class="nv">ARGS</span><span class="o">=</span>1
+<span class="nv">E_BADARGS</span><span class="o">=</span>85
+<span class="nv">E_NOFILE</span><span class="o">=</span>86
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-ne <span class="s2">&quot;</span><span class="nv">$ARGS</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="c"># Correct number of arguments passed to script?</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` filename&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> ! -f <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>       <span class="c"># Does file exist?</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;File \&quot;</span><span class="nv">$1</span><span class="s2">\&quot; does not exist.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOFILE</span>
+<span class="k">fi</span>
+
+
+
+<span class="c">#####################################################</span>
+cat <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>xargs -n1 <span class="p">|</span> <span class="se">\</span>
+<span class="c">#  List the file, one word per line.</span>
+tr A-Z a-z<span class="se">\</span>
+<span class="c">#  Shift characters to lowercase.</span>
+sed -e <span class="s1">&#39;s/\.//g&#39;</span>  -e <span class="s1">&#39;s/\,//g&#39;</span> -e <span class="s1">&#39;s/ /\</span>
+<span class="s1">/g&#39;</span><span class="se">\</span>
+<span class="c">#  Filter out periods and commas, and</span>
+<span class="c">#+ change space between words to linefeed,</span>
+sortuniq -c <span class="p">|</span> sort -nr
+<span class="c">#  Finally remove duplicates, prefix occurrence count</span>
+<span class="c">#+ and sort numerically.</span>
+<span class="c">#####################################################</span>
+
+<span class="c">#  This does the same job as the &quot;wf.sh&quot; example,</span>
+<span class="c">#+ but a bit more ponderously, and it runs more slowly (why?).</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt>``                 expr               ``</dt>
+<dd><p class="first">All-purpose expression evaluator: Concatenates and evaluates the
+arguments according to the operation given (arguments must be
+separated by spaces). Operations may be arithmetic, comparison,
+string, or logical.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>``                       expr 3 + 5                     ``</dt>
+<dd>returns ``            8           ``</dd>
+<dt>``                       expr 5 % 3                     ``</dt>
+<dd>returns 2</dd>
+<dt>``                       expr 1 / 0                     ``</dt>
+<dd><p class="first">returns the error message, expr: division by zero</p>
+<p class="last">Illegal arithmetic operations not allowed.</p>
+</dd>
+<dt>``                       expr 5 * 3                     ``</dt>
+<dd><p class="first">returns 15</p>
+<p class="last">The multiplication operator must be escaped when used in an
+arithmetic expression with <strong>expr</strong> .</p>
+</dd>
+<dt>``                       y=`expr $y + 1`                     ``</dt>
+<dd>Increment a variable, with the same effect as
+``                         let y=y+1                       ``
+and
+``                         y=$(($y+1))                       ``
+. This is an example of <a class="reference external" href="arithexp.html#ARITHEXPREF">arithmetic
+expansion</a> .</dd>
+</dl>
+</div></blockquote>
+<dl class="last docutils">
+<dt>``                       z=`expr substr         $string $position $length`                     ``</dt>
+<dd>Extract substring of $length characters, starting at $position.</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-9-using-expr">
+<h2>Exemple 9. Using <em>expr</em><a class="headerlink" href="#exemple-9-using-expr" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c"># Demonstrating some of the uses of &#39;expr&#39;</span>
+<span class="c"># =======================================</span>
+
+<span class="nb">echo</span>
+
+<span class="c"># Arithmetic Operators</span>
+<span class="c"># ---------- ---------</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Arithmetic Operators&quot;</span>
+<span class="nb">echo</span>
+<span class="nv">a</span><span class="o">=</span><span class="sb">`</span>expr <span class="m">5</span> + 3<span class="sb">`</span>
+<span class="nb">echo</span> <span class="s2">&quot;5 + 3 = </span><span class="nv">$a</span><span class="s2">&quot;</span>
+
+<span class="nv">a</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$a</span> + 1<span class="sb">`</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;a + 1 = </span><span class="nv">$a</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;(incrementing a variable)&quot;</span>
+
+<span class="nv">a</span><span class="o">=</span><span class="sb">`</span>expr <span class="m">5</span> % 3<span class="sb">`</span>
+<span class="c"># modulo</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;5 mod 3 = </span><span class="nv">$a</span><span class="s2">&quot;</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span>
+
+<span class="c"># Logical Operators</span>
+<span class="c"># ------- ---------</span>
+
+<span class="c">#  Returns 1 if true, 0 if false,</span>
+<span class="c">#+ opposite of normal Bash convention.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Logical Operators&quot;</span>
+<span class="nb">echo</span>
+
+<span class="nv">x</span><span class="o">=</span>24
+<span class="nv">y</span><span class="o">=</span>25
+<span class="nv">b</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$x</span> <span class="o">=</span> <span class="nv">$y</span><span class="sb">`</span>         <span class="c"># Test equality.</span>
+<span class="nb">echo</span> <span class="s2">&quot;b = </span><span class="nv">$b</span><span class="s2">&quot;</span>            <span class="c"># 0  ( $x -ne $y )</span>
+<span class="nb">echo</span>
+
+<span class="nv">a</span><span class="o">=</span>3
+<span class="nv">b</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$a</span> <span class="se">\&gt;</span> 10<span class="sb">`</span>
+<span class="nb">echo</span> <span class="s1">&#39;b=`expr $a \&gt; 10`, therefore...&#39;</span>
+<span class="nb">echo</span> <span class="s2">&quot;If a &gt; 10, b = 0 (false)&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;b = </span><span class="nv">$b</span><span class="s2">&quot;</span>            <span class="c"># 0  ( 3 ! -gt 10 )</span>
+<span class="nb">echo</span>
+
+<span class="nv">b</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$a</span> <span class="se">\&lt;</span> 10<span class="sb">`</span>
+<span class="nb">echo</span> <span class="s2">&quot;If a &lt; 10, b = 1 (true)&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;b = </span><span class="nv">$b</span><span class="s2">&quot;</span>            <span class="c"># 1  ( 3 -lt 10 )</span>
+<span class="nb">echo</span>
+<span class="c"># Note escaping of operators.</span>
+
+<span class="nv">b</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$a</span> <span class="se">\&lt;</span><span class="o">=</span> 3<span class="sb">`</span>
+<span class="nb">echo</span> <span class="s2">&quot;If a &lt;= 3, b = 1 (true)&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;b = </span><span class="nv">$b</span><span class="s2">&quot;</span>            <span class="c"># 1  ( 3 -le 3 )</span>
+<span class="c"># There is also a &quot;\&gt;=&quot; operator (greater than or equal to).</span>
+
+
+<span class="nb">echo</span>
+<span class="nb">echo</span>
+
+
+
+<span class="c"># String Operators</span>
+<span class="c"># ------ ---------</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;String Operators&quot;</span>
+<span class="nb">echo</span>
+
+<span class="nv">a</span><span class="o">=</span>1234zipper43231
+<span class="nb">echo</span> <span class="s2">&quot;The string being operated upon is \&quot;</span><span class="nv">$a</span><span class="s2">\&quot;.&quot;</span>
+
+<span class="c"># length: length of string</span>
+<span class="nv">b</span><span class="o">=</span><span class="sb">`</span>expr length <span class="nv">$a</span><span class="sb">`</span>
+<span class="nb">echo</span> <span class="s2">&quot;Length of \&quot;</span><span class="nv">$a</span><span class="s2">\&quot; is </span><span class="nv">$b</span><span class="s2">.&quot;</span>
+
+<span class="c"># index: position of first character in substring</span>
+<span class="c">#        that matches a character in string</span>
+<span class="nv">b</span><span class="o">=</span><span class="sb">`</span>expr index <span class="nv">$a</span> 23<span class="sb">`</span>
+<span class="nb">echo</span> <span class="s2">&quot;Numerical position of first \&quot;2\&quot; in \&quot;</span><span class="nv">$a</span><span class="s2">\&quot; is \&quot;</span><span class="nv">$b</span><span class="s2">\&quot;.&quot;</span>
+
+<span class="c"># substr: extract substring, starting position &amp; length specified</span>
+<span class="nv">b</span><span class="o">=</span><span class="sb">`</span>expr substr <span class="nv">$a</span> <span class="m">2</span> 6<span class="sb">`</span>
+<span class="nb">echo</span> <span class="s2">&quot;Substring of \&quot;</span><span class="nv">$a</span><span class="s2">\&quot;, starting at position 2,\</span>
+<span class="s2">and 6 chars long is \&quot;</span><span class="nv">$b</span><span class="s2">\&quot;.&quot;</span>
+
+
+<span class="c">#  The default behavior of the &#39;match&#39; operations is to</span>
+<span class="c">#+ search for the specified match at the BEGINNING of the string.</span>
+<span class="c">#</span>
+<span class="c">#       Using Regular Expressions ...</span>
+<span class="nv">b</span><span class="o">=</span><span class="sb">`</span>expr match <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> <span class="s1">&#39;[0-9]*&#39;</span><span class="sb">`</span>               <span class="c">#  Numerical count.</span>
+<span class="nb">echo </span>Number of digits at the beginning of <span class="se">\&quot;</span><span class="nv">$a</span><span class="se">\&quot;</span> is <span class="nv">$b</span>.
+<span class="nv">b</span><span class="o">=</span><span class="sb">`</span>expr match <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> <span class="s1">&#39;\([0-9]*\)&#39;</span><span class="sb">`</span>           <span class="c">#  Note that escaped parentheses</span>
+<span class="c">#                   ==      ==             #+ trigger substring match.</span>
+<span class="nb">echo</span> <span class="s2">&quot;The digits at the beginning of \&quot;</span><span class="nv">$a</span><span class="s2">\&quot; are \&quot;</span><span class="nv">$b</span><span class="s2">\&quot;.&quot;</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">The <a class="reference external" href="special-chars.html#NULLREF">: ( *null* )</a> operator can
+substitute for <strong>match</strong> . For example,
+``                         b=`expr $a : [0-9]*`                       ``
+is the exact equivalent of
+``                         b=`expr match $a           [0-9]*`                       ``
+in the above listing.</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;String operati</span>
+</pre></div>
+</div>
+<p>ons using &#8220;expr $strin
+g : &#8221; construct&#8221;</p>
+<blockquote>
+<div>echo &#8220;==============</div></blockquote>
+<blockquote>
+<div>a=1234zipper5FLIPPER</div></blockquote>
+<p>43231</p>
+<blockquote>
+<div>echo &#8220;The string bei</div></blockquote>
+<p>ng operated upon is &#8220;<cite>e
+xpr &#8220;$a&#8221; : &#8216;(.*)&#8217;</cite>&#8221;.&#8221;</p>
+<blockquote>
+<div>#     Escaped parent</div></blockquote>
+<dl class="docutils">
+<dt>heses grouping operator.</dt>
+<dd><blockquote class="first">
+<div></div></blockquote>
+<p class="last">#       <strong>********</strong></p>
+</dd>
+</dl>
+<blockquote>
+<div><blockquote>
+<div>#+           match a</div></blockquote>
+<dl class="docutils">
+<dt>substring</dt>
+<dd>#       <strong>********</strong></dd>
+</dl>
+</div></blockquote>
+<hr class="docutils" />
+<blockquote>
+<div>#  If no escaped par</div></blockquote>
+<dl class="docutils">
+<dt>entheses ...</dt>
+<dd>#+ then &#8216;expr&#8217; conve</dd>
+</dl>
+<p>rts the string operand t
+o an integer.</p>
+<blockquote>
+<div>echo &#8220;Length of &#8220;$a</div></blockquote>
+<p>&#8221; is <cite>expr &#8220;$a&#8221; : &#8216;.*&#8217;</cite>
+.&#8221;   # Length of string</p>
+<blockquote>
+<div>echo &#8220;Number of digi</div></blockquote>
+<p>ts at the beginning of &#8220;$a&#8221; is <cite>expr &#8220;$a&#8221; : &#8216;[
+0-9]*&#8217;</cite>.&#8221;</p>
+<blockquote>
+<div># &#8212;&#8212;&#8212;&#8212;&#8212;&#8212;</div></blockquote>
+<p>&#8212;&#8212;- #</p>
+<blockquote>
+<div><p>echo</p>
+<p>echo &#8220;The digits at</p>
+</div></blockquote>
+<p>the beginning of &#8220;$a&#8221;
+are <cite>expr &#8220;$a&#8221; : &#8216;([0-9
+]*)&#8217;</cite>.&#8221;</p>
+<blockquote>
+<div><blockquote>
+<div><p>#</p>
+<blockquote>
+<div>==</div></blockquote>
+</div></blockquote>
+<dl class="docutils">
+<dt>==</dt>
+<dd>echo &#8220;The first 7 ch</dd>
+</dl>
+</div></blockquote>
+<p>aracters of &#8220;$a&#8221; are `
+expr &#8220;$a&#8221; : &#8216;(.......)
+&#8216;<a href="#id1"><span class="problematic" id="id2">`</span></a>.&#8221;</p>
+<blockquote>
+<div><p>#         =====</p>
+<blockquote>
+<div></div></blockquote>
+<p># Again, escaped par</p>
+</div></blockquote>
+<p>entheses force a substri
+ng match.</p>
+<blockquote>
+<div>#
+echo &#8220;The last 7 cha</div></blockquote>
+<p>racters of &#8220;$a&#8221; are <cite>e
+xpr &#8220;$a&#8221; : &#8216;.*(.......)&#8217;</cite>.&#8221;</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>#         ====</dt>
+<dd>end of strin</dd>
+</dl>
+</div></blockquote>
+<dl class="docutils">
+<dt>g operator  ^^</dt>
+<dd>#  (In fact, means s</dd>
+</dl>
+<p>kip over one or more of
+any characters until spe
+cified</p>
+<blockquote>
+<div>#+  substring found.</div></blockquote>
+<p>)</p>
+<blockquote>
+<div><p>echo</p>
+<p>exit 0</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;String operations using \&quot;expr \$string : \&quot; construct&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;===================================================&quot;</span>
+<span class="nb">echo</span>
+
+<span class="nv">a</span><span class="o">=</span>1234zipper5FLIPPER43231
+
+<span class="nb">echo</span> <span class="s2">&quot;The string being operated upon is \&quot;`expr &quot;</span><span class="nv">$a</span><span class="s2">&quot; : &#39;\(.*\)&#39;`\&quot;.&quot;</span>
+<span class="c">#     Escaped parentheses grouping operator.            ==  ==</span>
+
+<span class="c">#       ***************************</span>
+<span class="c">#+          Escaped parentheses</span>
+<span class="c">#+           match a substring</span>
+<span class="c">#       ***************************</span>
+
+
+<span class="c">#  If no escaped parentheses ...</span>
+<span class="c">#+ then &#39;expr&#39; converts the string operand to an integer.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Length of \&quot;</span><span class="nv">$a</span><span class="s2">\&quot; is `expr &quot;</span><span class="nv">$a</span><span class="s2">&quot; : &#39;.*&#39;`.&quot;</span>   <span class="c"># Length of string</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Number of digits at the beginning of \&quot;</span><span class="nv">$a</span><span class="s2">\&quot; is `expr &quot;</span><span class="nv">$a</span><span class="s2">&quot; : &#39;[0-9]*&#39;`.&quot;</span>
+
+<span class="c"># ------------------------------------------------------------------------- #</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;The digits at the beginning of \&quot;</span><span class="nv">$a</span><span class="s2">\&quot; are `expr &quot;</span><span class="nv">$a</span><span class="s2">&quot; : &#39;\([0-9]*\)&#39;`.&quot;</span>
+<span class="c">#                                                             ==      ==</span>
+<span class="nb">echo</span> <span class="s2">&quot;The first 7 characters of \&quot;</span><span class="nv">$a</span><span class="s2">\&quot; are `expr &quot;</span><span class="nv">$a</span><span class="s2">&quot; : &#39;\(.......\)&#39;`.&quot;</span>
+<span class="c">#         =====                                          ==       ==</span>
+<span class="c"># Again, escaped parentheses force a substring match.</span>
+<span class="c">#</span>
+<span class="nb">echo</span> <span class="s2">&quot;The last 7 characters of \&quot;</span><span class="nv">$a</span><span class="s2">\&quot; are `expr &quot;</span><span class="nv">$a</span><span class="s2">&quot; : &#39;.*\(.......\)&#39;`.&quot;</span>
+<span class="c">#         ====                  end of string operator  ^^</span>
+<span class="c">#  (In fact, means skip over one or more of any characters until specified</span>
+<span class="c">#+  substring found.)</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;String operations using \&quot;expr \$string : \&quot; construct&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;===================================================&quot;</span>
+<span class="nb">echo</span>
+
+<span class="nv">a</span><span class="o">=</span>1234zipper5FLIPPER43231
+
+<span class="nb">echo</span> <span class="s2">&quot;The string being operated upon is \&quot;`expr &quot;</span><span class="nv">$a</span><span class="s2">&quot; : &#39;\(.*\)&#39;`\&quot;.&quot;</span>
+<span class="c">#     Escaped parentheses grouping operator.            ==  ==</span>
+
+<span class="c">#       ***************************</span>
+<span class="c">#+          Escaped parentheses</span>
+<span class="c">#+           match a substring</span>
+<span class="c">#       ***************************</span>
+
+
+<span class="c">#  If no escaped parentheses ...</span>
+<span class="c">#+ then &#39;expr&#39; converts the string operand to an integer.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Length of \&quot;</span><span class="nv">$a</span><span class="s2">\&quot; is `expr &quot;</span><span class="nv">$a</span><span class="s2">&quot; : &#39;.*&#39;`.&quot;</span>   <span class="c"># Length of string</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Number of digits at the beginning of \&quot;</span><span class="nv">$a</span><span class="s2">\&quot; is `expr &quot;</span><span class="nv">$a</span><span class="s2">&quot; : &#39;[0-9]*&#39;`.&quot;</span>
+
+<span class="c"># ------------------------------------------------------------------------- #</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;The digits at the beginning of \&quot;</span><span class="nv">$a</span><span class="s2">\&quot; are `expr &quot;</span><span class="nv">$a</span><span class="s2">&quot; : &#39;\([0-9]*\)&#39;`.&quot;</span>
+<span class="c">#                                                             ==      ==</span>
+<span class="nb">echo</span> <span class="s2">&quot;The first 7 characters of \&quot;</span><span class="nv">$a</span><span class="s2">\&quot; are `expr &quot;</span><span class="nv">$a</span><span class="s2">&quot; : &#39;\(.......\)&#39;`.&quot;</span>
+<span class="c">#         =====                                          ==       ==</span>
+<span class="c"># Again, escaped parentheses force a substring match.</span>
+<span class="c">#</span>
+<span class="nb">echo</span> <span class="s2">&quot;The last 7 characters of \&quot;</span><span class="nv">$a</span><span class="s2">\&quot; are `expr &quot;</span><span class="nv">$a</span><span class="s2">&quot; : &#39;.*\(.......\)&#39;`.&quot;</span>
+<span class="c">#         ====                  end of string operator  ^^</span>
+<span class="c">#  (In fact, means skip over one or more of any characters until specified</span>
+<span class="c">#+  substring found.)</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<p>The above script illustrates how <strong>expr</strong> uses the <em>escaped parentheses
+&#8211; \( ... \) &#8211;</em> grouping operator in tandem with <a class="reference external" href="regexp.html#REGEXREF">regular
+expression</a> parsing to match a substring. Here
+is a another example, this time from &#8220;real life.&#8221;</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Strip the whitespace from the beginning and end.</span>
+<span class="nv">LRFDATE</span><span class="o">=</span><span class="sb">`</span>expr <span class="s2">&quot;</span><span class="nv">$LRFDATE</span><span class="s2">&quot;</span> : <span class="s1">&#39;[[:space:]]*\(.*\)[[:space:]]*$&#39;</span><span class="sb">`</span>
+
+<span class="c">#  From Peter Knowles&#39; &quot;booklistgen.sh&quot; script</span>
+<span class="c">#+ for converting files to Sony Librie/PRS-50X format.</span>
+<span class="c">#  (http://booklistgensh.peterknowles.com)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="wrapper.html#PERLREF">Perl</a> , <a class="reference external" href="sedawk.html#SEDREF">sed</a> , and
+<a class="reference external" href="awk.html#AWKREF">awk</a> have far superior string parsing facilities. A
+short <strong>sed</strong> or <strong>awk</strong> &#8220;subroutine&#8221; within a script (see <a class="reference external" href="wrapper.html">Section
+36.2</a> ) is an attractive alternative to <strong>expr</strong> .</p>
+<p>See <a class="reference external" href="string-manipulation.html">Section 10.1</a> for more on using
+<strong>expr</strong> in string operations.</p>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;moreadv.html#AEN10465&gt;`__</p>
+<p>And even when <em>xargs</em> is not strictly necessary, it can speed up
+execution of a command involving
+<a class="reference external" href="timedate.html#BATCHPROCREF">batch-processing</a> of multiple files.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="textproc.html" class="btn btn-neutral float-right" title="XXX 16.4. Text Processing Commands" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="basic.html" class="btn btn-neutral" title="XXX 16.1. Basic Commands"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

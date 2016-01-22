@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 15.1. Job Control Commands &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  15.1. Job Control Commands</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-15-1-job-control-commands">
+<h1>XXX  15.1. Job Control Commands<a class="headerlink" href="#xxx-15-1-job-control-commands" title="Link permanent a aquest títol">¶</a></h1>
+<p>Certain of the following job control commands take a <em>job identifier</em> as
+an argument. See the <a class="reference external" href="x9644.html#JOBIDTABLE">table</a> at end of the
+chapter.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>jobs</strong></dt>
+<dd>Lists the jobs running in the background, giving the <em>job number</em> .
+Not as useful as <a class="reference external" href="system.html#PPSSREF">ps</a> .</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">It is all too easy to confuse <em>jobs</em> and <em>processes</em> . Certain
+<a class="reference external" href="internal.html#BUILTINREF">builtins</a> , such as <strong>kill</strong> ,
+<strong>disown</strong> , and <strong>wait</strong> accept either a job number or a process
+number as an argument. The <a class="reference external" href="x9644.html#FGREF">fg</a> ,
+<a class="reference external" href="x9644.html#BGREF">bg</a> and <strong>jobs</strong> commands accept only a job
+number.</p>
+</div>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>sleep <span class="m">100</span> <span class="p">&amp;</span>
+<span class="o">[</span>1<span class="o">]</span> 1384
+
+bash <span class="nv">$ </span><span class="nb">jobs</span>
+<span class="o">[</span>1<span class="o">]</span>+  Running
+      sleep <span class="m">100</span> <span class="p">&amp;</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<blockquote>
+<div><blockquote>
+<div><blockquote>
+<div>&#8220;1&#8221; is the job number (jobs are maintained by the current shell).</div></blockquote>
+<p>&#8220;1384&#8221; is the <a class="reference external" href="internalvariables.html#PPIDREF">PID</a> or <em>process
+ID number</em> (processes are maintained by the system). To kill this
+job/process, either a <strong>kill %1</strong> or a <strong>kill 1384</strong> works.</p>
+<p><em>Thanks, S.C.</em></p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>sleep <span class="m">100</span> <span class="p">&amp;</span>
+<span class="o">[</span>1<span class="o">]</span> 1384
+
+bash <span class="nv">$ </span><span class="nb">jobs</span>
+<span class="o">[</span>1<span class="o">]</span>+  Running                 sleep <span class="m">100</span> <span class="p">&amp;</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>sleep <span class="m">100</span> <span class="p">&amp;</span>
+<span class="o">[</span>1<span class="o">]</span> 1384
+
+bash <span class="nv">$ </span><span class="nb">jobs</span>
+<span class="o">[</span>1<span class="o">]</span>+  Running                 sleep <span class="m">100</span> <span class="p">&amp;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>disown</strong></dt>
+<dd>Remove job(s) from the shell&#8217;s table of active jobs.</dd>
+<dt><strong>fg</strong> , <strong>bg</strong></dt>
+<dd>The <strong>fg</strong> command switches a job running in the background into the
+foreground. The <strong>bg</strong> command restarts a suspended job, and runs it
+in the background. If no job number is specified, then the <strong>fg</strong> or
+<strong>bg</strong> command acts upon the currently running job.</dd>
+<dt><strong>wait</strong></dt>
+<dd><p class="first">Suspend script execution until all jobs running in background have
+terminated, or until the job number or process ID specified as an
+option terminates. Returns the <a class="reference external" href="exit-status.html#EXITSTATUSREF">exit
+status</a> of waited-for command.</p>
+<p class="last">You may use the <strong>wait</strong> command to prevent a script from exiting
+before a background job finishes executing (this would create a
+dreaded <a class="reference external" href="x9644.html#ZOMBIEREF">orphan process</a> ).</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="section" id="exemple-26-waiting-for-a-process-to-finish-before-proceeding">
+<h2>Exemple 26. Waiting for a process to finish before proceeding<a class="headerlink" href="#exemple-26-waiting-for-a-process-to-finish-before-proceeding" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">ROOT_UID</span><span class="o">=</span><span class="m">0</span>   <span class="c"># Only users with $UID 0 have root privileges.</span>
+<span class="nv">E_NOTROOT</span><span class="o">=</span>65
+<span class="nv">E_NOPARAMS</span><span class="o">=</span>66
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$UID</span><span class="s2">&quot;</span> -ne <span class="s2">&quot;</span><span class="nv">$ROOT_UID</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Must be root to run this script.&quot;</span>
+  <span class="c"># &quot;Run along kid, it&#39;s past your bedtime.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOTROOT</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` find-string&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOPARAMS</span>
+<span class="k">fi</span>
+
+
+<span class="nb">echo</span> <span class="s2">&quot;Updating &#39;locate&#39; database...&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;This may take a while.&quot;</span>
+updatedb /usr <span class="p">&amp;</span>     <span class="c"># Must be run as root.</span>
+
+<span class="nb">wait</span>
+<span class="c"># Don&#39;t run the rest of the script until &#39;updatedb&#39; finished.</span>
+<span class="c"># You want the the database updated before looking up the file name.</span>
+
+locate <span class="nv">$1</span>
+
+<span class="c">#  Without the &#39;wait&#39; command, in the worse case scenario,</span>
+<span class="c">#+ the script would exit while &#39;updatedb&#39; was still running,</span>
+<span class="c">#+ leaving it as an orphan process.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Optionally, <strong>wait</strong> can take a <em>job identifier</em> as an argument, for
+example, ``                   wait%1                 `` or
+``                   wait                 $PPID                 `` .
+` [1]  &lt;x9644.html#FTN.AEN9753&gt;`__ See the <a class="reference external" href="x9644.html#JOBIDTABLE">job id
+table</a> .</p>
+</div></blockquote>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<p class="last">Within a script, running a command in the background with an
+ampersand (&amp;) may cause the script to hang until <strong>ENTER</strong> is hit.
+This seems to occur with commands that write to
+``            stdout           `` . It can be a major annoyance.</p>
+</div>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># test.sh</span>
+
+ls -l <span class="p">&amp;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Done.&quot;</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>./test.sh
+Done.
+ <span class="o">[</span>bozo@localhost tes
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>t-scripts]$ total 1</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-r<var>wxr-xr-x</var></span></kbd></td>
+<td>1 boz</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<p>o     bozo           34
+Oct 11 15:09 test.sh</p>
+<blockquote>
+<div>_</div></blockquote>
+<hr class="docutils" />
+<p>As&nbsp;Walter&nbsp;Brameld&nbsp;IV&nbsp;explains&nbsp;it:</p>
+<blockquote>
+<div><blockquote>
+<div><p>As&nbsp;far&nbsp;as&nbsp;I&nbsp;can&nbsp;tell,&nbsp;such&nbsp;scripts&nbsp;don&#8217;t&nbsp;actually&nbsp;hang.&nbsp;It&nbsp;just</p>
+<p>seems&nbsp;that&nbsp;they&nbsp;do&nbsp;because&nbsp;the&nbsp;background&nbsp;command&nbsp;writes&nbsp;text&nbsp;to</p>
+<p>the&nbsp;console&nbsp;after&nbsp;the&nbsp;prompt.&nbsp;The&nbsp;user&nbsp;gets&nbsp;the&nbsp;impression&nbsp;that</p>
+<p>the&nbsp;prompt&nbsp;was&nbsp;never&nbsp;displayed.&nbsp;Here&#8217;s&nbsp;the&nbsp;sequence&nbsp;of&nbsp;events:</p>
+</div></blockquote>
+<p>1.&nbsp;Script&nbsp;launches&nbsp;background&nbsp;command.
+2.&nbsp;Script&nbsp;exits.
+3.&nbsp;Shell&nbsp;displays&nbsp;the&nbsp;prompt.</p>
+<blockquote>
+<div>4.&nbsp;Background&nbsp;command&nbsp;continues&nbsp;running&nbsp;and&nbsp;writing&nbsp;text&nbsp;to&nbsp;the</div></blockquote>
+<p>console.
+5.&nbsp;Background&nbsp;command&nbsp;finishes.</p>
+<blockquote>
+<div>6.&nbsp;User&nbsp;doesn&#8217;t&nbsp;see&nbsp;a&nbsp;prompt&nbsp;at&nbsp;the&nbsp;bottom&nbsp;of&nbsp;the&nbsp;output,&nbsp;thinks&nbsp;script</div></blockquote>
+<p>is&nbsp;hanging.</p>
+<blockquote>
+<div>Placing a <strong>wait</strong> after the background command seems to remedy
+this.</div></blockquote>
+</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># test.sh</span>
+
+ls -l <span class="p">&amp;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Done.&quot;</span>
+<span class="nb">wait</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>./test.sh
+Done.
+ <span class="o">[</span>bozo@localhost tes
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>t-scripts]$ total 1</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-r<var>wxr-xr-x</var></span></kbd></td>
+<td>1 boz</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<p>o     bozo           34
+Oct 11 15:09 test.sh</p>
+<blockquote>
+<div><blockquote>
+<div><p><a class="reference external" href="io-redirection.html#IOREDIRREF">Redirecting</a> the output of the
+command to a file or even to ``           /dev/null          `` also
+takes care of this problem.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># test.sh</span>
+
+ls -l <span class="p">&amp;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Done.&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>./test.sh
+Done.
+ <span class="o">[</span>bozo@localhost <span class="nb">test</span>-scripts<span class="o">]</span><span class="nv">$ </span>total 1
+ -rwxr-xr-x    <span class="m">1</span> bozo     bozo           <span class="m">34</span> Oct <span class="m">11</span> 15:09 test.sh
+ _
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># test.sh</span>
+
+ls -l <span class="p">&amp;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Done.&quot;</span>
+<span class="nb">wait</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>./test.sh
+Done.
+ <span class="o">[</span>bozo@localhost <span class="nb">test</span>-scripts<span class="o">]</span><span class="nv">$ </span>total 1
+ -rwxr-xr-x    <span class="m">1</span> bozo     bozo           <span class="m">34</span> Oct <span class="m">11</span> 15:09 test.sh
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># test.sh</span>
+
+ls -l <span class="p">&amp;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Done.&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>./test.sh
+Done.
+ <span class="o">[</span>bozo@localhost <span class="nb">test</span>-scripts<span class="o">]</span><span class="nv">$ </span>total 1
+ -rwxr-xr-x    <span class="m">1</span> bozo     bozo           <span class="m">34</span> Oct <span class="m">11</span> 15:09 test.sh
+ _
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># test.sh</span>
+
+ls -l <span class="p">&amp;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Done.&quot;</span>
+<span class="nb">wait</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>./test.sh
+Done.
+ <span class="o">[</span>bozo@localhost <span class="nb">test</span>-scripts<span class="o">]</span><span class="nv">$ </span>total 1
+ -rwxr-xr-x    <span class="m">1</span> bozo     bozo           <span class="m">34</span> Oct <span class="m">11</span> 15:09 test.sh
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>suspend</strong></dt>
+<dd>This has a similar effect to <strong>Control</strong> - <strong>Z</strong> , but it suspends
+the shell (the shell&#8217;s parent process should resume it at an
+appropriate time).</dd>
+<dt><strong>logout</strong></dt>
+<dd>Exit a login shell, optionally specifying an <a class="reference external" href="exit-status.html#EXITSTATUSREF">exit
+status</a> .</dd>
+<dt><strong>times</strong></dt>
+<dd><p class="first">Gives statistics on the system time elapsed when executing commands,
+in the following form:</p>
+<div class="highlight-sh"><div class="highlight"><pre>0m0.020s 0m0.020s
+</pre></div>
+</div>
+<p class="last">This capability is of relatively limited value, since it is not
+common to profile and benchmark shell scripts.</p>
+</dd>
+<dt><strong>kill</strong></dt>
+<dd>Forcibly terminate a process by sending it an appropriate
+<em>terminate</em> signal (see <a class="reference external" href="system.html#KILLPROCESS">Example 17-6</a>
+).</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-27-a-script-that-kills-itself">
+<h2>Exemple 27. A script that kills itself<a class="headerlink" href="#exemple-27-a-script-that-kills-itself" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># self-destruct.sh</span>
+
+<span class="nb">kill</span> <span class="nv">$$</span>  <span class="c"># Script kills its own process here.</span>
+         <span class="c"># Recall that &quot;$$&quot; is the script&#39;s PID.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;This line will not echo.&quot;</span>
+<span class="c"># Instead, the shell sends a &quot;Terminated&quot; message to stdout.</span>
+
+<span class="nb">exit </span><span class="m">0</span>   <span class="c"># Normal exit? No!</span>
+
+<span class="c">#  After this script terminates prematurely,</span>
+<span class="c">#+ what exit status does it return?</span>
+<span class="c">#</span>
+<span class="c"># sh self-destruct.sh</span>
+<span class="c"># echo $?</span>
+<span class="c"># 143</span>
+<span class="c">#</span>
+<span class="c"># 143 = 128 + 15</span>
+<span class="c">#             TERM signal</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div>``                         kill -l                       `` lists
+all the <a class="reference external" href="debugging.html#SIGNALD">signals</a> (as does the file
+``            /usr/include/asm/signal.h           `` ). A
+``                         kill -9                       `` is a
+<em>sure kill</em> , which will usually terminate a process that stubbornly
+refuses to die with a plain <strong>kill</strong> . Sometimes, a
+``                         kill         -15                       ``
+works. A <em>zombie</em> process, that is, a child process that has
+terminated, but that the <a class="reference external" href="internal.html#FORKREF">parent process</a>
+has not (yet) killed, cannot be killed by a logged-on user &#8211; you
+can&#8217;t kill something that is already dead &#8211; but <strong>init</strong> will
+generally clean it up sooner or later.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>killall</strong></dt>
+<dd>The <strong>killall</strong> command kills a running process by <em>name</em> , rather
+than by <a class="reference external" href="special-chars.html#PROCESSIDREF">process ID</a> . If there
+are multiple instances of a particular command running, then doing a
+<em>killall</em> on that command will terminate them <em>all</em> .</dd>
+</dl>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div>This refers to the <strong>killall</strong> command in
+``            /usr/bin           `` , <em>not</em> the <a class="reference external" href="sysscripts.html#KILLALL2REF">killall
+script</a> in
+``            /etc/rc.d/init.d           `` .</div></blockquote>
+<dl class="last docutils">
+<dt><strong>command</strong></dt>
+<dd><p class="first">The <strong>command</strong> directive disables aliases and functions for the
+command immediately following it.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">command </span>ls
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div>This is one of three shell directives that effect script command
+processing. The others are <a class="reference external" href="x9644.html#BLTREF">builtin</a> and
+<a class="reference external" href="x9644.html#ENABLEREF">enable</a> .</div></blockquote>
+<dl class="last docutils">
+<dt><strong>builtin</strong></dt>
+<dd>Invoking <strong>builtin BUILTIN_COMMAND</strong> runs the command
+``                   BUILTIN_COMMAND                 `` as a shell
+<a class="reference external" href="internal.html#BUILTINREF">builtin</a> , temporarily disabling both
+functions and external system commands with the same name.</dd>
+<dt><strong>enable</strong></dt>
+<dd><p class="first">This either enables or disables a shell builtin command. As an
+example,
+``                   enable -n           kill                 ``
+disables the shell builtin <a class="reference external" href="x9644.html#KILLREF">kill</a> , so that
+when Bash subsequently encounters <em>kill</em> , it invokes the external
+command ``         /bin/kill        `` .</p>
+<blockquote>
+<div>The ``         -a        `` option to <em>enable</em> lists all the shell</div></blockquote>
+<p>builtins, indicating whether or not they are enabled. The
+``         -f filename        `` option lets <em>enable</em> load a
+<a class="reference external" href="internal.html#BUILTINREF">builtin</a> as a shared library (DLL)
+module from a properly compiled object file. ` [2]</p>
+<blockquote class="last">
+<div>&lt;x9644.html#FTN.AEN9928&gt;`__ .</div></blockquote>
+</dd>
+<dt><strong>autoload</strong></dt>
+<dd><p class="first">This is a port to Bash of the <em>ksh</em> autoloader. With <strong>autoload</strong> in
+place, a function with an <em>autoload</em> declaration will load from an
+external file at its first invocation. ` [3]</p>
+<blockquote>
+<div>&lt;x9644.html#FTN.AEN9949&gt;`__ This saves system resources.</div></blockquote>
+<p class="last">Note that <em>autoload</em> is not a part of the core Bash installation. It
+needs to be loaded in with
+``                   enable -f                 `` (see above).</p>
+</dd>
+</dl>
+</div>
+<p><strong>Table 15-1. Job identifiers</strong></p>
+<p>Notation</p>
+<p>Meaning</p>
+<p>``        %N       ``</p>
+<p>Job number [N]</p>
+<p>``        %S       ``</p>
+<p>Invocation (command-line) of job begins with string <em>S</em></p>
+<p>``        %?S       ``</p>
+<p>Invocation (command-line) of job contains within it string <em>S</em></p>
+<p>``        %%       ``</p>
+<blockquote>
+<div>&#8220;current&#8221; job (last job stopped in foreground or started in background)</div></blockquote>
+<p>``        %+       ``</p>
+<blockquote>
+<div>&#8220;current&#8221; job (last job stopped in foreground or started in background)</div></blockquote>
+<p>``        %-       ``</p>
+<p>Last job</p>
+<p>``        $!       ``</p>
+<p>Last background process</p>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;x9644.html#AEN9753&gt;`__</p>
+<p>This only applies to <em>child processes</em> , of course.</p>
+<p>` [2]  &lt;x9644.html#AEN9928&gt;`__</p>
+<p>The C source for a number of loadable builtins is typically found in the
+``       /usr/share/doc/bash-?.??/functions      `` directory.</p>
+<p>Note that the ``       -f      `` option to <strong>enable</strong> is not
+<a class="reference external" href="portabilityissues.html">portable</a> to all systems.</p>
+<p>` [3]  &lt;x9644.html#AEN9949&gt;`__</p>
+<p>The same effect as <strong>autoload</strong> can be achieved with <a class="reference external" href="declareref.html">typeset
+-fu</a> .</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

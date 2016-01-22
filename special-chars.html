@@ -1,0 +1,2056 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 3. Caràcters especials &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="Part 2. Conceptes bàsics" href="part2.html"/>
+        <link rel="next" title="4. Variables" href="variables.html"/>
+        <link rel="prev" title="Part 2. Conceptes bàsics" href="part2.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX 3. Caràcters especials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">4. Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quoting.html">Chapter 5. Cometes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exit-status.html">XXX Chapter 6. Exit and Exit Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html">XXX Chapter 7. Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testconstructs.html">XXX  7.1. Test Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fto.html">XXX  7.2. File test operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparison-ops.html">XXX  7.3. Other Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedifthen.html">7.4. Condicionals aniuats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testtest.html">XXX  7.5. Testing Your Knowledge of Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations.html">XXX Chapter 8. Operations and Related Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ops.html">XXX  8.1. Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="numerical-constants.html">XXX  8.2. Numerical Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dblparens.html">XXX  8.3. The Double-Parentheses Construct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opprecedence.html">XXX  8.4. Operator Precedence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part2.html">Part 2. Conceptes bàsics</a> &raquo;</li>
+      
+    <li>XXX 3. Caràcters especials</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-3-caracters-especials">
+<h1>XXX 3. Caràcters especials<a class="headerlink" href="#xxx-3-caracters-especials" title="Link permanent a aquest títol">¶</a></h1>
+<p>Diem que un caràcter és especial quan té un significat més enllà del
+seu <em>valor literal</em><a class="footnote-reference" href="#metameaning" id="id1">[1]</a>. Juntament amb les comandes i
+<a class="reference internal" href="internal.html"><em>paraules claus</em></a>, els caràcters especials formen
+els fonaments de la programació Bash.</p>
+<p>Considera la següent llista de caràcters especials que podem trobar en
+guions de shell:</p>
+<div class="section" id="sostingut">
+<h2>Sostingut: #<a class="headerlink" href="#sostingut" title="Link permanent a aquest títol">¶</a></h2>
+<p>El principal ús del símbol de sostingut <code class="docutils literal"><span class="pre">#</span></code> en Bash és el de marcar l&#8217;inici d&#8217;un comentari.</p>
+<p>Per ser un comentari, <code class="docutils literal"><span class="pre">#</span></code> apareixerà com el primer caràcter de la línia, o a continuació
+d&#8217;un:ref:<cite>caràcter en blanc &lt;specialchars_whitespaces&gt;</cite> (espai, tabulador).</p>
+<p>El que apareix després de <code class="docutils literal"><span class="pre">#</span></code> no serà interpretat. De fet, el control d&#8217;errors queda desactivat, pel
+que hi podrem posar pràcticament qualsevol cosa.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Aquesta línia és un comentari. El sostingut és el primer caràcter de la línia.</span>
+    <span class="c"># aquest comentari està precedit per un tabulador</span>
+<span class="nb">echo</span> <span class="s2">&quot;A continuació bé un comentari&quot;</span> <span class="c"># Un comentari després d&#39;una comanda</span>
+<span class="c">#                                   ^ Atenció a l&#39;espai abans de #</span>
+</pre></div>
+</div>
+<p>Podem trobar comentaris, fins i tot, en una <a class="reference internal" href="#specialchars-pipe"><span>pipe</span></a>.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># Construïm un fitxer amb alguns comentaris</span>
+cat &gt; /tmp/fitxer <span class="s">&lt;&lt; FINAL</span>
+<span class="s">Aquesta es mostra</span>
+<span class="s"># Aquesta no</span>
+<span class="s">Aquesta també # es mostra</span>
+<span class="s">   # Aquesta tampoc</span>
+<span class="s">FINAL</span>
+
+<span class="c"># Mostrem el fitxer sense línies de comentaris</span>
+cat /tmp/fitxer <span class="p">|</span><span class="se">\</span>
+<span class="hll"><span class="c"># eliminem les línies de comentaris</span>
+</span>sed -e <span class="s1">&#39;/^\s*#/d&#39;</span>
+<span class="c"># Mostrarà:</span>
+<span class="c">#   Aquesta es mostra</span>
+<span class="c">#   Aquesta també # es mostra</span>
+</pre></div>
+</div>
+<p>Cal tenir present què, el final del comentari queda marcar pel salt de línia. És a dir, un cop
+començat el comentari, tot el que vingui després en la mateixa línia serà considerat com a
+comentari. No hi ha manera d&#8217;indicar que el comentari ha finalitzat, a banda del salt de línia.</p>
+<p>El sostingut no serà considerat inici de comentari en els següents casos:</p>
+<ul>
+<li><p class="first"><a class="reference internal" href="sha-bang.html"><em>sha-bang</em></a>. (<code class="docutils literal"><span class="pre">#!</span></code>) que, quan apareix en la primera línia d&#8217;un fitxer, indica quin
+programa ha d&#8217;interpretar el contingut del fitxer.</p>
+</li>
+<li><p class="first">Quan el sostingut apareix, però, <a class="reference internal" href="quoting.html"><em>entre cometes</em></a> o <a class="reference internal" href="escapingsection.html"><em>escapat</em></a>
+com a argument d&#8217;una comanda <em>echo</em>, no es considera com a marca de comentari.</p>
+</li>
+<li><p class="first">Per altra banda, <code class="docutils literal"><span class="pre">#</span></code> tampoc no es considera inici de comentari quan apareix en una
+<a class="reference internal" href="parameter-substitution.html"><em>substitució de paràmetres</em></a> ni en <a class="reference internal" href="numerical-constants.html"><em>expressions amb constants
+numèriques</em></a>.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># A continuació alguns exemples en els que # no inicia un comentari</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Aquest # no inicia un comentari.&quot;</span>
+<span class="nb">echo</span> <span class="s1">&#39;Aquest # tampoc no inicia un comentari.&#39;</span>
+<span class="nb">echo </span>Aquest <span class="se">\#</span> tampoc no inicia un comentari.
+<span class="nb">echo </span>En canvi aquest <span class="c"># sí que inicia un comentari.</span>
+
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">PATH</span><span class="p">#*:</span><span class="si">}</span>       <span class="c"># Una substitució de paràmetre, no un comentari</span>
+<span class="nb">echo</span> <span class="k">$((</span> <span class="m">2#101011</span> <span class="k">))</span>  <span class="c"># Una conversió de base, no un comentari</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="punt-i-coma">
+<h2>Punt i coma: ;<a class="headerlink" href="#punt-i-coma" title="Link permanent a aquest títol">¶</a></h2>
+<p>El punt i coma <code class="docutils literal"><span class="pre">;</span></code> serveix com a separador entre comandes que apareixen seqüencialment a una
+mateixa línia.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># Exemples d&#39;ús del punt i coma per concatenar comandes en la mateixa línia</span>
+
+<span class="nb">echo </span>hola<span class="p">;</span> <span class="nb">echo </span>gent
+<span class="k">if</span> <span class="o">[</span> -x <span class="s2">&quot;</span><span class="nv">$nomfitxer</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+<span class="c">#+                   ^^ Fixat en l&#39;espai després del punt i coma</span>
+  <span class="nb">echo</span> <span class="s2">&quot;El fitxer </span><span class="nv">$nomfitxer</span><span class="s2"> existeix&quot;</span><span class="p">;</span> cp <span class="nv">$nomfitxer</span> <span class="nv">$nomfitxer</span>
+<span class="k">else</span>   <span class="c">#                       ^^</span>
+  <span class="nb">echo</span> <span class="s2">&quot;El fitxer </span><span class="nv">$nomfitxer</span><span class="s2"> no s&#39;ha trobat.&quot;</span><span class="p">;</span> touch <span class="nv">$nomfitxer</span>
+<span class="k">fi</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;Completat el test del fitxer&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">De vegades el ; ha de ser escapat. Considera l&#8217;opció <a class="reference internal" href="moreadv.html#moreadv-find-exec"><span>-exec de la comanda find</span></a>.</p>
+</div>
+<p>Quan el punt i coma apareix duplicat (<code class="docutils literal"><span class="pre">;;</span></code>), el seu significat passa a ser de terminador en una
+opció <em>case</em>.  Mira <a class="reference internal" href="testbranch.html"><em>XXX  11.4. Testing and Branching</em></a>.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$variable</span><span class="s2">&quot;</span> in
+  abc<span class="o">)</span>  <span class="nb">echo</span> <span class="s2">&quot;\$variable = abc&quot;</span> <span class="p">;;</span>
+  xyz<span class="o">)</span>  <span class="nb">echo</span> <span class="s2">&quot;\$variable = xyz&quot;</span> <span class="p">;;</span>
+<span class="k">esac</span>
+</pre></div>
+</div>
+<p>Hi ha altres versions del punt i coma doble (<code class="docutils literal"><span class="pre">;;&amp;</span></code> i <code class="docutils literal"><span class="pre">;&amp;</span></code>).  Són també terminadors d&#8217;opció <em>case</em>, en
+aquest cas, per versions de Bash a partir de la 4. Mira <a class="reference internal" href="bashver4.html"><em>XXX  37.3. Bash, version 4</em></a>.</p>
+</div>
+<div class="section" id="punt">
+<h2>Punt: .<a class="headerlink" href="#punt" title="Link permanent a aquest títol">¶</a></h2>
+<p>A l&#8217;inici de la línia, el punt equival a la comanda <a class="reference internal" href="internal.html#internal-dotcommand"><span>source</span></a>.</p>
+<p>Quan el nom d&#8217;un fitxer o carpeta comença amb punt, es interpretat com a fitxer <em>ocult</em> i, per
+exemple, no serà llistat per defecte per la comanda <code class="docutils literal"><span class="pre">ls</span></code>.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>touch .fitxerocult
+bash<span class="nv">$ </span>ls -l
+total 10
+ -rw-r--r--    <span class="m">1</span> usuari      <span class="m">4034</span> Jul <span class="m">18</span> 22:04 data1.addressbook
+ -rw-r--r--    <span class="m">1</span> usuari      <span class="m">4602</span> May <span class="m">25</span> 13:58 data1.addressbook.bak
+ -rw-r--r--    <span class="m">1</span> usuari       <span class="m">877</span> Dec <span class="m">17</span>  <span class="m">2000</span> employment.addressbook
+
+
+bash<span class="nv">$ </span>ls -al
+total 14
+ drwxrwxr-x    <span class="m">2</span> usuari  usuari      <span class="m">1024</span> Aug <span class="m">29</span> 20:54 ./
+ drwx------   <span class="m">52</span> usuari  usuari      <span class="m">3072</span> Aug <span class="m">29</span> 20:51 ../
+ -rw-r--r--    <span class="m">1</span> usuari  usuari      <span class="m">4034</span> Jul <span class="m">18</span> 22:04 data1.addressbook
+ -rw-r--r--    <span class="m">1</span> usuari  usuari      <span class="m">4602</span> May <span class="m">25</span> 13:58 data1.addressbook.bak
+ -rw-r--r--    <span class="m">1</span> usuari  usuari       <span class="m">877</span> Dec <span class="m">17</span>  <span class="m">2000</span> employment.addressbook
+ -rw-rw-r--    <span class="m">1</span> usuari  usuari         <span class="m">0</span> Aug <span class="m">29</span> 20:54 .fitxerocult
+</pre></div>
+</div>
+<p>En el cas del nom d&#8217;una carpeta, un punt sol representa el directori actual, mentre que dos punts
+denoten la carpeta superior.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">pwd</span>
+/home/usuari/projects
+
+bash<span class="nv">$ </span><span class="nb">cd</span> .
+bash<span class="nv">$ </span><span class="nb">pwd</span>
+/home/usuari/projects
+
+bash<span class="nv">$ </span><span class="nb">cd</span> ..
+bash<span class="nv">$ </span><span class="nb">pwd</span>
+/home/usuari/
+</pre></div>
+</div>
+<p>El punt apareix sovint com la destinació (carpeta) d&#8217;una comanda de moviment o còpia de fitxers. En
+aquest cas, s&#8217;indica que la destinació és la carpeta actual:</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>cp /home/usuari/feina/brossa/* .
+</pre></div>
+</div>
+<p>La comanda anterior copiarà tots els fitxers de la carpeta brossa/ a la carpeta actual o
+<a class="reference internal" href="internalvariables.html#internalvars-pwd"><span>$PWD</span></a>.</p>
+<p>Finalment, el caràcter punt serveix per indicar <em>qualsevol caràcter</em> quan forma part d&#8217;una
+<a class="reference internal" href="regexp.html"><em>expressió regular</em></a>.</p>
+</div>
+<div class="section" id="cometes-dobles">
+<h2>Cometes dobles: &#8220;<a class="headerlink" href="#cometes-dobles" title="Link permanent a aquest títol">¶</a></h2>
+<p>Envoltar un text entre cometes dobles, evita que la majoria dels caràcters especials que conté el
+text, siguin interpretats. Es coneix com <em>cometes parcials</em>. Mira
+<a class="reference internal" href="quoting.html"><em>Chapter 5. Cometes</em></a>.</p>
+</div>
+<div class="section" id="cometes-simples">
+<h2>Cometes simples: &#8216;<a class="headerlink" href="#cometes-simples" title="Link permanent a aquest títol">¶</a></h2>
+<p>Quan envoltem un text entre cometes simples (<em>cometes totals</em>), tots els caràcters especials deixen de
+ser interpretats.
+És, per tant, una forma més forta de posar entre cometes un text que amb les cometes dobles.
+Mira <a class="reference internal" href="quoting.html"><em>Chapter 5. Cometes</em></a>.</p>
+</div>
+<div class="section" id="coma">
+<h2>Coma: ,<a class="headerlink" href="#coma" title="Link permanent a aquest títol">¶</a></h2>
+<p>L&#8217;<em>operador coma</em><a class="footnote-reference" href="#operadors" id="id2">[2]</a> enllaça una sèrie d&#8217;operacions aritmètiques. Totes són avaluades, i
+finalment es retorna el resultat de la darrera.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">let</span> <span class="s2">&quot;v2 = ((v1 = 9, 15 / 3))&quot;</span>
+<span class="c"># Assigna un 9 a v1 i 15/3 a v2.</span>
+</pre></div>
+</div>
+<p>Amb l&#8217;operador coma també podem concatenar Strings, com al següent exemple:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># Mostra tots els fitxers executables que acabin en &quot;ctl&quot;</span>
+<span class="c"># dins dels directoris /bin i /usr/bin</span>
+<span class="k">for</span> fitxer in /<span class="o">{</span>,usr/<span class="o">}</span>bin/*ctl
+<span class="k">do</span>
+    <span class="k">if</span> <span class="o">[</span> -x <span class="s2">&quot;</span><span class="nv">$fitxer</span><span class="s2">&quot;</span> <span class="o">]</span>
+    <span class="k">then</span>
+        <span class="nb">echo</span> <span class="nv">$fitxer</span>
+    <span class="k">fi</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<p>En una substitució de paràmetres, s&#8217;interpreta com a passar a minúscules.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">var</span><span class="o">=</span>ElMeuText
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">var</span><span class="p">,</span><span class="si">}</span>    <span class="c"># elMeuText</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">var</span><span class="p">,,</span><span class="si">}</span>   <span class="c"># elmeutext</span>
+</pre></div>
+</div>
+<p>Mira <a class="reference internal" href="bashver4.html#bash4-modificacas"><span>Substitució de paràmetre: modificació majúscules-minúscules</span></a></p>
+</div>
+<div class="section" id="contrabarra">
+<h2>Contrabarra: \<a class="headerlink" href="#contrabarra" title="Link permanent a aquest títol">¶</a></h2>
+<p>La contrabarra permet evitar que el caràcter següent sigui interpretat, de manera que s&#8217;entengui
+literalment. Aquest mecanisme es coneix com a <em>escapar</em> el caràcter per traducció directa del
+<em>escape</em> anglès.</p>
+<p>Per exemple:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">echo</span> <span class="s2">&quot;Una \&quot; i una \&#39;&quot;</span>
+<span class="c">#    ^ indica inici de text entre cometes. No es mostra.</span>
+<span class="c">#         ^^       ^^ aquestes cometes sí es mostren</span>
+<span class="c">#                    ^ final del text entre cometes. No es mostra.</span>
+</pre></div>
+</div>
+<p>Mira <a class="reference internal" href="escapingsection.html"><em>XXX  5.2. Escapament</em></a> per més detalls sobre escapament de caràcters. Considera <a class="reference internal" href="quoting.html"><em>Chapter 5. Cometes</em></a>
+per una explicació global d&#8217;aquest tema.</p>
+</div>
+<div class="section" id="barra">
+<h2>Barra: /<a class="headerlink" href="#barra" title="Link permanent a aquest títol">¶</a></h2>
+<p>La barra és el separador de carpetes en les especificacions del camí a un fitxer. El que es coneix
+com a <em>path</em>.</p>
+<p>Per exemple:</p>
+<div class="highlight-none"><div class="highlight"><pre>/home/usuari/traduccions/absguide/Makefile
+</pre></div>
+</div>
+<p>També es fa servir per indicar l&#8217;operador aritmètic de divisió.  Mira <a class="reference internal" href="ops.html"><em>XXX  8.1. Operators</em></a> per més detalls.</p>
+</div>
+<div class="section" id="tilde-oberta">
+<h2>Tilde oberta: `<a class="headerlink" href="#tilde-oberta" title="Link permanent a aquest títol">¶</a></h2>
+<p>Anomenat substitució de comanda (<em>command substitution</em>), envoltar un text entre tildes obertes
+fa què:</p>
+<ol class="arabic simple">
+<li>s&#8217;executi el text que apareix entre tildes com si fos una comanda Bash</li>
+<li>es retorni com a string el resultat que la comanda escrigui en la sortida estàndard, per exemple,
+per a ser assignat a una variable.</li>
+</ol>
+<p>Mira <a class="reference internal" href="commandsub.html"><em>XXX  Chapter 12. Substitució de comanda</em></a> per més detalls.</p>
+</div>
+<div class="section" id="dos-punts">
+<h2>Dos punts: :<a class="headerlink" href="#dos-punts" title="Link permanent a aquest títol">¶</a></h2>
+<p>La comanda nulla: és l&#8217;equivalent en Bash del &#8220;NOP&#8221; (No Operation). Es tracta d&#8217;una <a class="reference internal" href="internal.html"><em>comanda
+interna</em></a> de Bash, que no fa res i sempre té com a <a class="reference internal" href="exit-status.html"><em>valor de sortida</em></a> <code class="docutils literal"><span class="pre">0</span></code>. Es pot considerar sinònim de la comanda <code class="docutils literal"><span class="pre">true</span></code>.</p>
+<div class="highlight-sh"><div class="highlight"><pre>:
+<span class="nb">echo</span> <span class="nv">$?</span>   <span class="c"># 0</span>
+</pre></div>
+</div>
+<p>Amb <code class="docutils literal"><span class="pre">:</span></code> podem fer un bucle infinit:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># Demostració d&#39;un bucle infinit</span>
+<span class="c"># Finalitza amb ctrl-c</span>
+
+<span class="k">while</span> :
+<span class="k">do</span>
+    <span class="nb">echo</span> -n <span class="s2">&quot;.&quot;</span>
+<span class="k">done</span>
+
+<span class="c"># Equival a:</span>
+<span class="c">#    while true</span>
+<span class="c">#    do</span>
+<span class="c">#       echo -n &quot;.&quot;</span>
+<span class="c">#    done</span>
+</pre></div>
+</div>
+<p>En algunes ocasions, cal començar una operació aritmètica o una substitució de paràmetres amb els
+<code class="docutils literal"><span class="pre">:</span></code>.  Considera l&#8217;exemple: <a class="reference internal" href="ops.html#ops-exemple-operadorsaritmetics"><span>Exemple 2. Ús dels operadors aritmètics</span></a> i <a class="reference internal" href="parameter-substitution.html"><em>XXX 10.2. Substitució de paràmetres</em></a>.</p>
+<div class="highlight-sh"><div class="highlight"><pre>: <span class="si">${</span><span class="nv">username</span><span class="p">=</span><span class="sb">`</span>whoami<span class="sb">`</span><span class="si">}</span>
+<span class="c"># ${username=`whoami`}   Genera un error quan no està precedit del :</span>
+<span class="c">#                        a menys que &quot;username&quot; sigui una comanda.</span>
+
+: <span class="si">${</span><span class="nv">1</span><span class="p">?</span><span class="s2">&quot;Ús: </span><span class="nv">$0</span><span class="s2"> ARGUMENT&quot;</span><span class="si">}</span>
+</pre></div>
+</div>
+<p>Un ús típic és com a <em>marcador de posició</em> allà on s&#8217;espera que hi hagi una comanda però que, per
+alguna raó, no la tenim o no la volem especificar. Per exemple, permet mantenir l&#8217;estructura d&#8217;un
+condicional, quan no es disposa de quelcom a fer per un determinat cas:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">if</span> condicio
+<span class="k">then</span> :   <span class="c"># No fa res i passa a continuació del fi</span>
+<span class="k">else</span>
+   fes-alguna-cosa
+<span class="k">fi</span>
+</pre></div>
+</div>
+<p>Un altre exemple d&#8217;ús per marcar posició el trobem en funcions buides:</p>
+<div class="highlight-sh"><div class="highlight"><pre>no_buida <span class="o">()</span>
+<span class="o">{</span>
+  :
+<span class="o">}</span> <span class="c"># Conté un : (comanda nul·la) i, per tant, la funció no està buida.</span>
+</pre></div>
+</div>
+<p>En <a class="reference internal" href="here-docs.html"><em>documents immediats</em></a> permet marcar una posició allà on s&#8217;esperava una comanda.
+Mira <a class="reference internal" href="here-docs.html#heredocs-anonim"><span>Exemple 10. Here Document anònim</span></a>.</p>
+<p>Avalua variables fent servir <a class="reference internal" href="parameter-substitution.html"><em>XXX 10.2. Substitució de paràmetres</em></a> com a
+<a class="reference internal" href="parameter-substitution.html#parameter-substitution-missatges-error"><span>Exemple 1. Ús de la substitució de paràmetres i els missatges d&#8217;error</span></a>.</p>
+<div class="highlight-sh"><div class="highlight"><pre>: <span class="si">${</span><span class="nv">HOSTNAME</span><span class="p">?</span><span class="si">}</span> <span class="si">${</span><span class="nv">USER</span><span class="p">?</span><span class="si">}</span> <span class="si">${</span><span class="nv">MAIL</span><span class="p">?</span><span class="si">}</span>
+<span class="c">#  Mostra un missatge d&#39;error si alguna de les variables</span>
+<span class="c">#+ d&#39;entorn no està assignada.</span>
+</pre></div>
+</div>
+<p>Trobem un altre ús de la comanda nul·la, combinant-la amb <a class="reference internal" href="io-redirection.html"><em>l&#8217;operador de redirecció</em></a> <code class="docutils literal"><span class="pre">&gt;</span></code>.
+Donat que no genera cap resultat per sortida estàndard, quan redireccionem la seva sortida cap a un
+fitxer, elimina el seu contingut. Per exemple:</p>
+<div class="highlight-sh"><div class="highlight"><pre>: &gt; fitxer.dat   <span class="c"># &quot;fitxer.dat&quot; passa a ser buit</span>
+</pre></div>
+</div>
+<p>El resultat equival a fer <code class="docutils literal"><span class="pre">cat</span> <span class="pre">/dev/null</span> <span class="pre">&gt;</span> <span class="pre">fitxer.dat</span></code> La diferència és que amb <code class="docutils literal"><span class="pre">:</span></code> no es crea
+un nou procés, doncs <code class="docutils literal"><span class="pre">:</span></code> és una comanda interna (<em>builtin</em>) de la shell.</p>
+<p>Pot ser interessant quan no ens interessi canviar els permisos del fitxer a buidar. En cas que el
+fitxer no existís, el crea.</p>
+<p>En combinació amb el operador de redirecció <code class="docutils literal"><span class="pre">&gt;&gt;</span></code>, no té efecte sobre un fitxer ja existent:</p>
+<div class="highlight-sh"><div class="highlight"><pre>: &gt;&gt; fitxer_existent.dat      <span class="c"># cap efecte quan el fitxer ja existeix</span>
+</pre></div>
+</div>
+<p>Tant amb <code class="docutils literal"><span class="pre">&gt;</span></code> com amb <code class="docutils literal"><span class="pre">&gt;&gt;</span></code>, en cas que el fitxer no existís, el crea.</p>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Funciona només amb fitxers regulars, no amb <em>pipes</em>, enllaços simbòlics ni altres fitxers especials.</p>
+</div>
+<p>De vegades trobarem <code class="docutils literal"><span class="pre">:</span></code> utilitzat per començar una línia de comentaris. No és una pràctica
+recomanada doncs, a diferència de <code class="docutils literal"><span class="pre">#</span></code>, no queda desactivat el control d&#8217;errors.</p>
+<div class="highlight-sh"><div class="highlight"><pre>: Aquest comentari genera un error, <span class="o">(</span> <span class="k">if</span> <span class="o">[</span> <span class="nv">$x</span> -eq 3<span class="o">]</span> <span class="o">)</span>.
+</pre></div>
+</div>
+<p>Els dos punts també serveixen com a separador de camps al <a class="reference internal" href="files.html"><em>fitxer</em></a> <code class="docutils literal"><span class="pre">/etc/passwd</span></code> i en
+variables del sistema com ara <a class="reference internal" href="internalvariables.html#internalvariables-path"><span>$PATH</span></a>.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$PATH</span>
+/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin:/sbin:/usr/sbin:/usr/games
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p>Bash accepta anomenar una <a class="reference internal" href="functions.html"><em>funció</em></a> amb <code class="docutils literal"><span class="pre">:</span></code>, com per exemple:</p>
+<div class="highlight-sh"><div class="highlight"><pre>:<span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">echo</span> <span class="s2">&quot;El nom d&#39;aquesta funció és &quot;</span><span class="nv">$FUNCNAME</span><span class="s2">&quot; &quot;</span>
+  <span class="c"># Perquè voldria algú fer servir dos punts com a nom d&#39;una funció?</span>
+  <span class="c"># És una manera d&#39;emmascarar el teu codi!</span>
+<span class="o">}</span>
+
+:
+
+<span class="c"># El nom d&#39;aquesta funció és :</span>
+</pre></div>
+</div>
+<p class="last">Cal tenir present que és un comportament <a class="reference internal" href="portabilityissues.html"><em>portable</em></a> i, per tant, es
+desaconsella el seu ús.</p>
+</div>
+</div>
+<div class="section" id="exclamacio">
+<h2>Exclamació: !<a class="headerlink" href="#exclamacio" title="Link permanent a aquest títol">¶</a></h2>
+<p>L&#8217;exclamació és una <a class="reference internal" href="internal.html"><em>paraula reservada</em></a> de Bash.</p>
+<p>En el seu ús més habitual, l&#8217;exclamació <code class="docutils literal"><span class="pre">!</span></code> (o <em>bang</em>) <span class="xref std std-ref">nega o
+inverteix&lt;exit-status_negatingconditionwithbang:</span> el resultat d&#8217;un test o un <a class="reference internal" href="exit-status.html"><em>estat de
+sortida</em></a>.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">true</span>    <span class="c"># la funció &quot;builtin&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;El valor de sortida de \&quot;true\&quot; = </span><span class="nv">$?</span><span class="s2">&quot;</span>     <span class="c"># 0</span>
+
+! <span class="nb">true</span>
+<span class="nb">echo</span> <span class="s2">&quot;El valor de sortida de \&quot;! true\&quot; = </span><span class="nv">$?</span><span class="s2">&quot;</span>   <span class="c"># 1</span>
+</pre></div>
+</div>
+<p>També indica <em>desigualtat</em> quan es fa servir en conjunt amb l&#8217;<a class="reference internal" href="comparison-ops.html#comparison-ops-notequalto"><span>operador de comparació</span></a> <code class="docutils literal"><span class="pre">=</span></code>.</p>
+<p>Altres funcions de <code class="docutils literal"><span class="pre">!</span></code> són:</p>
+<ul>
+<li><p class="first">Com a referència indirecta a variable: mira <a class="reference internal" href="ivr.html"><em>XXX  Chapter 28. Indirect References</em></a>.</p>
+</li>
+<li><p class="first">Des de la línia de comandes permet invocar el mecanisme <a class="reference internal" href="histcommands.html"><em>d&#8217;històric de comandes de Bash</em></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Dins d&#8217;un guió, el mecanisme d&#8217;històric de comandes està desabilitat.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="asterisc">
+<h2>Asterisc: *<a class="headerlink" href="#asterisc" title="Link permanent a aquest títol">¶</a></h2>
+<p>Depenent del context, l&#8217;asterisc pot representar:</p>
+<ul>
+<li><p class="first">Un mecanisme d&#8217;expansió de noms de fitxer</p>
+<p>El asterisc serveix de comodí per <a class="reference internal" href="globbingref.html"><em>l&#8217;expansió de noms de fitxer</em></a>.</p>
+<p>Quan apareix sol, implica <strong>tots</strong> els fitxers dins d&#8217;un directori. Per exemple:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="c"># contingut de l&#39;arrel del sistema de fitxers</span>
+<span class="nv">$ </span><span class="nb">echo</span> /*
+/bin /boot /dev /etc /home /initrd.img /lib /lib32 /lib64 /lost+found /media /mnt /opt /proc /root /run /sbin /srv /sys /tmp /usr /var /vmlinuz
+</pre></div>
+</div>
+<p>En cas de ser doble asterisc, <code class="docutils literal"><span class="pre">**</span></code>, funcionaria com un comodí estès (que accepta fitxers i
+directoris) incorporat en la :doc:<a href="#id3"><span class="problematic" id="id4">`</span></a>versió 4 de Bash&lt;bashver4&gt;.</p>
+</li>
+<li><p class="first"><em>Qualsevol nombre de cops</em>: en <a class="reference internal" href="regexp.html"><em>expressions regulars</em></a>, l&#8217;asterisc especifica que
+l&#8217;element anterior pot aparèixer zero o més cops.</p>
+</li>
+<li><p class="first">Un operador aritmètic</p>
+<p>L&#8217;asterisc també és un <a class="reference internal" href="ops.html"><em>operador aritmètic</em></a>: quan apareix en una operació aritmètica
+<code class="docutils literal"><span class="pre">\*</span></code> denota <em>multiplicació</em>.</p>
+<p>En aquest mateix context, <code class="docutils literal"><span class="pre">**</span></code> (doble asterisc) representaria l&#8217;operador exponencial.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="interrogant">
+<h2>Interrogant: ?<a class="headerlink" href="#interrogant" title="Link permanent a aquest títol">¶</a></h2>
+<p>L&#8217;interrogant representa els següents papers, segons context:</p>
+<ul>
+<li><p class="first">En determinades expressions, <code class="docutils literal"><span class="pre">?</span></code> indica la comprovació d&#8217;una condició.</p>
+<p>Per exemple, en una expressió de <a class="reference internal" href="dblparens.html"><em>doble parèntesis</em></a>, l&#8217;interrogant pot servir com
+l&#8217;operador ternari: `` (( condició ? resultat-si-cert : resultat-si-fals``. Per exemple:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">((</span> <span class="nv">resultat</span> <span class="o">=</span> valor&lt;98?9:21 <span class="o">))</span>
+<span class="c">#                ^ ^</span>
+</pre></div>
+</div>
+<p>El codi anterior tindria el mateix efecte que el següent:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$valor</span><span class="s2">&quot;</span> -lt <span class="m">98</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nv">resultat</span><span class="o">=</span>9
+<span class="k">else</span>
+  <span class="nv">resultat</span><span class="o">=</span>21
+<span class="k">fi</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">En una <a class="reference internal" href="parameter-substitution.html"><em>substitució de paràmetre</em></a>, comprova si la variable ha estat
+assignada.</p>
+</li>
+<li><p class="first">En un patró per <a class="reference internal" href="globbingref.html"><em>l&#8217;expansió de noms de fitxer</em></a>, <code class="docutils literal"><span class="pre">?</span></code> indica que s&#8217;admet un caràcter qualsevol.</p>
+</li>
+<li><p class="first">En una <a class="reference internal" href="x17129.html"><em>expressió regular</em></a> indica que l&#8217;element anterior és opcional. És a dir, que
+pot donar-se zero o un cop.</p>
+</li>
+<li><p class="first">A continuació de <code class="docutils literal"><span class="pre">$</span></code> representa el valor de sortida de la comanda anterior:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>rm fitxerinexistent
+rm: no s’ha pogut eliminar «fitxerinexistent»: El fitxer o directori no existeix
+<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$?</span>
+1
+</pre></div>
+</div>
+<p>En aquest cas, la comanda &#8216;rm&#8217; ha sortit amb un valor d&#8217;error <code class="docutils literal"><span class="pre">1</span></code>.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="dollar">
+<h2>Dollar: $<a class="headerlink" href="#dollar" title="Link permanent a aquest títol">¶</a></h2>
+<p>XXX TODO: per aquí</p>
+<blockquote>
+<div><blockquote>
+<div><p><strong>`Variable substitution &lt;varsubn.html&gt;`__ (contents of a
+variable).</strong></p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">var1</span><span class="o">=</span>5
+<span class="nv">var2</span><span class="o">=</span>23skidoo
+
+<span class="nb">echo</span> <span class="nv">$var1</span>     <span class="c"># 5</span>
+<span class="nb">echo</span> <span class="nv">$var2</span>     <span class="c"># 23skidoo</span>
+</pre></div>
+</div>
+<p>A $ prefixing a variable name indicates the <em>value</em> the variable
+holds.</p>
+</div></blockquote>
+<p>$</p>
+<blockquote>
+<div><strong>end-of-line.</strong> In a <a class="reference external" href="regexp.html#REGEXREF">regular expression</a>
+, a &#8220;$&#8221; addresses the <a class="reference external" href="x17129.html#DOLLARSIGNREF">end of a line</a>
+of text.</div></blockquote>
+<p>${}</p>
+<blockquote>
+<div><strong>`Parameter
+substitution &lt;parameter-substitution.html#PARAMSUBREF&gt;`__ .</strong></div></blockquote>
+<p>$&#8217; ... &#8216;</p>
+<blockquote>
+<div><strong>`Quoted string expansion &lt;escapingsection.html#STRQ&gt;`__ .</strong> This
+construct expands single or multiple escaped octal or hex values
+into ASCII ` [3]  &lt;special-chars.html#FTN.AEN1001&gt;`__ or
+<a class="reference external" href="bashver4.html#UNICODEREF">Unicode</a> characters.</div></blockquote>
+<p>$* , $&#64;</p>
+<blockquote>
+<div><strong>`positional parameters &lt;internalvariables.html#APPREF&gt;`__ .</strong></div></blockquote>
+<p>$?</p>
+<blockquote>
+<div><strong>exit status variable.</strong> The <a class="reference external" href="exit-status.html#EXSREF">$?
+variable</a> holds the <a class="reference external" href="exit-status.html#EXITSTATUSREF">exit
+status</a> of a command, a
+<a class="reference external" href="functions.html#FUNCTIONREF">function</a> , or of the script itself.</div></blockquote>
+<p>$$</p>
+<blockquote>
+<div><strong>process ID variable.</strong> The <a class="reference external" href="internalvariables.html#PROCCID">$$
+variable</a> holds the <em>process ID</em>
+` [4]  &lt;special-chars.html#FTN.AEN1071&gt;`__ of the script in which it
+appears.</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="parentesis">
+<h2>Parèntesis: ()<a class="headerlink" href="#parentesis" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><p><strong>command group.</strong></p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span><span class="nv">a</span><span class="o">=</span>hello<span class="p">;</span> <span class="nb">echo</span> <span class="nv">$a</span><span class="o">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Important</p>
+<blockquote>
+<div><p>A listing of commands within
+``                         parentheses                       ``
+starts a <a class="reference external" href="subshells.html#SUBSHELLSREF">subshell</a> .</p>
+<p>Variables inside parentheses, within the subshell, are not visible
+to the rest of the script. The parent process, the script, <a class="reference external" href="subshells.html#PARVIS">cannot
+read variables created in the child
+process</a> , the subshell.</p>
+</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre>    <span class="nv">a</span><span class="o">=</span>123
+    <span class="o">(</span> <span class="nv">a</span><span class="o">=</span>321<span class="p">;</span> <span class="o">)</span>
+
+    <span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>   <span class="c"># a</span>
+<span class="o">=</span> 123
+    <span class="c"># &quot;a&quot; within parenth</span>
+eses acts like a <span class="nb">local </span>v
+ariable.
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">a</span><span class="o">=</span>123
+<span class="o">(</span> <span class="nv">a</span><span class="o">=</span>321<span class="p">;</span> <span class="o">)</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>   <span class="c"># a = 123</span>
+<span class="c"># &quot;a&quot; within parentheses acts like a local variable.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>    <span class="nv">a</span><span class="o">=</span>123
+    <span class="o">(</span> <span class="nv">a</span><span class="o">=</span>321<span class="p">;</span> <span class="o">)</span>
+
+    <span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>   <span class="c"># a = 123</span>
+    <span class="c"># &quot;a&quot; within parentheses acts like a local variable.</span>
+
+
+
+
+
+**array initialization.**
+
+
+.. code-block:: sh
+
+    <span class="nv">Array</span><span class="o">=(</span>element1 element2 element3<span class="o">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="claus">
+<h2>Claus: {}<a class="headerlink" href="#claus" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><p>{xxx,yyy,zzz,...}</p>
+<blockquote>
+<div><p><strong>Brace expansion.</strong></p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">echo</span> <span class="se">\&quot;</span><span class="o">{</span>These,words,are,quoted<span class="o">}</span><span class="se">\&quot;</span>   <span class="c"># &quot; prefix and suffix</span>
+<span class="c"># &quot;These&quot; &quot;words&quot; &quot;are&quot; &quot;quoted&quot;</span>
+
+
+cat <span class="o">{</span>file1,file2,file3<span class="o">}</span> &gt; combined_file
+<span class="c"># Concatenates the files file1, file2, and file3 into combined_file.</span>
+
+cp file22.<span class="o">{</span>txt,backup<span class="o">}</span>
+<span class="c"># Copies &quot;file22.txt&quot; to &quot;file22.backup&quot;</span>
+</pre></div>
+</div>
+<p>A command may act upon a comma-separated list of file specs within
+``                   braces                 `` . ` [5]</p>
+<blockquote>
+<div>&lt;special-chars.html#FTN.AEN1124&gt;`__ Filename expansion (</div></blockquote>
+<p><a class="reference external" href="globbingref.html">globbing</a> ) applies to the file specs between
+the braces.</p>
+</div></blockquote>
+</div></blockquote>
+<p>Caution</p>
+<blockquote>
+<div><blockquote>
+<div><p>No spaces allowed within the braces <em>unless</em> the spaces are quoted
+or escaped.</p>
+<p>``                         echo {file1,file2}:{A,&#8221; B&#8221;,&#8217; C&#8217;}                       ``</p>
+<p>``            file1 : A file1 : B file1 : C file2 : A file2 : B file2 : C           ``</p>
+</div></blockquote>
+<p>{a..z}</p>
+<blockquote>
+<div><strong>Extended Brace expansion.</strong></div></blockquote>
+</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre>       <span class="nb">echo</span> <span class="o">{</span>a..z<span class="o">}</span> <span class="c"># a b c d e f g h i j k l m n o p q r s t u v w x y z</span>
+       <span class="c"># Echoes characters between a and z.</span>
+
+       <span class="nb">echo</span> <span class="o">{</span>0..3<span class="o">}</span> <span class="c"># 0 1 2 3</span>
+       <span class="c"># Echoes characters between 0 and 3.</span>
+
+
+       <span class="nv">base64_charset</span><span class="o">=(</span> <span class="o">{</span>A..Z<span class="o">}</span> <span class="o">{</span>a..z<span class="o">}</span> <span class="o">{</span>0..9<span class="o">}</span> + / <span class="o">=</span> <span class="o">)</span>
+       <span class="c"># Initializing an array, using extended brace expansion.</span>
+       <span class="c"># From vladz&#39;s &quot;base64.sh&quot; example script.</span>
+
+
+
+
+   The *<span class="o">{</span>a..z<span class="o">}</span>* <span class="sb">`</span>extended brace
+   expansion &lt;bashver3.html#BRACEEXPREF3&gt;<span class="sb">`</span>__ construction is a feature
+   introduced in <span class="sb">`</span>version <span class="m">3</span> &lt;bashver3.html#BASH3REF&gt;<span class="sb">`</span>__ of *Bash* .
+
+<span class="o">{}</span>
+
+   **Block of code <span class="o">[</span>curly brackets<span class="o">]</span>.** Also referred to as an *inline
+   group* , this construct, in effect, creates an *anonymous <span class="k">function</span>*
+   <span class="o">(</span>a <span class="k">function</span> without a name<span class="o">)</span>. However, unlike in a <span class="s2">&quot;standard&quot;</span>
+   <span class="sb">`</span><span class="k">function</span> &lt;functions.html#FUNCTIONREF&gt;<span class="sb">`</span>__ , the variables inside a
+   code block remain visible to the remainder of the script.
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="o">{</span> <span class="nb">local </span>a<span class="p">;</span>
+          <span class="nv">a</span><span class="o">=</span>123<span class="p">;</span> <span class="o">}</span>
+bash: <span class="nb">local</span>: can only be used in a
+<span class="k">function</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>    <span class="nv">a</span><span class="o">=</span>123
+    <span class="o">{</span> <span class="nv">a</span><span class="o">=</span>321<span class="p">;</span> <span class="o">}</span>
+    <span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>   <span class="c"># a = 321   (value inside code block)</span>
+
+    <span class="c"># Thanks, S.C.</span>
+
+
+
+The code block enclosed in braces may have <span class="sb">`</span>I/O
+redirected &lt;io-redirection.html#IOREDIRREF&gt;<span class="sb">`</span>__ to and from it.
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-1-code-blocks-and-i-o-redirection">
+<h2>Exemple 1. Code blocks and I/O redirection<a class="headerlink" href="#exemple-1-code-blocks-and-i-o-redirection" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Reading lines in /etc/fstab.</span>
+
+<span class="nv">File</span><span class="o">=</span>/etc/fstab
+
+<span class="o">{</span>
+<span class="nb">read </span>line1
+<span class="nb">read </span>line2
+<span class="o">}</span> &lt; <span class="nv">$File</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;First line in </span><span class="nv">$File</span><span class="s2"> is:&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$line1</span><span class="s2">&quot;</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Second line in </span><span class="nv">$File</span><span class="s2"> is:&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$line2</span><span class="s2">&quot;</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># Now, how do you parse the separate fields of each line?</span>
+<span class="c"># Hint: use awk, or . . .</span>
+<span class="c"># . . . Hans-Joerg Diers suggests using the &quot;set&quot; Bash builtin.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-2-saving-the-output-of-a-code-block-to-a-file">
+<h2>Exemple 2. Saving the output of a code block to a file<a class="headerlink" href="#exemple-2-saving-the-output-of-a-code-block-to-a-file" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># rpm-check.sh</span>
+
+<span class="c">#  Queries an rpm file for description, listing,</span>
+<span class="c">#+ and whether it can be installed.</span>
+<span class="c">#  Saves output to a file.</span>
+<span class="c">#</span>
+<span class="c">#  This script illustrates using a code block.</span>
+
+<span class="nv">SUCCESS</span><span class="o">=</span>0
+<span class="nv">E_NOARGS</span><span class="o">=</span>65
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` rpm-file&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOARGS</span>
+<span class="k">fi</span>
+
+<span class="o">{</span> <span class="c"># Begin code block.</span>
+  <span class="nb">echo</span>
+<span class="nb">  echo</span> <span class="s2">&quot;Archive Description:&quot;</span>
+  rpm -qpi <span class="nv">$1</span>       <span class="c"># Query description.</span>
+  <span class="nb">echo</span>
+<span class="nb">  echo</span> <span class="s2">&quot;Archive Listing:&quot;</span>
+  rpm -qpl <span class="nv">$1</span>       <span class="c"># Query listing.</span>
+  <span class="nb">echo</span>
+<span class="nb">  </span>rpm -i --test <span class="nv">$1</span>  <span class="c"># Query whether rpm file can be installed.</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$?</span><span class="s2">&quot;</span> -eq <span class="nv">$SUCCESS</span> <span class="o">]</span>
+  <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2"> can be installed.&quot;</span>
+  <span class="k">else</span>
+    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2"> cannot be installed.&quot;</span>
+  <span class="k">fi</span>
+  <span class="nb">echo</span>              <span class="c"># End code block.</span>
+<span class="o">}</span> &gt; <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">.test&quot;</span>       <span class="c"># Redirects output of everything in block to file.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Results of rpm test in file </span><span class="nv">$1</span><span class="s2">.test&quot;</span>
+
+<span class="c"># See rpm man page for explanation of options.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<p>Note</p>
+<blockquote>
+<div><blockquote>
+<div><p>Unlike a command group within (parentheses), as above, a code block
+enclosed by {braces} will <em>not</em> normally launch a
+<a class="reference external" href="subshells.html#SUBSHELLSREF">subshell</a> . ` [6]</p>
+<blockquote>
+<div>&lt;special-chars.html#FTN.AEN1199&gt;`__</div></blockquote>
+<p>It is possible to <a class="reference external" href="loops1.html#ITERATIONREF">iterate</a> a code
+block using a <a class="reference external" href="loops1.html#NODODONE">non-standard *for-loop*</a> .</p>
+</div></blockquote>
+<p>{}</p>
+<blockquote>
+<div><p><strong>placeholder for text.</strong> Used after <cite>xargs
+`</cite>           -i          `` &lt;moreadv.html#XARGSCURLYREF&gt;`__ (
+<em>replace strings</em> option). The {} double curly brackets are a
+placeholder for output text.</p>
+<div class="highlight-sh"><div class="highlight"><pre>ls .xargs -i -t cp ./<span class="o">{}</span> <span class="nv">$1</span>
+<span class="c">#            ^^         ^^</span>
+
+<span class="c"># From &quot;ex42.sh&quot; (copydir.sh) example.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>{} \;</p>
+<blockquote>
+<div><p><strong>pathname.</strong> Mostly used in <a class="reference external" href="moreadv.html#FINDREF">find</a>
+constructs. This is <em>not</em> a shell
+<a class="reference external" href="internal.html#BUILTINREF">builtin</a> .</p>
+<p>Definition: A <em>pathname</em> is a <em>filename</em> that includes the complete
+<a class="reference external" href="internalvariables.html#PATHREF">path</a> . As an example,
+``            /home/bozo/Notes/Thursday/schedule.txt           `` .
+This is sometimes referred to as the <em>absolute path</em> .</p>
+</div></blockquote>
+</div></blockquote>
+<p>Note</p>
+<blockquote>
+<div>The &#8221; ; &#8221; ends the ``            -exec           `` option of a
+<strong>find</strong> command sequence. It needs to be escaped to protect it from
+interpretation by the shell.</div></blockquote>
+</div>
+<div class="section" id="claudators">
+<h2>Claudàtors: [ ]<a class="headerlink" href="#claudators" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><p><strong>test.</strong></p>
+<p><a class="reference external" href="tests.html#IFTHEN">Test</a> expression between <strong>[ ]</strong> . Note that
+<strong>[</strong> is part of the shell <em>builtin</em>
+<a class="reference external" href="testconstructs.html#TTESTREF">test</a> (and a synonym for it),
+<em>not</em> a link to the external command
+``         /usr/bin/test        `` .</p>
+</div></blockquote>
+<p>[[ ]]</p>
+<blockquote>
+<div><p><strong>test.</strong></p>
+<p>Test expression between [[ ]] . More flexible than the
+single-bracket [ ] test, this is a shell
+<a class="reference external" href="internal.html#KEYWORDREF">keyword</a> .</p>
+<p>See the discussion on the <a class="reference external" href="testconstructs.html#DBLBRACKETS">[[ ... ]]
+construct</a> .</p>
+</div></blockquote>
+<p>[ ]</p>
+<blockquote>
+<div><p><strong>array element.</strong></p>
+<p>In the context of an <a class="reference external" href="arrays.html#ARRAYREF">array</a> , brackets set
+off the numbering of each element of that array.</p>
+<div class="highlight-sh"><div class="highlight"><pre>Array<span class="o">[</span>1<span class="o">]=</span>slot_1
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">Array</span><span class="p">[1]</span><span class="si">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>[ ]</p>
+<blockquote>
+<div><p><strong>range of characters.</strong></p>
+<p>As part of a <a class="reference external" href="regexp.html#REGEXREF">regular expression</a> ,
+brackets delineate a <a class="reference external" href="x17129.html#BRACKETSREF">range of
+characters</a> to match.</p>
+</div></blockquote>
+<p>$[ ... ]</p>
+<blockquote>
+<div><p><strong>integer expansion.</strong></p>
+<p>Evaluate integer expression between $[ ] .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">a</span><span class="o">=</span>3
+<span class="nv">b</span><span class="o">=</span>7
+
+<span class="nb">echo</span> <span class="nv">$[$a</span>+<span class="nv">$b</span><span class="o">]</span>   <span class="c"># 10</span>
+<span class="nb">echo</span> <span class="nv">$[$a</span>*<span class="nv">$b</span><span class="o">]</span>   <span class="c"># 21</span>
+</pre></div>
+</div>
+<p>Note that this usage is <em>deprecated</em> , and has been replaced by the
+<a class="reference external" href="dblparens.html">(( ... ))</a> construct.</p>
+</div></blockquote>
+<p>(( ))</p>
+<blockquote>
+<div><p><strong>integer expansion.</strong></p>
+<p>Expand and evaluate integer expression between (( )) .</p>
+<p>See the discussion on the <a class="reference external" href="dblparens.html">(( ... )) construct</a> .</p>
+</div></blockquote>
+<p>&gt; &amp;&gt; &gt;&amp; &gt;&gt; &lt; &lt;&gt;</p>
+<blockquote>
+<div><p><strong>`redirection &lt;io-redirection.html#IOREDIRREF&gt;`__ .</strong></p>
+<p>``                   scriptname &gt;filename                 ``
+redirects the output of ``         scriptname        `` to file
+``         filename        `` . Overwrite
+``         filename        `` if it already exists.</p>
+<p>``                   command &amp;&gt;filename                 `` redirects
+both the
+``          stdout         `` &lt;ioredirintro.html#STDINOUTDEF&gt;`__
+and the ``         stderr        `` of ``         command        ``
+to ``         filename        `` .</p>
+</div></blockquote>
+</div></blockquote>
+<p>Note</p>
+<blockquote>
+<div><blockquote>
+<div>This is useful for suppressing output when testing for a condition.</div></blockquote>
+<p>For example, let us test whether a certain command exists.</p>
+</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">type </span>bogus_com
+</pre></div>
+</div>
+<p>mand &amp;&gt;/dev/null</p>
+<blockquote>
+<div><p>bash$ echo $?
+1</p>
+<p>Or in a script:</p>
+</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre>command_test <span class="o">()</span> <span class="o">{</span> ty
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>pe &#8220;$1&#8221; &amp;&gt;/dev/null; }</dt>
+<dd><blockquote class="first">
+<div><dl class="docutils">
+<dt>#</dt>
+<dd>^</dd>
+</dl>
+<p>cmd=rmdir</p>
+</div></blockquote>
+<dl class="last docutils">
+<dt># Legitimate command.</dt>
+<dd>command_test $cmd; e</dd>
+</dl>
+</dd>
+</dl>
+<p>cho $?   # 0</p>
+<blockquote>
+<div><blockquote>
+<div>cmd=bogus_command</div></blockquote>
+<dl class="docutils">
+<dt># Illegitimate command</dt>
+<dd>command_test $cmd; e</dd>
+</dl>
+</div></blockquote>
+<p>cho $?   # 1</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">type </span>bogus_command <span class="p">&amp;</span>&gt;/dev/null
+
+
+
+bash<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$?</span>
+1
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>command_test <span class="o">()</span> <span class="o">{</span> <span class="nb">type</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="p">&amp;</span>&gt;/dev/null<span class="p">;</span> <span class="o">}</span>
+<span class="c">#                                      ^</span>
+
+<span class="nv">cmd</span><span class="o">=</span>rmdir            <span class="c"># Legitimate command.</span>
+command_test <span class="nv">$cmd</span><span class="p">;</span> <span class="nb">echo</span> <span class="nv">$?</span>   <span class="c"># 0</span>
+
+
+<span class="nv">cmd</span><span class="o">=</span>bogus_command    <span class="c"># Illegitimate command</span>
+command_test <span class="nv">$cmd</span><span class="p">;</span> <span class="nb">echo</span> <span class="nv">$?</span>   <span class="c"># 1</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">type </span>bogus_command <span class="p">&amp;</span>&gt;/dev/null
+
+
+
+bash<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$?</span>
+1
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>command_test <span class="o">()</span> <span class="o">{</span> <span class="nb">type</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="p">&amp;</span>&gt;/dev/null<span class="p">;</span> <span class="o">}</span>
+<span class="c">#                                      ^</span>
+
+<span class="nv">cmd</span><span class="o">=</span>rmdir            <span class="c"># Legitimate command.</span>
+command_test <span class="nv">$cmd</span><span class="p">;</span> <span class="nb">echo</span> <span class="nv">$?</span>   <span class="c"># 0</span>
+
+
+<span class="nv">cmd</span><span class="o">=</span>bogus_command    <span class="c"># Illegitimate command</span>
+command_test <span class="nv">$cmd</span><span class="p">;</span> <span class="nb">echo</span> <span class="nv">$?</span>   <span class="c"># 1</span>
+</pre></div>
+</div>
+<p>``                   command &gt;&amp;2                 `` redirects
+``         stdout        `` of ``         command        `` to
+``         stderr        `` .</p>
+<p>``                   scriptname &gt;&gt;filename                 ``
+appends the output of ``         scriptname        `` to file
+``         filename        `` . If ``         filename        ``
+does not already exist, it is created.</p>
+<p>``                   [i]&lt;&gt;filename                 `` opens file
+``         filename        `` for reading and writing, and assigns
+<a class="reference external" href="io-redirection.html#FDREF">file descriptor</a> i to it. If
+``         filename        `` does not exist, it is created.</p>
+<p><strong>`process substitution &lt;process-sub.html#PROCESSSUBREF&gt;`__ .</strong></p>
+<p>``                   (command)&gt;                 ``</p>
+<p>``                   &lt;(command)                 ``</p>
+<p><a class="reference external" href="comparison-ops.html#LTREF">In a different context</a> , the &#8221; &lt; &#8221;
+and &#8221; &gt; &#8221; characters act as <a class="reference external" href="comparison-ops.html#SCOMPARISON1">string comparison
+operators</a> .</p>
+<p><a class="reference external" href="comparison-ops.html#INTLT">In yet another context</a> , the &#8221; &lt; &#8221;
+and &#8221; &gt; &#8221; characters act as <a class="reference external" href="comparison-ops.html#ICOMPARISON1">integer comparison
+operators</a> . See also <a class="reference external" href="moreadv.html#EX45">Example
+16-9</a> .</p>
+</div></blockquote>
+</div>
+<div class="section" id="signes-de-menor-i-major">
+<h2>Signes de menor i major: &lt; &gt;<a class="headerlink" href="#signes-de-menor-i-major" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><p>&lt;&lt;</p>
+<blockquote>
+<div><strong>redirection used in a `here
+document &lt;here-docs.html#HEREDOCREF&gt;`__ .</strong></div></blockquote>
+<p>&lt;&lt;&lt;</p>
+<blockquote>
+<div><strong>redirection used in a `here string &lt;x17837.html#HERESTRINGSREF&gt;`__
+.</strong></div></blockquote>
+<p>&lt; , &gt;</p>
+<blockquote>
+<div><p><strong>`ASCII comparison &lt;comparison-ops.html#LTREF&gt;`__ .</strong></p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">veg1</span><span class="o">=</span>carrots
+<span class="nv">veg2</span><span class="o">=</span>tomatoes
+
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$veg1</span><span class="s2">&quot;</span> &lt; <span class="s2">&quot;</span><span class="nv">$veg2</span><span class="s2">&quot;</span> <span class="o">]]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Although </span><span class="nv">$veg1</span><span class="s2"> precede </span><span class="nv">$veg2</span><span class="s2"> in the dictionary,&quot;</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;this does not necessarily imply anything &quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;about my culinary preferences.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;What kind of dictionary are you using, anyhow?&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>\&lt; , \&gt;</p>
+<blockquote>
+<div><p><strong>`word boundary &lt;x17129.html#ANGLEBRAC&gt;`__ in a `regular
+expression &lt;regexp.html#REGEXREF&gt;`__ .</strong></p>
+<p>``         bash$        ``
+``                   grep &#8216;&lt;the&gt;&#8217; textfile                 ``</p>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="barra-vertical-o-pipe">
+<span id="specialchars-pipe"></span><h2>Barra vertical o <em>pipe</em>: <a class="headerlink" href="#barra-vertical-o-pipe" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><p><strong>pipe.</strong> Passes the output ( ``          stdout         `` ) of a
+previous command to the input ( ``          stdin         `` ) of
+the next one, or to the shell. This is a method of chaining commands
+together.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">echo </span>ls -lsh
+<span class="c">#  Passes the output of &quot;echo ls -l&quot; to the shell,</span>
+<span class="c">#+ with the same result as a simple &quot;ls -l&quot;.</span>
+
+
+cat *.lstsort <span class="p">|</span> uniq
+<span class="c"># Merges and sorts all &quot;.lst&quot; files, then deletes duplicate lines.</span>
+</pre></div>
+</div>
+<p>A pipe, as a classic method of interprocess communication, sends the
+``            stdout           `` of one
+<a class="reference external" href="special-chars.html#PROCESSREF">process</a> to the
+``            stdin           `` of another. In a typical case, a
+command, such as <a class="reference external" href="basic.html#CATREF">cat</a> or
+<a class="reference external" href="internal.html#ECHOREF">echo</a> , pipes a stream of data to a
+<em>filter</em> , a command that transforms its input for processing. ` [7]</p>
+<blockquote>
+<div>&lt;special-chars.html#FTN.AEN1564&gt;`__</div></blockquote>
+<p>``                         cat $filename1 $filename2grep $search_word                       ``</p>
+<p>For an interesting note on the complexity of using UNIX pipes, see
+<a class="reference external" href="http://www.faqs.org/faqs/unix-faq/faq">the UNIX FAQ, Part
+3</a> .</p>
+<blockquote>
+<div>The output of a command or commands may be piped to a script.</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># uppercase.sh : Changes input to uppercase.</span>
+
+tr <span class="s1">&#39;a-z&#39;</span> <span class="s1">&#39;A-Z&#39;</span>
+<span class="c">#  Letter ranges must be quoted</span>
+<span class="c">#+ to prevent filename generation from single-letter filenames.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Now, let us pipe the output of <strong>ls -l</strong> to this script.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>ls -l./uppercase.sh
+-RW-RW-R--    <span class="m">1</span> BOZO  BOZO       <span class="m">109</span> APR  <span class="m">7</span> 19:49 1.TXT
+ -RW-RW-R--    <span class="m">1</span> BOZO  BOZO       <span class="m">109</span> APR <span class="m">14</span> 16:48 2.TXT
+ -RW-R--R--    <span class="m">1</span> BOZO  BOZO       <span class="m">725</span> APR <span class="m">20</span> 20:56 DATA-FILE
+</pre></div>
+</div>
+</div></blockquote>
+<p>Note</p>
+<blockquote>
+<div>The ``            stdout           `` of each process in a pipe must
+be read as the ``            stdin           `` of the next. If this
+is not the case, the data stream will <em>block</em> , and the pipe will
+not behave as expected.</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre>   cat file1 file2 <span class="p">|</span> ls
+-l <span class="p">|</span> sort
+   <span class="c"># The output from &quot;c</span>
+</pre></div>
+</div>
+<p>at file1 file2&#8221; disappea
+rs.</p>
+<blockquote>
+<div>A pipe runs as a <a class="reference external" href="othertypesv.html#CHILDREF">child process</a> , and
+therefore cannot alter script variables.</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">variable</span><span class="o">=</span><span class="s2">&quot;initial_va</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>lue&#8221;</dt>
+<dd>echo &#8220;new_value&#8221; | r</dd>
+<dt>ead variable</dt>
+<dd>echo &#8220;variable = $va</dd>
+<dt>riable&#8221;     # variable =</dt>
+<dd><p class="first">initial_value</p>
+<blockquote>
+<div><p>If one of the commands in the pipe aborts, this prematurely
+terminates execution of the pipe. Called a <em>broken pipe</em> , this
+condition sends a
+``                         SIGPIPE                       ``
+<a class="reference external" href="debugging.html#SIGNALD">signal</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre>cat file1 file2ls -l <span class="p">|</span> sort
+<span class="c"># The output from &quot;cat file1 file2&quot; disappears.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">variable</span><span class="o">=</span><span class="s2">&quot;initial_value&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;new_value&quot;</span><span class="nb">read </span>variable
+<span class="nb">echo</span> <span class="s2">&quot;variable = </span><span class="nv">$variable</span><span class="s2">&quot;</span>     <span class="c"># variable = initial_value</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>cat file1 file2ls -l <span class="p">|</span> sort
+<span class="c"># The output from &quot;cat file1 file2&quot; disappears.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">variable</span><span class="o">=</span><span class="s2">&quot;initial_value&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;new_value&quot;</span><span class="nb">read </span>variable
+<span class="nb">echo</span> <span class="s2">&quot;variable = </span><span class="nv">$variable</span><span class="s2">&quot;</span>     <span class="c"># variable = initial_value</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>&gt;</p>
+<blockquote>
+<div><strong>force redirection (even if the `noclobber
+option &lt;options.html#NOCLOBBERREF&gt;`__ is set).</strong> This will forcibly
+overwrite an existing file.</div></blockquote>
+<p>|</p>
+<blockquote class="last">
+<div><strong>`OR logical operator &lt;ops.html#ORREF&gt;`__ .</strong> In a <a class="reference external" href="testconstructs.html#TESTCONSTRUCTS1">test
+construct</a> , the |operator causes a return of 0 (success) if <em>either</em> of the linked
+test conditions is true.</div></blockquote>
+</dd>
+</dl>
+</div>
+<div class="section" id="simbol-d-unio-o-ampersand">
+<h2>Símbol d&#8217;unió o <em>ampersand</em>: &amp;<a class="headerlink" href="#simbol-d-unio-o-ampersand" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><p><strong>Run job in background.</strong> A command followed by an &amp; will run in
+the background.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>sleep <span class="m">10</span> <span class="p">&amp;</span>
+<span class="o">[</span>1<span class="o">]</span> 850
+<span class="o">[</span>1<span class="o">]</span>+  Done                    sleep 10
+</pre></div>
+</div>
+<p>Within a script, commands and even
+<a class="reference external" href="loops1.html#FORLOOPREF1">loops</a> may run in the background.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-3-running-a-loop-in-the-background">
+<h2>Exemple 3. Running a loop in the background<a class="headerlink" href="#exemple-3-running-a-loop-in-the-background" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># background-loop.sh</span>
+
+<span class="k">for</span> i in <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span> <span class="m">6</span> <span class="m">7</span> <span class="m">8</span> <span class="m">9</span> <span class="m">10</span>            <span class="c"># First loop.</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$i</span><span class="s2"> &quot;</span>
+<span class="k">done</span> <span class="p">&amp;</span> <span class="c"># Run this loop in background.</span>
+       <span class="c"># Will sometimes execute after second loop.</span>
+
+<span class="nb">echo</span>   <span class="c"># This &#39;echo&#39; sometimes will not display.</span>
+
+<span class="k">for</span> i in <span class="m">11</span> <span class="m">12</span> <span class="m">13</span> <span class="m">14</span> <span class="m">15</span> <span class="m">16</span> <span class="m">17</span> <span class="m">18</span> <span class="m">19</span> <span class="m">20</span>   <span class="c"># Second loop.</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$i</span><span class="s2"> &quot;</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span>   <span class="c"># This &#39;echo&#39; sometimes will not display.</span>
+
+<span class="c"># ======================================================</span>
+
+<span class="c"># The expected output from the script:</span>
+<span class="c"># 1 2 3 4 5 6 7 8 9 10</span>
+<span class="c"># 11 12 13 14 15 16 17 18 19 20</span>
+
+<span class="c"># Sometimes, though, you get:</span>
+<span class="c"># 11 12 13 14 15 16 17 18 19 20</span>
+<span class="c"># 1 2 3 4 5 6 7 8 9 10 bozo $</span>
+<span class="c"># (The second &#39;echo&#39; doesn&#39;t execute. Why?)</span>
+
+<span class="c"># Occasionally also:</span>
+<span class="c"># 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20</span>
+<span class="c"># (The first &#39;echo&#39; doesn&#39;t execute. Why?)</span>
+
+<span class="c"># Very rarely something like:</span>
+<span class="c"># 11 12 13 1 2 3 4 5 6 7 8 9 10 14 15 16 17 18 19 20</span>
+<span class="c"># The foreground loop preempts the background one.</span>
+
+<span class="nb">exit </span>0
+
+<span class="c">#  Nasimuddin Ansari suggests adding    sleep 1</span>
+<span class="c">#+ after the   echo -n &quot;$i&quot;   in lines 6 and 14,</span>
+<span class="c">#+ for some real fun.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Caution</p>
+<blockquote>
+<div><blockquote>
+<div>A command run in the background within a script may cause the script
+to hang, waiting for a keystroke. Fortunately, there is a
+<a class="reference external" href="x9644.html#WAITHANG">remedy</a> for this.</div></blockquote>
+<p>&amp;&amp;</p>
+<blockquote>
+<div><strong>`AND logical operator &lt;ops.html#LOGOPS1&gt;`__ .</strong> In a <a class="reference external" href="testconstructs.html#TESTCONSTRUCTS1">test
+construct</a> , the &amp;&amp; operator
+causes a return of 0 (success) only if <em>both</em> the linked test
+conditions are true.</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="guio">
+<h2>Guió: -<a class="headerlink" href="#guio" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><p><strong>option, prefix.</strong> Option flag for a command or filter. Prefix for
+an operator. Prefix for a <a class="reference external" href="parameter-substitution.html#DEFPARAM1">default
+parameter</a> in <a class="reference external" href="parameter-substitution.html#PARAMSUBREF">parameter
+substitution</a> .</p>
+<p>``                   COMMAND -[Option1][Option2][...]                 ``</p>
+<p>``                   ls -al                 ``</p>
+<p>``                   sort -dfu $filename                 ``</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> <span class="nv">$file1</span> -ot <span class="nv">$file2</span> <span class="o">]</span>
+<span class="k">then</span> <span class="c">#      ^</span>
+  <span class="nb">echo</span> <span class="s2">&quot;File </span><span class="nv">$file1</span><span class="s2"> is older than </span><span class="nv">$file2</span><span class="s2">.&quot;</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> -eq <span class="s2">&quot;</span><span class="nv">$b</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span> <span class="c">#    ^</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> is equal to </span><span class="nv">$b</span><span class="s2">.&quot;</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$c</span><span class="s2">&quot;</span> -eq <span class="m">24</span> -a <span class="s2">&quot;</span><span class="nv">$d</span><span class="s2">&quot;</span> -eq <span class="m">47</span> <span class="o">]</span>
+<span class="k">then</span> <span class="c">#    ^              ^</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$c</span><span class="s2"> equals 24 and </span><span class="nv">$d</span><span class="s2"> equals 47.&quot;</span>
+<span class="k">fi</span>
+
+
+<span class="nv">param2</span><span class="o">=</span><span class="si">${</span><span class="nv">param1</span><span class="k">:-</span><span class="nv">$DEFAULTVAL</span><span class="si">}</span>
+<span class="c">#               ^</span>
+</pre></div>
+</div>
+<p><strong>&#8211;</strong></p>
+<p>The <em>double-dash</em> ``         &#8211;        `` prefixes <em>long</em> (verbatim)
+options to commands.</p>
+<p>``                   sort &#8211;ignore-leading-blanks                 ``</p>
+<p>Used with a <a class="reference external" href="internal.html#BUILTINREF">Bash builtin</a> , it means
+the <em>end of options</em> to that particular command.</p>
+</div></blockquote>
+<p>Tip</p>
+<blockquote>
+<div>This provides a handy means of removing files whose <em>names begin
+with a dash</em> .</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>ls -l
+-rw-r--r-- <span class="m">1</span> bozo bo
+</pre></div>
+</div>
+<p>zo 0 Nov 25 12:29 -badna
+me</p>
+<blockquote>
+<div><blockquote>
+<div><p>bash$ rm &#8211; -badname</p>
+<p>bash$ ls -l
+total 0</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>ls -l
+-rw-r--r-- <span class="m">1</span> bozo bozo <span class="m">0</span> Nov <span class="m">25</span> 12:29 -badname
+
+
+bash<span class="nv">$ </span>rm -- -badname
+
+bash<span class="nv">$ </span>ls -l
+total 0
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>ls -l
+-rw-r--r-- <span class="m">1</span> bozo bozo <span class="m">0</span> Nov <span class="m">25</span> 12:29 -badname
+
+
+bash<span class="nv">$ </span>rm -- -badname
+
+bash<span class="nv">$ </span>ls -l
+total 0
+</pre></div>
+</div>
+<p>The <em>double-dash</em> is also used in conjunction with
+<a class="reference external" href="internal.html#SETREF">set</a> .</p>
+<p>``                   set &#8211; $variable                 `` (as in
+<a class="reference external" href="internal.html#SETPOS">Example 15-18</a> )</p>
+</div></blockquote>
+<ul>
+<li><p class="first"><strong>redirection from/to ``           stdin          `` or
+``           stdout          `` [dash].</strong></p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>cat -
+abc
+abc
+
+...
+
+Ctl-D
+</pre></div>
+</div>
+<p>As expected, ``                   cat -                 `` echoes
+``         stdin        `` , in this case keyboarded user input, to
+``         stdout        `` . But, does I/O redirection using <strong>-</strong>
+have real-world applications?</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span><span class="nb">cd</span> /source/directory <span class="o">&amp;&amp;</span> tar cf - . <span class="o">)(</span><span class="nb">cd</span> /dest/directory <span class="o">&amp;&amp;</span> tar xpvf -<span class="o">)</span>
+<span class="c"># Move entire file tree from one directory to another</span>
+<span class="c"># [courtesy Alan Cox &lt;a.cox@swansea.ac.uk&gt;, with a minor change]</span>
+
+<span class="c"># 1) cd /source/directory</span>
+<span class="c">#    Source directory, where the files to be moved are.</span>
+<span class="c"># 2) &amp;&amp;</span>
+<span class="c">#   &quot;And-list&quot;: if the &#39;cd&#39; operation successful,</span>
+<span class="c">#    then execute the next command.</span>
+<span class="c"># 3) tar cf - .</span>
+<span class="c">#    The &#39;c&#39; option &#39;tar&#39; archiving command creates a new archive,</span>
+<span class="c">#    the &#39;f&#39; (file) option, followed by &#39;-&#39; designates the target file</span>
+<span class="c">#    as stdout, and do it in current directory tree (&#39;.&#39;).</span>
+<span class="c"># 4)</span>
+<span class="c">#    Piped to ...</span>
+<span class="c"># 5) ( ... )</span>
+<span class="c">#    a subshell</span>
+<span class="c"># 6) cd /dest/directory</span>
+<span class="c">#    Change to the destination directory.</span>
+<span class="c"># 7) &amp;&amp;</span>
+<span class="c">#   &quot;And-list&quot;, as above</span>
+<span class="c"># 8) tar xpvf -</span>
+<span class="c">#    Unarchive (&#39;x&#39;), preserve ownership and file permissions (&#39;p&#39;),</span>
+<span class="c">#    and send verbose messages to stdout (&#39;v&#39;),</span>
+<span class="c">#    reading data from stdin (&#39;f&#39; followed by &#39;-&#39;).</span>
+<span class="c">#</span>
+<span class="c">#    Note that &#39;x&#39; is a command, and &#39;p&#39;, &#39;v&#39;, &#39;f&#39; are options.</span>
+<span class="c">#</span>
+<span class="c"># Whew!</span>
+
+
+
+<span class="c"># More elegant than, but equivalent to:</span>
+<span class="c">#   cd source/directory</span>
+<span class="c">#   tar cf - .(cd ../dest/directory; tar xpvf -)</span>
+<span class="c">#</span>
+<span class="c">#     Also having same effect:</span>
+<span class="c"># cp -a /source/directory/* /dest/directory</span>
+<span class="c">#     Or:</span>
+<span class="c"># cp -a /source/directory/* /source/directory/.[^.]* /dest/directory</span>
+<span class="c">#     If there are hidden files in /source/directory.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bunzip2 -c linux-2.6.16.tar.bz2tar xvf -
+<span class="c">#  --uncompress tar file----then pass it to &quot;tar&quot;--</span>
+<span class="c">#  If &quot;tar&quot; has not been patched to handle &quot;bunzip2&quot;,</span>
+<span class="c">#+ this needs to be done in two discrete steps, using a pipe.</span>
+<span class="c">#  The purpose of the exercise is to unarchive &quot;bzipped&quot; kernel source.</span>
+</pre></div>
+</div>
+<p>Note that in this context the &#8220;-&#8221; is not itself a Bash operator, but
+rather an option recognized by certain UNIX utilities that write to
+``         stdout        `` , such as <strong>tar</strong> , <strong>cat</strong> , etc.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;whatever&quot;</span>cat -
+whatever
+</pre></div>
+</div>
+<p>Where a filename is expected,
+``                   -                 `` redirects output to
+``         stdout        `` (sometimes seen with
+``                   tar cf                 `` ), or accepts input
+from ``         stdin        `` , rather than from a file. This is a
+method of using a file-oriented utility as a filter in a pipe.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>file
+Usage: file <span class="o">[</span>-bciknvzL<span class="o">]</span> <span class="o">[</span>-f namefile<span class="o">]</span> <span class="o">[</span>-m magicfiles<span class="o">]</span> file...
+</pre></div>
+</div>
+<p>By itself on the command-line, <a class="reference external" href="filearchiv.html#FILEREF">file</a>
+fails with an error message.</p>
+<p>Add a &#8220;-&#8221; for a more useful result. This causes the shell to await
+user input.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>file -
+abc
+standard input:              ASCII text
+
+
+
+bash<span class="nv">$ </span>file -
+<span class="c">#!/bin/bash</span>
+standard input:              Bourne-Again shell script text executable
+</pre></div>
+</div>
+<p>Now the command accepts input from ``        stdin       `` and
+analyzes it.</p>
+<p>The &#8220;-&#8221; can be used to pipe ``         stdout        `` to other
+commands. This permits such stunts as <a class="reference external" href="assortedtips.html#PREPENDREF">prepending lines to a
+file</a> .</p>
+<p>Using <a class="reference external" href="filearchiv.html#DIFFREF">diff</a> to compare a file with a
+<em>section</em> of another:</p>
+<p>``                   grep Linux file1diff file2 -                 ``</p>
+<p>Finally, a real-world example using
+``                   -                 `` with
+<a class="reference external" href="filearchiv.html#TARREF">tar</a> .</p>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-4-backup-of-all-files-changed-in-last-day">
+<h2>Exemple 4. Backup of all files changed in last day<a class="headerlink" href="#exemple-4-backup-of-all-files-changed-in-last-day" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c">#  Backs up all files in current directory modified within last 24 hours</span>
+<span class="c">#+ in a &quot;tarball&quot; (tarred and gzipped file).</span>
+
+<span class="nv">BACKUPFILE</span><span class="o">=</span>backup-<span class="k">$(</span>date +%m-%d-%Y<span class="k">)</span>
+<span class="c">#                 Embeds date in backup filename.</span>
+<span class="c">#                 Thanks, Joshua Tschida, for the idea.</span>
+<span class="nv">archive</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">$BACKUPFILE</span><span class="si">}</span>
+<span class="c">#  If no backup-archive filename specified on command-line,</span>
+<span class="c">#+ it will default to &quot;backup-MM-DD-YYYY.tar.gz.&quot;</span>
+
+tar cvf - <span class="sb">`</span>find . -mtime -1 -type f -print<span class="sb">`</span> &gt; <span class="nv">$archive</span>.tar
+gzip <span class="nv">$archive</span>.tar
+<span class="nb">echo</span> <span class="s2">&quot;Directory </span><span class="nv">$PWD</span><span class="s2"> backed up in archive file \&quot;</span><span class="nv">$archive</span><span class="s2">.tar.gz\&quot;.&quot;</span>
+
+
+<span class="c">#  Stephane Chazelas points out that the above code will fail</span>
+<span class="c">#+ if there are too many files found</span>
+<span class="c">#+ or if any filenames contain blank characters.</span>
+
+<span class="c"># He suggests the following alternatives:</span>
+<span class="c"># -------------------------------------------------------------------</span>
+<span class="c">#   find . -mtime -1 -type f -print0xargs -0 tar rvf &quot;$archive.tar&quot;</span>
+<span class="c">#      using the GNU version of &quot;find&quot;.</span>
+
+
+<span class="c">#   find . -mtime -1 -type f -exec tar rvf &quot;$archive.tar&quot; &#39;{}&#39; \;</span>
+<span class="c">#         portable to other UNIX flavors, but much slower.</span>
+<span class="c"># -------------------------------------------------------------------</span>
+
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<p>Caution</p>
+<blockquote>
+<div><p>Filenames beginning with &#8220;-&#8221; may cause problems when coupled with
+the &#8220;-&#8221; redirection operator. A script should check for this and add
+an appropriate prefix to such filenames, for example
+``            ./-FILENAME           `` ,
+``            $PWD/-FILENAME           `` , or
+``            $PATHNAME/-FILENAME           `` .</p>
+<p>If the value of a variable begins with a
+``                         -                       `` , this may
+likewise create problems.</p>
+</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre>    <span class="nv">var</span><span class="o">=</span><span class="s2">&quot;-n&quot;</span>
+    <span class="nb">echo</span> <span class="nv">$var</span>
+    <span class="c"># Has the effect of</span>
+<span class="s2">&quot;echo -n&quot;</span>, and outputs n
+othing.
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">var</span><span class="o">=</span><span class="s2">&quot;-n&quot;</span>
+<span class="nb">echo</span> <span class="nv">$var</span>
+<span class="c"># Has the effect of &quot;echo -n&quot;, and outputs nothing.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>       <span class="nv">var</span><span class="o">=</span><span class="s2">&quot;-n&quot;</span>
+       <span class="nb">echo</span> <span class="nv">$var</span>
+       <span class="c"># Has the effect of &quot;echo -n&quot;, and outputs nothing.</span>
+
+
+
+
+-
+
+   **previous working directory.** A **cd -** <span class="nb">command </span>changes to the
+   previous working directory. This uses the
+   <span class="sb">`</span><span class="nv">$OLDPWD</span> &lt;internalvariables.html#OLDPWD&gt;<span class="sb">`</span>__ <span class="sb">`</span>environmental
+   variable &lt;othertypesv.html#ENVREF&gt;<span class="sb">`</span>__ .
+</pre></div>
+</div>
+<p>Caution</p>
+<blockquote>
+<div><blockquote>
+<div>Do not confuse the &#8220;-&#8221; used in this sense with the &#8220;-&#8221; redirection
+operator just discussed. The interpretation of the &#8220;-&#8221; depends on
+the context in which it appears.</div></blockquote>
+<ul class="simple">
+<li><strong>Minus.</strong> Minus sign in an <a class="reference external" href="ops.html#AROPS1">arithmetic
+operation</a> .</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="igual">
+<h2>Igual: =<a class="headerlink" href="#igual" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><p><strong>Equals.</strong> <a class="reference external" href="varassignment.html#EQREF">Assignment operator</a></p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">a</span><span class="o">=</span>28
+<span class="nb">echo</span> <span class="nv">$a</span>   <span class="c"># 28</span>
+</pre></div>
+</div>
+<p>In a <a class="reference external" href="comparison-ops.html#EQUALSIGNREF">different context</a> , the
+&#8221; = &#8221; is a <a class="reference external" href="comparison-ops.html#SCOMPARISON1">string comparison</a>
+operator.</p>
+</div></blockquote>
+</div>
+<div class="section" id="suma">
+<h2>Suma: +<a class="headerlink" href="#suma" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><p><strong>Plus.</strong> Addition <a class="reference external" href="ops.html#AROPS1">arithmetic operator</a> .</p>
+<p>In a <a class="reference external" href="x17129.html#PLUSREF">different context</a> , the + is a
+<a class="reference external" href="regexp.html">Regular Expression</a> operator.</p>
+</div></blockquote>
+<ul>
+<li><p class="first"><strong>Option.</strong> Option flag for a command or filter.</p>
+<p>Certain commands and <a class="reference external" href="internal.html#BUILTINREF">builtins</a> use the
+``         +        `` to enable certain options and the
+``         -        `` to disable them. In <a class="reference external" href="parameter-substitution.html#PARAMSUBREF">parameter
+substitution</a> , the
+``         +        `` prefixes an <a class="reference external" href="parameter-substitution.html#PARAMALTV">alternate
+value</a> that a variable
+expands to.</p>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="percentatge">
+<h2>Percentatge: %<a class="headerlink" href="#percentatge" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><p><strong>`modulo &lt;ops.html#MODULOREF&gt;`__ .</strong> Modulo (remainder of a
+division) <a class="reference external" href="ops.html#AROPS1">arithmetic operation</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">let</span> <span class="s2">&quot;z = 5 % 3&quot;</span>
+<span class="nb">echo</span> <span class="nv">$z</span>  <span class="c"># 2</span>
+</pre></div>
+</div>
+<p>In a <a class="reference external" href="parameter-substitution.html#PCTPATREF">different context</a> ,
+the % is a <a class="reference external" href="parameter-substitution.html#PSUB2">pattern matching</a>
+operator.</p>
+</div></blockquote>
+</div>
+<div class="section" id="tilde">
+<h2>Tilde: ~<a class="headerlink" href="#tilde" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><p><strong>home directory [tilde].</strong> This corresponds to the
+<a class="reference external" href="internalvariables.html#HOMEDIRREF">$HOME</a> internal variable.
+``          ~bozo         `` is bozo&#8217;s home directory, and <strong>ls
+~bozo</strong> lists the contents of it. ~/ is the current user&#8217;s home
+directory, and <strong>ls ~/</strong> lists the contents of it.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo</span> ~bozo
+/home/bozo
+
+bash<span class="nv">$ </span><span class="nb">echo</span> ~
+/home/bozo
+
+bash<span class="nv">$ </span><span class="nb">echo</span> ~/
+/home/bozo/
+
+bash<span class="nv">$ </span><span class="nb">echo</span> ~:
+/home/bozo:
+
+bash<span class="nv">$ </span><span class="nb">echo</span> ~nonexistent-user
+~nonexistent-user
+</pre></div>
+</div>
+</div></blockquote>
+<p>~+</p>
+<blockquote>
+<div><strong>current working directory.</strong> This corresponds to the
+<a class="reference external" href="internalvariables.html#PWDREF">$PWD</a> internal variable.</div></blockquote>
+<p>~-</p>
+<blockquote>
+<div><strong>previous working directory.</strong> This corresponds to the
+<a class="reference external" href="internalvariables.html#OLDPWD">$OLDPWD</a> internal variable.</div></blockquote>
+<p>=~</p>
+<blockquote>
+<div><strong>`regular expression match &lt;bashver3.html#REGEXMATCHREF&gt;`__ .</strong>
+This operator was introduced with <a class="reference external" href="bashver3.html#BASH3REF">version
+3</a> of Bash.</div></blockquote>
+<p>^</p>
+<blockquote>
+<div><strong>beginning-of-line.</strong> In a <a class="reference external" href="regexp.html#REGEXREF">regular
+expression</a> , a &#8220;^&#8221; addresses the
+<a class="reference external" href="x17129.html#CARETREF">beginning of a line</a> of text.</div></blockquote>
+<p>^ , ^^</p>
+<blockquote>
+<div><strong>`Uppercase conversion &lt;bashver4.html#CASEMODPARAMSUB&gt;`__ in
+*parameter substitution* (added in `version
+4 &lt;bashver4.html#BASH4REF&gt;`__ of Bash).</strong></div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="caracters-de-control">
+<h2>Caràcters de control<a class="headerlink" href="#caracters-de-control" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><p><strong>change the behavior of the terminal or text display.</strong> A control
+character is a <strong>CONTROL</strong> + <strong>key</strong> combination (pressed
+simultaneously). A control character may also be written in <em>octal</em>
+or <em>hexadecimal</em> notation, following an <em>escape</em> .</p>
+<p>Control characters are not normally useful inside a script.</p>
+<ul>
+<li><p class="first">``                       Ctl-A                     ``</p>
+<p>Moves cursor to beginning of line of text (on the command-line).</p>
+</li>
+<li><p class="first">``                       Ctl-B                     ``</p>
+<p>``                       Backspace                     ``
+(nondestructive).</p>
+</li>
+<li><p class="first">``                       Ctl-C                     ``</p>
+<p>``                       Break                     `` . Terminate
+a foreground job.</p>
+</li>
+<li><p class="first">``                       Ctl-D                     ``</p>
+<p><em>Log out</em> from a shell (similar to
+<a class="reference external" href="exit-status.html#EXITCOMMANDREF">exit</a> ).</p>
+<p>``                       EOF                     ``
+(end-of-file). This also terminates input from
+``           stdin          `` .</p>
+<p>When typing text on the console or in an <em>xterm</em> window,
+``                       Ctl-D                     `` erases the
+character under the cursor. When there are no characters present,
+``                       Ctl-D                     `` logs out of
+the session, as expected. In an <em>xterm</em> window, this has the
+effect of closing the window.</p>
+</li>
+<li><p class="first">``                       Ctl-E                     ``</p>
+<p>Moves cursor to end of line of text (on the command-line).</p>
+</li>
+<li><p class="first">``                       Ctl-F                     ``</p>
+<p>Moves cursor forward one character position (on the
+command-line).</p>
+</li>
+<li><p class="first">``                       Ctl-G                     ``</p>
+<p>``                       BEL                     `` . On some
+old-time teletype terminals, this would actually ring a bell. In
+an <em>xterm</em> it might beep.</p>
+</li>
+<li><p class="first">``                       Ctl-H                     ``</p>
+<p>``                       Rubout                     ``
+(destructive backspace). Erases characters the cursor backs over
+while backspacing.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Embedding Ctl-H in a string.</span>
+
+<span class="nv">a</span><span class="o">=</span><span class="s2">&quot;^H^H&quot;</span>                  <span class="c"># Two Ctl-H&#39;s -- backspaces</span>
+                          <span class="c"># ctl-V ctl-H, using vi/vim</span>
+<span class="nb">echo</span> <span class="s2">&quot;abcdef&quot;</span>             <span class="c"># abcdef</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;abcdef</span><span class="nv">$a</span><span class="s2"> &quot;</span>       <span class="c"># abcd f</span>
+<span class="c">#  Space at end  ^              ^  Backspaces twice.</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;abcdef</span><span class="nv">$a</span><span class="s2">&quot;</span>        <span class="c"># abcdef</span>
+<span class="c">#  No space at end               ^ Doesn&#39;t backspace (why?).</span>
+                          <span class="c"># Results may not be quite as expected.</span>
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="c"># Constantin Hagemeier suggests trying:</span>
+<span class="c"># a=$&#39;\010\010&#39;</span>
+<span class="c"># a=$&#39;\b\b&#39;</span>
+<span class="c"># a=$&#39;\x08\x08&#39;</span>
+<span class="c"># But, this does not change the results.</span>
+
+<span class="c">########################################</span>
+
+<span class="c"># Now, try this.</span>
+
+<span class="nv">rubout</span><span class="o">=</span><span class="s2">&quot;^H^H^H^H^H&quot;</span>       <span class="c"># 5 x Ctl-H.</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;12345678&quot;</span>
+sleep 2
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$rubout</span><span class="s2">&quot;</span>
+sleep 2
+</pre></div>
+</div>
+</li>
+<li><p class="first">``                       Ctl-I                     ``</p>
+<p>``                       Horizontal tab                     `` .</p>
+</li>
+<li><p class="first">``                       Ctl-J                     ``</p>
+<p>``                       Newline                     `` (line
+feed). In a script, may also be expressed in octal notation &#8211;
+&#8216;\012&#8217; or in hexadecimal &#8211; &#8216;\x0a&#8217;.</p>
+</li>
+<li><p class="first">``                       Ctl-K                     ``</p>
+<p>``                       Vertical tab                     `` .</p>
+<p>When typing text on the console or in an <em>xterm</em> window,
+``                       Ctl-K                     `` erases from
+the character under the cursor to end of line. Within a script,
+``                       Ctl-K                     `` may behave
+differently, as in Lee Lee Maschmeyer&#8217;s example, below.</p>
+</li>
+<li><p class="first">``                       Ctl-L                     ``</p>
+<p>``                       Formfeed                     `` (clear
+the terminal screen). In a terminal, this has the same effect as
+the <a class="reference external" href="terminalccmds.html#CLEARREF">clear</a> command. When sent to
+a printer, a
+``                       Ctl-L                     `` causes an
+advance to end of the paper sheet.</p>
+</li>
+<li><p class="first">``                       Ctl-M                     ``</p>
+<p>``                       Carriage return                     `` .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Thank you, Lee Maschmeyer, for this example.</span>
+
+<span class="nb">read</span> -n <span class="m">1</span> -s -p <span class="se">\</span>
+<span class="s1">$&#39;Control-M leaves cursor at beginning of this line. Press Enter. \x0d&#39;</span>
+           <span class="c"># Of course, &#39;0d&#39; is the hex equivalent of Control-M.</span>
+<span class="nb">echo</span> &gt;<span class="p">&amp;</span><span class="m">2</span>   <span class="c">#  The &#39;-s&#39; makes anything typed silent,</span>
+           <span class="c">#+ so it is necessary to go to new line explicitly.</span>
+
+<span class="nb">read</span> -n <span class="m">1</span> -s -p <span class="s1">$&#39;Control-J leaves cursor on next line. \x0a&#39;</span>
+           <span class="c">#  &#39;0a&#39; is the hex equivalent of Control-J, linefeed.</span>
+<span class="nb">echo</span> &gt;<span class="p">&amp;</span>2
+
+<span class="c">###</span>
+
+<span class="nb">read</span> -n <span class="m">1</span> -s -p <span class="s1">$&#39;And Control-K\x0bgoes straight down.&#39;</span>
+<span class="nb">echo</span> &gt;<span class="p">&amp;</span><span class="m">2</span>   <span class="c">#  Control-K is vertical tab.</span>
+
+<span class="c"># A better example of the effect of a vertical tab is:</span>
+
+<span class="nv">var</span><span class="o">=</span><span class="s1">$&#39;\x0aThis is the bottom line\x0bThis is the top line\x0a&#39;</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span>
+<span class="c">#  This works the same way as the above example. However:</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span>col
+<span class="c">#  This causes the right end of the line to be higher than the left end.</span>
+<span class="c">#  It also explains why we started and ended with a line feed --</span>
+<span class="c">#+ to avoid a garbled screen.</span>
+
+<span class="c"># As Lee Maschmeyer explains:</span>
+<span class="c"># --------------------------</span>
+<span class="c">#  In the [first vertical tab example] . . . the vertical tab</span>
+<span class="c">#+ makes the printing go straight down without a carriage return.</span>
+<span class="c">#  This is true only on devices, such as the Linux console,</span>
+<span class="c">#+ that can&#39;t go &quot;backward.&quot;</span>
+<span class="c">#  The real purpose of VT is to go straight UP, not down.</span>
+<span class="c">#  It can be used to print superscripts on a printer.</span>
+<span class="c">#  The col utility can be used to emulate the proper behavior of VT.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</li>
+<li><p class="first">``                       Ctl-N                     ``</p>
+<dl class="docutils">
+<dt>Erases a line of text recalled from <em>history buffer</em> ` [8]</dt>
+<dd><p class="first last">&lt;special-chars.html#FTN.AEN2107&gt;`__ (on the command-line).</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">``                       Ctl-O                     ``</p>
+<p>Issues a <em>newline</em> (on the command-line).</p>
+</li>
+<li><p class="first">``                       Ctl-P                     ``</p>
+<p>Recalls last command from <em>history buffer</em> (on the command-line).</p>
+</li>
+<li><p class="first">``                       Ctl-Q                     ``</p>
+<p>Resume ( ``                       XON                     `` ).</p>
+<p>This resumes ``           stdin          `` in a terminal.</p>
+</li>
+<li><p class="first">``                       Ctl-R                     ``</p>
+<p>Backwards search for text in <em>history buffer</em> (on the
+command-line).</p>
+</li>
+<li><p class="first">``                       Ctl-S                     ``</p>
+<p>Suspend ( ``                       XOFF                     `` ).</p>
+<p>This freezes ``           stdin          `` in a terminal. (Use
+Ctl-Q to restore input.)</p>
+</li>
+<li><p class="first">``                       Ctl-T                     ``</p>
+<p>Reverses the position of the character the cursor is on with the
+previous character (on the command-line).</p>
+</li>
+<li><p class="first">``                       Ctl-U                     ``</p>
+<p>Erase a line of input, from the cursor backward to beginning of
+line. In some settings,
+``                       Ctl-U                     `` erases the
+entire line of input, <em>regardless of cursor position</em> .</p>
+</li>
+<li><p class="first">``                       Ctl-V                     ``</p>
+<p>When inputting text,
+``                       Ctl-V                     `` permits
+inserting control characters. For example, the following two are
+equivalent:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">echo</span> -e <span class="s1">&#39;\x0a&#39;</span>
+<span class="nb">echo</span> &lt;Ctl-V&gt;&lt;Ctl-J&gt;
+</pre></div>
+</div>
+<p>``                       Ctl-V                     `` is
+primarily useful from within a text editor.</p>
+</li>
+<li><p class="first">``                       Ctl-W                     ``</p>
+<p>When typing text on the console or in an xterm window,
+``                       Ctl-W                     `` erases from
+the character under the cursor backwards to the first instance of
+<a class="reference external" href="special-chars.html#WHITESPACEREF">whitespace</a> . In some
+settings, ``                       Ctl-W                     ``
+erases backwards to first non-alphanumeric character.</p>
+</li>
+<li><p class="first">``                       Ctl-X                     ``</p>
+<p>In certain word processing programs, <em>Cuts</em> highlighted text and
+copies to <em>clipboard</em> .</p>
+</li>
+<li><p class="first">``                       Ctl-Y                     ``</p>
+<p><em>Pastes</em> back text previously erased (with
+``                       Ctl-U                     `` or
+``                       Ctl-W                     `` ).</p>
+</li>
+<li><p class="first">``                       Ctl-Z                     ``</p>
+<p><em>Pauses</em> a foreground job.</p>
+<p><em>Substitute</em> operation in certain word processing applications.</p>
+<p>``                       EOF                     `` (end-of-file)
+character in the MSDOS filesystem.</p>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="caracters-en-blanc">
+<span id="specialchars-whitespaces"></span><h2>Caràcters en blanc<a class="headerlink" href="#caracters-en-blanc" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><p><strong>functions as a separator between commands and/or variables.</strong>
+Whitespace consists of either <em>spaces</em> , <em>tabs</em> , <em>blank lines</em> , or
+any combination thereof. ` [9]  &lt;special-chars.html#FTN.AEN2198&gt;`__
+In some contexts, such as <a class="reference external" href="gotchas.html#WSBAD">variable
+assignment</a> , whitespace is not permitted,
+and results in a syntax error.</p>
+<p>Blank lines have no effect on the action of a script, and are
+therefore useful for visually separating functional sections.</p>
+<p><a class="reference external" href="internalvariables.html#IFSREF">$IFS</a> , the special variable
+separating <em>fields</em> of input to certain commands. It defaults to
+whitespace.</p>
+<blockquote>
+<div>``                         Definition:                       `` A</div></blockquote>
+<p><em>field</em> is a discrete chunk of data expressed as a string of
+consecutive characters. Separating each field from adjacent fields
+is either <em>whitespace</em> or some other designated character (often
+determined by the $IFS ). In some contexts, a field may be called a
+<em>record</em> .</p>
+<p>To preserve <em>whitespace</em> within a string or in a variable, use
+<a class="reference external" href="quoting.html#QUOTINGREF">quoting</a> .</p>
+<p>UNIX <a class="reference external" href="special-chars.html#FILTERDEF">filters</a> can target and
+operate on <em>whitespace</em> using the <a class="reference external" href="x17129.html#POSIXREF">POSIX</a>
+character class <a class="reference external" href="x17129.html#WSPOSIX">[:space:]</a> .</p>
+</div></blockquote>
+<p class="rubric">Anotacions</p>
+<table class="docutils footnote" frame="void" id="metameaning" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Consulta <a class="reference internal" href="x17129.html"><em>XXX 18.1. A Brief Introduction to Regular Expressions</em></a> per més informació
+sobre el concepte de <em>meta-significat</em>.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="operadors" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><p class="first">Els <em>operadors</em> defineixen l&#8217;operació a realitzar en una expressió. Alguns exemples
+són els coneguts operadors aritmètics (+, -, * i /) (mira <a class="reference internal" href="ops.html"><em>XXX  8.1. Operators</em></a>) per més detalls.</p>
+<p class="last">En Bash els conceptes d&#8217;<em>operador</em> i de <em>paraula clau</em> apareixen una mica superposats. Mira
+<a class="reference internal" href="internal.html#internal-keyword"><span>Keyword</span></a>.</p>
+</td></tr>
+</tbody>
+</table>
+<p>` [3]  &lt;special-chars.html#AEN1001&gt;`__</p>
+<p><strong>A</strong> merican <strong>S</strong> tandard <strong>C</strong> ode for <strong>I</strong> nformation <strong>I</strong>
+nterchange. This is a system for encoding text characters (alphabetic,
+numeric, and a limited set of symbols) as 7-bit numbers that can be
+stored and manipulated by computers. Many of the ASCII characters are
+represented on a standard keyboard.</p>
+<p>` [4]  &lt;special-chars.html#AEN1071&gt;`__</p>
+<p>A <em>PID</em> , or <em>process ID</em> , is a number assigned to a running process.
+The <em>PID</em> s of running processes may be viewed with a
+<a class="reference external" href="system.html#PPSSREF">ps</a> command.</p>
+<p>``               Definition:             `` A <em>process</em> is a currently
+executing command (or program), sometimes referred to as a <em>job</em> .</p>
+<p>` [5]  &lt;special-chars.html#AEN1124&gt;`__</p>
+<p>The shell does the <em>brace expansion</em> . The command itself acts upon the
+<em>result</em> of the expansion.</p>
+<p>` [6]  &lt;special-chars.html#AEN1199&gt;`__</p>
+<p>Exception: a code block in braces as part of a pipe <em>may</em> run as a
+<a class="reference external" href="subshells.html#SUBSHELLSREF">subshell</a> .</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>ls<span class="o">{</span> <span class="nb">read </span>firstlin
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>e; read secondline; }</dt>
+<dd>#  Error. The code b</dd>
+<dt>lock in braces runs as a</dt>
+<dd><dl class="first last docutils">
+<dt>subshell,</dt>
+<dd>#+ so the output of</dd>
+</dl>
+</dd>
+<dt>&#8220;ls&#8221; cannot be passed to</dt>
+<dd>variables within the bl</dd>
+<dt>ock.</dt>
+<dd>echo &#8220;First line is</dd>
+</dl>
+<p>$firstline; second line
+is $secondline&#8221;  # Won&#8217;t</p>
+<blockquote>
+<div><p>work.</p>
+<blockquote>
+<div># Thanks, S.C.</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre>ls<span class="o">{</span> <span class="nb">read </span>firstline<span class="p">;</span> <span class="nb">read </span>secondline<span class="p">;</span> <span class="o">}</span>
+<span class="c">#  Error. The code block in braces runs as a subshell,</span>
+<span class="c">#+ so the output of &quot;ls&quot; cannot be passed to variables within the block.</span>
+<span class="nb">echo</span> <span class="s2">&quot;First line is </span><span class="nv">$firstline</span><span class="s2">; second line is </span><span class="nv">$secondline</span><span class="s2">&quot;</span>  <span class="c"># Won&#39;t work.</span>
+
+<span class="c"># Thanks, S.C.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>ls<span class="o">{</span> <span class="nb">read </span>firstline<span class="p">;</span> <span class="nb">read </span>secondline<span class="p">;</span> <span class="o">}</span>
+<span class="c">#  Error. The code block in braces runs as a subshell,</span>
+<span class="c">#+ so the output of &quot;ls&quot; cannot be passed to variables within the block.</span>
+<span class="nb">echo</span> <span class="s2">&quot;First line is </span><span class="nv">$firstline</span><span class="s2">; second line is </span><span class="nv">$secondline</span><span class="s2">&quot;</span>  <span class="c"># Won&#39;t work.</span>
+
+<span class="c"># Thanks, S.C.</span>
+</pre></div>
+</div>
+<p>` [7]  &lt;special-chars.html#AEN1564&gt;`__</p>
+<p>Even as in olden times a <em>philtre</em> denoted a potion alleged to have
+magical transformative powers, so does a UNIX <em>filter</em> transform its
+target in (roughly) analogous fashion. (The coder who comes up with a
+&#8220;love philtre&#8221; that runs on a Linux machine will likely win accolades
+and honors.)</p>
+<p>` [8]  &lt;special-chars.html#AEN2107&gt;`__</p>
+<p>Bash stores a list of commands previously issued from the command-line
+in a <em>buffer</em> , or memory space, for recall with the
+<a class="reference external" href="internal.html#BUILTINREF">builtin</a> <em>history</em> commands.</p>
+<p>` [9]  &lt;special-chars.html#AEN2198&gt;`__</p>
+<p>A linefeed ( <em>newline</em> ) is also a whitespace character. This explains
+why a <em>blank line</em> , consisting only of a linefeed, is considered
+whitespace.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="variables.html" class="btn btn-neutral float-right" title="4. Variables" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="part2.html" class="btn btn-neutral" title="Part 2. Conceptes bàsics"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

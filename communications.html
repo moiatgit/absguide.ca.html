@@ -1,0 +1,1164 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 16.6. Communications Commands &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Chapter 16. External Filters, Programs and Commands" href="external.html"/>
+        <link rel="next" title="XXX 16.7. Terminal Control Commands" href="terminalccmds.html"/>
+        <link rel="prev" title="XXX 16.5. File and Archiving Commands" href="filearchiv.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="internal.html">XXX  Chapter 15. Internal Commands and Builtins</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="external.html">XXX  Chapter 16. External Filters, Programs and Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">XXX  Chapter 17. System and Administrative Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part4.html">XXX Part 4. Commands</a> &raquo;</li>
+      
+          <li><a href="external.html">XXX  Chapter 16. External Filters, Programs and Commands</a> &raquo;</li>
+      
+    <li>XXX  16.6. Communications Commands</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-16-6-communications-commands">
+<h1>XXX  16.6. Communications Commands<a class="headerlink" href="#xxx-16-6-communications-commands" title="Link permanent a aquest títol">¶</a></h1>
+<p>Certain of the following commands find use in network data transfer and
+analysis, as well as in <a class="reference external" href="writingscripts.html#CSPAMMERS">chasing
+spammers</a> .</p>
+<p>** Information and Statistics**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>host</strong></dt>
+<dd><p class="first">Searches for information about an Internet host by name or IP
+address, using DNS.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>host surfacemail.com
+surfacemail.com. has address 202.92.42.236
+</pre></div>
+</div>
+</dd>
+<dt><strong>ipcalc</strong></dt>
+<dd><p class="first">Displays IP information for a host. With the ``         -h        ``
+option, <strong>ipcalc</strong> does a reverse DNS lookup, finding the name of
+the host (server) from the IP address.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>ipcalc -h 202.92.42.236
+<span class="nv">HOSTNAME</span><span class="o">=</span>surfacemail.com
+</pre></div>
+</div>
+</dd>
+<dt><strong>nslookup</strong></dt>
+<dd><p class="first">Do an Internet &#8220;name server lookup&#8221; on a host by IP address. This is
+essentially equivalent to <strong>ipcalc -h</strong> or <strong>dig -x</strong> . The command
+may be run either interactively or noninteractively, i.e., from
+within a script.</p>
+<p>The <strong>nslookup</strong> command has allegedly been &#8220;deprecated,&#8221; but it is
+still useful.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>nslookup -sil 66.97.104.180
+nslookup kuhleersparnis.ch
+ Server:         135.116.137.2
+ Address:        135.116.137.2#53
+
+ Non-authoritative answer:
+ Name:   kuhleersparnis.ch
+</pre></div>
+</div>
+</dd>
+<dt><strong>dig</strong></dt>
+<dd><p class="first"><strong>D</strong> omain <strong>I</strong> nformation <strong>G</strong> roper. Similar to <strong>nslookup</strong> ,
+<em>dig</em> does an Internet <em>name server lookup</em> on a host. May be run
+from the command-line or from within a script.</p>
+<p>Some interesting options to <em>dig</em> are ``         +time=N        ``
+for setting a query timeout to
+``                   N                 `` seconds,
+``         +nofail        `` for continuing to query servers until a
+reply is received, and ``         -x        `` for doing a reverse
+address lookup.</p>
+<p>Compare the output of <strong>dig -x</strong> with <strong>ipcalc -h</strong> and <strong>nslookup</strong>
+.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>dig -x 81.9.6.2
+<span class="p">;;</span> Got answer:
+ <span class="p">;;</span> -&gt;&gt;HEADER<span class="s">&lt;&lt;- opco</span>de: QUERY, status: NXDOMAIN, id: 11649
+ <span class="p">;;</span> flags: qr rd ra<span class="p">;</span> QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 0
+
+ <span class="p">;;</span> QUESTION SECTION:
+ <span class="p">;</span>2.6.9.81.in-addr.arpa.         IN      PTR
+
+ <span class="p">;;</span> AUTHORITY SECTION:
+ 6.9.81.in-addr.arpa.    <span class="m">3600</span>    IN      SOA     ns.eltel.net. noc.eltel.net.
+ <span class="m">2002031705</span> <span class="m">900</span> <span class="m">600</span> <span class="m">86400</span> 3600
+
+ <span class="p">;;</span> Query <span class="nb">time</span>: <span class="m">537</span> msec
+ <span class="p">;;</span> SERVER: 135.116.137.2#53<span class="o">(</span>135.116.137.2<span class="o">)</span>
+ <span class="p">;;</span> WHEN: Wed Jun <span class="m">26</span> 08:35:24 2002
+ <span class="p">;;</span> MSG SIZE  rcvd: 91
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<div class="section" id="exemple-40-finding-out-where-to-report-a-spammer">
+<h2>Exemple 40. Finding out where to report a spammer<a class="headerlink" href="#exemple-40-finding-out-where-to-report-a-spammer" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># spam-lookup.sh: Look up abuse contact to report a spammer.</span>
+<span class="c"># Thanks, Michael Zick.</span>
+
+<span class="c"># Check for command-line arg.</span>
+<span class="nv">ARGCOUNT</span><span class="o">=</span>1
+<span class="nv">E_WRONGARGS</span><span class="o">=</span>85
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-ne <span class="s2">&quot;</span><span class="nv">$ARGCOUNT</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` domain-name&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_WRONGARGS</span>
+<span class="k">fi</span>
+
+
+dig +short <span class="nv">$1</span>.contacts.abuse.net -c in -t txt
+<span class="c"># Also try:</span>
+<span class="c">#     dig +nssearch $1</span>
+<span class="c">#     Tries to find &quot;authoritative name servers&quot; and display SOA records.</span>
+
+<span class="c"># The following also works:</span>
+<span class="c">#     whois -h whois.abuse.net $1</span>
+<span class="c">#           ^^ ^^^^^^^^^^^^^^^  Specify host.</span>
+<span class="c">#     Can even lookup multiple spammers with this, i.e.&quot;</span>
+<span class="c">#     whois -h whois.abuse.net $spamdomain1 $spamdomain2 . . .</span>
+
+
+<span class="c">#  Exercise:</span>
+<span class="c">#  --------</span>
+<span class="c">#  Expand the functionality of this script</span>
+<span class="c">#+ so that it automatically e-mails a notification</span>
+<span class="c">#+ to the responsible ISP&#39;s contact address(es).</span>
+<span class="c">#  Hint: use the &quot;mail&quot; command.</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c"># spam-lookup.sh chinatietong.com</span>
+<span class="c">#                A known spam domain.</span>
+
+<span class="c"># &quot;crnet_mgr@chinatietong.com&quot;</span>
+<span class="c"># &quot;crnet_tec@chinatietong.com&quot;</span>
+<span class="c"># &quot;postmaster@chinatietong.com&quot;</span>
+
+
+<span class="c">#  For a more elaborate version of this script,</span>
+<span class="c">#+ see the SpamViz home page, http://www.spamviz.net/index.html.</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-41-analyzing-a-spam-domain">
+<h2>Exemple 41. Analyzing a spam domain<a class="headerlink" href="#exemple-41-analyzing-a-spam-domain" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#! /bin/bash</span>
+<span class="c"># is-spammer.sh: Identifying spam domains</span>
+
+<span class="c"># $Id: is-spammer, v 1.4 2004/09/01 19:37:52 mszick Exp $</span>
+<span class="c"># Above line is RCS ID info.</span>
+<span class="c">#</span>
+<span class="c">#  This is a simplified version of the &quot;is_spammer.bash</span>
+<span class="c">#+ script in the Contributed Scripts appendix.</span>
+
+<span class="c"># is-spammer &lt;domain.name&gt;</span>
+
+<span class="c"># Uses an external program: &#39;dig&#39;</span>
+<span class="c"># Tested with version: 9.2.4rc5</span>
+
+<span class="c"># Uses functions.</span>
+<span class="c"># Uses IFS to parse strings by assignment into arrays.</span>
+<span class="c"># And even does something useful: checks e-mail blacklists.</span>
+
+<span class="c"># Use the domain.name(s) from the text body:</span>
+<span class="c"># http://www.good_stuff.spammer.biz/just_ignore_everything_else</span>
+<span class="c">#                       ^^^^^^^^^^^</span>
+<span class="c"># Or the domain.name(s) from any e-mail address:</span>
+<span class="c"># Really_Good_Offer@spammer.biz</span>
+<span class="c">#</span>
+<span class="c"># as the only argument to this script.</span>
+<span class="c">#(PS: have your Inet connection running)</span>
+<span class="c">#</span>
+<span class="c"># So, to invoke this script in the above two instances:</span>
+<span class="c">#       is-spammer.sh spammer.biz</span>
+
+
+<span class="c"># Whitespace == :Space:Tab:Line Feed:Carriage Return:</span>
+<span class="nv">WSP_IFS</span><span class="o">=</span><span class="s1">$&#39;\x20&#39;$&#39;\x09&#39;$&#39;\x0A&#39;$&#39;\x0D&#39;</span>
+
+<span class="c"># No Whitespace == Line Feed:Carriage Return</span>
+<span class="nv">No_WSP</span><span class="o">=</span><span class="s1">$&#39;\x0A&#39;$&#39;\x0D&#39;</span>
+
+<span class="c"># Field separator for dotted decimal ip addresses</span>
+<span class="nv">ADR_IFS</span><span class="o">=</span><span class="si">${</span><span class="nv">No_WSP</span><span class="si">}</span><span class="s1">&#39;.&#39;</span>
+
+<span class="c"># Get the dns text resource record.</span>
+<span class="c"># get_txt &lt;error_code&gt; &lt;list_query&gt;</span>
+get_txt<span class="o">()</span> <span class="o">{</span>
+
+    <span class="c"># Parse $1 by assignment at the dots.</span>
+    <span class="nb">local</span> -a dns
+    <span class="nv">IFS</span><span class="o">=</span><span class="nv">$ADR_IFS</span>
+    <span class="nv">dns</span><span class="o">=(</span> <span class="nv">$1</span> <span class="o">)</span>
+    <span class="nv">IFS</span><span class="o">=</span><span class="nv">$WSP_IFS</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">dns</span><span class="p">[0]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s1">&#39;127&#39;</span> <span class="o">]</span>
+    <span class="k">then</span>
+        <span class="c"># See if there is a reason.</span>
+        <span class="nb">echo</span> <span class="k">$(</span>dig +short <span class="nv">$2</span> -t txt<span class="k">)</span>
+    <span class="k">fi</span>
+<span class="o">}</span>
+
+<span class="c"># Get the dns address resource record.</span>
+<span class="c"># chk_adr &lt;rev_dns&gt; &lt;list_server&gt;</span>
+chk_adr<span class="o">()</span> <span class="o">{</span>
+    <span class="nb">local </span>reply
+    <span class="nb">local </span>server
+    <span class="nb">local </span>reason
+
+    <span class="nv">server</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="si">}${</span><span class="nv">2</span><span class="si">}</span>
+    <span class="nv">reply</span><span class="o">=</span><span class="k">$(</span> dig +short <span class="si">${</span><span class="nv">server</span><span class="si">}</span> <span class="k">)</span>
+
+    <span class="c"># If reply might be an error code . . .</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="si">${#</span><span class="nv">reply</span><span class="si">}</span> -gt <span class="m">6</span> <span class="o">]</span>
+    <span class="k">then</span>
+        <span class="nv">reason</span><span class="o">=</span><span class="k">$(</span>get_txt <span class="si">${</span><span class="nv">reply</span><span class="si">}</span> <span class="si">${</span><span class="nv">server</span><span class="si">}</span> <span class="k">)</span>
+        <span class="nv">reason</span><span class="o">=</span><span class="si">${</span><span class="nv">reason</span><span class="k">:-</span><span class="si">${</span><span class="nv">reply</span><span class="si">}}</span>
+    <span class="k">fi</span>
+    <span class="nb">echo</span> <span class="si">${</span><span class="nv">reason</span><span class="k">:-</span><span class="s1">&#39; not blacklisted.&#39;</span><span class="si">}</span>
+<span class="o">}</span>
+
+<span class="c"># Need to get the IP address from the name.</span>
+<span class="nb">echo</span> <span class="s1">&#39;Get address of: &#39;</span><span class="nv">$1</span>
+<span class="nv">ip_adr</span><span class="o">=</span><span class="k">$(</span>dig +short <span class="nv">$1</span><span class="k">)</span>
+<span class="nv">dns_reply</span><span class="o">=</span><span class="si">${</span><span class="nv">ip_adr</span><span class="k">:-</span><span class="s1">&#39; no answer &#39;</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s1">&#39; Found address: &#39;</span><span class="si">${</span><span class="nv">dns_reply</span><span class="si">}</span>
+
+<span class="c"># A valid reply is at least 4 digits plus 3 dots.</span>
+<span class="k">if</span> <span class="o">[</span> <span class="si">${#</span><span class="nv">ip_adr</span><span class="si">}</span> -gt <span class="m">6</span> <span class="o">]</span>
+<span class="k">then</span>
+    <span class="nb">echo</span>
+<span class="nb">    declare </span>query
+
+    <span class="c"># Parse by assignment at the dots.</span>
+    <span class="nb">declare</span> -a dns
+    <span class="nv">IFS</span><span class="o">=</span><span class="nv">$ADR_IFS</span>
+    <span class="nv">dns</span><span class="o">=(</span> <span class="si">${</span><span class="nv">ip_adr</span><span class="si">}</span> <span class="o">)</span>
+    <span class="nv">IFS</span><span class="o">=</span><span class="nv">$WSP_IFS</span>
+
+    <span class="c"># Reorder octets into dns query order.</span>
+    <span class="nv">rev_dns</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">dns</span><span class="p">[3]</span><span class="si">}</span><span class="s2">&quot;</span><span class="s1">&#39;.&#39;</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">dns</span><span class="p">[2]</span><span class="si">}</span><span class="s2">&quot;</span><span class="s1">&#39;.&#39;</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">dns</span><span class="p">[1]</span><span class="si">}</span><span class="s2">&quot;</span><span class="s1">&#39;.&#39;</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">dns</span><span class="p">[0]</span><span class="si">}</span><span class="s2">&quot;</span><span class="s1">&#39;.&#39;</span>
+
+<span class="c"># See: http://www.spamhaus.org (Conservative, well maintained)</span>
+    <span class="nb">echo</span> -n <span class="s1">&#39;spamhaus.org says: &#39;</span>
+    <span class="nb">echo</span> <span class="k">$(</span>chk_adr <span class="si">${</span><span class="nv">rev_dns</span><span class="si">}</span> <span class="s1">&#39;sbl-xbl.spamhaus.org&#39;</span><span class="k">)</span>
+
+<span class="c"># See: http://ordb.org (Open mail relays)</span>
+    <span class="nb">echo</span> -n <span class="s1">&#39;   ordb.org  says: &#39;</span>
+    <span class="nb">echo</span> <span class="k">$(</span>chk_adr <span class="si">${</span><span class="nv">rev_dns</span><span class="si">}</span> <span class="s1">&#39;relays.ordb.org&#39;</span><span class="k">)</span>
+
+<span class="c"># See: http://www.spamcop.net/ (You can report spammers here)</span>
+    <span class="nb">echo</span> -n <span class="s1">&#39; spamcop.net says: &#39;</span>
+    <span class="nb">echo</span> <span class="k">$(</span>chk_adr <span class="si">${</span><span class="nv">rev_dns</span><span class="si">}</span> <span class="s1">&#39;bl.spamcop.net&#39;</span><span class="k">)</span>
+
+<span class="c"># # # other blacklist operations # # #</span>
+
+<span class="c"># See: http://cbl.abuseat.org.</span>
+    <span class="nb">echo</span> -n <span class="s1">&#39; abuseat.org says: &#39;</span>
+    <span class="nb">echo</span> <span class="k">$(</span>chk_adr <span class="si">${</span><span class="nv">rev_dns</span><span class="si">}</span> <span class="s1">&#39;cbl.abuseat.org&#39;</span><span class="k">)</span>
+
+<span class="c"># See: http://dsbl.org/usage (Various mail relays)</span>
+    <span class="nb">echo</span>
+<span class="nb">    echo</span> <span class="s1">&#39;Distributed Server Listings&#39;</span>
+    <span class="nb">echo</span> -n <span class="s1">&#39;       list.dsbl.org says: &#39;</span>
+    <span class="nb">echo</span> <span class="k">$(</span>chk_adr <span class="si">${</span><span class="nv">rev_dns</span><span class="si">}</span> <span class="s1">&#39;list.dsbl.org&#39;</span><span class="k">)</span>
+
+    <span class="nb">echo</span> -n <span class="s1">&#39;   multihop.dsbl.org says: &#39;</span>
+    <span class="nb">echo</span> <span class="k">$(</span>chk_adr <span class="si">${</span><span class="nv">rev_dns</span><span class="si">}</span> <span class="s1">&#39;multihop.dsbl.org&#39;</span><span class="k">)</span>
+
+    <span class="nb">echo</span> -n <span class="s1">&#39;unconfirmed.dsbl.org says: &#39;</span>
+    <span class="nb">echo</span> <span class="k">$(</span>chk_adr <span class="si">${</span><span class="nv">rev_dns</span><span class="si">}</span> <span class="s1">&#39;unconfirmed.dsbl.org&#39;</span><span class="k">)</span>
+
+<span class="k">else</span>
+    <span class="nb">echo</span>
+<span class="nb">    echo</span> <span class="s1">&#39;Could not use that address.&#39;</span>
+<span class="k">fi</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># Exercises:</span>
+<span class="c"># --------</span>
+
+<span class="c"># 1) Check arguments to script,</span>
+<span class="c">#    and exit with appropriate error message if necessary.</span>
+
+<span class="c"># 2) Check if on-line at invocation of script,</span>
+<span class="c">#    and exit with appropriate error message if necessary.</span>
+
+<span class="c"># 3) Substitute generic variables for &quot;hard-coded&quot; BHL domains.</span>
+
+<span class="c"># 4) Set a time-out for the script using the &quot;+time=&quot; option</span>
+     to the <span class="s1">&#39;dig&#39;</span> command.
+</pre></div>
+</div>
+<p>For a much more elaborate version of the above script, see <a class="reference external" href="contributed-scripts.html#ISSPAMMER2">Example
+A-28</a> .</p>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>traceroute</strong></dt>
+<dd><p class="first">Trace the route taken by packets sent to a remote host. This command
+works within a LAN, WAN, or over the Internet. The remote host may
+be specified by an IP address. The output of this command may be
+filtered by <a class="reference external" href="textproc.html#GREPREF">grep</a> or
+<a class="reference external" href="sedawk.html#SEDREF">sed</a> in a pipe.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>traceroute 81.9.6.2
+traceroute to 81.9.6.2 <span class="o">(</span>81.9.6.2<span class="o">)</span>, <span class="m">30</span> hops max, <span class="m">38</span> byte packets
+ <span class="m">1</span>  tc43.xjbnnbrb.com <span class="o">(</span>136.30.178.8<span class="o">)</span>  191.303 ms  179.400 ms  179.767 ms
+ <span class="m">2</span>  or0.xjbnnbrb.com <span class="o">(</span>136.30.178.1<span class="o">)</span>  179.536 ms  179.534 ms  169.685 ms
+ <span class="m">3</span>  192.168.11.101 <span class="o">(</span>192.168.11.101<span class="o">)</span>  189.471 ms  189.556 ms *
+ ...
+</pre></div>
+</div>
+</dd>
+<dt><strong>ping</strong></dt>
+<dd><p class="first">Broadcast an
+``                   ICMP           ECHO_REQUEST                 ``
+packet to another machine, either on a local or remote network. This
+is a diagnostic tool for testing network connections, and it should
+be used with caution.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>ping localhost
+PING localhost.localdomain <span class="o">(</span>127.0.0.1<span class="o">)</span> from 127.0.0.1 : 56<span class="o">(</span>84<span class="o">)</span> bytes of data.
+ <span class="m">64</span> bytes from localhost.localdomain <span class="o">(</span>127.0.0.1<span class="o">)</span>: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">0</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">255</span> <span class="nb">time</span><span class="o">=</span><span class="m">709</span> usec
+ <span class="m">64</span> bytes from localhost.localdomain <span class="o">(</span>127.0.0.1<span class="o">)</span>: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">255</span> <span class="nb">time</span><span class="o">=</span><span class="m">286</span> usec
+
+ --- localhost.localdomain ping statistics ---
+ <span class="m">2</span> packets transmitted, <span class="m">2</span> packets received, 0% packet loss
+ round-trip min/avg/max/mdev <span class="o">=</span> 0.286/0.497/0.709/0.212 ms
+</pre></div>
+</div>
+<p>A successful <em>ping</em> returns an <a class="reference external" href="exit-status.html#EXITSTATUSREF">exit
+status</a> of 0 . This can be tested
+for in a script.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>  <span class="nv">HNAME</span><span class="o">=</span>news-15.net  <span class="c"># Notorious spammer.</span>
+<span class="c"># HNAME=$HOST     # Debug: test for localhost.</span>
+  <span class="nv">count</span><span class="o">=</span><span class="m">2</span>  <span class="c"># Send only two pings.</span>
+
+<span class="k">if</span> <span class="o">[[</span> <span class="sb">`</span>ping -c <span class="nv">$count</span> <span class="s2">&quot;</span><span class="nv">$HNAME</span><span class="s2">&quot;</span><span class="sb">`</span> <span class="o">]]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;&quot;</span><span class="nv">$HNAME</span><span class="s2">&quot; still up and broadcasting spam your way.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;&quot;</span><span class="nv">$HNAME</span><span class="s2">&quot; seems to be down. Pity.&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>whois</strong></dt>
+<dd>Perform a DNS (Domain Name System) lookup. The
+``         -h        `` option permits specifying which particular
+<em>whois</em> server to query. See <a class="reference external" href="othertypesv.html#EX18">Example 4-6</a>
+and <a class="reference external" href="communications.html#SPAMLOOKUP">Example 16-40</a> .</dd>
+<dt><strong>finger</strong></dt>
+<dd><p class="first">Retrieve information about users on a network. Optionally, this
+command can display a user&#8217;s ``         ~/.plan        `` ,
+``         ~/.project        `` , and
+``         ~/.forward        `` files, if present.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>finger
+Login  Name           Tty      Idle  Login Time   Office     Office Phone
+ bozo   Bozo Bozeman   tty1        <span class="m">8</span>  Jun <span class="m">25</span> 16:59                <span class="o">(</span>:0<span class="o">)</span>
+ bozo   Bozo Bozeman   ttyp0          Jun <span class="m">25</span> 16:59                <span class="o">(</span>:0.0<span class="o">)</span>
+ bozo   Bozo Bozeman   ttyp1          Jun <span class="m">25</span> 17:07                <span class="o">(</span>:0.0<span class="o">)</span>
+
+
+
+bash<span class="nv">$ </span>finger bozo
+Login: bozo                             Name: Bozo Bozeman
+ Directory: /home/bozo                   Shell: /bin/bash
+ Office: <span class="m">2355</span> Clown St., 543-1234
+ On since Fri Aug <span class="m">31</span> 20:13 <span class="o">(</span>MST<span class="o">)</span> on tty1    <span class="m">1</span> hour <span class="m">38</span> minutes idle
+ On since Fri Aug <span class="m">31</span> 20:13 <span class="o">(</span>MST<span class="o">)</span> on pts/0   <span class="m">12</span> seconds idle
+ On since Fri Aug <span class="m">31</span> 20:13 <span class="o">(</span>MST<span class="o">)</span> on pts/1
+ On since Fri Aug <span class="m">31</span> 20:31 <span class="o">(</span>MST<span class="o">)</span> on pts/2   <span class="m">1</span> hour <span class="m">16</span> minutes idle
+ Mail last <span class="nb">read </span>Tue Jul  <span class="m">3</span> 10:08 <span class="m">2007</span> <span class="o">(</span>MST<span class="o">)</span>
+ No Plan.
+</pre></div>
+</div>
+<p class="last">Out of security considerations, many networks disable <strong>finger</strong> and
+its associated daemon. ` [1]  &lt;communications.html#FTN.AEN13320&gt;`__</p>
+</dd>
+<dt><strong>chfn</strong></dt>
+<dd>Change information disclosed by the <strong>finger</strong> command.</dd>
+<dt><strong>vrfy</strong></dt>
+<dd><p class="first">Verify an Internet e-mail address.</p>
+<p class="last">This command seems to be missing from newer Linux distros.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>** Remote Host Access**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>sx</strong> , <strong>rx</strong></dt>
+<dd>The <strong>sx</strong> and <strong>rx</strong> command set serves to transfer files to and
+from a remote host using the <em>xmodem</em> protocol. These are generally
+part of a communications package, such as <strong>minicom</strong> .</dd>
+<dt><strong>sz</strong> , <strong>rz</strong></dt>
+<dd>The <strong>sz</strong> and <strong>rz</strong> command set serves to transfer files to and
+from a remote host using the <em>zmodem</em> protocol. <em>Zmodem</em> has certain
+advantages over <em>xmodem</em> , such as faster transmission rate and
+resumption of interrupted file transfers. Like <strong>sx</strong> and <strong>rx</strong> ,
+these are generally part of a communications package.</dd>
+<dt><strong>ftp</strong></dt>
+<dd>Utility and protocol for uploading / downloading files to or from a
+remote host. An ftp session can be automated in a script (see
+<a class="reference external" href="here-docs.html#EX72">Example 19-6</a> and <a class="reference external" href="contributed-scripts.html#ENCRYPTEDPW">Example
+A-4</a> ).</dd>
+<dt><strong>uucp</strong> , <strong>uux</strong> , <strong>cu</strong></dt>
+<dd><p class="first"><strong>uucp</strong> : <em>UNIX to UNIX copy</em> . This is a communications package
+for transferring files between UNIX servers. A shell script is an
+effective way to handle a <strong>uucp</strong> command sequence.</p>
+<p>Since the advent of the Internet and e-mail, <strong>uucp</strong> seems to have
+faded into obscurity, but it still exists and remains perfectly
+workable in situations where an Internet connection is not available
+or appropriate. The advantage of <strong>uucp</strong> is that it is
+fault-tolerant, so even if there is a service interruption the copy
+operation will resume where it left off when the connection is
+restored.</p>
+<p>&#8212;</p>
+<p><strong>uux</strong> : <em>UNIX to UNIX execute</em> . Execute a command on a remote
+system. This command is part of the <strong>uucp</strong> package.</p>
+<p>&#8212;</p>
+<p class="last"><strong>cu</strong> : <strong>C</strong> all <strong>U</strong> p a remote system and connect as a simple
+terminal. It is a sort of dumbed-down version of
+<a class="reference external" href="communications.html#TELNETREF">telnet</a> . This command is part of
+the <strong>uucp</strong> package.</p>
+</dd>
+<dt><strong>telnet</strong></dt>
+<dd>Utility and protocol for connecting to a remote host.</dd>
+</dl>
+</div></blockquote>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<blockquote>
+<div>The <em>telnet</em> protocol contains security holes and should therefore
+probably be avoided. Its use within a shell script is <em>not</em>
+recommended.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>wget</strong></dt>
+<dd><p class="first">The <strong>wget</strong> utility <em>noninteractively</em> retrieves or downloads files
+from a Web or ftp site. It works well in a script.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>wget -p http://www.xyz23.com/file01.html
+<span class="c">#  The -p or --page-requisite option causes wget to fetch all files</span>
+<span class="c">#+ required to display the specified page.</span>
+
+wget -r ftp://ftp.xyz24.net/~bozo/project_files/ -O <span class="nv">$SAVEFILE</span>
+<span class="c">#  The -r option recursively follows and retrieves all links</span>
+<span class="c">#+ on the specified site.</span>
+
+wget -c ftp://ftp.xyz25.net/bozofiles/filename.tar.bz2
+<span class="c">#  The -c option lets wget resume an interrupted download.</span>
+<span class="c">#  This works with ftp servers and many HTTP sites.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="exemple-42-getting-a-stock-quote">
+<h2>Exemple 42. Getting a stock quote<a class="headerlink" href="#exemple-42-getting-a-stock-quote" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># quote-fetch.sh: Download a stock quote.</span>
+
+
+<span class="nv">E_NOPARAMS</span><span class="o">=</span>86
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>  <span class="c"># Must specify a stock (symbol) to fetch.</span>
+  <span class="k">then</span> <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` stock-symbol&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOPARAMS</span>
+<span class="k">fi</span>
+
+<span class="nv">stock_symbol</span><span class="o">=</span><span class="nv">$1</span>
+
+<span class="nv">file_suffix</span><span class="o">=</span>.html
+<span class="c"># Fetches an HTML file, so name it appropriately.</span>
+<span class="nv">URL</span><span class="o">=</span><span class="s1">&#39;http://finance.yahoo.com/q?s=&#39;</span>
+<span class="c"># Yahoo finance board, with stock query suffix.</span>
+
+<span class="c"># -----------------------------------------------------------</span>
+wget -O <span class="si">${</span><span class="nv">stock_symbol</span><span class="si">}${</span><span class="nv">file_suffix</span><span class="si">}</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">URL</span><span class="si">}${</span><span class="nv">stock_symbol</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="c"># -----------------------------------------------------------</span>
+
+
+<span class="c"># To look up stuff on http://search.yahoo.com:</span>
+<span class="c"># -----------------------------------------------------------</span>
+<span class="c"># URL=&quot;http://search.yahoo.com/search?fr=ush-news&amp;p=${query}&quot;</span>
+<span class="c"># wget -O &quot;$savefilename&quot; &quot;${URL}&quot;</span>
+<span class="c"># -----------------------------------------------------------</span>
+<span class="c"># Saves a list of relevant URLs.</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c"># Exercises:</span>
+<span class="c"># ---------</span>
+<span class="c">#</span>
+<span class="c"># 1) Add a test to ensure the user running the script is on-line.</span>
+<span class="c">#    (Hint: parse the output of &#39;ps -ax&#39; for &quot;ppp&quot; or &quot;connect.&quot;</span>
+<span class="c">#</span>
+<span class="c"># 2) Modify this script to fetch the local weather report,</span>
+<span class="c">#+   taking the user&#39;s zip code as an argument.</span>
+</pre></div>
+</div>
+<p>See also <a class="reference external" href="contributed-scripts.html#WGETTER2">Example A-30</a> and
+<a class="reference external" href="contributed-scripts.html#BASHPODDER">Example A-31</a> .</p>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>lynx</strong></dt>
+<dd><p class="first">The <strong>lynx</strong> Web and file browser can be used inside a script (with
+the ``         -dump        `` option) to retrieve a file from a Web
+or ftp site noninteractively.</p>
+<div class="highlight-sh"><div class="highlight"><pre>lynx -dump http://www.xyz23.com/file01.html &gt;<span class="nv">$SAVEFILE</span>
+</pre></div>
+</div>
+<p class="last">With the ``         -traversal        `` option, <strong>lynx</strong> starts at
+the HTTP URL specified as an argument, then &#8220;crawls&#8221; through all
+links located on that particular server. Used together with the
+``         -crawl        `` option, outputs page text to a log file.</p>
+</dd>
+<dt><strong>rlogin</strong></dt>
+<dd>``                   Remote login                 `` , initates a
+session on a remote host. This command has security issues, so use
+<a class="reference external" href="communications.html#SSHREF">ssh</a> instead.</dd>
+<dt><strong>rsh</strong></dt>
+<dd>``                   Remote shell                 `` , executes
+command(s) on a remote host. This has security issues, so use
+<strong>ssh</strong> instead.</dd>
+<dt><strong>rcp</strong></dt>
+<dd>``                   Remote copy                 `` , copies files
+between two different networked machines.</dd>
+<dt><strong>rsync</strong></dt>
+<dd><p class="first">``                   Remote synchronize                 `` , updates
+(synchronizes) files between two different networked machines.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>rsync -a ~/sourcedir/*txt /node1/subdirectory/
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-43-updating-fc4">
+<h2>Exemple 43. Updating FC4<a class="headerlink" href="#exemple-43-updating-fc4" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># fc4upd.sh</span>
+
+<span class="c"># Script author: Frank Wang.</span>
+<span class="c"># Slight stylistic modifications by ABS Guide author.</span>
+<span class="c"># Used in ABS Guide with permission.</span>
+
+
+<span class="c">#  Download Fedora Core 4 update from mirror site using rsync.</span>
+<span class="c">#  Should also work for newer Fedora Cores -- 5, 6, . . .</span>
+<span class="c">#  Only download latest package if multiple versions exist,</span>
+<span class="c">#+ to save space.</span>
+
+<span class="nv">URL</span><span class="o">=</span>rsync://distro.ibiblio.org/fedora-linux-core/updates/
+<span class="c"># URL=rsync://ftp.kddilabs.jp/fedora/core/updates/</span>
+<span class="c"># URL=rsync://rsync.planetmirror.com/fedora-linux-core/updates/</span>
+
+<span class="nv">DEST</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="p">/var/www/html/fedora/updates/</span><span class="si">}</span>
+<span class="nv">LOG</span><span class="o">=</span>/tmp/repo-update-<span class="k">$(</span>/bin/date +%Y-%m-%d<span class="k">)</span>.txt
+<span class="nv">PID_FILE</span><span class="o">=</span>/var/run/<span class="si">${</span><span class="nv">0</span><span class="p">##*/</span><span class="si">}</span>.pid
+
+<span class="nv">E_RETURN</span><span class="o">=</span><span class="m">85</span>        <span class="c"># Something unexpected happened.</span>
+
+
+<span class="c"># General rsync options</span>
+<span class="c"># -r: recursive download</span>
+<span class="c"># -t: reserve time</span>
+<span class="c"># -v: verbose</span>
+
+<span class="nv">OPTS</span><span class="o">=</span><span class="s2">&quot;-rtv --delete-excluded --delete-after --partial&quot;</span>
+
+<span class="c"># rsync include pattern</span>
+<span class="c"># Leading slash causes absolute path name match.</span>
+<span class="nv">INCLUDE</span><span class="o">=(</span>
+    <span class="s2">&quot;/4/i386/kde-i18n-Chinese*&quot;</span>
+<span class="c">#   ^                         ^</span>
+<span class="c"># Quoting is necessary to prevent globbing.</span>
+<span class="o">)</span>
+
+
+<span class="c"># rsync exclude pattern</span>
+<span class="c"># Temporarily comment out unwanted pkgs using &quot;#&quot; . . .</span>
+<span class="nv">EXCLUDE</span><span class="o">=(</span>
+    /1
+    /2
+    /3
+    /testing
+    /4/SRPMS
+    /4/ppc
+    /4/x86_64
+    /4/i386/debug
+   <span class="s2">&quot;/4/i386/kde-i18n-*&quot;</span>
+   <span class="s2">&quot;/4/i386/openoffice.org-langpack-*&quot;</span>
+   <span class="s2">&quot;/4/i386/*i586.rpm&quot;</span>
+   <span class="s2">&quot;/4/i386/GFS-*&quot;</span>
+   <span class="s2">&quot;/4/i386/cman-*&quot;</span>
+   <span class="s2">&quot;/4/i386/dlm-*&quot;</span>
+   <span class="s2">&quot;/4/i386/gnbd-*&quot;</span>
+   <span class="s2">&quot;/4/i386/kernel-smp*&quot;</span>
+<span class="c">#  &quot;/4/i386/kernel-xen*&quot;</span>
+<span class="c">#  &quot;/4/i386/xen-*&quot;</span>
+<span class="o">)</span>
+
+
+init <span class="o">()</span> <span class="o">{</span>
+    <span class="c"># Let pipe command return possible rsync error, e.g., stalled network.</span>
+    <span class="nb">set</span> -o pipefail                  <span class="c"># Newly introduced in Bash, version 3.</span>
+
+    <span class="nv">TMP</span><span class="o">=</span><span class="si">${</span><span class="nv">TMPDIR</span><span class="k">:-</span><span class="p">/tmp</span><span class="si">}</span>/<span class="si">${</span><span class="nv">0</span><span class="p">##*/</span><span class="si">}</span>.<span class="nv">$$</span>  <span class="c"># Store refined download list.</span>
+    <span class="nb">trap</span> <span class="s2">&quot;{</span>
+<span class="s2">        rm -f </span><span class="nv">$TMP</span><span class="s2"> 2&gt;/dev/null</span>
+<span class="s2">    }&quot;</span> EXIT                          <span class="c"># Clear temporary file on exit.</span>
+<span class="o">}</span>
+
+
+check_pid <span class="o">()</span> <span class="o">{</span>
+<span class="c"># Check if process exists.</span>
+    <span class="k">if</span> <span class="o">[</span> -s <span class="s2">&quot;</span><span class="nv">$PID_FILE</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nb">echo</span> <span class="s2">&quot;PID file exists. Checking ...&quot;</span>
+        <span class="nv">PID</span><span class="o">=</span><span class="k">$(</span>/bin/egrep -o <span class="s2">&quot;^[[:digit:]]+&quot;</span> <span class="nv">$PID_FILE</span><span class="k">)</span>
+        <span class="k">if</span> /bin/ps --pid <span class="nv">$PID</span> <span class="p">&amp;</span>&gt;/dev/null<span class="p">;</span> <span class="k">then</span>
+            <span class="nb">echo</span> <span class="s2">&quot;Process </span><span class="nv">$PID</span><span class="s2"> found. </span><span class="si">${</span><span class="nv">0</span><span class="p">##*/</span><span class="si">}</span><span class="s2"> seems to be running!&quot;</span>
+           /usr/bin/logger -t <span class="si">${</span><span class="nv">0</span><span class="p">##*/</span><span class="si">}</span> <span class="se">\</span>
+                 <span class="s2">&quot;Process </span><span class="nv">$PID</span><span class="s2"> found. </span><span class="si">${</span><span class="nv">0</span><span class="p">##*/</span><span class="si">}</span><span class="s2"> seems to be running!&quot;</span>
+            <span class="nb">exit</span> <span class="nv">$E_RETURN</span>
+        <span class="k">fi</span>
+        <span class="nb">echo</span> <span class="s2">&quot;Process </span><span class="nv">$PID</span><span class="s2"> not found. Start new process . . .&quot;</span>
+    <span class="k">fi</span>
+<span class="o">}</span>
+
+
+<span class="c">#  Set overall file update range starting from root or $URL,</span>
+<span class="c">#+ according to above patterns.</span>
+set_range <span class="o">()</span> <span class="o">{</span>
+    <span class="nv">include</span><span class="o">=</span>
+    <span class="nv">exclude</span><span class="o">=</span>
+    <span class="k">for</span> p in <span class="s2">&quot;</span><span class="si">${</span><span class="nv">INCLUDE</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="k">do</span>
+        <span class="nv">include</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$include</span><span class="s2"> --include \&quot;</span><span class="nv">$p</span><span class="s2">\&quot;&quot;</span>
+    <span class="k">done</span>
+
+    <span class="k">for</span> p in <span class="s2">&quot;</span><span class="si">${</span><span class="nv">EXCLUDE</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="k">do</span>
+        <span class="nv">exclude</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$exclude</span><span class="s2"> --exclude \&quot;</span><span class="nv">$p</span><span class="s2">\&quot;&quot;</span>
+    <span class="k">done</span>
+<span class="o">}</span>
+
+
+<span class="c"># Retrieve and refine rsync update list.</span>
+get_list <span class="o">()</span> <span class="o">{</span>
+    <span class="nb">echo</span> <span class="nv">$$</span> &gt; <span class="nv">$PID_FILE</span> <span class="p">|</span><span class="o">{</span>
+        <span class="nb">echo</span> <span class="s2">&quot;Can&#39;t write to pid file </span><span class="nv">$PID_FILE</span><span class="s2">&quot;</span>
+        <span class="nb">exit</span> <span class="nv">$E_RETURN</span>
+    <span class="o">}</span>
+
+    <span class="nb">echo</span> -n <span class="s2">&quot;Retrieving and refining update list . . .&quot;</span>
+
+    <span class="c"># Retrieve list -- &#39;eval&#39; is needed to run rsync as a single command.</span>
+    <span class="c"># $3 and $4 is the date and time of file creation.</span>
+    <span class="c"># $5 is the full package name.</span>
+    <span class="nv">previous</span><span class="o">=</span>
+    <span class="nv">pre_file</span><span class="o">=</span>
+    <span class="nv">pre_date</span><span class="o">=</span>0
+    <span class="nb">eval</span> /bin/nice /usr/bin/rsync <span class="se">\</span>
+        -r <span class="nv">$include</span> <span class="nv">$exclude</span> <span class="nv">$URL</span><span class="se">\</span>
+        egrep <span class="s1">&#39;^dr.x|^-r&#39;</span><span class="se">\</span>
+        awk <span class="s1">&#39;{print $3, $4, $5}&#39;</span><span class="se">\</span>
+        sort -k3<span class="se">\</span>
+        <span class="o">{</span> <span class="k">while</span> <span class="nb">read </span>line<span class="p">;</span> <span class="k">do</span>
+            <span class="c"># Get seconds since epoch, to filter out obsolete pkgs.</span>
+            <span class="nv">cur_date</span><span class="o">=</span><span class="k">$(</span>date -d <span class="s2">&quot;</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$lineawk</span> <span class="s1">&#39;{print $1, $2}&#39;</span><span class="k">)</span><span class="s2">&quot;</span> +%s<span class="k">)</span>
+            <span class="c">#  echo $cur_date</span>
+
+            <span class="c"># Get file name.</span>
+            <span class="nv">cur_file</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$lineawk</span> <span class="s1">&#39;{print $3}&#39;</span><span class="k">)</span>
+            <span class="c">#  echo $cur_file</span>
+
+            <span class="c"># Get rpm pkg name from file name, if possible.</span>
+            <span class="k">if</span> <span class="o">[[</span> <span class="nv">$cur_file</span> <span class="o">==</span> *rpm <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+                <span class="nv">pkg_name</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$cur_filesed</span> -r -e <span class="se">\</span>
+                    <span class="s1">&#39;s/(^([^_-]+[_-])+)[[:digit:]]+\..*[_-].*$/\1/&#39;</span><span class="k">)</span>
+            <span class="k">else</span>
+                <span class="nv">pkg_name</span><span class="o">=</span>
+            <span class="k">fi</span>
+            <span class="c"># echo $pkg_name</span>
+
+            <span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$pkg_name</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>   <span class="c">#  If not a rpm file,</span>
+                <span class="nb">echo</span> <span class="nv">$cur_file</span> &gt;&gt; <span class="nv">$TMP</span>    <span class="c">#+ then append to download list.</span>
+            <span class="k">elif</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$pkg_name</span><span class="s2">&quot;</span> !<span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$previous</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>   <span class="c"># A new pkg found.</span>
+                <span class="nb">echo</span> <span class="nv">$pre_file</span> &gt;&gt; <span class="nv">$TMP</span>                  <span class="c"># Output latest file.</span>
+                <span class="nv">previous</span><span class="o">=</span><span class="nv">$pkg_name</span>                      <span class="c"># Save current.</span>
+                <span class="nv">pre_date</span><span class="o">=</span><span class="nv">$cur_date</span>
+                <span class="nv">pre_file</span><span class="o">=</span><span class="nv">$cur_file</span>
+            <span class="k">elif</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$cur_date</span><span class="s2">&quot;</span> -gt <span class="s2">&quot;</span><span class="nv">$pre_date</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+                                                <span class="c">#  If same pkg, but newer,</span>
+                <span class="nv">pre_date</span><span class="o">=</span><span class="nv">$cur_date</span>              <span class="c">#+ then update latest pointer.</span>
+                <span class="nv">pre_file</span><span class="o">=</span><span class="nv">$cur_file</span>
+            <span class="k">fi</span>
+            <span class="k">done</span>
+            <span class="nb">echo</span> <span class="nv">$pre_file</span> &gt;&gt; <span class="nv">$TMP</span>              <span class="c">#  TMP contains ALL</span>
+                                                <span class="c">#+ of refined list now.</span>
+            <span class="c"># echo &quot;subshell=$BASH_SUBSHELL&quot;</span>
+
+    <span class="o">}</span>       <span class="c"># Bracket required here to let final &quot;echo $pre_file &gt;&gt; $TMP&quot;</span>
+            <span class="c"># Remained in the same subshell ( 1 ) with the entire loop.</span>
+
+    <span class="nv">RET</span><span class="o">=</span><span class="nv">$?</span>  <span class="c"># Get return code of the pipe command.</span>
+
+    <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$RET</span><span class="s2">&quot;</span> -ne <span class="m">0</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">{</span>
+        <span class="nb">echo</span> <span class="s2">&quot;List retrieving failed with code </span><span class="nv">$RET</span><span class="s2">&quot;</span>
+        <span class="nb">exit</span> <span class="nv">$E_RETURN</span>
+    <span class="o">}</span>
+
+    <span class="nb">echo</span> <span class="s2">&quot;done&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+<span class="o">}</span>
+
+<span class="c"># Real rsync download part.</span>
+get_file <span class="o">()</span> <span class="o">{</span>
+
+    <span class="nb">echo</span> <span class="s2">&quot;Downloading...&quot;</span>
+    /bin/nice /usr/bin/rsync <span class="se">\</span>
+        <span class="nv">$OPTS</span> <span class="se">\</span>
+        --filter <span class="s2">&quot;merge,+/ </span><span class="nv">$TMP</span><span class="s2">&quot;</span> <span class="se">\</span>
+        --exclude <span class="s1">&#39;*&#39;</span>  <span class="se">\</span>
+        <span class="nv">$URL</span> <span class="nv">$DEST</span>     <span class="se">\</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>/usr/bin/tee $LOG</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote>
+<div><blockquote>
+<div>RET=$?</div></blockquote>
+<p>#  &#8211;filter merge,+/ is crucial for the intention.
+#  + modifier means include and / means absolute path.
+#  Then sorted list in $TMP will contain ascending dir name and
+#+ prevent the following &#8211;exclude &#8216;*&#8217; from &#8220;shortcutting the circuit.&#8221;</p>
+<blockquote>
+<div><p>echo &#8220;Done&#8221;</p>
+<p>rm -f $PID_FILE 2&gt;/dev/null</p>
+<p>return $RET</p>
+</div></blockquote>
+</div></blockquote>
+<p>}</p>
+<p># &#8212;&#8212;-
+# Main
+init
+check_pid
+set_range
+get_list
+get_file
+RET=$?
+# &#8212;&#8212;-</p>
+<dl class="docutils">
+<dt>if [ &#8220;$RET&#8221; -eq 0 ]; then</dt>
+<dd>/usr/bin/logger -t ${0##*/} &#8220;Fedora update mirrored successfully.&#8221;</dd>
+<dt>else</dt>
+<dd>/usr/bin/logger -t ${0##*/} &#8220;Fedora update mirrored with failure code: $RET&#8221;</dd>
+</dl>
+<p>fi</p>
+<p>exit $RET</p>
+</div></blockquote>
+<p>See also <a class="reference external" href="contributed-scripts.html#NIGHTLYBACKUP">Example A-32</a> .</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div>Using <a class="reference external" href="communications.html#RCPREF">rcp</a> ,
+<a class="reference external" href="communications.html#RSYNCREF">rsync</a> , and similar utilities
+with security implications in a shell script may not be advisable.
+Consider, instead, using <strong>ssh</strong> ,
+<a class="reference external" href="communications.html#SCPREF">scp</a> , or an <strong>expect</strong> script.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>ssh</strong></dt>
+<dd>``                   Secure shell                 `` , logs onto a
+remote host and executes commands there. This secure replacement for
+<strong>telnet</strong> , <strong>rlogin</strong> , <strong>rcp</strong> , and <strong>rsh</strong> uses identity
+authentication and encryption. See its
+<a class="reference external" href="basic.html#MANREF">manpage</a> for details.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="exemple-44-using-ssh">
+<h2>Exemple 44. Using <em>ssh</em><a class="headerlink" href="#exemple-44-using-ssh" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># remote.bash: Using ssh.</span>
+
+<span class="c"># This example by Michael Zick.</span>
+<span class="c"># Used with permission.</span>
+
+
+<span class="c">#   Presumptions:</span>
+<span class="c">#   ------------</span>
+<span class="c">#   fd-2 isn&#39;t being captured ( &#39;2&gt;/dev/null&#39; ).</span>
+<span class="c">#   ssh/sshd presumes stderr (&#39;2&#39;) will display to user.</span>
+<span class="c">#</span>
+<span class="c">#   sshd is running on your machine.</span>
+<span class="c">#   For any &#39;standard&#39; distribution, it probably is,</span>
+<span class="c">#+  and without any funky ssh-keygen having been done.</span>
+
+<span class="c"># Try ssh to your machine from the command-line:</span>
+<span class="c">#</span>
+<span class="c"># $ ssh $HOSTNAME</span>
+<span class="c"># Without extra set-up you&#39;ll be asked for your password.</span>
+<span class="c">#   enter password</span>
+<span class="c">#   when done,  $ exit</span>
+<span class="c">#</span>
+<span class="c"># Did that work? If so, you&#39;re ready for more fun.</span>
+
+<span class="c"># Try ssh to your machine as &#39;root&#39;:</span>
+<span class="c">#</span>
+<span class="c">#   $  ssh -l root $HOSTNAME</span>
+<span class="c">#   When asked for password, enter root&#39;s, not yours.</span>
+<span class="c">#          Last login: Tue Aug 10 20:25:49 2004 from localhost.localdomain</span>
+<span class="c">#   Enter &#39;exit&#39; when done.</span>
+
+<span class="c">#  The above gives you an interactive shell.</span>
+<span class="c">#  It is possible for sshd to be set up in a &#39;single command&#39; mode,</span>
+<span class="c">#+ but that is beyond the scope of this example.</span>
+<span class="c">#  The only thing to note is that the following will work in</span>
+<span class="c">#+ &#39;single command&#39; mode.</span>
+
+
+<span class="c"># A basic, write stdout (local) command.</span>
+
+ls -l
+
+<span class="c"># Now the same basic command on a remote machine.</span>
+<span class="c"># Pass a different &#39;USERNAME&#39; &#39;HOSTNAME&#39; if desired:</span>
+<span class="nv">USER</span><span class="o">=</span><span class="si">${</span><span class="nv">USERNAME</span><span class="k">:-$(</span>whoami<span class="k">)</span><span class="si">}</span>
+<span class="nv">HOST</span><span class="o">=</span><span class="si">${</span><span class="nv">HOSTNAME</span><span class="k">:-$(</span>hostname<span class="k">)</span><span class="si">}</span>
+
+<span class="c">#  Now excute the above command-line on the remote host,</span>
+<span class="c">#+ with all transmissions encrypted.</span>
+
+ssh -l <span class="si">${</span><span class="nv">USER</span><span class="si">}</span> <span class="si">${</span><span class="nv">HOST</span><span class="si">}</span> <span class="s2">&quot; ls -l &quot;</span>
+
+<span class="c">#  The expected result is a listing of your username&#39;s home</span>
+<span class="c">#+ directory on the remote machine.</span>
+<span class="c">#  To see any difference, run this script from somewhere</span>
+<span class="c">#+ other than your home directory.</span>
+
+<span class="c">#  In other words, the Bash command is passed as a quoted line</span>
+<span class="c">#+ to the remote shell, which executes it on the remote machine.</span>
+<span class="c">#  In this case, sshd does  &#39; bash -c &quot;ls -l&quot; &#39;   on your behalf.</span>
+
+<span class="c">#  For information on topics such as not having to enter a</span>
+<span class="c">#+ password/passphrase for every command-line, see</span>
+<span class="c">#+    man ssh</span>
+<span class="c">#+    man ssh-keygen</span>
+<span class="c">#+    man sshd_config.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<blockquote>
+<div><p>Within a loop, <strong>ssh</strong> may cause unexpected behavior. According to a
+<a class="reference external" href="http://groups-beta.google.com/group/comp.unix.shell/msg/dcb446b5fff7d230">Usenet
+post</a>
+in the comp.unix shell archives, <strong>ssh</strong> inherits the loop&#8217;s
+``            stdin           `` . To remedy this, pass <strong>ssh</strong>
+either the ``            -n           `` or
+``            -f           `` option.</p>
+<p>Thanks, Jason Bechtel, for pointing this out.</p>
+</div></blockquote>
+<dl class="last docutils">
+<dt><strong>scp</strong></dt>
+<dd>``                   Secure copy                 `` , similar in
+function to <strong>rcp</strong> , copies files between two different networked
+machines, but does so using authentication, and with a security
+level similar to <strong>ssh</strong> .</dd>
+</dl>
+</div>
+<p>** Local Network**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>write</strong></dt>
+<dd><p class="first">This is a utility for terminal-to-terminal communication. It allows
+sending lines from your terminal (console or <em>xterm</em> ) to that of
+another user. The <a class="reference external" href="system.html#MESGREF">mesg</a> command may, of
+course, be used to disable write access to a terminal</p>
+<p class="last">Since <strong>write</strong> is interactive, it would not normally find use in a
+script.</p>
+</dd>
+<dt><strong>netconfig</strong></dt>
+<dd>A command-line utility for configuring a network adapter (using
+<em>DHCP</em> ). This command is native to Red Hat centric Linux distros.</dd>
+</dl>
+</div></blockquote>
+<p>** Mail**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>mail</strong></dt>
+<dd><p class="first">Send or read e-mail messages.</p>
+<p class="last">This stripped-down command-line mail client works fine as a command
+embedded in a script.</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-45-a-script-that-mails-itself">
+<h2>Exemple 45. A script that mails itself<a class="headerlink" href="#exemple-45-a-script-that-mails-itself" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/sh</span>
+<span class="c"># self-mailer.sh: Self-mailing script</span>
+
+<span class="nv">adr</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="sb">`</span>whoami<span class="sb">`</span><span class="si">}</span>     <span class="c"># Default to current user, if not specified.</span>
+<span class="c">#  Typing &#39;self-mailer.sh wiseguy@superdupergenius.com&#39;</span>
+<span class="c">#+ sends this script to that addressee.</span>
+<span class="c">#  Just &#39;self-mailer.sh&#39; (no argument) sends the script</span>
+<span class="c">#+ to the person invoking it, for example, bozo@localhost.localdomain.</span>
+<span class="c">#</span>
+<span class="c">#  For more on the ${parameter:-default} construct,</span>
+<span class="c">#+ see the &quot;Parameter Substitution&quot; section</span>
+<span class="c">#+ of the &quot;Variables Revisited&quot; chapter.</span>
+
+<span class="c"># ============================================================================</span>
+  cat <span class="nv">$0mail</span> -s <span class="s2">&quot;Script \&quot;`basename </span><span class="nv">$0</span><span class="s2">`\&quot; has mailed itself to you.&quot;</span> <span class="s2">&quot;</span><span class="nv">$adr</span><span class="s2">&quot;</span>
+<span class="c"># ============================================================================</span>
+
+<span class="c"># --------------------------------------------</span>
+<span class="c">#  Greetings from the self-mailing script.</span>
+<span class="c">#  A mischievous person has run this script,</span>
+<span class="c">#+ which has caused it to mail itself to you.</span>
+<span class="c">#  Apparently, some people have nothing better</span>
+<span class="c">#+ to do with their time.</span>
+<span class="c"># --------------------------------------------</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;At `date`, script \&quot;`basename </span><span class="nv">$0</span><span class="s2">`\&quot; mailed to &quot;</span><span class="nv">$adr</span><span class="s2">&quot;.&quot;</span>
+
+<span class="nb">exit </span>0
+
+<span class="c">#  Note that the &quot;mailx&quot; command (in &quot;send&quot; mode) may be substituted</span>
+<span class="c">#+ for &quot;mail&quot; ... but with somewhat different options.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>mailto</strong></dt>
+<dd>Similar to the <strong>mail</strong> command, <strong>mailto</strong> sends e-mail messages
+from the command-line or in a script. However, <strong>mailto</strong> also
+permits sending MIME (multimedia) messages.</dd>
+<dt><strong>mailstats</strong></dt>
+<dd><p class="first">Show <em>mail statistics</em> . This command may be invoked only by <em>root</em>
+.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>root# mailstats
+Statistics from Tue Jan  <span class="m">1</span> 20:32:08 2008
+  M   msgsfr  bytes_from   msgsto    bytes_to  msgsrej msgsdis msgsqur  Mailer
+  <span class="m">4</span>     <span class="m">1682</span>      24118K        <span class="m">0</span>          0K        <span class="m">0</span>       <span class="m">0</span>       <span class="m">0</span>  esmtp
+  <span class="m">9</span>      <span class="m">212</span>        640K     <span class="m">1894</span>      25131K        <span class="m">0</span>       <span class="m">0</span>       <span class="m">0</span>  <span class="nb">local</span>
+ <span class="o">=====================================================================</span>
+  T     <span class="m">1894</span>      24758K     <span class="m">1894</span>      25131K        <span class="m">0</span>       <span class="m">0</span>       0
+  C      <span class="m">414</span>                    0
+</pre></div>
+</div>
+</dd>
+<dt><strong>vacation</strong></dt>
+<dd>This utility automatically replies to e-mails that the intended
+recipient is on vacation and temporarily unavailable. It runs on a
+network, in conjunction with <strong>sendmail</strong> , and is not applicable to
+a dial-up POPmail account.</dd>
+</dl>
+</div></blockquote>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;communications.html#AEN13320&gt;`__</p>
+<p>A <em>daemon</em> is a background process not attached to a terminal session.
+Daemons perform designated services either at specified times or
+explicitly triggered by certain events.</p>
+<p>The word &#8220;daemon&#8221; means ghost in Greek, and there is certainly something
+mysterious, almost supernatural, about the way UNIX daemons wander about
+behind the scenes, silently carrying out their appointed tasks.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="terminalccmds.html" class="btn btn-neutral float-right" title="XXX 16.7. Terminal Control Commands" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="filearchiv.html" class="btn btn-neutral" title="XXX 16.5. File and Archiving Commands"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

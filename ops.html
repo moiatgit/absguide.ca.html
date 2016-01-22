@@ -1,0 +1,818 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 8.1. Operators &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="Part 2. Conceptes bàsics" href="part2.html"/>
+        <link rel="next" title="XXX 8.2. Numerical Constants" href="numerical-constants.html"/>
+        <link rel="prev" title="XXX Chapter 8. Operations and Related Topics" href="operations.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="special-chars.html">XXX 3. Caràcters especials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">4. Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quoting.html">Chapter 5. Cometes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exit-status.html">XXX Chapter 6. Exit and Exit Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html">XXX Chapter 7. Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testconstructs.html">XXX  7.1. Test Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fto.html">XXX  7.2. File test operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparison-ops.html">XXX  7.3. Other Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedifthen.html">7.4. Condicionals aniuats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testtest.html">XXX  7.5. Testing Your Knowledge of Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations.html">XXX Chapter 8. Operations and Related Topics</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  8.1. Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="numerical-constants.html">XXX  8.2. Numerical Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dblparens.html">XXX  8.3. The Double-Parentheses Construct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opprecedence.html">XXX  8.4. Operator Precedence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part2.html">Part 2. Conceptes bàsics</a> &raquo;</li>
+      
+    <li>XXX  8.1. Operators</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-8-1-operators">
+<h1>XXX  8.1. Operators<a class="headerlink" href="#xxx-8-1-operators" title="Link permanent a aquest títol">¶</a></h1>
+<p>** assignment**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>``                 variable assignment               ``</dt>
+<dd>Initializing or changing the value of a variable</dd>
+</dl>
+<dl class="docutils">
+<dt>=</dt>
+<dd><p class="first">All-purpose assignment operator, which works for both arithmetic and
+string assignments.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">var</span><span class="o">=</span>27
+<span class="nv">category</span><span class="o">=</span>minerals  <span class="c"># No spaces allowed after the &quot;=&quot;.</span>
+</pre></div>
+</div>
+<div class="last admonition caution">
+<p class="first admonition-title">Compte</p>
+<p class="last">Do not confuse the &#8220;=&#8221; assignment operator with the <a class="reference external" href="comparison-ops.html#EQUALSIGNREF">= test
+operator</a> .</p>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#   =  as a test ope</span>
+</pre></div>
+</div>
+<p>rator</p>
+<blockquote>
+<div>if [ &#8220;$string1&#8221; = &#8220;$</div></blockquote>
+<dl class="docutils">
+<dt>string2&#8221; ]</dt>
+<dd><dl class="first docutils">
+<dt>then</dt>
+<dd>command</dd>
+</dl>
+<p>fi</p>
+<p class="last">#  if [ &#8220;X$string1&#8221;</p>
+</dd>
+</dl>
+<p>= &#8220;X$string2&#8221; ] is safer
+,</p>
+<blockquote>
+<div>#+ to prevent an err</div></blockquote>
+<dl class="docutils">
+<dt>or message should one of</dt>
+<dd><dl class="first last docutils">
+<dt>the variables be empty.</dt>
+<dd>#  (The prepended &#8220;X</dd>
+</dl>
+</dd>
+</dl>
+<p>&#8221; characters cancel out.
+)</p>
+<hr class="docutils" />
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#   =  as a test operator</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$string1</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$string2</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+   <span class="nb">command</span>
+<span class="k">fi</span>
+
+<span class="c">#  if [ &quot;X$string1&quot; = &quot;X$string2&quot; ] is safer,</span>
+<span class="c">#+ to prevent an error message should one of the variables be empty.</span>
+<span class="c">#  (The prepended &quot;X&quot; characters cancel out.)</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#   =  as a test operator</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$string1</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$string2</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+   <span class="nb">command</span>
+<span class="k">fi</span>
+
+<span class="c">#  if [ &quot;X$string1&quot; = &quot;X$string2&quot; ] is safer,</span>
+<span class="c">#+ to prevent an error message should one of the variables be empty.</span>
+<span class="c">#  (The prepended &quot;X&quot; characters cancel out.)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>** arithmetic operators**</p>
+<blockquote>
+<div><ul class="simple">
+<li>plus</li>
+</ul>
+<ul class="simple">
+<li>minus</li>
+</ul>
+<dl class="docutils">
+<dt>*</dt>
+<dd>multiplication</dd>
+</dl>
+<dl class="docutils">
+<dt>/</dt>
+<dd>division</dd>
+<dt>**</dt>
+<dd><p class="first">exponentiation</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="c"># Bash, version 2.02, introduced the &quot;**&quot; exponentiation operator.</span>
+
+<span class="nb">let</span> <span class="s2">&quot;z=5**3&quot;</span>    <span class="c"># 5 * 5 * 5</span>
+<span class="nb">echo</span> <span class="s2">&quot;z = </span><span class="nv">$z</span><span class="s2">&quot;</span>   <span class="c"># z = 125</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="docutils">
+<dt>%</dt>
+<dd><p class="first">modulo, or mod (returns the <em>remainder</em> of an integer division
+operation)</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>expr <span class="m">5</span> % 3
+2
+</pre></div>
+</div>
+<p><em>5/3 = 1, with remainder 2</em></p>
+<p class="last">This operator finds use in, among other things, generating numbers
+within a specific range (see <a class="reference external" href="randomvar.html#EX21">Example 9-11</a>
+and <a class="reference external" href="randomvar.html#RANDOMTEST">Example 9-15</a> ) and formatting
+program output (see <a class="reference external" href="arrays.html#QFUNCTION">Example 27-16</a> and
+<a class="reference external" href="contributed-scripts.html#COLLATZ">Example A-6</a> ). It can even be
+used to generate prime numbers, (see <a class="reference external" href="contributed-scripts.html#PRIMES">Example
+A-15</a> ). Modulo turns up
+surprisingly often in numerical recipes.</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="section" id="exemple-1-greatest-common-divisor">
+<h2>Exemple 1. Greatest common divisor<a class="headerlink" href="#exemple-1-greatest-common-divisor" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># gcd.sh: greatest common divisor</span>
+<span class="c">#         Uses Euclid&#39;s algorithm</span>
+
+<span class="c">#  The &quot;greatest common divisor&quot; (gcd) of two integers</span>
+<span class="c">#+ is the largest integer that will divide both, leaving no remainder.</span>
+
+<span class="c">#  Euclid&#39;s algorithm uses successive division.</span>
+<span class="c">#    In each pass,</span>
+<span class="c">#+      dividend &lt;---  divisor</span>
+<span class="c">#+      divisor  &lt;---  remainder</span>
+<span class="c">#+   until remainder = 0.</span>
+<span class="c">#    The gcd = dividend, on the final pass.</span>
+<span class="c">#</span>
+<span class="c">#  For an excellent discussion of Euclid&#39;s algorithm, see</span>
+<span class="c">#+ Jim Loy&#39;s site, http://www.jimloy.com/number/euclids.htm.</span>
+
+
+<span class="c"># ------------------------------------------------------</span>
+<span class="c"># Argument check</span>
+<span class="nv">ARGS</span><span class="o">=</span>2
+<span class="nv">E_BADARGS</span><span class="o">=</span>85
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-ne <span class="s2">&quot;</span><span class="nv">$ARGS</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` first-number second-number&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+<span class="c"># ------------------------------------------------------</span>
+
+
+gcd <span class="o">()</span>
+<span class="o">{</span>
+
+  <span class="nv">dividend</span><span class="o">=</span><span class="nv">$1</span>             <span class="c">#  Arbitrary assignment.</span>
+  <span class="nv">divisor</span><span class="o">=</span><span class="nv">$2</span>              <span class="c">#! It doesn&#39;t matter which of the two is larger.</span>
+                          <span class="c">#  Why not?</span>
+
+  <span class="nv">remainder</span><span class="o">=</span><span class="m">1</span>             <span class="c">#  If an uninitialized variable is used inside</span>
+                          <span class="c">#+ test brackets, an error message results.</span>
+
+  <span class="k">until</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$remainder</span><span class="s2">&quot;</span> -eq <span class="m">0</span> <span class="o">]</span>
+  <span class="k">do</span>    <span class="c">#  ^^^^^^^^^^  Must be previously initialized!</span>
+    <span class="nb">let</span> <span class="s2">&quot;remainder = </span><span class="nv">$dividend</span><span class="s2"> % </span><span class="nv">$divisor</span><span class="s2">&quot;</span>
+    <span class="nv">dividend</span><span class="o">=</span><span class="nv">$divisor</span>     <span class="c"># Now repeat with 2 smallest numbers.</span>
+    <span class="nv">divisor</span><span class="o">=</span><span class="nv">$remainder</span>
+  <span class="k">done</span>                    <span class="c"># Euclid&#39;s algorithm</span>
+
+<span class="o">}</span>                         <span class="c"># Last $dividend is the gcd.</span>
+
+
+gcd <span class="nv">$1</span> <span class="nv">$2</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;GCD of </span><span class="nv">$1</span><span class="s2"> and </span><span class="nv">$2</span><span class="s2"> = </span><span class="nv">$dividend</span><span class="s2">&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+
+
+<span class="c"># Exercises :</span>
+<span class="c"># ---------</span>
+<span class="c"># 1) Check command-line arguments to make sure they are integers,</span>
+<span class="c">#+   and exit the script with an appropriate error message if not.</span>
+<span class="c"># 2) Rewrite the gcd () function to use local variables.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt>+=</dt>
+<dd><dl class="first docutils">
+<dt><em>plus-equal</em> (increment variable by a constant) ` [1]</dt>
+<dd>&lt;ops.html#FTN.AEN3907&gt;`__</dd>
+</dl>
+<p class="last">``                   let &#8220;var += 5&#8221;                 `` results in
+``                   var                 `` being incremented by
+``         5        `` .</p>
+</dd>
+<dt>-=</dt>
+<dd><em>minus-equal</em> (decrement variable by a constant)</dd>
+<dt>*=</dt>
+<dd><p class="first"><em>times-equal</em> (multiply variable by a constant)</p>
+<p class="last">``                   let &#8220;var <a href="#id1"><span class="problematic" id="id2">*</span></a>= 4&#8221;                 `` results in
+``                   var                 `` being multiplied by
+``         4        `` .</p>
+</dd>
+<dt>/=</dt>
+<dd><em>slash-equal</em> (divide variable by a constant)</dd>
+<dt>%=</dt>
+<dd><p class="first"><em>mod-equal</em> ( <em>remainder</em> of dividing variable by a constant)</p>
+<p class="last"><em>Arithmetic operators often occur in an
+`expr &lt;moreadv.html#EXPRREF&gt;`__ or `let &lt;internal.html#LETREF&gt;`__
+expression.</em></p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-2-us-dels-operadors-aritmetics">
+<span id="ops-exemple-operadorsaritmetics"></span><h2>Exemple 2. Ús dels operadors aritmètics<a class="headerlink" href="#exemple-2-us-dels-operadors-aritmetics" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Counting to 11 in 10 different ways.</span>
+
+<span class="nv">n</span><span class="o">=</span>1<span class="p">;</span> <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$n</span><span class="s2"> &quot;</span>
+
+<span class="nb">let</span> <span class="s2">&quot;n = </span><span class="nv">$n</span><span class="s2"> + 1&quot;</span>   <span class="c"># let &quot;n = n + 1&quot;  also works.</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$n</span><span class="s2"> &quot;</span>
+
+
+: <span class="k">$((</span><span class="nv">n</span> <span class="o">=</span> <span class="nv">$n</span> <span class="o">+</span> <span class="m">1</span><span class="k">))</span>
+<span class="c">#  &quot;:&quot; necessary because otherwise Bash attempts</span>
+<span class="c">#+ to interpret &quot;$((n = $n + 1))&quot; as a command.</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$n</span><span class="s2"> &quot;</span>
+
+<span class="o">((</span> <span class="nv">n</span> <span class="o">=</span> n + <span class="m">1</span> <span class="o">))</span>
+<span class="c">#  A simpler alternative to the method above.</span>
+<span class="c">#  Thanks, David Lombard, for pointing this out.</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$n</span><span class="s2"> &quot;</span>
+
+<span class="nv">n</span><span class="o">=</span><span class="k">$((</span><span class="nv">$n</span> <span class="o">+</span> <span class="m">1</span><span class="k">))</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$n</span><span class="s2"> &quot;</span>
+
+: <span class="nv">$[</span> <span class="nv">n</span> <span class="o">=</span> <span class="nv">$n</span> + <span class="m">1</span> <span class="o">]</span>
+<span class="c">#  &quot;:&quot; necessary because otherwise Bash attempts</span>
+<span class="c">#+ to interpret &quot;$[ n = $n + 1 ]&quot; as a command.</span>
+<span class="c">#  Works even if &quot;n&quot; was initialized as a string.</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$n</span><span class="s2"> &quot;</span>
+
+<span class="nv">n</span><span class="o">=</span><span class="nv">$[</span> <span class="nv">$n</span> + <span class="m">1</span> <span class="o">]</span>
+<span class="c">#  Works even if &quot;n&quot; was initialized as a string.</span>
+<span class="c">#* Avoid this type of construct, since it is obsolete and nonportable.</span>
+<span class="c">#  Thanks, Stephane Chazelas.</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$n</span><span class="s2"> &quot;</span>
+
+<span class="c"># Now for C-style increment operators.</span>
+<span class="c"># Thanks, Frank Wang, for pointing this out.</span>
+
+<span class="nb">let</span> <span class="s2">&quot;n++&quot;</span>          <span class="c"># let &quot;++n&quot;  also works.</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$n</span><span class="s2"> &quot;</span>
+
+<span class="o">((</span> n++ <span class="o">))</span>          <span class="c"># (( ++n ))  also works.</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$n</span><span class="s2"> &quot;</span>
+
+: <span class="k">$((</span> n++ <span class="k">))</span>       <span class="c"># : $(( ++n )) also works.</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$n</span><span class="s2"> &quot;</span>
+
+: <span class="nv">$[</span> n++ <span class="o">]</span>         <span class="c"># : $[ ++n ] also works</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$n</span><span class="s2"> &quot;</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<p><a href="#id3"><span class="problematic" id="id4">|</span></a>Note</p>
+<p>Integer variables in older versions of Bash were signed <em>long</em> (32-bit)
+integers, in the range of -2147483648 to 2147483647. An operation that
+took a variable outside these limits gave an erroneous result.</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>   <span class="nb">echo</span> <span class="nv">$BASH_VERSION</span>
+<span class="c"># 1.14</span>
+
+   <span class="nv">a</span><span class="o">=</span>2147483646
+   <span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>
+<span class="c"># a = 2147483646</span>
+   <span class="nb">let</span> <span class="s2">&quot;a+=1&quot;</span>
+<span class="c"># Increment &quot;a&quot;.</span>
+   <span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>
+<span class="c"># a = 2147483647</span>
+   <span class="nb">let</span> <span class="s2">&quot;a+=1&quot;</span>
+<span class="c"># increment &quot;a&quot; again,</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>past the limit.</dt>
+<dd><blockquote class="first">
+<div>echo &#8220;a = $a&#8221;</div></blockquote>
+<p># a = -2147483648</p>
+<p class="last">#      ERROR: out of ra</p>
+</dd>
+</dl>
+<p>nge,</p>
+<blockquote>
+<div><p># +    and the leftmost
+bit, the sign bit,</p>
+<p># +    has been set, ma</p>
+</div></blockquote>
+<p>king the result negative
+.</p>
+<hr class="docutils" />
+<p>As of version &gt;= 2.05b, Bash supports 64-bit integers.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">echo</span> <span class="nv">$BASH_VERSION</span>   <span class="c"># 1.14</span>
+
+<span class="nv">a</span><span class="o">=</span>2147483646
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>        <span class="c"># a = 2147483646</span>
+<span class="nb">let</span> <span class="s2">&quot;a+=1&quot;</span>           <span class="c"># Increment &quot;a&quot;.</span>
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>        <span class="c"># a = 2147483647</span>
+<span class="nb">let</span> <span class="s2">&quot;a+=1&quot;</span>           <span class="c"># increment &quot;a&quot; again, past the limit.</span>
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>        <span class="c"># a = -2147483648</span>
+                     <span class="c">#      ERROR: out of range,</span>
+                     <span class="c"># +    and the leftmost bit, the sign bit,</span>
+                     <span class="c"># +    has been set, making the result negative.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">echo</span> <span class="nv">$BASH_VERSION</span>   <span class="c"># 1.14</span>
+
+<span class="nv">a</span><span class="o">=</span>2147483646
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>        <span class="c"># a = 2147483646</span>
+<span class="nb">let</span> <span class="s2">&quot;a+=1&quot;</span>           <span class="c"># Increment &quot;a&quot;.</span>
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>        <span class="c"># a = 2147483647</span>
+<span class="nb">let</span> <span class="s2">&quot;a+=1&quot;</span>           <span class="c"># increment &quot;a&quot; again, past the limit.</span>
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>        <span class="c"># a = -2147483648</span>
+                     <span class="c">#      ERROR: out of range,</span>
+                     <span class="c"># +    and the leftmost bit, the sign bit,</span>
+                     <span class="c"># +    has been set, making the result negative.</span>
+</pre></div>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<p class="last">Bash does not understand floating point arithmetic. It treats numbers
+containing a decimal point as strings.</p>
+</div>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">a</span><span class="o">=</span>1.5
+
+<span class="nb">let</span> <span class="s2">&quot;b = </span><span class="nv">$a</span><span class="s2"> + 1.3&quot;</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt># Error.</dt>
+<dd># t2.sh: let: b = 1.</dd>
+<dt>5 + 1.3: syntax error in</dt>
+<dd><dl class="first docutils">
+<dt>expression</dt>
+<dd><dl class="first last docutils">
+<dt>#</dt>
+<dd>(error token is</dd>
+</dl>
+</dd>
+</dl>
+<p>&#8221;.5 + 1.3&#8221;)</p>
+<blockquote class="last">
+<div>echo &#8220;b = $b&#8221;</div></blockquote>
+</dd>
+</dl>
+<p># b=1</p>
+<hr class="docutils" />
+<p>Use <a class="reference external" href="mathc.html#BCREF">bc</a> in scripts that that need floating point
+calculations or math library functions.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">a</span><span class="o">=</span>1.5
+
+<span class="nb">let</span> <span class="s2">&quot;b = </span><span class="nv">$a</span><span class="s2"> + 1.3&quot;</span>  <span class="c"># Error.</span>
+<span class="c"># t2.sh: let: b = 1.5 + 1.3: syntax error in expression</span>
+<span class="c">#                            (error token is &quot;.5 + 1.3&quot;)</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;b = </span><span class="nv">$b</span><span class="s2">&quot;</span>       <span class="c"># b=1</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">a</span><span class="o">=</span>1.5
+
+<span class="nb">let</span> <span class="s2">&quot;b = </span><span class="nv">$a</span><span class="s2"> + 1.3&quot;</span>  <span class="c"># Error.</span>
+<span class="c"># t2.sh: let: b = 1.5 + 1.3: syntax error in expression</span>
+<span class="c">#                            (error token is &quot;.5 + 1.3&quot;)</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;b = </span><span class="nv">$b</span><span class="s2">&quot;</span>       <span class="c"># b=1</span>
+</pre></div>
+</div>
+<p><strong>bitwise operators.</strong> The bitwise operators seldom make an appearance
+in shell scripts. Their chief use seems to be manipulating and testing
+values read from ports or <a class="reference external" href="devref1.html#SOCKETREF">sockets</a> . &#8220;Bit
+flipping&#8221; is more relevant to compiled languages, such as C and C++,
+which provide direct access to system hardware. However, see <em>vladz&#8217;s</em>
+ingenious use of bitwise operators in his <em>base64.sh</em> ( <a class="reference external" href="contributed-scripts.html#BASE64">Example
+A-54</a> ) script.</p>
+<p>** bitwise operators**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>&lt;&lt;</dt>
+<dd>bitwise left shift (multiplies by ``         2        `` for each
+shift position)</dd>
+<dt>&lt;&lt;=</dt>
+<dd><p class="first"><em>left-shift-equal</em></p>
+<p class="last">``                   let &#8220;var &lt;&lt;= 2&#8221;                 `` results in
+``                   var                 `` left-shifted
+``         2        `` bits (multiplied by ``         4        `` )</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt>&gt;&gt;</dt>
+<dd>bitwise right shift (divides by ``         2        `` for each
+shift position)</dd>
+<dt>&gt;&gt;=</dt>
+<dd><em>right-shift-equal</em> (inverse of &lt;&lt;= )</dd>
+</dl>
+<dl class="docutils">
+<dt>&amp;</dt>
+<dd>bitwise AND</dd>
+<dt>&amp;=</dt>
+<dd>bitwise <em>AND-equal</em></dd>
+</dl>
+<dl class="docutils">
+<dt></dt>
+<dd>bitwise OR</dd>
+<dt>|=</dt>
+<dd>bitwise <em>OR-equal</em></dd>
+</dl>
+<dl class="docutils">
+<dt>~</dt>
+<dd>bitwise NOT</dd>
+</dl>
+<dl class="docutils">
+<dt>^</dt>
+<dd>bitwise XOR</dd>
+<dt>^=</dt>
+<dd>bitwise <em>XOR-equal</em></dd>
+</dl>
+</div></blockquote>
+<p>** logical (boolean) operators**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>!</dt>
+<dd><p class="first">NOT</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> ! -f <span class="nv">$FILENAME</span> <span class="o">]</span>
+<span class="k">then</span>
+  ...
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="docutils">
+<dt>&amp;&amp;</dt>
+<dd><p class="first">AND</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> <span class="nv">$condition1</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> <span class="nv">$condition2</span> <span class="o">]</span>
+<span class="c">#  Same as:  if [ $condition1 -a $condition2 ]</span>
+<span class="c">#  Returns true if both condition1 and condition2 hold true...</span>
+
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$condition1</span> <span class="o">&amp;&amp;</span> <span class="nv">$condition2</span> <span class="o">]]</span>    <span class="c"># Also works.</span>
+<span class="c">#  Note that &amp;&amp; operator not permitted inside brackets</span>
+<span class="c">#+ of [ ... ] construct.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div><blockquote>
+<div>&amp;&amp; may also be used, depending on context, in an <a href="#id5"><span class="problematic" id="id6">`</span></a>and</div></blockquote>
+<p>list &lt;list-cons.html#LISTCONSREF&gt;`__ to concatenate commands.</p>
+</div></blockquote>
+<dl class="last docutils">
+<dt>|</dt>
+<dd><p class="first">OR</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> <span class="nv">$condition1</span> <span class="o">]</span> <span class="p">|</span><span class="o">[</span> <span class="nv">$condition2</span> <span class="o">]</span>
+<span class="c"># Same as:  if [ $condition1 -o $condition2 ]</span>
+<span class="c"># Returns true if either condition1 or condition2 holds true...</span>
+
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$condition1</span> <span class="p">|</span><span class="nv">$condition2</span> <span class="o">]]</span>    <span class="c"># Also works.</span>
+<span class="c">#  Note that |operator not permitted inside brackets</span>
+<span class="c">#+ of a [ ... ] construct.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Bash tests the <a class="reference external" href="exit-status.html#EXITSTATUSREF">exit status</a> of
+each statement linked with a logical operator.</p>
+</div>
+</div>
+<div class="section" id="exemple-3-compound-condition-tests-using-and">
+<h2>Exemple 3. Compound Condition Tests Using &amp;&amp; and |<a class="headerlink" href="#exemple-3-compound-condition-tests-using-and" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">a</span><span class="o">=</span>24
+<span class="nv">b</span><span class="o">=</span>47
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> -eq <span class="m">24</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$b</span><span class="s2">&quot;</span> -eq <span class="m">47</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Test #1 succeeds.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Test #1 fails.&quot;</span>
+<span class="k">fi</span>
+
+<span class="c"># ERROR:   if [ &quot;$a&quot; -eq 24 &amp;&amp; &quot;$b&quot; -eq 47 ]</span>
+<span class="c">#+         attempts to execute  &#39; [ &quot;$a&quot; -eq 24 &#39;</span>
+<span class="c">#+         and fails to finding matching &#39;]&#39;.</span>
+<span class="c">#</span>
+<span class="c">#  Note:  if [[ $a -eq 24 &amp;&amp; $b -eq 24 ]]  works.</span>
+<span class="c">#  The double-bracket if-test is more flexible</span>
+<span class="c">#+ than the single-bracket version.</span>
+<span class="c">#    (The &quot;&amp;&amp;&quot; has a different meaning in line 17 than in line 6.)</span>
+<span class="c">#    Thanks, Stephane Chazelas, for pointing this out.</span>
+
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> -eq <span class="m">98</span> <span class="o">]</span> <span class="p">|</span><span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$b</span><span class="s2">&quot;</span> -eq <span class="m">47</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Test #2 succeeds.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Test #2 fails.&quot;</span>
+<span class="k">fi</span>
+
+
+<span class="c">#  The -a and -o options provide</span>
+<span class="c">#+ an alternative compound condition test.</span>
+<span class="c">#  Thanks to Patrick Callahan for pointing this out.</span>
+
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> -eq <span class="m">24</span> -a <span class="s2">&quot;</span><span class="nv">$b</span><span class="s2">&quot;</span> -eq <span class="m">47</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Test #3 succeeds.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Test #3 fails.&quot;</span>
+<span class="k">fi</span>
+
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> -eq <span class="m">98</span> -o <span class="s2">&quot;</span><span class="nv">$b</span><span class="s2">&quot;</span> -eq <span class="m">47</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Test #4 succeeds.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Test #4 fails.&quot;</span>
+<span class="k">fi</span>
+
+
+<span class="nv">a</span><span class="o">=</span>rhino
+<span class="nv">b</span><span class="o">=</span>crocodile
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> <span class="o">=</span> rhino <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$b</span><span class="s2">&quot;</span> <span class="o">=</span> crocodile <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Test #5 succeeds.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Test #5 fails.&quot;</span>
+<span class="k">fi</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>The &amp;&amp; and |operators also find use in an arithmetic context.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo</span> <span class="k">$((</span> <span class="m">1</span> <span class="o">&amp;&amp;</span> <span class="m">2</span> <span class="k">))</span> <span class="k">$((</span><span class="m">3</span> <span class="o">&amp;&amp;</span> <span class="m">0</span><span class="k">))</span> <span class="k">$((</span><span class="m">4</span> <span class="o">|</span><span class="m">0</span><span class="k">))</span> <span class="k">$((</span><span class="m">0</span> <span class="o">||</span> <span class="m">0</span><span class="k">))</span>
+<span class="m">1</span> <span class="m">0</span> <span class="m">1</span> 0
+</pre></div>
+</div>
+</div></blockquote>
+<p>** miscellaneous operators**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>,</dt>
+<dd><p class="first">Comma operator</p>
+<p>The <strong>comma operator</strong> chains together two or more arithmetic
+operations. All the operations are evaluated (with possible <em>side
+effects</em> . ` [2]  &lt;ops.html#FTN.AEN4242&gt;`__</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">let</span> <span class="s2">&quot;t1 = ((5 + 3, 7 - 1, 15 - 4))&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;t1 = </span><span class="nv">$t1</span><span class="s2">&quot;</span>           ^^^^^^  <span class="c"># t1 = 11</span>
+<span class="c"># Here t1 is set to the result of the last operation. Why?</span>
+
+<span class="nb">let</span> <span class="s2">&quot;t2 = ((a = 9, 15 / 3))&quot;</span>      <span class="c"># Set &quot;a&quot; and calculate &quot;t2&quot;.</span>
+<span class="nb">echo</span> <span class="s2">&quot;t2 = </span><span class="nv">$t2</span><span class="s2">    a = </span><span class="nv">$a</span><span class="s2">&quot;</span>         <span class="c"># t2 = 5    a = 9</span>
+</pre></div>
+</div>
+<p class="last">The comma operator finds use mainly in <a class="reference external" href="loops1.html#FORLOOPREF1">for
+loops</a> . See <a class="reference external" href="loops1.html#FORLOOPC">Example
+11-13</a> .</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;ops.html#AEN3907&gt;`__</p>
+<p>In a different context, <strong>+=</strong> can serve as a <em>string concatenation</em>
+operator. This can be useful for <a class="reference external" href="bashver3.html#PATHAPPEND">modifying *environmental
+variables*</a> .</p>
+<p>` [2]  &lt;ops.html#AEN4242&gt;`__</p>
+<p><em>Side effects</em> are, of course, unintended &#8211; and usually undesirable &#8211;
+consequences.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="numerical-constants.html" class="btn btn-neutral float-right" title="XXX 8.2. Numerical Constants" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="operations.html" class="btn btn-neutral" title="XXX Chapter 8. Operations and Related Topics"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

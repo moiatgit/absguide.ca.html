@@ -1,0 +1,442 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Chapter 20. I/O Redirection &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Part 5. Advanced Topics" href="part5.html"/>
+        <link rel="next" title="XXX Chapter 21. Subshells" href="subshells.html"/>
+        <link rel="prev" title="XXX Chapter 19. Document immediat" href="here-docs.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="regexp.html">XXX Chapter 18. Regular Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="here-docs.html">XXX  Chapter 19. Document immediat</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  Chapter 20. I/O Redirection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subshells.html">XXX  Chapter 21. Subshells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restricted-sh.html">XXX  Chapter 22. Restricted Shells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process-sub.html">XXX  Chapter 23. Process Substitution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">XXX  Chapter 24. Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aliases.html">XXX Capítol 25. Àlies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="list-cons.html">XXX  Chapter 26. List Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrays.html">XXX  Chapter 27. Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ivr.html">XXX  Chapter 28. Indirect References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networkprogramming.html">XXX  Chapter 30. Network Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zeros.html">XXX  Chapter 31. Of Zeros and Nulls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">XXX  Chapter 32. Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html">XXX  Chapter 33. Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gotchas.html">XXX Chapter 34. Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scrstyle.html">XXX  Chapter 35. Scripting With Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unofficialst.html">XXX  35.1. Unofficial Shell Scripting Stylesheet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellany.html">XXX  Chapter 36. Miscellany</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash2.html">XXX  Chapter 37. Bash, versions 2, 3, and 4</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part5.html">XXX Part 5. Advanced Topics</a> &raquo;</li>
+      
+    <li>XXX  Chapter 20. I/O Redirection</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-chapter-20-i-o-redirection">
+<h1>XXX  Chapter 20. I/O Redirection<a class="headerlink" href="#xxx-chapter-20-i-o-redirection" title="Link permanent a aquest títol">¶</a></h1>
+<p><strong>Table of Contents</strong></p>
+<p>20.1. <a class="reference external" href="x17974.html">Using *exec*</a></p>
+<p>20.2. <a class="reference external" href="redircb.html">Redirecting Code Blocks</a></p>
+<p>20.3. <a class="reference external" href="redirapps.html">Applications</a></p>
+<dl class="docutils">
+<dt>There are always three default <em>files</em> ` [1]</dt>
+<dd>&lt;io-redirection.html#FTN.AEN17884&gt;`__ open, ``      stdin     `` (the</dd>
+</dl>
+<p>keyboard), ``      stdout     `` (the screen), and ``      stderr     ``
+(error messages output to the screen). These, and any other open files,
+can be redirected. Redirection simply means capturing output from a
+file, command, program, script, or even code block within a script (see
+<a class="reference external" href="special-chars.html#EX8">Example 3-1</a> and <a class="reference external" href="special-chars.html#RPMCHECK">Example
+3-2</a> ) and sending it as input to
+another file, command, program, or script.</p>
+<blockquote>
+<div>Each open file gets assigned a file descriptor. ` [2]
+&lt;io-redirection.html#FTN.AEN17894&gt;`__ The file descriptors for</div></blockquote>
+<p>``      stdin     `` , ``      stdout     `` , and ``      stderr     ``
+are 0, 1, and 2, respectively. For opening additional files, there
+remain descriptors 3 to 9. It is sometimes useful to assign one of these
+additional file descriptors to ``      stdin     `` ,
+``      stdout     `` , or ``      stderr     `` as a temporary
+duplicate link. ` [3]  &lt;io-redirection.html#FTN.AEN17906&gt;`__ This
+simplifies restoration to normal after complex redirection and
+reshuffling (see <a class="reference external" href="x17974.html#REDIR1">Example 20-1</a> ).</p>
+<div class="highlight-sh"><div class="highlight"><pre>COMMAND_OUTPUT &gt;
+   <span class="c"># Redirect stdout to a file.</span>
+   <span class="c"># Creates the file if not present, otherwise overwrites it.</span>
+
+   ls -lR &gt; dir-tree.list
+   <span class="c"># Creates a file containing a listing of the directory tree.</span>
+
+: &gt; filename
+   <span class="c"># The &gt; truncates file &quot;filename&quot; to zero length.</span>
+   <span class="c"># If file not present, creates zero-length file (same effect as &#39;touch&#39;).</span>
+   <span class="c"># The : serves as a dummy placeholder, producing no output.</span>
+
+&gt; filename
+   <span class="c"># The &gt; truncates file &quot;filename&quot; to zero length.</span>
+   <span class="c"># If file not present, creates zero-length file (same effect as &#39;touch&#39;).</span>
+   <span class="c"># (Same result as &quot;: &gt;&quot;, above, but this does not work with some shells.)</span>
+
+COMMAND_OUTPUT &gt;&gt;
+   <span class="c"># Redirect stdout to a file.</span>
+   <span class="c"># Creates the file if not present, otherwise appends to it.</span>
+
+
+   <span class="c"># Single-line redirection commands (affect only the line they are on):</span>
+   <span class="c"># --------------------------------------------------------------------</span>
+
+1&gt;filename
+   <span class="c"># Redirect stdout to file &quot;filename.&quot;</span>
+1&gt;&gt;filename
+   <span class="c"># Redirect and append stdout to file &quot;filename.&quot;</span>
+2&gt;filename
+   <span class="c"># Redirect stderr to file &quot;filename.&quot;</span>
+2&gt;&gt;filename
+   <span class="c"># Redirect and append stderr to file &quot;filename.&quot;</span>
+<span class="p">&amp;</span>&gt;filename
+   <span class="c"># Redirect both stdout and stderr to file &quot;filename.&quot;</span>
+   <span class="c"># This operator is now functional, as of Bash 4, final release.</span>
+
+M&gt;N
+  <span class="c"># &quot;M&quot; is a file descriptor, which defaults to 1, if not explicitly set.</span>
+  <span class="c"># &quot;N&quot; is a filename.</span>
+  <span class="c"># File descriptor &quot;M&quot; is redirect to file &quot;N.&quot;</span>
+M&gt;<span class="p">&amp;</span>N
+  <span class="c"># &quot;M&quot; is a file descriptor, which defaults to 1, if not set.</span>
+  <span class="c"># &quot;N&quot; is another file descriptor.</span>
+
+   <span class="c">#==============================================================================</span>
+
+   <span class="c"># Redirecting stdout, one line at a time.</span>
+   <span class="nv">LOGFILE</span><span class="o">=</span>script.log
+
+   <span class="nb">echo</span> <span class="s2">&quot;This statement is sent to the log file, \&quot;</span><span class="nv">$LOGFILE</span><span class="s2">\&quot;.&quot;</span> 1&gt;<span class="nv">$LOGFILE</span>
+   <span class="nb">echo</span> <span class="s2">&quot;This statement is appended to \&quot;</span><span class="nv">$LOGFILE</span><span class="s2">\&quot;.&quot;</span> 1&gt;&gt;<span class="nv">$LOGFILE</span>
+   <span class="nb">echo</span> <span class="s2">&quot;This statement is also appended to \&quot;</span><span class="nv">$LOGFILE</span><span class="s2">\&quot;.&quot;</span> 1&gt;&gt;<span class="nv">$LOGFILE</span>
+   <span class="nb">echo</span> <span class="s2">&quot;This statement is echoed to stdout, and will not appear in \&quot;</span><span class="nv">$LOGFILE</span><span class="s2">\&quot;.&quot;</span>
+   <span class="c"># These redirection commands automatically &quot;reset&quot; after each line.</span>
+
+
+
+   <span class="c"># Redirecting stderr, one line at a time.</span>
+   <span class="nv">ERRORFILE</span><span class="o">=</span>script.errors
+
+   bad_command1 2&gt;<span class="nv">$ERRORFILE</span>       <span class="c">#  Error message sent to $ERRORFILE.</span>
+   bad_command2 2&gt;&gt;<span class="nv">$ERRORFILE</span>      <span class="c">#  Error message appended to $ERRORFILE.</span>
+   bad_command3                    <span class="c">#  Error message echoed to stderr,</span>
+                                   <span class="c">#+ and does not appear in $ERRORFILE.</span>
+   <span class="c"># These redirection commands also automatically &quot;reset&quot; after each line.</span>
+   <span class="c">#=======================================================================</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>2&gt;<span class="p">&amp;</span>1
+   <span class="c"># Redirects stderr to stdout.</span>
+   <span class="c"># Error messages get sent to same place as standard output.</span>
+     &gt;&gt;filename 2&gt;<span class="p">&amp;</span>1
+         bad_command &gt;&gt;filename 2&gt;<span class="p">&amp;</span>1
+         <span class="c"># Appends both stdout and stderr to the file &quot;filename&quot; ...</span>
+     2&gt;<span class="p">&amp;</span>1<span class="o">[</span><span class="nb">command</span><span class="o">(</span>s<span class="o">)]</span>
+         bad_command 2&gt;<span class="p">&amp;</span>1awk <span class="s1">&#39;{print $5}&#39;</span>   <span class="c"># found</span>
+         <span class="c"># Sends stderr through a pipe.</span>
+         <span class="c"># |&amp; was added to Bash 4 as an abbreviation for 2&gt;&amp;1 |.</span>
+
+i&gt;<span class="p">&amp;</span>j
+   <span class="c"># Redirects file descriptor i to j.</span>
+   <span class="c"># All output of file pointed to by i gets sent to file pointed to by j.</span>
+
+&gt;<span class="p">&amp;</span>j
+   <span class="c"># Redirects, by default, file descriptor 1 (stdout) to j.</span>
+   <span class="c"># All stdout gets sent to file pointed to by j.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>0&lt; FILENAME
+ &lt; FILENAME
+   <span class="c"># Accept input from a file.</span>
+   <span class="c"># Companion command to &quot;&gt;&quot;, and often used in combination with it.</span>
+   <span class="c">#</span>
+   <span class="c"># grep search-word &lt;filename</span>
+
+
+<span class="o">[</span>j<span class="o">]</span>&lt;&gt;filename
+   <span class="c">#  Open file &quot;filename&quot; for reading and writing,</span>
+   <span class="c">#+ and assign file descriptor &quot;j&quot; to it.</span>
+   <span class="c">#  If &quot;filename&quot; does not exist, create it.</span>
+   <span class="c">#  If file descriptor &quot;j&quot; is not specified, default to fd 0, stdin.</span>
+   <span class="c">#</span>
+   <span class="c">#  An application of this is writing at a specified place in a file.</span>
+   <span class="nb">echo </span><span class="m">1234567890</span> &gt; File    <span class="c"># Write string to &quot;File&quot;.</span>
+   <span class="nb">exec </span>3&lt;&gt; File             <span class="c"># Open &quot;File&quot; and assign fd 3 to it.</span>
+   <span class="nb">read</span> -n <span class="m">4</span> &lt;<span class="p">&amp;</span><span class="m">3</span>             <span class="c"># Read only 4 characters.</span>
+   <span class="nb">echo</span> -n . &gt;<span class="p">&amp;</span><span class="m">3</span>             <span class="c"># Write a decimal point there.</span>
+   <span class="nb">exec </span>3&gt;<span class="p">&amp;</span>-                 <span class="c"># Close fd 3.</span>
+   cat File                  <span class="c"># ==&gt; 1234.67890</span>
+   <span class="c">#  Random access, by golly.</span>
+
+
+
+
+   <span class="c"># Pipe.</span>
+   <span class="c"># General purpose process and command chaining tool.</span>
+   <span class="c"># Similar to &quot;&gt;&quot;, but more general in effect.</span>
+   <span class="c"># Useful for chaining commands, scripts, files, and programs together.</span>
+   cat *.txtsort <span class="p">|</span> uniq &gt; result-file
+   <span class="c"># Sorts the output of all the .txt files and deletes duplicate lines,</span>
+   <span class="c"># finally saves results to &quot;result-file&quot;.</span>
+</pre></div>
+</div>
+<p>Multiple instances of input and output redirection and/or pipes can be
+combined in a single command line.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">command</span> &lt; input-file &gt; output-file
+<span class="c"># Or the equivalent:</span>
+&lt; input-file <span class="nb">command</span> &gt; output-file   <span class="c"># Although this is non-standard.</span>
+
+command1command2 <span class="p">|</span> command3 &gt; output-file
+</pre></div>
+</div>
+<p>See <a class="reference external" href="filearchiv.html#DERPM">Example 16-31</a> and <a class="reference external" href="contributed-scripts.html#FIFO">Example
+A-14</a> .
+Multiple output streams may be redirected to one file.</p>
+<div class="highlight-sh"><div class="highlight"><pre>ls -yz &gt;&gt; command.log 2&gt;<span class="p">&amp;</span>1
+<span class="c">#  Capture result of illegal options &quot;yz&quot; in file &quot;command.log.&quot;</span>
+<span class="c">#  Because stderr is redirected to the file,</span>
+<span class="c">#+ any error messages will also be there.</span>
+
+<span class="c">#  Note, however, that the following does *not* give the same result.</span>
+ls -yz 2&gt;<span class="p">&amp;</span><span class="m">1</span> &gt;&gt; command.log
+<span class="c">#  Outputs an error message, but does not write to file.</span>
+<span class="c">#  More precisely, the command output (in this case, null)</span>
+<span class="c">#+ writes to the file, but the error message goes only to stdout.</span>
+
+<span class="c">#  If redirecting both stdout and stderr,</span>
+<span class="c">#+ the order of the commands makes a difference.</span>
+</pre></div>
+</div>
+<p>** Closing File Descriptors**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>n&lt;&amp;-</dt>
+<dd>Close input file descriptor
+``                   n                 `` .</dd>
+<dt>0&lt;&amp;- , &lt;&amp;-</dt>
+<dd>Close ``         stdin        `` .</dd>
+<dt>n&gt;&amp;-</dt>
+<dd>Close output file descriptor
+``                   n                 `` .</dd>
+<dt>1&gt;&amp;- , &gt;&amp;-</dt>
+<dd>Close ``         stdout        `` .</dd>
+</dl>
+</div></blockquote>
+<p>Child processes inherit open file descriptors. This is why pipes work.
+To prevent an fd from being inherited, close it.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Redirecting only stderr to a pipe.</span>
+
+<span class="nb">exec </span>3&gt;<span class="p">&amp;</span><span class="m">1</span>                              <span class="c"># Save current &quot;value&quot; of stdout.</span>
+ls -l 2&gt;<span class="p">&amp;</span><span class="m">1</span> &gt;<span class="p">&amp;</span><span class="m">3</span> 3&gt;<span class="p">&amp;</span>-grep bad 3&gt;<span class="p">&amp;</span>-    <span class="c"># Close fd 3 for &#39;grep&#39; (but not &#39;ls&#39;).</span>
+<span class="c">#              ^^^^   ^^^^</span>
+<span class="nb">exec </span>3&gt;<span class="p">&amp;</span>-                              <span class="c"># Now close it for the remainder of the script.</span>
+
+<span class="c"># Thanks, S.C.</span>
+</pre></div>
+</div>
+<p>For a more detailed introduction to I/O redirection see <a class="reference external" href="ioredirintro.html">Appendix
+F</a> .</p>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h2>
+<p>` [1]  &lt;io-redirection.html#AEN17884&gt;`__</p>
+<p>By convention in UNIX and Linux, data streams and peripherals ( <a class="reference external" href="devref1.html#DEVFILEREF">device
+files</a> ) are treated as files, in a fashion
+analogous to ordinary files.</p>
+<p>` [2]  &lt;io-redirection.html#AEN17894&gt;`__</p>
+<blockquote>
+<div>A <em>file descriptor</em> is simply a number that the operating system</div></blockquote>
+<p>assigns to an open file to keep track of it. Consider it a simplified
+type of file pointer. It is analogous to a <em>file handle</em> in <strong>C</strong> .</p>
+<p>` [3]  &lt;io-redirection.html#AEN17906&gt;`__</p>
+<p>Using ``               file            descriptor 5             `` might
+cause problems. When Bash creates a child process, as with
+<a class="reference external" href="internal.html#EXECREF">exec</a> , the child inherits fd 5 (see Chet
+Ramey&#8217;s archived e-mail, <a class="reference external" href="http://groups.google.com/group/gnu.bash.bug/browse_thread/thread/13955daafded3b5c/18c17050087f9f37">SUBJECT: RE: File descriptor 5 is held
+open</a>
+). Best leave this particular fd alone.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="subshells.html" class="btn btn-neutral float-right" title="XXX Chapter 21. Subshells" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="here-docs.html" class="btn btn-neutral" title="XXX Chapter 19. Document immediat"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

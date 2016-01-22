@@ -1,0 +1,447 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Chapter 31. Of Zeros and Nulls &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Part 5. Advanced Topics" href="part5.html"/>
+        <link rel="next" title="XXX Chapter 32. Debugging" href="debugging.html"/>
+        <link rel="prev" title="XXX Chapter 30. Network Programming" href="networkprogramming.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="regexp.html">XXX Chapter 18. Regular Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="here-docs.html">XXX  Chapter 19. Document immediat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io-redirection.html">XXX  Chapter 20. I/O Redirection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subshells.html">XXX  Chapter 21. Subshells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restricted-sh.html">XXX  Chapter 22. Restricted Shells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process-sub.html">XXX  Chapter 23. Process Substitution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">XXX  Chapter 24. Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aliases.html">XXX Capítol 25. Àlies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="list-cons.html">XXX  Chapter 26. List Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrays.html">XXX  Chapter 27. Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ivr.html">XXX  Chapter 28. Indirect References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networkprogramming.html">XXX  Chapter 30. Network Programming</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  Chapter 31. Of Zeros and Nulls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">XXX  Chapter 32. Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html">XXX  Chapter 33. Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gotchas.html">XXX Chapter 34. Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scrstyle.html">XXX  Chapter 35. Scripting With Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unofficialst.html">XXX  35.1. Unofficial Shell Scripting Stylesheet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellany.html">XXX  Chapter 36. Miscellany</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash2.html">XXX  Chapter 37. Bash, versions 2, 3, and 4</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part5.html">XXX Part 5. Advanced Topics</a> &raquo;</li>
+      
+    <li>XXX  Chapter 31. Of Zeros and Nulls</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-chapter-31-of-zeros-and-nulls">
+<h1>XXX  Chapter 31. Of Zeros and Nulls<a class="headerlink" href="#xxx-chapter-31-of-zeros-and-nulls" title="Link permanent a aquest títol">¶</a></h1>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a></p>
+<p><em>Faultily faultless, icily regular, splendidly null</em></p>
+<p><em>Dead perfection; no more.</em></p>
+<p><em>&#8211;Alfred Lord Tennyson</em></p>
+<p>** ``        /dev/zero       `` ... ``        /dev/null       <a href="#id3"><span class="problematic" id="id4">``</span></a><a href="#id5"><span class="problematic" id="id6">**</span></a></p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Uses of ``        /dev/null       ``</dt>
+<dd><p class="first">Think of ``         /dev/null        `` as a <em>black hole</em> . It is
+essentially the equivalent of a write-only file. Everything written
+to it disappears. Attempts to read or output from it result in
+nothing. All the same, ``         /dev/null        `` can be quite
+useful from both the command-line and in scripts.</p>
+<p>Suppressing ``         stdout        `` .</p>
+<div class="highlight-sh"><div class="highlight"><pre>cat <span class="nv">$filename</span> &gt;/dev/null
+<span class="c"># Contents of the file will not list to stdout.</span>
+</pre></div>
+</div>
+<p>Suppressing ``         stderr        `` (from <a class="reference external" href="moreadv.html#EX57">Example
+16-3</a> ).</p>
+<div class="highlight-sh"><div class="highlight"><pre>rm <span class="nv">$badname</span> 2&gt;/dev/null
+<span class="c">#           So error messages [stderr] deep-sixed.</span>
+</pre></div>
+</div>
+<p>Suppressing output from <em>both</em> ``         stdout        `` and
+``         stderr        `` .</p>
+<div class="highlight-sh"><div class="highlight"><pre>cat <span class="nv">$filename</span> 2&gt;/dev/null &gt;/dev/null
+<span class="c"># If &quot;$filename&quot; does not exist, there will be no error message output.</span>
+<span class="c"># If &quot;$filename&quot; does exist, the contents of the file will not list to stdout.</span>
+<span class="c"># Therefore, no output at all will result from the above line of code.</span>
+<span class="c">#</span>
+<span class="c">#  This can be useful in situations where the return code from a command</span>
+<span class="c">#+ needs to be tested, but no output is desired.</span>
+<span class="c">#</span>
+<span class="c"># cat $filename &amp;&gt;/dev/null</span>
+<span class="c">#     also works, as Baris Cicek points out.</span>
+</pre></div>
+</div>
+<p>Deleting contents of a file, but preserving the file itself, with
+all attendant permissions (from <a class="reference external" href="sha-bang.html#EX1">Example 2-1</a>
+and <a class="reference external" href="sha-bang.html#EX2">Example 2-3</a> ):</p>
+<div class="highlight-sh"><div class="highlight"><pre>cat /dev/null &gt; /var/log/messages
+<span class="c">#  : &gt; /var/log/messages   has same effect, but does not spawn a new process.</span>
+
+cat /dev/null &gt; /var/log/wtmp
+</pre></div>
+</div>
+<p class="last">Automatically emptying the contents of a logfile (especially good
+for dealing with those nasty &#8220;cookies&#8221; sent by commercial Web
+sites):</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="section" id="exemple-1-hiding-the-cookie-jar">
+<h2>Exemple 1. Hiding the cookie jar<a class="headerlink" href="#exemple-1-hiding-the-cookie-jar" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c"># Obsolete Netscape browser.</span>
+<span class="c"># Same principle applies to newer browsers.</span>
+
+<span class="k">if</span> <span class="o">[</span> -f ~/.netscape/cookies <span class="o">]</span>  <span class="c"># Remove, if exists.</span>
+<span class="k">then</span>
+  rm -f ~/.netscape/cookies
+<span class="k">fi</span>
+
+ln -s /dev/null ~/.netscape/cookies
+<span class="c"># All cookies now get sent to a black hole, rather than saved to disk.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt>Uses of ``        /dev/zero       ``</dt>
+<dd>Like ``         /dev/null        `` , ``         /dev/zero        ``
+is a pseudo-device file, but it actually produces a stream of nulls
+( <em>binary</em> zeros, not the <a class="reference external" href="special-chars.html#ASCIIDEF">ASCII</a>
+kind). Output written to ``         /dev/zero        `` disappears,
+and it is fairly difficult to actually read the nulls emitted there,
+though it can be done with <a class="reference external" href="extmisc.html#ODREF">od</a> or a hex
+editor. The chief use of ``         /dev/zero        `` is creating
+an initialized dummy file of predetermined length intended as a
+temporary swap file.</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-2-setting-up-a-swapfile-using-dev-zero">
+<h2>Exemple 2. Setting up a swapfile using ``           /dev/zero          ``<a class="headerlink" href="#exemple-2-setting-up-a-swapfile-using-dev-zero" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Creating a swap file.</span>
+
+<span class="c">#  A swap file provides a temporary storage cache</span>
+<span class="c">#+ which helps speed up certain filesystem operations.</span>
+
+<span class="nv">ROOT_UID</span><span class="o">=</span><span class="m">0</span>         <span class="c"># Root has $UID 0.</span>
+<span class="nv">E_WRONG_USER</span><span class="o">=</span><span class="m">85</span>    <span class="c"># Not root?</span>
+
+<span class="nv">FILE</span><span class="o">=</span>/swap
+<span class="nv">BLOCKSIZE</span><span class="o">=</span>1024
+<span class="nv">MINBLOCKS</span><span class="o">=</span>40
+<span class="nv">SUCCESS</span><span class="o">=</span>0
+
+
+<span class="c"># This script must be run as root.</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$UID</span><span class="s2">&quot;</span> -ne <span class="s2">&quot;</span><span class="nv">$ROOT_UID</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;You must be root to run this script.&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+<span class="nb">  exit</span> <span class="nv">$E_WRONG_USER</span>
+<span class="k">fi</span>
+
+
+<span class="nv">blocks</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">$MINBLOCKS</span><span class="si">}</span>          <span class="c">#  Set to default of 40 blocks,</span>
+                                 <span class="c">#+ if nothing specified on command-line.</span>
+<span class="c"># This is the equivalent of the command block below.</span>
+<span class="c"># --------------------------------------------------</span>
+<span class="c"># if [ -n &quot;$1&quot; ]</span>
+<span class="c"># then</span>
+<span class="c">#   blocks=$1</span>
+<span class="c"># else</span>
+<span class="c">#   blocks=$MINBLOCKS</span>
+<span class="c"># fi</span>
+<span class="c"># --------------------------------------------------</span>
+
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$blocks</span><span class="s2">&quot;</span> -lt <span class="nv">$MINBLOCKS</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nv">blocks</span><span class="o">=</span><span class="nv">$MINBLOCKS</span>              <span class="c"># Must be at least 40 blocks long.</span>
+<span class="k">fi</span>
+
+
+<span class="c">######################################################################</span>
+<span class="nb">echo</span> <span class="s2">&quot;Creating swap file of size </span><span class="nv">$blocks</span><span class="s2"> blocks (KB).&quot;</span>
+dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span><span class="nv">$FILE</span> <span class="nv">bs</span><span class="o">=</span><span class="nv">$BLOCKSIZE</span> <span class="nv">count</span><span class="o">=</span><span class="nv">$blocks</span>  <span class="c"># Zero out file.</span>
+mkswap <span class="nv">$FILE</span> <span class="nv">$blocks</span>             <span class="c"># Designate it a swap file.</span>
+swapon <span class="nv">$FILE</span>                     <span class="c"># Activate swap file.</span>
+<span class="nv">retcode</span><span class="o">=</span><span class="nv">$?</span>                       <span class="c"># Everything worked?</span>
+<span class="c">#  Note that if one or more of these commands fails,</span>
+<span class="c">#+ then it could cause nasty problems.</span>
+<span class="c">######################################################################</span>
+
+<span class="c">#  Exercise:</span>
+<span class="c">#  Rewrite the above block of code so that if it does not execute</span>
+<span class="c">#+ successfully, then:</span>
+<span class="c">#    1) an error message is echoed to stderr,</span>
+<span class="c">#    2) all temporary files are cleaned up, and</span>
+<span class="c">#    3) the script exits in an orderly fashion with an</span>
+<span class="c">#+      appropriate error code.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Swap file created and activated.&quot;</span>
+
+<span class="nb">exit</span> <span class="nv">$retcode</span>
+</pre></div>
+</div>
+<p>Another application of ``         /dev/zero        `` is to &#8220;zero
+out&#8221; a file of a designated size for a special purpose, such as
+mounting a filesystem on a <a class="reference external" href="devref1.html#LOOPBACKREF">loopback
+device</a> (see <a class="reference external" href="system.html#CREATEFS">Example
+17-8</a> ) or &#8220;securely&#8221; deleting a file (see
+<a class="reference external" href="extmisc.html#BLOTOUT">Example 16-61</a> ).</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-3-creating-a-ramdisk">
+<h2>Exemple 3. Creating a ramdisk<a class="headerlink" href="#exemple-3-creating-a-ramdisk" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># ramdisk.sh</span>
+
+<span class="c">#  A &quot;ramdisk&quot; is a segment of system RAM memory</span>
+<span class="c">#+ which acts as if it were a filesystem.</span>
+<span class="c">#  Its advantage is very fast access (read/write time).</span>
+<span class="c">#  Disadvantages: volatility, loss of data on reboot or powerdown,</span>
+<span class="c">#+                less RAM available to system.</span>
+<span class="c">#</span>
+<span class="c">#  Of what use is a ramdisk?</span>
+<span class="c">#  Keeping a large dataset, such as a table or dictionary on ramdisk,</span>
+<span class="c">#+ speeds up data lookup, since memory access is much faster than disk access.</span>
+
+
+<span class="nv">E_NON_ROOT_USER</span><span class="o">=</span><span class="m">70</span>             <span class="c"># Must run as root.</span>
+<span class="nv">ROOTUSER_NAME</span><span class="o">=</span>root
+
+<span class="nv">MOUNTPT</span><span class="o">=</span>/mnt/ramdisk           <span class="c"># Create with mkdir /mnt/ramdisk.</span>
+<span class="nv">SIZE</span><span class="o">=</span><span class="m">2000</span>                      <span class="c"># 2K blocks (change as appropriate)</span>
+<span class="nv">BLOCKSIZE</span><span class="o">=</span><span class="m">1024</span>                 <span class="c"># 1K (1024 byte) block size</span>
+<span class="nv">DEVICE</span><span class="o">=</span>/dev/ram0               <span class="c"># First ram device</span>
+
+<span class="nv">username</span><span class="o">=</span><span class="sb">`</span>id -nu<span class="sb">`</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$username</span><span class="s2">&quot;</span> !<span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$ROOTUSER_NAME</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Must be root to run \&quot;`basename </span><span class="nv">$0</span><span class="s2">`\&quot;.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NON_ROOT_USER</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> ! -d <span class="s2">&quot;</span><span class="nv">$MOUNTPT</span><span class="s2">&quot;</span> <span class="o">]</span>         <span class="c">#  Test whether mount point already there,</span>
+<span class="k">then</span>                           <span class="c">#+ so no error if this script is run</span>
+  mkdir <span class="nv">$MOUNTPT</span>               <span class="c">#+ multiple times.</span>
+<span class="k">fi</span>
+
+<span class="c">##############################################################################</span>
+dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span><span class="nv">$DEVICE</span> <span class="nv">count</span><span class="o">=</span><span class="nv">$SIZE</span> <span class="nv">bs</span><span class="o">=</span><span class="nv">$BLOCKSIZE</span>  <span class="c"># Zero out RAM device.</span>
+                                                      <span class="c"># Why is this necessary?</span>
+mke2fs <span class="nv">$DEVICE</span>                 <span class="c"># Create an ext2 filesystem on it.</span>
+mount <span class="nv">$DEVICE</span> <span class="nv">$MOUNTPT</span>         <span class="c"># Mount it.</span>
+chmod <span class="m">777</span> <span class="nv">$MOUNTPT</span>             <span class="c"># Enables ordinary user to access ramdisk.</span>
+                               <span class="c"># However, must be root to unmount it.</span>
+<span class="c">##############################################################################</span>
+<span class="c"># Need to test whether above commands succeed. Could cause problems otherwise.</span>
+<span class="c"># Exercise: modify this script to make it safer.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;\&quot;</span><span class="nv">$MOUNTPT</span><span class="s2">\&quot; now available for use.&quot;</span>
+<span class="c"># The ramdisk is now accessible for storing files, even by an ordinary user.</span>
+
+<span class="c">#  Caution, the ramdisk is volatile, and its contents will disappear</span>
+<span class="c">#+ on reboot or power loss.</span>
+<span class="c">#  Copy anything you want saved to a regular directory.</span>
+
+<span class="c"># After reboot, run this script to again set up ramdisk.</span>
+<span class="c"># Remounting /mnt/ramdisk without the other steps will not work.</span>
+
+<span class="c">#  Suitably modified, this script can by invoked in /etc/rc.d/rc.local,</span>
+<span class="c">#+ to set up ramdisk automatically at bootup.</span>
+<span class="c">#  That may be appropriate on, for example, a database server.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>In addition to all the above, ``         /dev/zero        `` is
+needed by ELF ( <em>Executable and Linking Format</em> ) UNIX/Linux
+binaries.</p>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="debugging.html" class="btn btn-neutral float-right" title="XXX Chapter 32. Debugging" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="networkprogramming.html" class="btn btn-neutral" title="XXX Chapter 30. Network Programming"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

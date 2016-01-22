@@ -1,0 +1,479 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Appendix N. Converting DOS Batch Files to Shell Scripts &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  Appendix N. Converting DOS Batch Files to Shell Scripts</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-appendix-n-converting-dos-batch-files-to-shell-scripts">
+<h1>XXX  Appendix N. Converting DOS Batch Files to Shell Scripts<a class="headerlink" href="#xxx-appendix-n-converting-dos-batch-files-to-shell-scripts" title="Link permanent a aquest títol">¶</a></h1>
+<p>Quite a number of programmers learned scripting on a PC running DOS.
+Even the crippled DOS batch file language allowed writing some fairly
+powerful scripts and applications, though they often required extensive
+kludges and workarounds. Occasionally, the need still arises to convert
+an old DOS batch file to a UNIX shell script. This is generally not
+difficult, as DOS batch file operators are only a limited subset of the
+equivalent shell scripting ones.</p>
+<p><strong>Table N-1. Batch file keywords / variables / operators, and their
+shell equivalents</strong></p>
+<p>Batch File Operator</p>
+<p>Shell Script Equivalent</p>
+<p>Meaning</p>
+<p>``        %       ``</p>
+<p>$</p>
+<p>command-line parameter prefix</p>
+<p>``        /       ``</p>
+<ul class="simple">
+<li></li>
+</ul>
+<p>command option flag</p>
+<p>``              ``</p>
+<p>/</p>
+<p>directory path separator</p>
+<p>``        ==       ``</p>
+<p>=</p>
+<p>(equal-to) string comparison test</p>
+<p>``        !==!       ``</p>
+<p>!=</p>
+<p>(not equal-to) string comparison test</p>
+<p>``      ``</p>
+<p></p>
+<p>pipe</p>
+<p>``        &#64;       ``</p>
+<p>set ``        +v       ``</p>
+<p>do not echo current command</p>
+<p>``        *       ``</p>
+<p>*</p>
+<p>filename &#8220;wild card&#8221;</p>
+<p>``        &gt;       ``</p>
+<p>&gt;</p>
+<p>file redirection (overwrite)</p>
+<p>``        &gt;&gt;       ``</p>
+<p>&gt;&gt;</p>
+<p>file redirection (append)</p>
+<p>``        &lt;       ``</p>
+<p>&lt;</p>
+<p>redirect ``        stdin       ``</p>
+<p>``        %VAR%       ``</p>
+<p>$VAR</p>
+<p>environmental variable</p>
+<p>``        REM       ``</p>
+<p>#</p>
+<p>comment</p>
+<p>``        NOT       ``</p>
+<p>!</p>
+<p>negate following test</p>
+<p>``        NUL       ``</p>
+<p>``        /dev/null       ``</p>
+<blockquote>
+<div>&#8220;black hole&#8221; for burying command output</div></blockquote>
+<p>``        ECHO       ``</p>
+<p>echo</p>
+<p>echo (many more option in Bash)</p>
+<p>``        ECHO.       ``</p>
+<p>echo</p>
+<p>echo blank line</p>
+<p>``        ECHO OFF       ``</p>
+<p>set ``        +v       ``</p>
+<p>do not echo command(s) following</p>
+<p>``        FOR %%VAR IN (LIST) DO       ``</p>
+<p>for var in [list]; do</p>
+<blockquote>
+<div>&#8220;for&#8221; loop</div></blockquote>
+<p>``        :LABEL       ``</p>
+<p>none (unnecessary)</p>
+<p>label</p>
+<p>``        GOTO       ``</p>
+<p>none (use a function)</p>
+<p>jump to another location in the script</p>
+<p>``        PAUSE       ``</p>
+<p>sleep</p>
+<p>pause or wait an interval</p>
+<p>``        CHOICE       ``</p>
+<p>case or select</p>
+<p>menu choice</p>
+<p>``        IF       ``</p>
+<p>if</p>
+<p>if-test</p>
+<p>``        IF EXIST                           FILENAME                 ``</p>
+<p>if [ -e filename ]</p>
+<p>test if file exists</p>
+<p>``        IF !%N==!       ``</p>
+<p>if [ -z &#8220;$N&#8221; ]</p>
+<p>if replaceable parameter &#8220;N&#8221; not present</p>
+<p>``        CALL       ``</p>
+<p>source or . (dot operator)</p>
+<blockquote>
+<div>&#8220;include&#8221; another script</div></blockquote>
+<p>``        COMMAND /C       ``</p>
+<p>source or . (dot operator)</p>
+<blockquote>
+<div>&#8220;include&#8221; another script (same as CALL)</div></blockquote>
+<p>``        SET       ``</p>
+<p>export</p>
+<p>set an environmental variable</p>
+<p>``        SHIFT       ``</p>
+<p>shift</p>
+<p>left shift command-line argument list</p>
+<p>``        SGN       ``</p>
+<p>-lt or -gt</p>
+<p>sign (of integer)</p>
+<p>``        ERRORLEVEL       ``</p>
+<p>$?</p>
+<p>exit status</p>
+<p>``        CON       ``</p>
+<p>``        stdin       ``</p>
+<blockquote>
+<div>&#8220;console&#8221; ( ``        stdin       `` )</div></blockquote>
+<p>``        PRN       ``</p>
+<p>``        /dev/lp0       ``</p>
+<p>(generic) printer device</p>
+<p>``        LPT1       ``</p>
+<p>``        /dev/lp0       ``</p>
+<p>first printer device</p>
+<p>``        COM1       ``</p>
+<p>``        /dev/ttyS0       ``</p>
+<p>first serial port</p>
+<p>Batch files usually contain DOS commands. These must be translated into
+their UNIX equivalents in order to convert a batch file into a shell
+script.</p>
+<p><strong>Table N-2. DOS commands and their UNIX equivalents</strong></p>
+<p>DOS Command</p>
+<p>UNIX Equivalent</p>
+<p>Effect</p>
+<p>``        ASSIGN       ``</p>
+<p>ln</p>
+<p>link file or directory</p>
+<p>``        ATTRIB       ``</p>
+<p>chmod</p>
+<p>change file permissions</p>
+<p>``        CD       ``</p>
+<p>cd</p>
+<p>change directory</p>
+<p>``        CHDIR       ``</p>
+<p>cd</p>
+<p>change directory</p>
+<p>``        CLS       ``</p>
+<p>clear</p>
+<p>clear screen</p>
+<p>``        COMP       ``</p>
+<p>diff, comm, cmp</p>
+<p>file compare</p>
+<p>``        COPY       ``</p>
+<p>cp</p>
+<p>file copy</p>
+<p>``        Ctl-C       ``</p>
+<p>Ctl-C</p>
+<p>break (signal)</p>
+<p>``        Ctl-Z       ``</p>
+<p>Ctl-D</p>
+<p>EOF (end-of-file)</p>
+<p>``        DEL       ``</p>
+<p>rm</p>
+<p>delete file(s)</p>
+<p>``        DELTREE       ``</p>
+<p>rm -rf</p>
+<p>delete directory recursively</p>
+<p>``        DIR       ``</p>
+<p>ls -l</p>
+<p>directory listing</p>
+<p>``        ERASE       ``</p>
+<p>rm</p>
+<p>delete file(s)</p>
+<p>``        EXIT       ``</p>
+<p>exit</p>
+<p>exit current process</p>
+<p>``        FC       ``</p>
+<p>comm, cmp</p>
+<p>file compare</p>
+<p>``        FIND       ``</p>
+<p>grep</p>
+<p>find strings in files</p>
+<p>``        MD       ``</p>
+<p>mkdir</p>
+<p>make directory</p>
+<p>``        MKDIR       ``</p>
+<p>mkdir</p>
+<p>make directory</p>
+<p>``        MORE       ``</p>
+<p>more</p>
+<p>text file paging filter</p>
+<p>``        MOVE       ``</p>
+<p>mv</p>
+<p>move</p>
+<p>``        PATH       ``</p>
+<p>$PATH</p>
+<p>path to executables</p>
+<p>``        REN       ``</p>
+<p>mv</p>
+<p>rename (move)</p>
+<p>``        RENAME       ``</p>
+<p>mv</p>
+<p>rename (move)</p>
+<p>``        RD       ``</p>
+<p>rmdir</p>
+<p>remove directory</p>
+<p>``        RMDIR       ``</p>
+<p>rmdir</p>
+<p>remove directory</p>
+<p>``        SORT       ``</p>
+<p>sort</p>
+<p>sort file</p>
+<p>``        TIME       ``</p>
+<p>date</p>
+<p>display system time</p>
+<p>``        TYPE       ``</p>
+<p>cat</p>
+<p>output file to ``        stdout       ``</p>
+<p>``        XCOPY       ``</p>
+<p>cp</p>
+<p>(extended) file copy</p>
+<p><a href="#id1"><span class="problematic" id="id2">|</span></a>Note</p>
+<p>Virtually all UNIX and shell operators and commands have many more
+options and enhancements than their DOS and batch file counterparts.
+Many DOS batch files rely on auxiliary utilities, such as <strong>ask.com</strong> ,
+a crippled counterpart to <a class="reference external" href="internal.html#READREF">read</a> .</p>
+<p>DOS supports only a very limited and incompatible subset of filename
+<a class="reference external" href="globbingref.html">wild-card expansion</a> , recognizing just the * and
+? characters.</p>
+<p>Converting a DOS batch file into a shell script is generally
+straightforward, and the result ofttimes reads better than the original.</p>
+<div class="section" id="exemple-1-viewdata-bat-dos-batch-file">
+<h2>Exemple 1. VIEWDATA.BAT: DOS Batch File<a class="headerlink" href="#exemple-1-viewdata-bat-dos-batch-file" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre>REM VIEWDATA
+
+REM INSPIRED BY AN EXAMPLE IN <span class="s2">&quot;DOS POWERTOOLS&quot;</span>
+REM                           BY PAUL SOMERSON
+
+
+@ECHO OFF
+
+IF !%1<span class="o">==</span>! GOTO VIEWDATA
+REM  IF NO COMMAND-LINE ARG...
+FIND <span class="s2">&quot;%1&quot;</span> C:<span class="se">\B</span>OZO<span class="se">\B</span>OOKLIST.TXT
+GOTO EXIT0
+REM  PRINT LINE WITH STRING MATCH, THEN EXIT.
+
+:VIEWDATA
+TYPE C:<span class="se">\B</span>OZO<span class="se">\B</span>OOKLIST.TXTMORE
+REM  SHOW ENTIRE FILE, <span class="m">1</span> PAGE AT A TIME.
+
+:EXIT0
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>The script conversion is somewhat of an improvement. ` [1]</dt>
+<dd>&lt;dosbatch.html#FTN.AEN24713&gt;`__</dd>
+</dl>
+</div>
+<div class="section" id="exemple-2-viewdata-sh-shell-script-conversion-of-viewdata-bat">
+<h2>Exemple 2. <em>viewdata.sh</em> : Shell Script Conversion of VIEWDATA.BAT<a class="headerlink" href="#exemple-2-viewdata-sh-shell-script-conversion-of-viewdata-bat" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># viewdata.sh</span>
+<span class="c"># Conversion of VIEWDATA.BAT to shell script.</span>
+
+<span class="nv">DATAFILE</span><span class="o">=</span>/home/bozo/datafiles/book-collection.data
+<span class="nv">ARGNO</span><span class="o">=</span>1
+
+<span class="c"># @ECHO OFF                 Command unnecessary here.</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-lt <span class="s2">&quot;</span><span class="nv">$ARGNO</span><span class="s2">&quot;</span> <span class="o">]</span>    <span class="c"># IF !%1==! GOTO VIEWDATA</span>
+<span class="k">then</span>
+  less <span class="nv">$DATAFILE</span>          <span class="c"># TYPE C:\MYDIR\BOOKLIST.TXTMORE</span>
+<span class="k">else</span>
+  grep <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="nv">$DATAFILE</span>     <span class="c"># FIND &quot;%1&quot; C:\MYDIR\BOOKLIST.TXT</span>
+<span class="k">fi</span>
+
+<span class="nb">exit </span><span class="m">0</span>                    <span class="c"># :EXIT0</span>
+
+<span class="c">#  GOTOs, labels, smoke-and-mirrors, and flimflam unnecessary.</span>
+<span class="c">#  The converted script is short, sweet, and clean,</span>
+<span class="c">#+ which is more than can be said for the original.</span>
+</pre></div>
+</div>
+<p>Ted Davis&#8217; <a class="reference external" href="http://www.maem.umr.edu/batch/">Shell Scripts on the PC</a>
+site had a set of comprehensive tutorials on the old-fashioned art of
+batch file programming. Unfortunately the page has vanished without a
+trace.</p>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;dosbatch.html#AEN24713&gt;`__</p>
+<p>Various readers have suggested modifications of the above batch file to
+prettify it and make it more compact and efficient. In the opinion of
+the <em>ABS Guide</em> author, this is wasted effort. A Bash script can access
+a DOS filesystem, or even an NTFS partition (with the help of
+<a class="reference external" href="http://www.ntfs-3g.org">ntfs-3g</a> ) to do batch or scripted
+operations.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

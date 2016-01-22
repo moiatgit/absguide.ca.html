@@ -1,0 +1,250 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX G.1. Standard Command-Line Options &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  G.1. Standard Command-Line Options</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-g-1-standard-command-line-options">
+<h1>XXX  G.1. Standard Command-Line Options<a class="headerlink" href="#xxx-g-1-standard-command-line-options" title="Link permanent a aquest títol">¶</a></h1>
+<p>Over time, there has evolved a loose standard for the meanings of
+command-line option flags. The GNU utilities conform more closely to
+this &#8220;standard&#8221; than older UNIX utilities.</p>
+<p>Traditionally, UNIX command-line options consist of a dash, followed by
+one or more lowercase letters. The GNU utilities added a double-dash,
+followed by a complete word or compound word.</p>
+<p>The two most widely-accepted options are:</p>
+<ul>
+<li><p class="first">``        -h       ``</p>
+<p>``        &#8211;help       ``</p>
+<p><em>Help</em> : Give usage message and exit.</p>
+</li>
+<li><p class="first">``        -v       ``</p>
+<p>``        &#8211;version       ``</p>
+<p><em>Version</em> : Show program version and exit.</p>
+</li>
+</ul>
+<p>Other common options are:</p>
+<ul>
+<li><p class="first">``        -a       ``</p>
+<p>``        &#8211;all       ``</p>
+<p><em>All</em> : show <em>all</em> information or operate on <em>all</em> arguments.</p>
+</li>
+<li><p class="first">``        -l       ``</p>
+<p>``        &#8211;list       ``</p>
+<p><em>List</em> : list files or arguments without taking other action.</p>
+</li>
+<li><p class="first">``        -o       ``</p>
+<p><em>Output</em> filename</p>
+</li>
+<li><p class="first">``        -q       ``</p>
+<p>``        &#8211;quiet       ``</p>
+<p><em>Quiet</em> : suppress ``        stdout       `` .</p>
+</li>
+<li><p class="first">``        -r       ``</p>
+<p>``        -R       ``</p>
+<p>``        &#8211;recursive       ``</p>
+<p><em>Recursive</em> : Operate recursively (down directory tree).</p>
+</li>
+<li><p class="first">``        -v       ``</p>
+<p>``        &#8211;verbose       ``</p>
+<p><em>Verbose</em> : output additional information to
+``        stdout       `` or ``        stderr       `` .</p>
+</li>
+<li><p class="first">``        -z       ``</p>
+<p>``        &#8211;compress       ``</p>
+<p><em>Compress</em> : apply compression (usually
+<a class="reference external" href="filearchiv.html#GZIPREF">gzip</a> ).</p>
+</li>
+</ul>
+<p>However:</p>
+<ul>
+<li><p class="first">In <strong>tar</strong> and <strong>gawk</strong> :</p>
+<p>``        -f       ``</p>
+<p>``        &#8211;file       ``</p>
+<p><em>File</em> : filename follows.</p>
+</li>
+<li><p class="first">In <strong>cp</strong> , <strong>mv</strong> , <strong>rm</strong> :</p>
+<p>``        -f       ``</p>
+<p>``        &#8211;force       ``</p>
+<p><em>Force</em> : force overwrite of target file(s).</p>
+</li>
+</ul>
+<p><a href="#id1"><span class="problematic" id="id2">|</span></a>Caution</p>
+<p>Many UNIX and Linux utilities deviate from this &#8220;standard,&#8221; so it is
+dangerous to <em>assume</em> that a given option will behave in a standard way.
+Always check the man page for the command in question when in doubt.</p>
+<p>A complete table of recommended options for the GNU utilities is
+available at <a class="reference external" href="http://www.gnu.org/prep/standards/">the GNU standards
+page</a> .</p>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

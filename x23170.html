@@ -1,0 +1,370 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX C.1. Sed &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  C.1. Sed</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-c-1-sed">
+<h1>XXX  C.1. Sed<a class="headerlink" href="#xxx-c-1-sed" title="Link permanent a aquest títol">¶</a></h1>
+<p><em>Sed</em> is a non-interactive ` [1]  &lt;x23170.html#FTN.AEN23174&gt;`__ <strong>s</strong>
+tream <strong>ed</strong> itor. It receives text input, whether from
+``      stdin     `` or from a file, performs certain operations on
+specified lines of the input, one line at a time, then outputs the
+result to ``      stdout     `` or to a file. Within a shell script,
+<em>sed</em> is usually one of several tool components in a pipe.</p>
+<p><em>Sed</em> determines which lines of its input that it will operate on from
+the <em>address range</em> passed to it. ` [2]  &lt;x23170.html#FTN.AEN23185&gt;`__
+Specify this address range either by line number or by a pattern to
+match. For example, ``             3d           `` signals <em>sed</em> to
+delete line 3 of the input, and ``             /Windows/d           ``
+tells sed that you want every line of the input containing a match to
+&#8220;Windows&#8221; deleted.</p>
+<p>Of all the operations in the <em>sed</em> toolkit, we will focus primarily on
+the three most commonly used ones. These are <strong>p</strong> rinting (to
+``      stdout     `` ), <strong>d</strong> eletion, and <strong>s</strong> ubstitution.</p>
+<p><strong>Table C-1. Basic sed operators</strong></p>
+<p>Operator</p>
+<p>Name</p>
+<p>Effect</p>
+<p>``        [address-range]/p       ``</p>
+<p>print</p>
+<p>Print [specified address range]</p>
+<p>``        [address-range]/d       ``</p>
+<p>delete</p>
+<p>Delete [specified address range]</p>
+<p>``        s/pattern1/pattern2/       ``</p>
+<p>substitute</p>
+<p>Substitute pattern2 for first instance of pattern1 in a line</p>
+<p>``        [address-range]/s/pattern1/pattern2/       ``</p>
+<p>substitute</p>
+<p>Substitute pattern2 for first instance of pattern1 in a line, over
+``                 address-range               ``</p>
+<p>``        [address-range]/y/pattern1/pattern2/       ``</p>
+<p>transform</p>
+<p>replace any character in pattern1 with the corresponding character in
+pattern2, over ``                 address-range               ``
+(equivalent of <strong>tr</strong> )</p>
+<p>``        [address] i pattern Filename       ``</p>
+<p>insert</p>
+<p>Insert pattern at address indicated in file Filename. Usually used with
+``        -i       `` ``                 in-place               ``
+option.</p>
+<p>``        g       ``</p>
+<p>global</p>
+<p>Operate on <em>every</em> pattern match within each matched line of input</p>
+<p><a href="#id1"><span class="problematic" id="id2">|</span></a>Note</p>
+<p>Unless the ``         g        `` ( <em>global</em> ) operator is appended to a
+<em>substitute</em> command, the substitution operates only on the <em>first</em>
+instance of a pattern match within each line.</p>
+<p>From the command-line and in a shell script, a sed operation may require
+quoting and certain options.</p>
+<div class="highlight-sh"><div class="highlight"><pre>sed -e <span class="s1">&#39;/^$/d&#39;</span> <span class="nv">$filename</span>
+<span class="c"># The -e option causes the next string to be interpreted as an editing instruction.</span>
+<span class="c">#  (If passing only a single instruction to sed, the &quot;-e&quot; is optional.)</span>
+<span class="c">#  The &quot;strong&quot; quotes (&#39;&#39;) protect the RE characters in the instruction</span>
+<span class="c">#+ from reinterpretation as special characters by the body of the script.</span>
+<span class="c"># (This reserves RE expansion of the instruction for sed.)</span>
+<span class="c">#</span>
+<span class="c"># Operates on the text contained in file $filename.</span>
+</pre></div>
+</div>
+<p>In certain cases, a <em>sed</em> editing command will not work with single
+quotes.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">filename</span><span class="o">=</span>file1.txt
+<span class="nv">pattern</span><span class="o">=</span>BEGIN
+
+  sed <span class="s2">&quot;/^</span><span class="nv">$pattern</span><span class="s2">/d&quot;</span> <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span>  <span class="c"># Works as specified.</span>
+<span class="c"># sed &#39;/^$pattern/d&#39; &quot;$filename&quot;    has unexpected results.</span>
+<span class="c">#        In this instance, with strong quoting (&#39; ... &#39;),</span>
+<span class="c">#+      &quot;$pattern&quot; will not expand to &quot;BEGIN&quot;.</span>
+</pre></div>
+</div>
+<p><a href="#id3"><span class="problematic" id="id4">|</span></a>Note</p>
+<p><em>Sed</em> uses the ``         -e        `` option to specify that the
+following string is an instruction or set of instructions. If there is
+only a single instruction contained in the string, then this may be
+omitted.</p>
+<div class="highlight-sh"><div class="highlight"><pre>sed -n <span class="s1">&#39;/xzy/p&#39;</span> <span class="nv">$filename</span>
+<span class="c"># The -n option tells sed to print only those lines matching the pattern.</span>
+<span class="c"># Otherwise all input lines would print.</span>
+<span class="c"># The -e option not necessary here since there is only a single editing instruction.</span>
+</pre></div>
+</div>
+<p><strong>Table C-2. Examples of sed operators</strong></p>
+<p>Notation</p>
+<p>Effect</p>
+<p>``        8d       ``</p>
+<p>Delete 8th line of input.</p>
+<p>``        /^$/d       ``</p>
+<p>Delete all blank lines.</p>
+<p>``        1,/^$/d       ``</p>
+<p>Delete from beginning of input up to, and including first blank line.</p>
+<p>``        /Jones/p       ``</p>
+<p>Print only lines containing &#8220;Jones&#8221; (with -n option).</p>
+<p>``        s/Windows/Linux/       ``</p>
+<p>Substitute &#8220;Linux&#8221; for first instance of &#8220;Windows&#8221; found in each input
+line.</p>
+<p>``        s/BSOD/stability/g       ``</p>
+<p>Substitute &#8220;stability&#8221; for every instance of &#8220;BSOD&#8221; found in each input
+line.</p>
+<p>``        s/ <a href="#id5"><span class="problematic" id="id6">*</span></a>$//       ``</p>
+<p>Delete all spaces at the end of every line.</p>
+<p>``        s/00*/0/g       ``</p>
+<p>Compress all consecutive sequences of zeroes into a single zero.</p>
+<p>``        echo &#8220;Working on it.&#8221;sed -e &#8216;1i How far are you along?&#8217;       ``</p>
+<p>Prints &#8220;How far are you along?&#8221; as first line, &#8220;Working on it&#8221; as
+second.</p>
+<p>``        5i &#8216;Linux is great.&#8217; file.txt       ``</p>
+<p>Inserts &#8216;Linux is great.&#8217; at line 5 of the file file.txt.</p>
+<p>``        /GUI/d       ``</p>
+<p>Delete all lines containing &#8220;GUI&#8221; .</p>
+<p>``        s/GUI//g       ``</p>
+<p>Delete all instances of &#8220;GUI&#8221; , leaving the remainder of each line
+intact.</p>
+<p>Substituting a zero-length string for another is equivalent to deleting
+that string within a line of input. This leaves the remainder of the
+line intact. Applying ``             s/GUI//           `` to the line</p>
+<div class="highlight-sh"><div class="highlight"><pre>The most important parts of any application are its GUI and sound effects
+</pre></div>
+</div>
+<p>results in</p>
+<div class="highlight-sh"><div class="highlight"><pre>The most important parts of any application are its  and sound effects
+</pre></div>
+</div>
+<p>A backslash forces the <strong>sed</strong> replacement command to continue on to the
+next line. This has the effect of using the <em>newline</em> at the end of the
+first line as the <em>replacement string</em> .</p>
+<div class="highlight-sh"><div class="highlight"><pre>s/^  */<span class="se">\</span>
+/g
+</pre></div>
+</div>
+<p>This substitution replaces line-beginning spaces with a newline. The net
+result is to replace paragraph indents with a blank line between
+paragraphs.
+An address range followed by one or more operations may require open and
+closed curly brackets, with appropriate newlines.</p>
+<div class="highlight-sh"><div class="highlight"><pre>/<span class="o">[</span>0-9A-Za-z<span class="o">]</span>/,/^<span class="nv">$/</span><span class="o">{</span>
+/^<span class="nv">$/</span>d
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>This deletes only the first of each set of consecutive blank lines. That
+might be useful for single-spacing a text file, but retaining the blank
+line(s) between paragraphs.</p>
+<p><a href="#id7"><span class="problematic" id="id8">|</span></a>Note</p>
+<p>The usual delimiter that <em>sed</em> uses is / . However, <em>sed</em> allows other
+delimiters, such as % . This is useful when / is part of a replacement
+string, as in a file pathname. See <a class="reference external" href="loops1.html#FINDSTRING">Example
+11-10</a> and <a class="reference external" href="filearchiv.html#STRIPC">Example
+16-32</a> .</p>
+<p><a href="#id9"><span class="problematic" id="id10">|</span></a>Tip</p>
+<p>A quick way to double-space a text file is
+``                   sed G        filename                 `` .</p>
+<p>For illustrative examples of sed within shell scripts, see:</p>
+<ol class="arabic simple">
+<li><a class="reference external" href="wrapper.html#EX3">Example 36-1</a></li>
+<li><a class="reference external" href="wrapper.html#EX4">Example 36-2</a></li>
+<li><a class="reference external" href="moreadv.html#EX57">Example 16-3</a></li>
+<li><a class="reference external" href="contributed-scripts.html#RN">Example A-2</a></li>
+<li><a class="reference external" href="textproc.html#GRP">Example 16-17</a></li>
+<li><a class="reference external" href="textproc.html#COL">Example 16-27</a></li>
+<li><a class="reference external" href="contributed-scripts.html#BEHEAD">Example A-12</a></li>
+<li><a class="reference external" href="contributed-scripts.html#TREE">Example A-16</a></li>
+<li><a class="reference external" href="contributed-scripts.html#TREE2">Example A-17</a></li>
+<li><a class="reference external" href="filearchiv.html#STRIPC">Example 16-32</a></li>
+<li><a class="reference external" href="loops1.html#FINDSTRING">Example 11-10</a></li>
+<li><a class="reference external" href="mathc.html#BASE">Example 16-48</a></li>
+<li><a class="reference external" href="contributed-scripts.html#MAILFORMAT">Example A-1</a></li>
+<li><a class="reference external" href="textproc.html#RND">Example 16-14</a></li>
+<li><a class="reference external" href="textproc.html#WF">Example 16-12</a></li>
+<li><a class="reference external" href="contributed-scripts.html#LIFESLOW">Example A-10</a></li>
+<li><a class="reference external" href="here-docs.html#SELFDOCUMENT">Example 19-12</a></li>
+<li><a class="reference external" href="textproc.html#DICTLOOKUP">Example 16-19</a></li>
+<li><a class="reference external" href="contributed-scripts.html#WHX">Example A-29</a></li>
+<li><a class="reference external" href="contributed-scripts.html#BASHPODDER">Example A-31</a></li>
+<li><a class="reference external" href="contributed-scripts.html#TOHTML">Example A-24</a></li>
+<li><a class="reference external" href="contributed-scripts.html#STOPWATCH">Example A-43</a></li>
+<li><a class="reference external" href="contributed-scripts.html#SEDAPPEND">Example A-55</a></li>
+</ol>
+<p>For a more extensive treatment of <em>sed</em> , refer to the <a class="reference external" href="biblio.html#DGSEDREF">pertinent
+references</a> in the
+<a class="reference external" href="biblio.html">*Bibliography*</a> .</p>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h2>
+<p>` [1]  &lt;x23170.html#AEN23174&gt;`__</p>
+<p><em>Sed</em> executes without user intervention.</p>
+<p>` [2]  &lt;x23170.html#AEN23185&gt;`__</p>
+<p>If no address range is specified, the default is <em>all</em> lines.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

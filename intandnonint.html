@@ -1,0 +1,284 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 36.1. Interactive and non-interactive shells and scripts &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  36.1. Interactive and non-interactive shells and scripts</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-36-1-interactive-and-non-interactive-shells-and-scripts">
+<h1>XXX  36.1. Interactive and non-interactive shells and scripts<a class="headerlink" href="#xxx-36-1-interactive-and-non-interactive-shells-and-scripts" title="Link permanent a aquest títol">¶</a></h1>
+<p>An <em>interactive</em> shell reads commands from user input on a
+``      tty     `` . Among other things, such a shell reads startup
+files on activation, displays a prompt, and enables job control by
+default. The user can <em>interact</em> with the shell.</p>
+<p>A shell running a script is always a non-interactive shell. All the
+same, the script can still access its ``      tty     `` . It is even
+possible to emulate an interactive shell in a script.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="nv">MY_PROMPT</span><span class="o">=</span><span class="s1">&#39;$ &#39;</span>
+<span class="k">while</span> :
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$MY_PROMPT</span><span class="s2">&quot;</span>
+  <span class="nb">read </span>line
+  <span class="nb">eval</span> <span class="s2">&quot;</span><span class="nv">$line</span><span class="s2">&quot;</span>
+  <span class="k">done</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># This example script, and much of the above explanation supplied by</span>
+<span class="c"># StÃ©phane Chazelas (thanks again).</span>
+</pre></div>
+</div>
+<p>Let us consider an <em>interactive</em> script to be one that requires input
+from the user, usually with <a class="reference external" href="internal.html#READREF">read</a> statements
+(see <a class="reference external" href="internal.html#EX36">Example 15-3</a> ). &#8220;Real life&#8221; is actually a
+bit messier than that. For now, assume an interactive script is bound to
+a tty, a script that a user has invoked from the console or an <em>xterm</em> .</p>
+<p>Init and startup scripts are necessarily non-interactive, since they
+must run without human intervention. Many administrative and system
+maintenance scripts are likewise non-interactive. Unvarying repetitive
+tasks cry out for automation by non-interactive scripts.</p>
+<p>Non-interactive scripts can run in the background, but interactive ones
+hang, waiting for input that never comes. Handle that difficulty by
+having an <strong>expect</strong> script or embedded <a class="reference external" href="here-docs.html#HEREDOCREF">here
+document</a> feed input to an interactive
+script running as a background job. In the simplest case, redirect a
+file to supply input to a <strong>read</strong> statement ( <strong>read variable &lt;file</strong>
+). These particular workarounds make possible general purpose scripts
+that run in either interactive or non-interactive modes.</p>
+<p>If a script needs to test whether it is running in an interactive shell,
+it is simply a matter of finding whether the <em>prompt</em> variable,
+<a class="reference external" href="internalvariables.html#PS1REF">$PS1</a> is set. (If the user is being
+prompted for input, then the script needs to display a prompt.)</p>
+<div class="highlight-sh"><div class="highlight"><pre>   <span class="k">if</span> <span class="o">[</span> -z <span class="nv">$PS1</span> <span class="o">]</span> <span class="c"># no prompt?</span>
+   <span class="c">### if [ -v PS1 ]   # On Bash 4.2+ ...</span>
+   <span class="k">then</span>
+     <span class="c"># non-interactive</span>
+     ...
+   <span class="k">else</span>
+     <span class="c"># interactive</span>
+     ...
+   <span class="k">fi</span>
+
+
+
+Alternatively, the script can <span class="nb">test </span><span class="k">for</span> the presence of option <span class="s2">&quot;i&quot;</span> in
+</pre></div>
+</div>
+<p>the <a class="reference external" href="internalvariables.html#FLPREF">$-</a> flag.</p>
+<div class="highlight-sh"><div class="highlight"><pre>   <span class="k">case</span> <span class="nv">$-</span> in
+   *i*<span class="o">)</span>    <span class="c"># interactive shell</span>
+   <span class="p">;;</span>
+   *<span class="o">)</span>      <span class="c"># non-interactive shell</span>
+   <span class="p">;;</span>
+   <span class="c"># (Courtesy of &quot;UNIX F.A.Q.,&quot; 1993)</span>
+
+
+
+However, John Lange describes an alternative method, using the <span class="sb">`</span> -t
+</pre></div>
+</div>
+<p><em>test</em> operator &lt;fto.html#TERMTEST&gt;`__ .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Test for a terminal!</span>
+
+<span class="nv">fd</span><span class="o">=</span><span class="m">0</span>   <span class="c"># stdin</span>
+
+<span class="c">#  As we recall, the -t test option checks whether the stdin, [ -t 0 ],</span>
+<span class="c">#+ or stdout, [ -t 1 ], in a given script is running in a terminal.</span>
+<span class="k">if</span> <span class="o">[</span> -t <span class="s2">&quot;</span><span class="nv">$fd</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo </span>interactive
+<span class="k">else</span>
+  <span class="nb">echo </span>non-interactive
+<span class="k">fi</span>
+
+
+<span class="c">#  But, as John points out:</span>
+<span class="c">#    if [ -t 0 ] works ... when you&#39;re logged in locally</span>
+<span class="c">#    but fails when you invoke the command remotely via ssh.</span>
+<span class="c">#    So for a true test you also have to test for a socket.</span>
+
+<span class="k">if</span> <span class="o">[[</span> -t <span class="s2">&quot;</span><span class="nv">$fd</span><span class="s2">&quot;</span> <span class="p">|</span>-p /dev/stdin <span class="o">]]</span>
+<span class="k">then</span>
+  <span class="nb">echo </span>interactive
+<span class="k">else</span>
+  <span class="nb">echo </span>non-interactive
+<span class="k">fi</span>
+</pre></div>
+</div>
+<p><a href="#id1"><span class="problematic" id="id2">|</span></a>Note</p>
+<p>Scripts may be forced to run in interactive mode with the -i option or
+with a ``                   #!/bin/bash -i                 `` header. Be
+aware that this can cause erratic script behavior or show error messages
+even when no error is present.</p>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

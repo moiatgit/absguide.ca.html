@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Chapter 30. Network Programming &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Part 5. Advanced Topics" href="part5.html"/>
+        <link rel="next" title="XXX Chapter 31. Of Zeros and Nulls" href="zeros.html"/>
+        <link rel="prev" title="XXX Chapter 28. Indirect References" href="ivr.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="regexp.html">XXX Chapter 18. Regular Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="here-docs.html">XXX  Chapter 19. Document immediat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io-redirection.html">XXX  Chapter 20. I/O Redirection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subshells.html">XXX  Chapter 21. Subshells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restricted-sh.html">XXX  Chapter 22. Restricted Shells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process-sub.html">XXX  Chapter 23. Process Substitution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">XXX  Chapter 24. Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aliases.html">XXX Capítol 25. Àlies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="list-cons.html">XXX  Chapter 26. List Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrays.html">XXX  Chapter 27. Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ivr.html">XXX  Chapter 28. Indirect References</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  Chapter 30. Network Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zeros.html">XXX  Chapter 31. Of Zeros and Nulls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">XXX  Chapter 32. Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html">XXX  Chapter 33. Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gotchas.html">XXX Chapter 34. Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scrstyle.html">XXX  Chapter 35. Scripting With Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unofficialst.html">XXX  35.1. Unofficial Shell Scripting Stylesheet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellany.html">XXX  Chapter 36. Miscellany</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash2.html">XXX  Chapter 37. Bash, versions 2, 3, and 4</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part5.html">XXX Part 5. Advanced Topics</a> &raquo;</li>
+      
+    <li>XXX  Chapter 30. Network Programming</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-chapter-30-network-programming">
+<h1>XXX  Chapter 30. Network Programming<a class="headerlink" href="#xxx-chapter-30-network-programming" title="Link permanent a aquest títol">¶</a></h1>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a></p>
+<p><em>The Net&#8217;s a cross between an elephant and a white elephant sale: it
+never forgets, and it&#8217;s always crap.</em></p>
+<p><em>&#8211;Nemo</em></p>
+<p>A Linux system has quite a number of tools for accessing, manipulating,
+and troubleshooting network connections. We can incorporate some of
+these tools into scripts &#8211; scripts that expand our knowledge of
+networking, useful scripts that can facilitate the administration of a
+network.</p>
+<blockquote>
+<div>Here is a simple CGI script that demonstrates connecting to a remote</div></blockquote>
+<p>server.</p>
+<div class="section" id="exemple-1-print-the-server-environment">
+<h2>Exemple 1. Print the server environment<a class="headerlink" href="#exemple-1-print-the-server-environment" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># test-cgi.sh</span>
+<span class="c"># by Michael Zick</span>
+<span class="c"># Used with permission</span>
+
+<span class="c"># May have to change the location for your site.</span>
+<span class="c"># (At the ISP&#39;s servers, Bash may not be in the usual place.)</span>
+<span class="c"># Other places: /usr/bin or /usr/local/bin</span>
+<span class="c"># Might even try it without any path in sha-bang.</span>
+
+<span class="c"># Disable filename globbing.</span>
+<span class="nb">set</span> -f
+
+<span class="c"># Header tells browser what to expect.</span>
+<span class="nb">echo </span>Content-type: text/plain
+<span class="nb">echo</span>
+
+<span class="nb">echo </span>CGI/1.0 <span class="nb">test </span>script report:
+<span class="nb">echo</span>
+
+<span class="nb">echo </span>environment settings:
+<span class="nb">set</span>
+<span class="nb">echo</span>
+
+<span class="nb">echo </span>whereis bash?
+whereis bash
+<span class="nb">echo</span>
+
+
+<span class="nb">echo </span>who are we?
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">BASH_VERSINFO</span><span class="p">[*]</span><span class="si">}</span>
+<span class="nb">echo</span>
+
+<span class="nb">echo </span>argc is <span class="nv">$#.</span> argv is <span class="s2">&quot;</span><span class="nv">$*</span><span class="s2">&quot;</span>.
+<span class="nb">echo</span>
+
+<span class="c"># CGI/1.0 expected environment variables.</span>
+
+<span class="nb">echo </span><span class="nv">SERVER_SOFTWARE</span> <span class="o">=</span> <span class="nv">$SERVER_SOFTWARE</span>
+<span class="nb">echo </span><span class="nv">SERVER_NAME</span> <span class="o">=</span> <span class="nv">$SERVER_NAME</span>
+<span class="nb">echo </span><span class="nv">GATEWAY_INTERFACE</span> <span class="o">=</span> <span class="nv">$GATEWAY_INTERFACE</span>
+<span class="nb">echo </span><span class="nv">SERVER_PROTOCOL</span> <span class="o">=</span> <span class="nv">$SERVER_PROTOCOL</span>
+<span class="nb">echo </span><span class="nv">SERVER_PORT</span> <span class="o">=</span> <span class="nv">$SERVER_PORT</span>
+<span class="nb">echo </span><span class="nv">REQUEST_METHOD</span> <span class="o">=</span> <span class="nv">$REQUEST_METHOD</span>
+<span class="nb">echo </span><span class="nv">HTTP_ACCEPT</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$HTTP_ACCEPT</span><span class="s2">&quot;</span>
+<span class="nb">echo </span><span class="nv">PATH_INFO</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$PATH_INFO</span><span class="s2">&quot;</span>
+<span class="nb">echo </span><span class="nv">PATH_TRANSLATED</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$PATH_TRANSLATED</span><span class="s2">&quot;</span>
+<span class="nb">echo </span><span class="nv">SCRIPT_NAME</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$SCRIPT_NAME</span><span class="s2">&quot;</span>
+<span class="nb">echo </span><span class="nv">QUERY_STRING</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$QUERY_STRING</span><span class="s2">&quot;</span>
+<span class="nb">echo </span><span class="nv">REMOTE_HOST</span> <span class="o">=</span> <span class="nv">$REMOTE_HOST</span>
+<span class="nb">echo </span><span class="nv">REMOTE_ADDR</span> <span class="o">=</span> <span class="nv">$REMOTE_ADDR</span>
+<span class="nb">echo </span><span class="nv">REMOTE_USER</span> <span class="o">=</span> <span class="nv">$REMOTE_USER</span>
+<span class="nb">echo </span><span class="nv">AUTH_TYPE</span> <span class="o">=</span> <span class="nv">$AUTH_TYPE</span>
+<span class="nb">echo </span><span class="nv">CONTENT_TYPE</span> <span class="o">=</span> <span class="nv">$CONTENT_TYPE</span>
+<span class="nb">echo </span><span class="nv">CONTENT_LENGTH</span> <span class="o">=</span> <span class="nv">$CONTENT_LENGTH</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># Here document to give short instructions.</span>
+:<span class="s">&lt;&lt;-&#39;_test_CGI_&#39;</span>
+
+<span class="s">1) Drop this in your http://domain.name/cgi-bin directory.</span>
+<span class="s">2) Then, open http://domain.name/cgi-bin/test-cgi.sh.</span>
+
+<span class="s">_test_CGI_</span>
+</pre></div>
+</div>
+<p>For security purposes, it may be helpful to identify the IP addresses a
+computer is accessing.</p>
+</div>
+<div class="section" id="exemple-2-ip-addresses">
+<h2>Exemple 2. IP addresses<a class="headerlink" href="#exemple-2-ip-addresses" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># ip-addresses.sh</span>
+<span class="c"># List the IP addresses your computer is connected to.</span>
+
+<span class="c">#  Inspired by Greg Bledsoe&#39;s ddos.sh script,</span>
+<span class="c">#  Linux Journal, 09 March 2011.</span>
+<span class="c">#    URL:</span>
+<span class="c">#  http://www.linuxjournal.com/content/back-dead-simple-bash-complex-ddos</span>
+<span class="c">#  Greg licensed his script under the GPL2,</span>
+<span class="c">#+ and as a derivative, this script is likewise GPL2.</span>
+
+<span class="nv">connection_type</span><span class="o">=</span>TCP      <span class="c"># Also try UDP.</span>
+<span class="nv">field</span><span class="o">=</span><span class="m">2</span>           <span class="c"># Which field of the output we&#39;re interested in.</span>
+<span class="nv">no_match</span><span class="o">=</span>LISTEN   <span class="c"># Filter out records containing this. Why?</span>
+<span class="nv">lsof_args</span><span class="o">=</span>-ni     <span class="c"># -i lists Internet-associated files.</span>
+                  <span class="c"># -n preserves numerical IP addresses.</span>
+          <span class="c"># What happens without the -n option? Try it.</span>
+<span class="nv">router</span><span class="o">=</span><span class="s2">&quot;[0-9][0-9][0-9][0-9][0-9]-&gt;&quot;</span>
+<span class="c">#       Delete the router info.</span>
+
+lsof <span class="s2">&quot;</span><span class="nv">$lsof_args</span><span class="s2">&quot;</span>grep <span class="nv">$connection_type</span> <span class="p">|</span> grep -v <span class="s2">&quot;</span><span class="nv">$no_match</span><span class="s2">&quot;</span>
+      awk <span class="s1">&#39;{print $9}&#39;</span>cut -d : -f <span class="nv">$field</span> <span class="p">|</span> sort <span class="p">|</span> uniq
+      sed s/<span class="s2">&quot;^</span><span class="nv">$router</span><span class="s2">&quot;</span>//
+
+<span class="c">#  Bledsoe&#39;s script assigns the output of a filtered IP list,</span>
+<span class="c">#  (similar to lines 19-22, above) to a variable.</span>
+<span class="c">#  He checks for multiple connections to a single IP address,</span>
+<span class="c">#  then uses:</span>
+<span class="c">#</span>
+<span class="c">#    iptables -I INPUT -s $ip -p tcp -j REJECT --reject-with tcp-reset</span>
+<span class="c">#</span>
+<span class="c">#  ... within a 60-second delay loop to bounce packets from DDOS attacks.</span>
+
+
+<span class="c">#  Exercise:</span>
+<span class="c">#  --------</span>
+<span class="c">#  Use the &#39;iptables&#39; command to extend this script</span>
+<span class="c">#+ to reject connection attempts from well-known spammer IP domains.</span>
+</pre></div>
+</div>
+<p>More examples of network programming:</p>
+<ol class="arabic simple">
+<li><a class="reference external" href="devref1.html#NPREF">Getting the time from *nist.gov*</a></li>
+<li><a class="reference external" href="devref1.html#NW001">Downloading a URL</a></li>
+<li><a class="reference external" href="system.html#IPSCRIPT0">A GRE tunnel</a></li>
+<li><a class="reference external" href="communications.html#PING0">Checking if an Internet server is up</a></li>
+<li><a class="reference external" href="communications.html#ISSPAMMER">Example 16-41</a></li>
+<li><a class="reference external" href="contributed-scripts.html#ISSPAMMER2">Example A-28</a></li>
+<li><a class="reference external" href="contributed-scripts.html#WHX">Example A-29</a></li>
+<li><a class="reference external" href="devref1.html#DEVTCP">Example 29-1</a></li>
+</ol>
+<p>See also the <a class="reference external" href="system.html#NETWORKSYS1">networking commands</a> in the
+<a class="reference external" href="system.html">System and Administrative Commands</a> chapter and the
+<a class="reference external" href="communications.html">communications commands</a> in the <a class="reference external" href="external.html">External
+Filters, Programs and Commands</a> chapter.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="zeros.html" class="btn btn-neutral float-right" title="XXX Chapter 31. Of Zeros and Nulls" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ivr.html" class="btn btn-neutral" title="XXX Chapter 28. Indirect References"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,943 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 7.1. Test Constructs &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="Part 2. Conceptes bàsics" href="part2.html"/>
+        <link rel="next" title="XXX 7.2. File test operators" href="fto.html"/>
+        <link rel="prev" title="XXX Chapter 7. Tests" href="tests.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="special-chars.html">XXX 3. Caràcters especials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">4. Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quoting.html">Chapter 5. Cometes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exit-status.html">XXX Chapter 6. Exit and Exit Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html">XXX Chapter 7. Tests</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  7.1. Test Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fto.html">XXX  7.2. File test operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparison-ops.html">XXX  7.3. Other Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedifthen.html">7.4. Condicionals aniuats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testtest.html">XXX  7.5. Testing Your Knowledge of Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations.html">XXX Chapter 8. Operations and Related Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ops.html">XXX  8.1. Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="numerical-constants.html">XXX  8.2. Numerical Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dblparens.html">XXX  8.3. The Double-Parentheses Construct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opprecedence.html">XXX  8.4. Operator Precedence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part2.html">Part 2. Conceptes bàsics</a> &raquo;</li>
+      
+    <li>XXX  7.1. Test Constructs</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-7-1-test-constructs">
+<h1>XXX  7.1. Test Constructs<a class="headerlink" href="#xxx-7-1-test-constructs" title="Link permanent a aquest títol">¶</a></h1>
+<ul>
+<li><p class="first">An <strong>if/then</strong> construct tests whether the <a class="reference external" href="exit-status.html#EXITSTATUSREF">exit
+status</a> of a list of commands is 0
+(since 0 means &#8220;success&#8221; by UNIX convention), and if so, executes one
+or more commands.</p>
+</li>
+<li><p class="first">There exists a dedicated command called <strong>[</strong> ( <a class="reference external" href="special-chars.html#LEFTBRACKET">left
+bracket</a> special character). It is
+a synonym for <strong>test</strong> , and a <a class="reference external" href="internal.html#BUILTINREF">builtin</a>
+for efficiency reasons. This command considers its arguments as
+comparison expressions or file tests and returns an exit status
+corresponding to the result of the comparison (0 for true, 1 for
+false).</p>
+</li>
+<li><p class="first">With version 2.02, Bash introduced the <a class="reference external" href="testconstructs.html#DBLBRACKETS">[[ ...
+]]</a> <em>extended test command</em> ,
+which performs comparisons in a manner more familiar to programmers
+from other languages. Note that <strong>[[</strong> is a
+<a class="reference external" href="internal.html#KEYWORDREF">keyword</a> , not a command.</p>
+<p>Bash sees ``                 [[ $a -lt $b ]]               `` as a
+single element, which returns an exit status.</p>
+</li>
+<li><p class="first">The <a class="reference external" href="dblparens.html">(( ... ))</a> and <a class="reference external" href="internal.html#LETREF">let
+...</a> constructs return an <a class="reference external" href="exit-status.html#EXITSTATUSREF">exit
+status</a> , <em>according to whether
+the arithmetic expressions they evaluate expand to a non-zero value</em>
+. These <a class="reference external" href="arithexp.html#ARITHEXPREF">arithmetic-expansion</a>
+constructs may therefore be used to perform <a class="reference external" href="comparison-ops.html#ICOMPARISON1">arithmetic
+comparisons</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">((</span> <span class="m">0</span> <span class="o">&amp;&amp;</span> <span class="m">1</span> <span class="o">))</span>                 <span class="c"># Logical AND</span>
+<span class="nb">echo</span> <span class="nv">$?</span>     <span class="c"># 1     ***</span>
+<span class="c"># And so ...</span>
+<span class="nb">let</span> <span class="s2">&quot;num = (( 0 &amp;&amp; 1 ))&quot;</span>
+<span class="nb">echo</span> <span class="nv">$num</span>   <span class="c"># 0</span>
+<span class="c"># But ...</span>
+<span class="nb">let</span> <span class="s2">&quot;num = (( 0 &amp;&amp; 1 ))&quot;</span>
+<span class="nb">echo</span> <span class="nv">$?</span>     <span class="c"># 1     ***</span>
+
+
+<span class="o">((</span> <span class="m">200</span> <span class="p">|</span><span class="m">11</span> <span class="o">))</span>              <span class="c"># Logical OR</span>
+<span class="nb">echo</span> <span class="nv">$?</span>     <span class="c"># 0     ***</span>
+<span class="c"># ...</span>
+<span class="nb">let</span> <span class="s2">&quot;num = (( 200 |11 ))&quot;</span>
+<span class="nb">echo</span> <span class="nv">$num</span>   <span class="c"># 1</span>
+<span class="nb">let</span> <span class="s2">&quot;num = (( 200 |11 ))&quot;</span>
+<span class="nb">echo</span> <span class="nv">$?</span>     <span class="c"># 0     ***</span>
+
+
+<span class="o">((</span> <span class="m">20011</span> <span class="o">))</span>               <span class="c"># Bitwise OR</span>
+<span class="nb">echo</span> <span class="nv">$?</span>                      <span class="c"># 0     ***</span>
+<span class="c"># ...</span>
+<span class="nb">let</span> <span class="s2">&quot;num = (( 20011 ))&quot;</span>
+<span class="nb">echo</span> <span class="nv">$num</span>                    <span class="c"># 203</span>
+<span class="nb">let</span> <span class="s2">&quot;num = (( 20011 ))&quot;</span>
+<span class="nb">echo</span> <span class="nv">$?</span>                      <span class="c"># 0     ***</span>
+
+<span class="c"># The &quot;let&quot; construct returns the same exit status</span>
+<span class="c">#+ as the double-parentheses arithmetic expansion.</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<blockquote>
+<div>Again, note that the <em>exit status</em> of an arithmetic expression is</div></blockquote>
+<p class="last"><em>not</em> an error value.</p>
+</div>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">var</span><span class="o">=</span>-2 <span class="o">&amp;&amp;</span> <span class="o">((</span> var+<span class="o">=</span>2
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>))</dt>
+<dd><dl class="first docutils">
+<dt>echo $?</dt>
+<dd># 1</dd>
+</dl>
+<p class="last">var=-2 &amp;&amp; (( var+=2</p>
+</dd>
+</dl>
+<p>)) &amp;&amp; echo $var</p>
+<blockquote>
+<div># Will not echo $v</div></blockquote>
+<p>ar!</p>
+<hr class="docutils" />
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="nv">var</span><span class="o">=</span>-2 <span class="o">&amp;&amp;</span> <span class="o">((</span> var+<span class="o">=</span><span class="m">2</span> <span class="o">))</span>
+<span class="nb">echo</span> <span class="nv">$?</span>                   <span class="c"># 1</span>
+
+<span class="nv">var</span><span class="o">=</span>-2 <span class="o">&amp;&amp;</span> <span class="o">((</span> var+<span class="o">=</span><span class="m">2</span> <span class="o">))</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="nv">$var</span>
+                          <span class="c"># Will not echo $var!</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">var</span><span class="o">=</span>-2 <span class="o">&amp;&amp;</span> <span class="o">((</span> var+<span class="o">=</span><span class="m">2</span> <span class="o">))</span>
+<span class="nb">echo</span> <span class="nv">$?</span>                   <span class="c"># 1</span>
+
+<span class="nv">var</span><span class="o">=</span>-2 <span class="o">&amp;&amp;</span> <span class="o">((</span> var+<span class="o">=</span><span class="m">2</span> <span class="o">))</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="nv">$var</span>
+                          <span class="c"># Will not echo $var!</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first">An <strong>if</strong> can test any command, not just conditions enclosed within
+brackets.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">if</span> cmp a b <span class="p">&amp;</span>&gt; /dev/null  <span class="c"># Suppress output.</span>
+<span class="k">then</span> <span class="nb">echo</span> <span class="s2">&quot;Files a and b are identical.&quot;</span>
+<span class="k">else</span> <span class="nb">echo</span> <span class="s2">&quot;Files a and b differ.&quot;</span>
+<span class="k">fi</span>
+
+<span class="c"># The very useful &quot;if-grep&quot; construct:</span>
+<span class="c"># -----------------------------------</span>
+<span class="k">if</span> grep -q Bash file
+  <span class="k">then</span> <span class="nb">echo</span> <span class="s2">&quot;File contains at least one occurrence of Bash.&quot;</span>
+<span class="k">fi</span>
+
+<span class="nv">word</span><span class="o">=</span>Linux
+<span class="nv">letter_sequence</span><span class="o">=</span>inu
+<span class="k">if</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$word</span><span class="s2">&quot;</span>grep -q <span class="s2">&quot;</span><span class="nv">$letter_sequence</span><span class="s2">&quot;</span>
+<span class="c"># The &quot;-q&quot; option to grep suppresses output.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$letter_sequence</span><span class="s2"> found in </span><span class="nv">$word</span><span class="s2">&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$letter_sequence</span><span class="s2"> not found in </span><span class="nv">$word</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+
+
+<span class="k">if</span> COMMAND_WHOSE_EXIT_STATUS_IS_0_UNLESS_ERROR_OCCURRED
+  <span class="k">then</span> <span class="nb">echo</span> <span class="s2">&quot;Command succeeded.&quot;</span>
+  <span class="k">else</span> <span class="nb">echo</span> <span class="s2">&quot;Command failed.&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><em>These last two examples courtesy of StÃ©phane Chazelas.</em></p>
+</li>
+</ul>
+<div class="section" id="exemple-1-what-is-truth">
+<h2>Exemple 1. What is truth?<a class="headerlink" href="#exemple-1-what-is-truth" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c">#  Tip:</span>
+<span class="c">#  If you&#39;re unsure how a certain condition might evaluate,</span>
+<span class="c">#+ test it in an if-test.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Testing \&quot;0\&quot;&quot;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="m">0</span> <span class="o">]</span>      <span class="c"># zero</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;0 is true.&quot;</span>
+<span class="k">else</span>          <span class="c"># Or else ...</span>
+  <span class="nb">echo</span> <span class="s2">&quot;0 is false.&quot;</span>
+<span class="k">fi</span>            <span class="c"># 0 is true.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Testing \&quot;1\&quot;&quot;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="m">1</span> <span class="o">]</span>      <span class="c"># one</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;1 is true.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;1 is false.&quot;</span>
+<span class="k">fi</span>            <span class="c"># 1 is true.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Testing \&quot;-1\&quot;&quot;</span>
+<span class="k">if</span> <span class="o">[</span> -1 <span class="o">]</span>     <span class="c"># minus one</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;-1 is true.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;-1 is false.&quot;</span>
+<span class="k">fi</span>            <span class="c"># -1 is true.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Testing \&quot;NULL\&quot;&quot;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="o">]</span>        <span class="c"># NULL (empty condition)</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;NULL is true.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;NULL is false.&quot;</span>
+<span class="k">fi</span>            <span class="c"># NULL is false.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Testing \&quot;xyz\&quot;&quot;</span>
+<span class="k">if</span> <span class="o">[</span> xyz <span class="o">]</span>    <span class="c"># string</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Random string is true.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Random string is false.&quot;</span>
+<span class="k">fi</span>            <span class="c"># Random string is true.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Testing \&quot;\$xyz\&quot;&quot;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$xyz</span> <span class="o">]</span>   <span class="c"># Tests if $xyz is null, but...</span>
+              <span class="c"># it&#39;s only an uninitialized variable.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Uninitialized variable is true.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Uninitialized variable is false.&quot;</span>
+<span class="k">fi</span>            <span class="c"># Uninitialized variable is false.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Testing \&quot;-n \$xyz\&quot;&quot;</span>
+<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$xyz</span><span class="s2">&quot;</span> <span class="o">]</span>            <span class="c"># More pedantically correct.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Uninitialized variable is true.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Uninitialized variable is false.&quot;</span>
+<span class="k">fi</span>            <span class="c"># Uninitialized variable is false.</span>
+
+<span class="nb">echo</span>
+
+
+<span class="nv">xyz</span><span class="o">=</span>          <span class="c"># Initialized, but set to null value.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Testing \&quot;-n \$xyz\&quot;&quot;</span>
+<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$xyz</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Null variable is true.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Null variable is false.&quot;</span>
+<span class="k">fi</span>            <span class="c"># Null variable is false.</span>
+
+
+<span class="nb">echo</span>
+
+
+<span class="c"># When is &quot;false&quot; true?</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Testing \&quot;false\&quot;&quot;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;false&quot;</span> <span class="o">]</span>              <span class="c">#  It seems that &quot;false&quot; is just a string ...</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;\&quot;false\&quot; is true.&quot;</span> <span class="c">#+ and it tests true.</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;\&quot;false\&quot; is false.&quot;</span>
+<span class="k">fi</span>            <span class="c"># &quot;false&quot; is true.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Testing \&quot;\$false\&quot;&quot;</span>  <span class="c"># Again, uninitialized variable.</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$false</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;\&quot;\$false\&quot; is true.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;\&quot;\$false\&quot; is false.&quot;</span>
+<span class="k">fi</span>            <span class="c"># &quot;$false&quot; is false.</span>
+              <span class="c"># Now, we get the expected result.</span>
+
+<span class="c">#  What would happen if we tested the uninitialized variable &quot;$true&quot;?</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p><strong>Exercise.</strong> Explain the behavior of <a class="reference external" href="testconstructs.html#EX10">Example
+7-1</a> , above.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> condition-true <span class="o">]</span>
+<span class="k">then</span>
+   <span class="nb">command </span>1
+   <span class="nb">command </span>2
+   ...
+<span class="k">else</span>  <span class="c"># Or else ...</span>
+      <span class="c"># Adds default code block executing if original condition tests false.</span>
+   <span class="nb">command </span>3
+   <span class="nb">command </span>4
+   ...
+<span class="k">fi</span>
+</pre></div>
+</div>
+<p><a href="#id1"><span class="problematic" id="id2">|</span></a>Note</p>
+<p>When <em>if</em> and <em>then</em> are on same line in a condition test, a semicolon
+must terminate the <em>if</em> statement. Both <em>if</em> and <em>then</em> are
+<a class="reference external" href="internal.html#KEYWORDREF">keywords</a> . Keywords (or commands) begin
+statements, and before a new statement on the same line begins, the old
+one must terminate.</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> -x <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>]; then</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> -x <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> -x <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</pre></div>
+</div>
+<p>** Else if and elif**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>elif</dt>
+<dd><p class="first">``                   elif                 `` is a contraction for
+<em>else if</em> . The effect is to nest an inner if/then construct within
+an outer one.</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> condition1 <span class="o">]</span>
+<span class="k">then</span>
+   command1
+   command2
+   command3
+<span class="k">elif</span> <span class="o">[</span> condition2 <span class="o">]</span>
+<span class="c"># Same as else if</span>
+<span class="k">then</span>
+   command4
+   command5
+<span class="k">else</span>
+   default-command
+<span class="k">fi</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>The ``             if test condition-true           `` construct is the</p>
+</div></blockquote>
+<p>exact equivalent of ``             if [ condition-true ]           `` .
+As it happens, the left bracket, <strong>[</strong> , is a <em>token</em> ` [1]</p>
+<blockquote>
+<div>&lt;testconstructs.html#FTN.AEN3140&gt;`__ which invokes the <strong>test</strong></div></blockquote>
+<p>command. The closing right bracket, <strong>]</strong> , in an if/test should not
+therefore be strictly necessary, however newer versions of Bash require
+it.</p>
+<p><a href="#id3"><span class="problematic" id="id4">|</span></a>Note</p>
+<p>The <strong>test</strong> command is a Bash <a class="reference external" href="internal.html#BUILTINREF">builtin</a>
+which tests file types and compares strings. Therefore, in a Bash
+script, <strong>test</strong> does <em>not</em> call the external
+``         /usr/bin/test        `` binary, which is part of the
+<em>sh-utils</em> package. Likewise, <strong>[</strong> does not call
+``         /usr/bin/[        `` , which is linked to
+``         /usr/bin/test        `` .</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">type test</span>
+<span class="nb">test </span>is a shell buil
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>tin</dt>
+<dd>bash$ type &#8216;[&#8216;
+[ is a shell builtin
+bash$ type &#8216;[[&#8216;
+[[ is a shell keywor</dd>
+<dt>d</dt>
+<dd>bash$ type &#8216;]]&#8217;
+]] is a shell keywor</dd>
+<dt>d</dt>
+<dd>bash$ type &#8216;]&#8217;
+bash: type: ]: not f</dd>
+</dl>
+<p>ound</p>
+<hr class="docutils" />
+<p>If, for some reason, you wish to use ``         /usr/bin/test        ``
+in a Bash script, then specify it by full pathname.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">type test</span>
+<span class="nb">test </span>is a shell <span class="nb">builtin</span>
+bash<span class="nv">$ </span><span class="nb">type</span> <span class="s1">&#39;[&#39;</span>
+<span class="o">[</span> is a shell <span class="nb">builtin</span>
+bash<span class="nv">$ </span><span class="nb">type</span> <span class="s1">&#39;[[&#39;</span>
+<span class="o">[[</span> is a shell keyword
+bash<span class="nv">$ </span><span class="nb">type</span> <span class="s1">&#39;]]&#39;</span>
+<span class="o">]]</span> is a shell keyword
+bash<span class="nv">$ </span><span class="nb">type</span> <span class="s1">&#39;]&#39;</span>
+bash: <span class="nb">type</span>: <span class="o">]</span>: not found
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">type test</span>
+<span class="nb">test </span>is a shell <span class="nb">builtin</span>
+bash<span class="nv">$ </span><span class="nb">type</span> <span class="s1">&#39;[&#39;</span>
+<span class="o">[</span> is a shell <span class="nb">builtin</span>
+bash<span class="nv">$ </span><span class="nb">type</span> <span class="s1">&#39;[[&#39;</span>
+<span class="o">[[</span> is a shell keyword
+bash<span class="nv">$ </span><span class="nb">type</span> <span class="s1">&#39;]]&#39;</span>
+<span class="o">]]</span> is a shell keyword
+bash<span class="nv">$ </span><span class="nb">type</span> <span class="s1">&#39;]&#39;</span>
+bash: <span class="nb">type</span>: <span class="o">]</span>: not found
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-2-equivalence-of-test-usr-bin-test-and-usr-bin">
+<h2>Exemple 2. Equivalence of <em>test</em> , ``        /usr/bin/test       `` , [ ] , and ``        /usr/bin/[       ``<a class="headerlink" href="#exemple-2-equivalence-of-test-usr-bin-test-and-usr-bin" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre>   <span class="c">#!/bin/bash</span>
+
+   <span class="nb">echo</span>
+
+<span class="nb">   </span><span class="k">if</span> <span class="nb">test</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+   <span class="k">then</span>
+     <span class="nb">echo</span> <span class="s2">&quot;No command-line arguments.&quot;</span>
+   <span class="k">else</span>
+     <span class="nb">echo</span> <span class="s2">&quot;First command-line argument is </span><span class="nv">$1</span><span class="s2">.&quot;</span>
+   <span class="k">fi</span>
+
+   <span class="nb">echo</span>
+
+<span class="nb">   </span><span class="k">if</span> /usr/bin/test -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>      <span class="c"># Equivalent to &quot;test&quot; builtin.</span>
+   <span class="c">#  ^^^^^^^^^^^^^              # Specifying full pathname.</span>
+   <span class="k">then</span>
+     <span class="nb">echo</span> <span class="s2">&quot;No command-line arguments.&quot;</span>
+   <span class="k">else</span>
+     <span class="nb">echo</span> <span class="s2">&quot;First command-line argument is </span><span class="nv">$1</span><span class="s2">.&quot;</span>
+   <span class="k">fi</span>
+
+   <span class="nb">echo</span>
+
+<span class="nb">   </span><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>                <span class="c"># Functionally identical to above code blocks.</span>
+   <span class="c">#   if [ -z &quot;$1&quot;                should work, but...</span>
+   <span class="c">#+  Bash responds to a missing close-bracket with an error message.</span>
+   <span class="k">then</span>
+     <span class="nb">echo</span> <span class="s2">&quot;No command-line arguments.&quot;</span>
+   <span class="k">else</span>
+     <span class="nb">echo</span> <span class="s2">&quot;First command-line argument is </span><span class="nv">$1</span><span class="s2">.&quot;</span>
+   <span class="k">fi</span>
+
+   <span class="nb">echo</span>
+
+
+<span class="nb">   </span><span class="k">if</span> /usr/bin/<span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>       <span class="c"># Again, functionally identical to above.</span>
+   <span class="c"># if /usr/bin/[ -z &quot;$1&quot;       # Works, but gives an error message.</span>
+   <span class="c">#                             # Note:</span>
+   <span class="c">#                               This has been fixed in Bash, version 3.x.</span>
+   <span class="k">then</span>
+     <span class="nb">echo</span> <span class="s2">&quot;No command-line arguments.&quot;</span>
+   <span class="k">else</span>
+     <span class="nb">echo</span> <span class="s2">&quot;First command-line argument is </span><span class="nv">$1</span><span class="s2">.&quot;</span>
+   <span class="k">fi</span>
+
+   <span class="nb">echo</span>
+
+<span class="nb">   exit </span>0
+
+
+
+
+
+
+The <span class="o">[[</span> <span class="o">]]</span> construct is the more versatile Bash version of <span class="o">[</span> <span class="o">]</span> . This is
+</pre></div>
+</div>
+<p>the <em>extended test command</em> , adopted from <em>ksh88</em> .</p>
+<p>* * *</p>
+<p>No filename expansion or word splitting takes place between [[ and ]] ,
+but there is parameter expansion and command substitution.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">file</span><span class="o">=</span>/etc/passwd
+
+<span class="k">if</span> <span class="o">[[</span> -e <span class="nv">$file</span> <span class="o">]]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Password file exists.&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+<p>Using the <strong>[[ ... ]]</strong> test construct, rather than <strong>[ ... ]</strong> can
+prevent many logic errors in scripts. For example, the &amp;&amp; , |, &lt; ,
+and &gt; operators work within a [[ ]] test, despite giving an error within
+a [ ] construct.</p>
+<p><em>Arithmetic evaluation</em> of octal / hexadecimal constants takes place
+automatically within a [[ ... ]] construct.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># [[ Octal and hexadecimal evaluation ]]</span>
+<span class="c"># Thank you, Moritz Gronbach, for pointing this out.</span>
+
+
+<span class="nv">decimal</span><span class="o">=</span>15
+<span class="nv">octal</span><span class="o">=</span><span class="m">017</span>   <span class="c"># = 15 (decimal)</span>
+<span class="nv">hex</span><span class="o">=</span>0x0f    <span class="c"># = 15 (decimal)</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2">&quot;</span> -eq <span class="s2">&quot;</span><span class="nv">$octal</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2"> equals </span><span class="nv">$octal</span><span class="s2">&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2"> is not equal to </span><span class="nv">$octal</span><span class="s2">&quot;</span>       <span class="c"># 15 is not equal to 017</span>
+<span class="k">fi</span>      <span class="c"># Doesn&#39;t evaluate within [ single brackets ]!</span>
+
+
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2">&quot;</span> -eq <span class="s2">&quot;</span><span class="nv">$octal</span><span class="s2">&quot;</span> <span class="o">]]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2"> equals </span><span class="nv">$octal</span><span class="s2">&quot;</span>                <span class="c"># 15 equals 017</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2"> is not equal to </span><span class="nv">$octal</span><span class="s2">&quot;</span>
+<span class="k">fi</span>      <span class="c"># Evaluates within [[ double brackets ]]!</span>
+
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2">&quot;</span> -eq <span class="s2">&quot;</span><span class="nv">$hex</span><span class="s2">&quot;</span> <span class="o">]]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2"> equals </span><span class="nv">$hex</span><span class="s2">&quot;</span>                  <span class="c"># 15 equals 0x0f</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2"> is not equal to </span><span class="nv">$hex</span><span class="s2">&quot;</span>
+<span class="k">fi</span>      <span class="c"># [[ $hexadecimal ]] also evaluates!</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">file</span><span class="o">=</span>/etc/passwd
+
+<span class="k">if</span> <span class="o">[[</span> -e <span class="nv">$file</span> <span class="o">]]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Password file exists.&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># [[ Octal and hexadecimal evaluation ]]</span>
+<span class="c"># Thank you, Moritz Gronbach, for pointing this out.</span>
+
+
+<span class="nv">decimal</span><span class="o">=</span>15
+<span class="nv">octal</span><span class="o">=</span><span class="m">017</span>   <span class="c"># = 15 (decimal)</span>
+<span class="nv">hex</span><span class="o">=</span>0x0f    <span class="c"># = 15 (decimal)</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2">&quot;</span> -eq <span class="s2">&quot;</span><span class="nv">$octal</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2"> equals </span><span class="nv">$octal</span><span class="s2">&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2"> is not equal to </span><span class="nv">$octal</span><span class="s2">&quot;</span>       <span class="c"># 15 is not equal to 017</span>
+<span class="k">fi</span>      <span class="c"># Doesn&#39;t evaluate within [ single brackets ]!</span>
+
+
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2">&quot;</span> -eq <span class="s2">&quot;</span><span class="nv">$octal</span><span class="s2">&quot;</span> <span class="o">]]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2"> equals </span><span class="nv">$octal</span><span class="s2">&quot;</span>                <span class="c"># 15 equals 017</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2"> is not equal to </span><span class="nv">$octal</span><span class="s2">&quot;</span>
+<span class="k">fi</span>      <span class="c"># Evaluates within [[ double brackets ]]!</span>
+
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2">&quot;</span> -eq <span class="s2">&quot;</span><span class="nv">$hex</span><span class="s2">&quot;</span> <span class="o">]]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2"> equals </span><span class="nv">$hex</span><span class="s2">&quot;</span>                  <span class="c"># 15 equals 0x0f</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2"> is not equal to </span><span class="nv">$hex</span><span class="s2">&quot;</span>
+<span class="k">fi</span>      <span class="c"># [[ $hexadecimal ]] also evaluates!</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">file</span><span class="o">=</span>/etc/passwd
+
+<span class="k">if</span> <span class="o">[[</span> -e <span class="nv">$file</span> <span class="o">]]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Password file exists.&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># [[ Octal and hexadecimal evaluation ]]</span>
+<span class="c"># Thank you, Moritz Gronbach, for pointing this out.</span>
+
+
+<span class="nv">decimal</span><span class="o">=</span>15
+<span class="nv">octal</span><span class="o">=</span><span class="m">017</span>   <span class="c"># = 15 (decimal)</span>
+<span class="nv">hex</span><span class="o">=</span>0x0f    <span class="c"># = 15 (decimal)</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2">&quot;</span> -eq <span class="s2">&quot;</span><span class="nv">$octal</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2"> equals </span><span class="nv">$octal</span><span class="s2">&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2"> is not equal to </span><span class="nv">$octal</span><span class="s2">&quot;</span>       <span class="c"># 15 is not equal to 017</span>
+<span class="k">fi</span>      <span class="c"># Doesn&#39;t evaluate within [ single brackets ]!</span>
+
+
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2">&quot;</span> -eq <span class="s2">&quot;</span><span class="nv">$octal</span><span class="s2">&quot;</span> <span class="o">]]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2"> equals </span><span class="nv">$octal</span><span class="s2">&quot;</span>                <span class="c"># 15 equals 017</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2"> is not equal to </span><span class="nv">$octal</span><span class="s2">&quot;</span>
+<span class="k">fi</span>      <span class="c"># Evaluates within [[ double brackets ]]!</span>
+
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2">&quot;</span> -eq <span class="s2">&quot;</span><span class="nv">$hex</span><span class="s2">&quot;</span> <span class="o">]]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2"> equals </span><span class="nv">$hex</span><span class="s2">&quot;</span>                  <span class="c"># 15 equals 0x0f</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$decimal</span><span class="s2"> is not equal to </span><span class="nv">$hex</span><span class="s2">&quot;</span>
+<span class="k">fi</span>      <span class="c"># [[ $hexadecimal ]] also evaluates!</span>
+</pre></div>
+</div>
+<p><a href="#id5"><span class="problematic" id="id6">|</span></a>Note</p>
+<p>Following an <strong>if</strong> , neither the <strong>test</strong> command nor the test brackets
+( [ ] or [[ ]] ) are strictly necessary.</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">dir</span><span class="o">=</span>/home/bozo
+
+<span class="k">if</span> <span class="nb">cd</span> <span class="s2">&quot;</span><span class="nv">$dir</span><span class="s2">&quot;</span> 2&gt;/dev/
+</pre></div>
+</div>
+<p>null; then   # &#8220;2&gt;/dev/n
+ull&#8221; hides error message
+.</p>
+<blockquote>
+<div>echo &#8220;Now in $dir.</div></blockquote>
+<dl class="docutils">
+<dt>&#8220;</dt>
+<dd><blockquote class="first">
+<div><dl class="docutils">
+<dt>else</dt>
+<dd>echo &#8220;Can&#8217;t change</dd>
+</dl>
+</div></blockquote>
+<dl class="last docutils">
+<dt>to $dir.&#8221;</dt>
+<dd>fi</dd>
+</dl>
+</dd>
+</dl>
+<hr class="docutils" />
+<p>The &#8220;if COMMAND&#8221; construct returns the exit status of COMMAND.
+Similarly, a condition within test brackets may stand alone without an
+<strong>if</strong> , when used in combination with a <a class="reference external" href="list-cons.html#LISTCONSREF">list
+construct</a> .</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">var1</span><span class="o">=</span>20
+<span class="nv">var2</span><span class="o">=</span>22
+<span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$var1</span><span class="s2">&quot;</span> -ne <span class="s2">&quot;</span><span class="nv">$var2</span><span class="s2"></span>
+</pre></div>
+</div>
+<p>&#8221; ] &amp;&amp; echo &#8220;$var1 is no
+t equal to $var2&#8221;</p>
+<blockquote>
+<div>home=/home/bozo
+[ -d &#8220;$home&#8221; ] || ec</div></blockquote>
+<dl class="docutils">
+<dt>ho &#8220;$home directory does</dt>
+<dd>not exist.&#8221;</dd>
+</dl>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">dir</span><span class="o">=</span>/home/bozo
+
+<span class="k">if</span> <span class="nb">cd</span> <span class="s2">&quot;</span><span class="nv">$dir</span><span class="s2">&quot;</span> 2&gt;/dev/null<span class="p">;</span> <span class="k">then</span>   <span class="c"># &quot;2&gt;/dev/null&quot; hides error message.</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Now in </span><span class="nv">$dir</span><span class="s2">.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Can&#39;t change to </span><span class="nv">$dir</span><span class="s2">.&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">var1</span><span class="o">=</span>20
+<span class="nv">var2</span><span class="o">=</span>22
+<span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$var1</span><span class="s2">&quot;</span> -ne <span class="s2">&quot;</span><span class="nv">$var2</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$var1</span><span class="s2"> is not equal to </span><span class="nv">$var2</span><span class="s2">&quot;</span>
+
+<span class="nv">home</span><span class="o">=</span>/home/bozo
+<span class="o">[</span> -d <span class="s2">&quot;</span><span class="nv">$home</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="p">|</span><span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$home</span><span class="s2"> directory does not exist.&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">dir</span><span class="o">=</span>/home/bozo
+
+<span class="k">if</span> <span class="nb">cd</span> <span class="s2">&quot;</span><span class="nv">$dir</span><span class="s2">&quot;</span> 2&gt;/dev/null<span class="p">;</span> <span class="k">then</span>   <span class="c"># &quot;2&gt;/dev/null&quot; hides error message.</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Now in </span><span class="nv">$dir</span><span class="s2">.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Can&#39;t change to </span><span class="nv">$dir</span><span class="s2">.&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>   <span class="nv">var1</span><span class="o">=</span>20
+   <span class="nv">var2</span><span class="o">=</span>22
+   <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$var1</span><span class="s2">&quot;</span> -ne <span class="s2">&quot;</span><span class="nv">$var2</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$var1</span><span class="s2"> is not equal to </span><span class="nv">$var2</span><span class="s2">&quot;</span>
+
+   <span class="nv">home</span><span class="o">=</span>/home/bozo
+   <span class="o">[</span> -d <span class="s2">&quot;</span><span class="nv">$home</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="p">|</span><span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$home</span><span class="s2"> directory does not exist.&quot;</span>
+
+
+
+
+The <span class="sb">`</span><span class="o">((</span> <span class="o">))</span> construct &lt;dblparens.html&gt;<span class="sb">`</span>__ expands and evaluates an
+</pre></div>
+</div>
+<p>arithmetic expression. If the expression evaluates as zero, it returns
+an <a class="reference external" href="exit-status.html#EXITSTATUSREF">exit status</a> of 1 , or &#8220;false&#8221; .
+A non-zero expression returns an exit status of 0 , or &#8220;true&#8221; . This is
+in marked contrast to using the <strong>test</strong> and [ ] constructs previously
+discussed.</p>
+</div>
+<div class="section" id="exemple-3-arithmetic-tests-using">
+<h2>Exemple 3. Arithmetic Tests using (( ))<a class="headerlink" href="#exemple-3-arithmetic-tests-using" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># arith-tests.sh</span>
+<span class="c"># Arithmetic tests.</span>
+
+<span class="c"># The (( ... )) construct evaluates and tests numerical expressions.</span>
+<span class="c"># Exit status opposite from [ ... ] construct!</span>
+
+<span class="o">((</span> <span class="m">0</span> <span class="o">))</span>
+<span class="nb">echo</span> <span class="s2">&quot;Exit status of \&quot;(( 0 ))\&quot; is </span><span class="nv">$?</span><span class="s2">.&quot;</span>         <span class="c"># 1</span>
+
+<span class="o">((</span> <span class="m">1</span> <span class="o">))</span>
+<span class="nb">echo</span> <span class="s2">&quot;Exit status of \&quot;(( 1 ))\&quot; is </span><span class="nv">$?</span><span class="s2">.&quot;</span>         <span class="c"># 0</span>
+
+<span class="o">((</span> <span class="m">5</span> &gt; <span class="m">4</span> <span class="o">))</span>                                      <span class="c"># true</span>
+<span class="nb">echo</span> <span class="s2">&quot;Exit status of \&quot;(( 5 &gt; 4 ))\&quot; is </span><span class="nv">$?</span><span class="s2">.&quot;</span>     <span class="c"># 0</span>
+
+<span class="o">((</span> <span class="m">5</span> &gt; <span class="m">9</span> <span class="o">))</span>                                      <span class="c"># false</span>
+<span class="nb">echo</span> <span class="s2">&quot;Exit status of \&quot;(( 5 &gt; 9 ))\&quot; is </span><span class="nv">$?</span><span class="s2">.&quot;</span>     <span class="c"># 1</span>
+
+<span class="o">((</span> <span class="nv">5</span> <span class="o">==</span> <span class="m">5</span> <span class="o">))</span>                                     <span class="c"># true</span>
+<span class="nb">echo</span> <span class="s2">&quot;Exit status of \&quot;(( 5 == 5 ))\&quot; is </span><span class="nv">$?</span><span class="s2">.&quot;</span>    <span class="c"># 0</span>
+<span class="c"># (( 5 = 5 ))  gives an error message.</span>
+
+<span class="o">((</span> <span class="m">5</span> - <span class="m">5</span> <span class="o">))</span>                                      <span class="c"># 0</span>
+<span class="nb">echo</span> <span class="s2">&quot;Exit status of \&quot;(( 5 - 5 ))\&quot; is </span><span class="nv">$?</span><span class="s2">.&quot;</span>     <span class="c"># 1</span>
+
+<span class="o">((</span> <span class="m">5</span> / <span class="m">4</span> <span class="o">))</span>                                      <span class="c"># Division o.k.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Exit status of \&quot;(( 5 / 4 ))\&quot; is </span><span class="nv">$?</span><span class="s2">.&quot;</span>     <span class="c"># 0</span>
+
+<span class="o">((</span> <span class="m">1</span> / <span class="m">2</span> <span class="o">))</span>                                      <span class="c"># Division result &lt; 1.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Exit status of \&quot;(( 1 / 2 ))\&quot; is </span><span class="nv">$?</span><span class="s2">.&quot;</span>     <span class="c"># Rounded off to 0.</span>
+                                                 <span class="c"># 1</span>
+
+<span class="o">((</span> <span class="m">1</span> / <span class="m">0</span> <span class="o">))</span> 2&gt;/dev/null                          <span class="c"># Illegal division by 0.</span>
+<span class="c">#           ^^^^^^^^^^^</span>
+<span class="nb">echo</span> <span class="s2">&quot;Exit status of \&quot;(( 1 / 0 ))\&quot; is </span><span class="nv">$?</span><span class="s2">.&quot;</span>     <span class="c"># 1</span>
+
+<span class="c"># What effect does the &quot;2&gt;/dev/null&quot; have?</span>
+<span class="c"># What would happen if it were removed?</span>
+<span class="c"># Try removing it, then rerunning the script.</span>
+
+<span class="c"># ======================================= #</span>
+
+<span class="c"># (( ... )) also useful in an if-then test.</span>
+
+<span class="nv">var1</span><span class="o">=</span>5
+<span class="nv">var2</span><span class="o">=</span>4
+
+<span class="k">if</span> <span class="o">((</span> var1 &gt; var2 <span class="o">))</span>
+<span class="k">then</span> <span class="c">#^      ^      Note: Not $var1, $var2. Why?</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$var1</span><span class="s2"> is greater than </span><span class="nv">$var2</span><span class="s2">&quot;</span>
+<span class="k">fi</span>     <span class="c"># 5 is greater than 4</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;testconstructs.html#AEN3140&gt;`__</p>
+<blockquote>
+<div>A <em>token</em> is a symbol or short string with a special meaning attached</div></blockquote>
+<p>to it (a <a class="reference external" href="x17129.html#METAMEANINGREF">meta-meaning</a> ). In Bash,
+certain tokens, such as <strong>[</strong> and <a class="reference external" href="special-chars.html#DOTREF">.
+(dot-command)</a> , may expand to <em>keywords</em>
+and commands.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="fto.html" class="btn btn-neutral float-right" title="XXX 7.2. File test operators" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tests.html" class="btn btn-neutral" title="XXX Chapter 7. Tests"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

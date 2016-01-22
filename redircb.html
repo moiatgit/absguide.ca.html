@@ -1,0 +1,478 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 20.2. Redirecting Code Blocks &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  20.2. Redirecting Code Blocks</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-20-2-redirecting-code-blocks">
+<h1>XXX  20.2. Redirecting Code Blocks<a class="headerlink" href="#xxx-20-2-redirecting-code-blocks" title="Link permanent a aquest títol">¶</a></h1>
+<blockquote>
+<div>Blocks of code, such as <a class="reference external" href="loops1.html#WHILELOOPREF">while</a> ,</div></blockquote>
+<p><a class="reference external" href="loops1.html#UNTILLOOPREF">until</a> , and
+<a class="reference external" href="loops1.html#FORLOOPREF1">for</a> loops, even
+<a class="reference external" href="tests.html#IFTHEN">if/then</a> test blocks can also incorporate
+redirection of ``      stdin     `` . Even a function may use this form
+of redirection (see <a class="reference external" href="complexfunct.html#REALNAME">Example 24-11</a> ).
+The &lt; operator at the end of the code block accomplishes this.</p>
+<div class="section" id="exemple-5-redirected-while-loop">
+<h2>Exemple 5. Redirected <em>while</em> loop<a class="headerlink" href="#exemple-5-redirected-while-loop" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># redir2.sh</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nv">Filename</span><span class="o">=</span>names.data       <span class="c"># Default, if no filename specified.</span>
+<span class="k">else</span>
+  <span class="nv">Filename</span><span class="o">=</span><span class="nv">$1</span>
+<span class="k">fi</span>
+<span class="c">#+ Filename=${1:-names.data}</span>
+<span class="c">#  can replace the above test (parameter substitution).</span>
+
+<span class="nv">count</span><span class="o">=</span>0
+
+<span class="nb">echo</span>
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$name</span><span class="s2">&quot;</span> !<span class="o">=</span> Smith <span class="o">]</span>  <span class="c"># Why is variable $name in quotes?</span>
+<span class="k">do</span>
+  <span class="nb">read </span>name                 <span class="c"># Reads from $Filename, rather than stdin.</span>
+  <span class="nb">echo</span> <span class="nv">$name</span>
+  <span class="nb">let</span> <span class="s2">&quot;count += 1&quot;</span>
+<span class="k">done</span> &lt;<span class="s2">&quot;</span><span class="nv">$Filename</span><span class="s2">&quot;</span>           <span class="c"># Redirects stdin to file $Filename.</span>
+<span class="c">#    ^^^^^^^^^^^^</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$count</span><span class="s2"> names read&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+
+<span class="c">#  Note that in some older shell scripting languages,</span>
+<span class="c">#+ the redirected loop would run as a subshell.</span>
+<span class="c">#  Therefore, $count would return 0, the initialized value outside the loop.</span>
+<span class="c">#  Bash and ksh avoid starting a subshell *whenever possible*,</span>
+<span class="c">#+ so that this script, for example, runs correctly.</span>
+<span class="c">#  (Thanks to Heiner Steven for pointing this out.)</span>
+
+<span class="c">#  However . . .</span>
+<span class="c">#  Bash *can* sometimes start a subshell in a PIPED &quot;while-read&quot; loop,</span>
+<span class="c">#+ as distinct from a REDIRECTED &quot;while&quot; loop.</span>
+
+<span class="nv">abc</span><span class="o">=</span>hi
+<span class="nb">echo</span> -e <span class="s2">&quot;1\n2\n3&quot;</span><span class="k">while</span> <span class="nb">read </span>l
+     <span class="k">do</span> <span class="nv">abc</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$l</span><span class="s2">&quot;</span>
+        <span class="nb">echo</span> <span class="nv">$abc</span>
+     <span class="k">done</span>
+<span class="nb">echo</span> <span class="nv">$abc</span>
+
+<span class="c">#  Thanks, Bruno de Oliveira Schneider, for demonstrating this</span>
+<span class="c">#+ with the above snippet of code.</span>
+<span class="c">#  And, thanks, Brian Onn, for correcting an annotation error.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-6-alternate-form-of-redirected-while-loop">
+<h2>Exemple 6. Alternate form of redirected <em>while</em> loop<a class="headerlink" href="#exemple-6-alternate-form-of-redirected-while-loop" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c"># This is an alternate form of the preceding script.</span>
+
+<span class="c">#  Suggested by Heiner Steven</span>
+<span class="c">#+ as a workaround in those situations when a redirect loop</span>
+<span class="c">#+ runs as a subshell, and therefore variables inside the loop</span>
+<span class="c"># +do not keep their values upon loop termination.</span>
+
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nv">Filename</span><span class="o">=</span>names.data     <span class="c"># Default, if no filename specified.</span>
+<span class="k">else</span>
+  <span class="nv">Filename</span><span class="o">=</span><span class="nv">$1</span>
+<span class="k">fi</span>
+
+
+<span class="nb">exec </span>3&lt;<span class="p">&amp;</span><span class="m">0</span>                 <span class="c"># Save stdin to file descriptor 3.</span>
+<span class="nb">exec </span>0&lt;<span class="s2">&quot;</span><span class="nv">$Filename</span><span class="s2">&quot;</span>        <span class="c"># Redirect standard input.</span>
+
+<span class="nv">count</span><span class="o">=</span>0
+<span class="nb">echo</span>
+
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$name</span><span class="s2">&quot;</span> !<span class="o">=</span> Smith <span class="o">]</span>
+<span class="k">do</span>
+  <span class="nb">read </span>name               <span class="c"># Reads from redirected stdin ($Filename).</span>
+  <span class="nb">echo</span> <span class="nv">$name</span>
+  <span class="nb">let</span> <span class="s2">&quot;count += 1&quot;</span>
+<span class="k">done</span>                      <span class="c">#  Loop reads from file $Filename</span>
+                          <span class="c">#+ because of line 20.</span>
+
+<span class="c">#  The original version of this script terminated the &quot;while&quot; loop with</span>
+<span class="c">#+      done &lt;&quot;$Filename&quot;</span>
+<span class="c">#  Exercise:</span>
+<span class="c">#  Why is this unnecessary?</span>
+
+
+<span class="nb">exec </span>0&lt;<span class="p">&amp;</span><span class="m">3</span>                 <span class="c"># Restore old stdin.</span>
+<span class="nb">exec </span>3&lt;<span class="p">&amp;</span>-                 <span class="c"># Close temporary fd 3.</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$count</span><span class="s2"> names read&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-7-redirected-until-loop">
+<h2>Exemple 7. Redirected <em>until</em> loop<a class="headerlink" href="#exemple-7-redirected-until-loop" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Same as previous example, but with &quot;until&quot; loop.</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nv">Filename</span><span class="o">=</span>names.data         <span class="c"># Default, if no filename specified.</span>
+<span class="k">else</span>
+  <span class="nv">Filename</span><span class="o">=</span><span class="nv">$1</span>
+<span class="k">fi</span>
+
+<span class="c"># while [ &quot;$name&quot; != Smith ]</span>
+<span class="k">until</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$name</span><span class="s2">&quot;</span> <span class="o">=</span> Smith <span class="o">]</span>     <span class="c"># Change  !=  to =.</span>
+<span class="k">do</span>
+  <span class="nb">read </span>name                   <span class="c"># Reads from $Filename, rather than stdin.</span>
+  <span class="nb">echo</span> <span class="nv">$name</span>
+<span class="k">done</span> &lt;<span class="s2">&quot;</span><span class="nv">$Filename</span><span class="s2">&quot;</span>             <span class="c"># Redirects stdin to file $Filename.</span>
+<span class="c">#    ^^^^^^^^^^^^</span>
+
+<span class="c"># Same results as with &quot;while&quot; loop in previous example.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-8-redirected-for-loop">
+<h2>Exemple 8. Redirected <em>for</em> loop<a class="headerlink" href="#exemple-8-redirected-for-loop" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nv">Filename</span><span class="o">=</span>names.data          <span class="c"># Default, if no filename specified.</span>
+<span class="k">else</span>
+  <span class="nv">Filename</span><span class="o">=</span><span class="nv">$1</span>
+<span class="k">fi</span>
+
+<span class="nv">line_count</span><span class="o">=</span><span class="sb">`</span>wc <span class="nv">$Filenameawk</span> <span class="s1">&#39;{ print $1 }&#39;</span><span class="sb">`</span>
+<span class="c">#           Number of lines in target file.</span>
+<span class="c">#</span>
+<span class="c">#  Very contrived and kludgy, nevertheless shows that</span>
+<span class="c">#+ it&#39;s possible to redirect stdin within a &quot;for&quot; loop...</span>
+<span class="c">#+ if you&#39;re clever enough.</span>
+<span class="c">#</span>
+<span class="c"># More concise is     line_count=$(wc -l &lt; &quot;$Filename&quot;)</span>
+
+
+<span class="k">for</span> name in <span class="sb">`</span>seq <span class="nv">$line_count</span><span class="sb">`</span>  <span class="c"># Recall that &quot;seq&quot; prints sequence of numbers.</span>
+<span class="c"># while [ &quot;$name&quot; != Smith ]   --   more complicated than a &quot;while&quot; loop   --</span>
+<span class="k">do</span>
+  <span class="nb">read </span>name                    <span class="c"># Reads from $Filename, rather than stdin.</span>
+  <span class="nb">echo</span> <span class="nv">$name</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$name</span><span class="s2">&quot;</span> <span class="o">=</span> Smith <span class="o">]</span>       <span class="c"># Need all this extra baggage here.</span>
+  <span class="k">then</span>
+    <span class="nb">break</span>
+<span class="nb">  </span><span class="k">fi</span>
+<span class="k">done</span> &lt;<span class="s2">&quot;</span><span class="nv">$Filename</span><span class="s2">&quot;</span>              <span class="c"># Redirects stdin to file $Filename.</span>
+<span class="c">#    ^^^^^^^^^^^^</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>We can modify the previous example to also redirect the output of the
+loop.</p>
+</div>
+<div class="section" id="exemple-9-redirected-for-loop-both-stdin-and-stdout-redirected">
+<h2>Exemple 9. Redirected <em>for</em> loop (both ``        stdin       `` and ``        stdout       `` redirected)<a class="headerlink" href="#exemple-9-redirected-for-loop-both-stdin-and-stdout-redirected" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nv">Filename</span><span class="o">=</span>names.data          <span class="c"># Default, if no filename specified.</span>
+<span class="k">else</span>
+  <span class="nv">Filename</span><span class="o">=</span><span class="nv">$1</span>
+<span class="k">fi</span>
+
+<span class="nv">Savefile</span><span class="o">=</span><span class="nv">$Filename</span>.new         <span class="c"># Filename to save results in.</span>
+<span class="nv">FinalName</span><span class="o">=</span>Jonah                <span class="c"># Name to terminate &quot;read&quot; on.</span>
+
+<span class="nv">line_count</span><span class="o">=</span><span class="sb">`</span>wc <span class="nv">$Filenameawk</span> <span class="s1">&#39;{ print $1 }&#39;</span><span class="sb">`</span>  <span class="c"># Number of lines in target file.</span>
+
+
+<span class="k">for</span> name in <span class="sb">`</span>seq <span class="nv">$line_count</span><span class="sb">`</span>
+<span class="k">do</span>
+  <span class="nb">read </span>name
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$name</span><span class="s2">&quot;</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$name</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$FinalName</span><span class="s2">&quot;</span> <span class="o">]</span>
+  <span class="k">then</span>
+    <span class="nb">break</span>
+<span class="nb">  </span><span class="k">fi</span>
+<span class="k">done</span> &lt; <span class="s2">&quot;</span><span class="nv">$Filename</span><span class="s2">&quot;</span> &gt; <span class="s2">&quot;</span><span class="nv">$Savefile</span><span class="s2">&quot;</span>     <span class="c"># Redirects stdin to file $Filename,</span>
+<span class="c">#    ^^^^^^^^^^^^^^^^^^^^^^^^^^^       and saves it to backup file.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-10-redirected-if-then-test">
+<h2>Exemple 10. Redirected <em>if/then</em> test<a class="headerlink" href="#exemple-10-redirected-if-then-test" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nv">Filename</span><span class="o">=</span>names.data   <span class="c"># Default, if no filename specified.</span>
+<span class="k">else</span>
+  <span class="nv">Filename</span><span class="o">=</span><span class="nv">$1</span>
+<span class="k">fi</span>
+
+<span class="nv">TRUE</span><span class="o">=</span>1
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$TRUE</span><span class="s2">&quot;</span> <span class="o">]</span>          <span class="c"># if true    and   if :   also work.</span>
+<span class="k">then</span>
+ <span class="nb">read </span>name
+ <span class="nb">echo</span> <span class="nv">$name</span>
+<span class="k">fi</span> &lt;<span class="s2">&quot;</span><span class="nv">$Filename</span><span class="s2">&quot;</span>
+<span class="c">#  ^^^^^^^^^^^^</span>
+
+<span class="c"># Reads only first line of file.</span>
+<span class="c"># An &quot;if/then&quot; test has no way of iterating unless embedded in a loop.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-11-data-file-names-data-for-above-examples">
+<h2>Exemple 11. Data file <em>names.data</em> for above examples<a class="headerlink" href="#exemple-11-data-file-names-data-for-above-examples" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre>Aristotle
+Arrhenius
+Belisarius
+Capablanca
+Dickens
+Euler
+Goethe
+Hegel
+Jonah
+Laplace
+Maroczy
+Purcell
+Schmidt
+Schopenhauer
+Semmelweiss
+Smith
+Steinmetz
+Tukhashevsky
+Turing
+Venn
+Warshawski
+Znosko-Borowski
+
+<span class="c">#  This is a data file for</span>
+<span class="c">#+ &quot;redir2.sh&quot;, &quot;redir3.sh&quot;, &quot;redir4.sh&quot;, &quot;redir4a.sh&quot;, &quot;redir5.sh&quot;.</span>
+</pre></div>
+</div>
+<p>Redirecting the ``      stdout     `` of a code block has the effect of
+saving its output to a file. See <a class="reference external" href="special-chars.html#RPMCHECK">Example
+3-2</a> .</p>
+<p><a class="reference external" href="here-docs.html#HEREDOCREF">Here documents</a> are a special case of
+redirected code blocks. That being the case, it should be possible to
+feed the output of a <em>here document</em> into the ``      stdin     `` for a
+<em>while loop</em> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># This example by Albert Siersema</span>
+<span class="c"># Used with permission (thanks!).</span>
+
+<span class="k">function</span> doesOutput<span class="o">()</span>
+ <span class="c"># Could be an external command too, of course.</span>
+ <span class="c"># Here we show you can use a function as well.</span>
+<span class="o">{</span>
+  ls -al *.jpgawk <span class="s1">&#39;{print $5,$9}&#39;</span>
+<span class="o">}</span>
+
+
+<span class="nv">nr</span><span class="o">=</span><span class="m">0</span>          <span class="c">#  We want the while loop to be able to manipulate these and</span>
+<span class="nv">totalSize</span><span class="o">=</span><span class="m">0</span>   <span class="c">#+ to be able to see the changes after the &#39;while&#39; finished.</span>
+
+<span class="k">while</span> <span class="nb">read </span>fileSize fileName <span class="p">;</span> <span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$fileName</span><span class="s2"> is </span><span class="nv">$fileSize</span><span class="s2"> bytes&quot;</span>
+  <span class="nb">let </span>nr++
+  <span class="nv">totalSize</span><span class="o">=</span><span class="k">$((</span>totalSize+fileSize<span class="k">))</span>   <span class="c"># Or: &quot;let totalSize+=fileSize&quot;</span>
+<span class="k">done</span><span class="s">&lt;&lt;EOF</span>
+<span class="s">$(doesOutput)</span>
+<span class="s">EOF</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$nr</span><span class="s2"> files totaling </span><span class="nv">$totalSize</span><span class="s2"> bytes&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

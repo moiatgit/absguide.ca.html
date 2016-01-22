@@ -1,0 +1,1061 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 37.3. Bash, version 4 &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  37.3. Bash, version 4</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-37-3-bash-version-4">
+<h1>XXX  37.3. Bash, version 4<a class="headerlink" href="#xxx-37-3-bash-version-4" title="Link permanent a aquest títol">¶</a></h1>
+<p>Chet Ramey announced Version 4 of Bash on the 20th of February, 2009.
+This release has a number of significant new features, as well as some
+important bugfixes.</p>
+<p>Among the new goodies:</p>
+<ul class="simple">
+<li>Associative arrays. ` [1]  &lt;bashver4.html#FTN.AEN21025&gt;`__</li>
+</ul>
+<blockquote>
+<div>An <em>associative</em> array can be thought of as a set of two linked
+arrays &#8211; one holding the <em>data</em> , and the other the <em>keys</em> that
+index the individual elements of the <em>data</em> array.</div></blockquote>
+<div class="section" id="exemple-5-a-simple-address-database">
+<h2>Exemple 5. A simple address database<a class="headerlink" href="#exemple-5-a-simple-address-database" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash4</span>
+<span class="c"># fetch_address.sh</span>
+
+<span class="nb">declare</span> -A address
+<span class="c">#       -A option declares associative array.</span>
+
+address<span class="o">[</span>Charles<span class="o">]=</span><span class="s2">&quot;414 W. 10th Ave., Baltimore, MD 21236&quot;</span>
+address<span class="o">[</span>John<span class="o">]=</span><span class="s2">&quot;202 E. 3rd St., New York, NY 10009&quot;</span>
+address<span class="o">[</span>Wilma<span class="o">]=</span><span class="s2">&quot;1854 Vermont Ave, Los Angeles, CA 90023&quot;</span>
+
+
+<span class="nb">echo</span> <span class="s2">&quot;Charles&#39;s address is </span><span class="si">${</span><span class="nv">address</span><span class="p">[Charles]</span><span class="si">}</span><span class="s2">.&quot;</span>
+<span class="c"># Charles&#39;s address is 414 W. 10th Ave., Baltimore, MD 21236.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Wilma&#39;s address is </span><span class="si">${</span><span class="nv">address</span><span class="p">[Wilma]</span><span class="si">}</span><span class="s2">.&quot;</span>
+<span class="c"># Wilma&#39;s address is 1854 Vermont Ave, Los Angeles, CA 90023.</span>
+<span class="nb">echo</span> <span class="s2">&quot;John&#39;s address is </span><span class="si">${</span><span class="nv">address</span><span class="p">[John]</span><span class="si">}</span><span class="s2">.&quot;</span>
+<span class="c"># John&#39;s address is 202 E. 3rd St., New York, NY 10009.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="p">!address[*]</span><span class="si">}</span><span class="s2">&quot;</span>   <span class="c"># The array indices ...</span>
+<span class="c"># Charles John Wilma</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-6-a-somewhat-more-elaborate-address-database">
+<h2>Exemple 6. A somewhat more elaborate address database<a class="headerlink" href="#exemple-6-a-somewhat-more-elaborate-address-database" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash4</span>
+<span class="c"># fetch_address-2.sh</span>
+<span class="c"># A more elaborate version of fetch_address.sh.</span>
+
+<span class="nv">SUCCESS</span><span class="o">=</span>0
+<span class="nv">E_DB</span><span class="o">=</span><span class="m">99</span>    <span class="c"># Error code for missing entry.</span>
+
+<span class="nb">declare</span> -A address
+<span class="c">#       -A option declares associative array.</span>
+
+
+store_address <span class="o">()</span>
+<span class="o">{</span>
+  address<span class="o">[</span><span class="nv">$1</span><span class="o">]=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+  <span class="k">return</span> <span class="nv">$?</span>
+<span class="o">}</span>
+
+
+fetch_address <span class="o">()</span>
+<span class="o">{</span>
+  <span class="k">if</span> <span class="o">[[</span> -z <span class="s2">&quot;</span><span class="si">${</span><span class="nv">address</span><span class="p">[</span><span class="nv">$1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">]]</span>
+  <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&#39;s address is not in database.&quot;</span>
+    <span class="k">return</span> <span class="nv">$E_DB</span>
+  <span class="k">fi</span>
+
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&#39;s address is </span><span class="si">${</span><span class="nv">address</span><span class="p">[</span><span class="nv">$1</span><span class="p">]</span><span class="si">}</span><span class="s2">.&quot;</span>
+  <span class="k">return</span> <span class="nv">$?</span>
+<span class="o">}</span>
+
+
+store_address <span class="s2">&quot;Lucas Fayne&quot;</span> <span class="s2">&quot;414 W. 13th Ave., Baltimore, MD 21236&quot;</span>
+store_address <span class="s2">&quot;Arvid Boyce&quot;</span> <span class="s2">&quot;202 E. 3rd St., New York, NY 10009&quot;</span>
+store_address <span class="s2">&quot;Velma Winston&quot;</span> <span class="s2">&quot;1854 Vermont Ave, Los Angeles, CA 90023&quot;</span>
+<span class="c">#  Exercise:</span>
+<span class="c">#  Rewrite the above store_address calls to read data from a file,</span>
+<span class="c">#+ then assign field 1 to name, field 2 to address in the array.</span>
+<span class="c">#  Each line in the file would have a format corresponding to the above.</span>
+<span class="c">#  Use a while-read loop to read from file, sed or awk to parse the fields.</span>
+
+fetch_address <span class="s2">&quot;Lucas Fayne&quot;</span>
+<span class="c"># Lucas Fayne&#39;s address is 414 W. 13th Ave., Baltimore, MD 21236.</span>
+fetch_address <span class="s2">&quot;Velma Winston&quot;</span>
+<span class="c"># Velma Winston&#39;s address is 1854 Vermont Ave, Los Angeles, CA 90023.</span>
+fetch_address <span class="s2">&quot;Arvid Boyce&quot;</span>
+<span class="c"># Arvid Boyce&#39;s address is 202 E. 3rd St., New York, NY 10009.</span>
+fetch_address <span class="s2">&quot;Bozo Bozeman&quot;</span>
+<span class="c"># Bozo Bozeman&#39;s address is not in database.</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>   <span class="c"># In this case, exit code = 99, since that is function return.</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="contributed-scripts.html#SAMORSE">Example A-53</a> for an
+interesting usage of an <em>associative array</em> .</p>
+</div></blockquote>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<p class="last">Elements of the <em>index</em> array may include embedded <a class="reference external" href="special-chars.html#WHITESPACEREF">space
+characters</a> , or even leading
+and/or trailing space characters. However, index array elements
+containing <em>only</em> <em>whitespace</em> are <em>not</em> permitted.</p>
+</div>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre> address<span class="o">[</span>   <span class="o">]=</span><span class="s2">&quot;Blank&quot;</span>
+<span class="c"># Error!</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>address<span class="o">[</span>   <span class="o">]=</span><span class="s2">&quot;Blank&quot;</span>   <span class="c"># Error!</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>address<span class="o">[</span>   <span class="o">]=</span><span class="s2">&quot;Blank&quot;</span>   <span class="c"># Error!</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Enhancements to the <a class="reference external" href="testbranch.html#CASEESAC1">case</a> construct:</li>
+</ul>
+<blockquote>
+<div>the ``                 ;;&amp;               `` and
+``                 ;&amp;               `` terminators.</div></blockquote>
+</div>
+<div class="section" id="exemple-7-testing-characters">
+<h2>Exemple 7. Testing characters<a class="headerlink" href="#exemple-7-testing-characters" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash4</span>
+
+test_char <span class="o">()</span>
+<span class="o">{</span>
+  <span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> in
+    <span class="o">[[</span>:print:<span class="o">]]</span> <span class="o">)</span>  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2"> is a printable character.&quot;</span><span class="p">;;&amp;</span>       <span class="c">#</span>
+    <span class="c"># The ;;&amp; terminator continues to the next pattern test.</span>
+    <span class="o">[[</span>:alnum:<span class="o">]]</span> <span class="o">)</span>  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2"> is an alpha/numeric character.&quot;</span><span class="p">;;&amp;</span>  <span class="c"># v</span>
+    <span class="o">[[</span>:alpha:<span class="o">]]</span> <span class="o">)</span>  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2"> is an alphabetic character.&quot;</span><span class="p">;;&amp;</span>     <span class="c"># v</span>
+    <span class="o">[[</span>:lower:<span class="o">]]</span> <span class="o">)</span>  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2"> is a lowercase alphabetic character.&quot;</span><span class="p">;;&amp;</span>
+    <span class="o">[[</span>:digit:<span class="o">]]</span> <span class="o">)</span>  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2"> is an numeric character.&quot;</span><span class="p">;&amp;</span>         <span class="c">#</span>
+    <span class="c"># The ;&amp; terminator executes the next statement ...         #</span>
+    %%%@@@@@    <span class="o">)</span>  <span class="nb">echo</span> <span class="s2">&quot;********************************&quot;</span><span class="p">;;</span>    <span class="c"># v</span>
+<span class="c">#   ^^^^^^^^  ... even with a dummy pattern.</span>
+  <span class="k">esac</span>
+<span class="o">}</span>
+
+<span class="nb">echo</span>
+
+test_char 3
+<span class="c"># 3 is a printable character.</span>
+<span class="c"># 3 is an alpha/numeric character.</span>
+<span class="c"># 3 is an numeric character.</span>
+<span class="c"># ********************************</span>
+<span class="nb">echo</span>
+
+test_char m
+<span class="c"># m is a printable character.</span>
+<span class="c"># m is an alpha/numeric character.</span>
+<span class="c"># m is an alphabetic character.</span>
+<span class="c"># m is a lowercase alphabetic character.</span>
+<span class="nb">echo</span>
+
+test_char /
+<span class="c"># / is a printable character.</span>
+
+<span class="nb">echo</span>
+
+<span class="c"># The ;;&amp; terminator can save complex if/then conditions.</span>
+<span class="c"># The ;&amp; is somewhat less useful.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>The new <strong>coproc</strong> builtin enables two parallel</li>
+</ul>
+<blockquote>
+<div><a class="reference external" href="special-chars.html#PROCESSREF">processes</a> to communicate and
+interact. As Chet Ramey states in the <a class="reference external" href="biblio.html#BASHFAQ">Bash
+FAQ</a> ` [2]  &lt;bashver4.html#FTN.AEN21068&gt;`__ ,
+ver. 4.01:</div></blockquote>
+<p>There&nbsp;is&nbsp;a&nbsp;new&nbsp;&#8216;coproc&#8217;&nbsp;reserved&nbsp;word&nbsp;that&nbsp;specifies&nbsp;a&nbsp;coprocess:</p>
+<blockquote>
+<div><blockquote>
+<div><p>an&nbsp;asynchronous&nbsp;command&nbsp;run&nbsp;with&nbsp;two&nbsp;pipes&nbsp;connected&nbsp;to&nbsp;the&nbsp;creating</p>
+<p>shell.&nbsp;Coprocs&nbsp;can&nbsp;be&nbsp;named.&nbsp;The&nbsp;input&nbsp;and&nbsp;output&nbsp;file&nbsp;descriptors</p>
+<p>and&nbsp;the&nbsp;PID&nbsp;of&nbsp;the&nbsp;coprocess&nbsp;are&nbsp;available&nbsp;to&nbsp;the&nbsp;calling&nbsp;shell&nbsp;in</p>
+</div></blockquote>
+<p>variables&nbsp;with&nbsp;coproc-specific&nbsp;names.
+George&nbsp;Dimitriu&nbsp;explains,</p>
+<blockquote>
+<div>&#8221;...&nbsp;coproc&nbsp;...&nbsp;is&nbsp;a&nbsp;feature&nbsp;used&nbsp;in&nbsp;Bash&nbsp;process&nbsp;substitution,</div></blockquote>
+<p>which&nbsp;now&nbsp;is&nbsp;made&nbsp;publicly&nbsp;available.&#8221;</p>
+<blockquote>
+<div>This&nbsp;means&nbsp;it&nbsp;can&nbsp;be&nbsp;explicitly&nbsp;invoked&nbsp;in&nbsp;a&nbsp;script,&nbsp;rather&nbsp;than</div></blockquote>
+<p>just&nbsp;being&nbsp;a&nbsp;behind-the-scenes&nbsp;mechanism&nbsp;used&nbsp;by&nbsp;Bash.</p>
+<blockquote>
+<div><p>Coprocesses use <em>file descriptors</em> . <a class="reference external" href="io-redirection.html#FDREF2">File descriptors enable
+processes and pipes to communicate</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash4</span>
+<span class="c"># A coprocess communicates with a while-read loop.</span>
+
+
+coproc <span class="o">{</span> cat mx_data.txt<span class="p">;</span> sleep 2<span class="p">;</span> <span class="o">}</span>
+<span class="c">#                         ^^^^^^^</span>
+<span class="c"># Try running this without &quot;sleep 2&quot; and see what happens.</span>
+
+<span class="k">while</span> <span class="nb">read</span> -u <span class="si">${</span><span class="nv">COPROC</span><span class="p">[0]</span><span class="si">}</span> line    <span class="c">#  ${COPROC[0]} is the</span>
+<span class="k">do</span>                                 <span class="c">#+ file descriptor of the coprocess.</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$line</span><span class="s2">&quot;</span>sed -e <span class="s1">&#39;s/line/NOT-ORIGINAL-TEXT/&#39;</span>
+<span class="k">done</span>
+
+<span class="nb">kill</span> <span class="nv">$COPROC_PID</span>                   <span class="c">#  No longer need the coprocess,</span>
+                                   <span class="c">#+ so kill its PID.</span>
+</pre></div>
+</div>
+<p>But, be careful!</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash4</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+<span class="nv">a</span><span class="o">=</span>aaa
+<span class="nv">b</span><span class="o">=</span>bbb
+<span class="nv">c</span><span class="o">=</span>ccc
+
+coproc <span class="nb">echo</span> <span class="s2">&quot;one two three&quot;</span>
+<span class="k">while</span> <span class="nb">read</span> -u <span class="si">${</span><span class="nv">COPROC</span><span class="p">[0]</span><span class="si">}</span> a b c<span class="p">;</span>  <span class="c">#  Note that this loop</span>
+<span class="k">do</span>                                 <span class="c">#+ runs in a subshell.</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Inside while-read loop: &quot;</span><span class="p">;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;b = </span><span class="nv">$b</span><span class="s2">&quot;</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;c = </span><span class="nv">$c</span><span class="s2">&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;coproc file descriptor: </span><span class="si">${</span><span class="nv">COPROC</span><span class="p">[0]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+
+<span class="c"># a = one</span>
+<span class="c"># b = two</span>
+<span class="c"># c = three</span>
+<span class="c"># So far, so good, but ...</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;-----------------&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Outside while-read loop: &quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>  <span class="c"># a =</span>
+<span class="nb">echo</span> <span class="s2">&quot;b = </span><span class="nv">$b</span><span class="s2">&quot;</span>  <span class="c"># b =</span>
+<span class="nb">echo</span> <span class="s2">&quot;c = </span><span class="nv">$c</span><span class="s2">&quot;</span>  <span class="c"># c =</span>
+<span class="nb">echo</span> <span class="s2">&quot;coproc file descriptor: </span><span class="si">${</span><span class="nv">COPROC</span><span class="p">[0]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span>
+<span class="c">#  The coproc is still running, but ...</span>
+<span class="c">#+ it still doesn&#39;t enable the parent process</span>
+<span class="c">#+ to &quot;inherit&quot; variables from the child process, the while-read loop.</span>
+
+<span class="c">#  Compare this to the &quot;badread.sh&quot; script.</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<p class="last">The coprocess is <em>asynchronous</em> , and this might cause a problem. It
+may terminate before another process has finished communicating with
+it.</p>
+</div>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash4</span>
+
+coproc cpname <span class="o">{</span> <span class="k">for</span>
+</pre></div>
+</div>
+<p>i in {0..10}; do echo &#8220;i
+ndex = $i&#8221;; done; }</p>
+<blockquote>
+<div>#      ^^^^^^ This i</div></blockquote>
+<dl class="docutils">
+<dt>s a <em>named</em> coprocess.</dt>
+<dd>read -u ${cpname[0]}
+echo $REPLY</dd>
+<dt>#  index = 0</dt>
+<dd>echo ${COPROC[0]}</dd>
+</dl>
+<p>#+ No output ... the cop
+rocess timed out</p>
+<blockquote>
+<div>#  after the first l</div></blockquote>
+<p>oop iteration.</p>
+<blockquote>
+<div># However, George Di</div></blockquote>
+<p>mitriu has a partial fix
+.</p>
+<blockquote>
+<div>coproc cpname { for</div></blockquote>
+<p>i in {0..10}; do echo &#8220;i
+ndex = $i&#8221;; done; sleep
+1;</p>
+<blockquote>
+<div><blockquote>
+<div>echo hi &gt; myo; cat -</div></blockquote>
+<dl class="docutils">
+<dt>&gt;&gt; myo; }</dt>
+<dd>#       ^^^^^ This i</dd>
+</dl>
+</div></blockquote>
+<p>s a <em>named</em> coprocess.</p>
+<blockquote>
+<div>echo &#8220;I am main&#8221;$&#8216;0</div></blockquote>
+<dl class="docutils">
+<dt>4&#8217; &gt;&amp;${cpname[1]}</dt>
+<dd><p class="first">myfd=${cpname[0]}
+echo myfd=$myfd</p>
+<p class="last">### while read -u $m</p>
+</dd>
+<dt>yfd</dt>
+<dd><blockquote class="first">
+<div><p>### do
+###   echo $REPLY;
+### done</p>
+<p>echo $cpname_PID</p>
+<p>#  Run this with and</p>
+</div></blockquote>
+<p class="last">without the commented-o</p>
+</dd>
+<dt>ut while-loop, and it is</dt>
+<dd>#+ apparent that eac</dd>
+<dt>h process, the executing</dt>
+<dd>shell and the coprocess</dd>
+</dl>
+<dl class="docutils">
+<dt>,</dt>
+<dd>#+ waits for the oth</dd>
+</dl>
+<p>er to finish writing in
+its own write-enabled pi
+pe.</p>
+<hr class="docutils" />
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash4</span>
+
+coproc cpname <span class="o">{</span> <span class="k">for</span> i in <span class="o">{</span>0..10<span class="o">}</span><span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="s2">&quot;index = </span><span class="nv">$i</span><span class="s2">&quot;</span><span class="p">;</span> <span class="k">done</span><span class="p">;</span> <span class="o">}</span>
+<span class="c">#      ^^^^^^ This is a *named* coprocess.</span>
+<span class="nb">read</span> -u <span class="si">${</span><span class="nv">cpname</span><span class="p">[0]</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="nv">$REPLY</span>         <span class="c">#  index = 0</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">COPROC</span><span class="p">[0]</span><span class="si">}</span>   <span class="c">#+ No output ... the coprocess timed out</span>
+<span class="c">#  after the first loop iteration.</span>
+
+
+
+<span class="c"># However, George Dimitriu has a partial fix.</span>
+
+coproc cpname <span class="o">{</span> <span class="k">for</span> i in <span class="o">{</span>0..10<span class="o">}</span><span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="s2">&quot;index = </span><span class="nv">$i</span><span class="s2">&quot;</span><span class="p">;</span> <span class="k">done</span><span class="p">;</span> sleep 1<span class="p">;</span>
+<span class="nb">echo </span>hi &gt; myo<span class="p">;</span> cat - &gt;&gt; myo<span class="p">;</span> <span class="o">}</span>
+<span class="c">#       ^^^^^ This is a *named* coprocess.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;I am main&quot;</span><span class="s1">$&#39;\04&#39;</span> &gt;<span class="p">&amp;</span><span class="si">${</span><span class="nv">cpname</span><span class="p">[1]</span><span class="si">}</span>
+<span class="nv">myfd</span><span class="o">=</span><span class="si">${</span><span class="nv">cpname</span><span class="p">[0]</span><span class="si">}</span>
+<span class="nb">echo </span><span class="nv">myfd</span><span class="o">=</span><span class="nv">$myfd</span>
+
+<span class="c">### while read -u $myfd</span>
+<span class="c">### do</span>
+<span class="c">###   echo $REPLY;</span>
+<span class="c">### done</span>
+
+<span class="nb">echo</span> <span class="nv">$cpname_PID</span>
+
+<span class="c">#  Run this with and without the commented-out while-loop, and it is</span>
+<span class="c">#+ apparent that each process, the executing shell and the coprocess,</span>
+<span class="c">#+ waits for the other to finish writing in its own write-enabled pipe.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash4</span>
+
+coproc cpname <span class="o">{</span> <span class="k">for</span> i in <span class="o">{</span>0..10<span class="o">}</span><span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="s2">&quot;index = </span><span class="nv">$i</span><span class="s2">&quot;</span><span class="p">;</span> <span class="k">done</span><span class="p">;</span> <span class="o">}</span>
+<span class="c">#      ^^^^^^ This is a *named* coprocess.</span>
+<span class="nb">read</span> -u <span class="si">${</span><span class="nv">cpname</span><span class="p">[0]</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="nv">$REPLY</span>         <span class="c">#  index = 0</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">COPROC</span><span class="p">[0]</span><span class="si">}</span>   <span class="c">#+ No output ... the coprocess timed out</span>
+<span class="c">#  after the first loop iteration.</span>
+
+
+
+<span class="c"># However, George Dimitriu has a partial fix.</span>
+
+coproc cpname <span class="o">{</span> <span class="k">for</span> i in <span class="o">{</span>0..10<span class="o">}</span><span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="s2">&quot;index = </span><span class="nv">$i</span><span class="s2">&quot;</span><span class="p">;</span> <span class="k">done</span><span class="p">;</span> sleep 1<span class="p">;</span>
+<span class="nb">echo </span>hi &gt; myo<span class="p">;</span> cat - &gt;&gt; myo<span class="p">;</span> <span class="o">}</span>
+<span class="c">#       ^^^^^ This is a *named* coprocess.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;I am main&quot;</span><span class="s1">$&#39;\04&#39;</span> &gt;<span class="p">&amp;</span><span class="si">${</span><span class="nv">cpname</span><span class="p">[1]</span><span class="si">}</span>
+<span class="nv">myfd</span><span class="o">=</span><span class="si">${</span><span class="nv">cpname</span><span class="p">[0]</span><span class="si">}</span>
+<span class="nb">echo </span><span class="nv">myfd</span><span class="o">=</span><span class="nv">$myfd</span>
+
+<span class="c">### while read -u $myfd</span>
+<span class="c">### do</span>
+<span class="c">###   echo $REPLY;</span>
+<span class="c">### done</span>
+
+<span class="nb">echo</span> <span class="nv">$cpname_PID</span>
+
+<span class="c">#  Run this with and without the commented-out while-loop, and it is</span>
+<span class="c">#+ apparent that each process, the executing shell and the coprocess,</span>
+<span class="c">#+ waits for the other to finish writing in its own write-enabled pipe.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>The new <strong>mapfile</strong> builtin makes it possible to load an array with</li>
+</ul>
+<blockquote>
+<div><p>the contents of a text file without using a loop or <a class="reference external" href="arrays.html#ARRAYINITCS">command
+substitution</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash4</span>
+
+mapfile Arr1 &lt; <span class="nv">$0</span>
+<span class="c"># Same result as     Arr1=( $(cat $0) )</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">Arr1</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c"># Copies this entire script out to stdout.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;--&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="c"># But, not the same as   read -a   !!!</span>
+<span class="nb">read</span> -a Arr2 &lt; <span class="nv">$0</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">Arr2</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c"># Reads only first line of script into the array.</span>
+
+<span class="nb">exit</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first">The <a class="reference external" href="internal.html#READREF">read</a> builtin got a minor facelift.
+The ``        -t       `` <a class="reference external" href="internal.html#READTIMED">timeout</a>
+option now accepts (decimal) fractional values ` [3]</p>
+<blockquote>
+<div><p>&lt;bashver4.html#FTN.AEN21096&gt;`__ and the ``        -i       `` option</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>permits preloading the edit buffer. ` [4]</dt>
+<dd><p class="first last">&lt;bashver4.html#FTN.AEN21101&gt;`__ Unfortunately, these enhancements</p>
+</dd>
+</dl>
+<p>are still a work in progress and not (yet) usable in scripts.</p>
+</li>
+</ul>
+<div class="section" id="substitucio-de-parametre-modificacio-majuscules-minuscules">
+<span id="bash4-modificacas"></span><h3>Substitució de paràmetre: modificació majúscules-minúscules<a class="headerlink" href="#substitucio-de-parametre-modificacio-majuscules-minuscules" title="Link permanent a aquest títol">¶</a></h3>
+<p>Amb la substitució de paràmetre, podem aconseguir canviar majúscules i minúscules:</p>
+<ul class="simple">
+<li><a class="reference external" href="special-chars.html#BRACEEXPREF">Brace expansion</a> has more</li>
+</ul>
+<blockquote>
+<div><p>options.</p>
+<p><em>Increment/decrement</em> , specified in the final term within braces.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash4</span>
+
+<span class="nb">echo</span> <span class="o">{</span>40..60..2<span class="o">}</span>
+<span class="c"># 40 42 44 46 48 50 52 54 56 58 60</span>
+<span class="c"># All the even numbers, between 40 and 60.</span>
+
+<span class="nb">echo</span> <span class="o">{</span>60..40..2<span class="o">}</span>
+<span class="c"># 60 58 56 54 52 50 48 46 44 42 40</span>
+<span class="c"># All the even numbers, between 40 and 60, counting backwards.</span>
+<span class="c"># In effect, a decrement.</span>
+<span class="nb">echo</span> <span class="o">{</span>60..40..-2<span class="o">}</span>
+<span class="c"># The same output. The minus sign is not necessary.</span>
+
+<span class="c"># But, what about letters and symbols?</span>
+<span class="nb">echo</span> <span class="o">{</span>X..d<span class="o">}</span>
+<span class="c"># X Y Z [  ] ^ _ ` a b c d</span>
+<span class="c"># Does not echo the \ which escapes a space.</span>
+</pre></div>
+</div>
+<p><em>Zero-padding</em> , specified in the first term within braces, prefixes
+each term in the output with the <em>same number</em> of zeroes.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash4<span class="nv">$ </span><span class="nb">echo</span> <span class="o">{</span>010..15<span class="o">}</span>
+<span class="m">010</span> <span class="m">011</span> <span class="m">012</span> <span class="m">013</span> <span class="m">014</span> 015
+
+
+bash4<span class="nv">$ </span><span class="nb">echo</span> <span class="o">{</span>000..10<span class="o">}</span>
+<span class="m">000</span> <span class="m">001</span> <span class="m">002</span> <span class="m">003</span> <span class="m">004</span> <span class="m">005</span> <span class="m">006</span> <span class="m">007</span> <span class="m">008</span> <span class="m">009</span> 010
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first"><a class="reference external" href="bashver4.html#SUBSTREXTREF4">*Substring extraction* on *positional
+parameters*</a> now starts with
+<a class="reference external" href="othertypesv.html#SCRNAMEPARAM">$0</a> as the <em>zero-index</em> . (This
+corrects an inconsistency in the treatment of positional parameters.)</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># show-params.bash</span>
+<span class="c"># Requires version 4+ of Bash.</span>
+
+<span class="c"># Invoke this scripts with at least one positional parameter.</span>
+
+<span class="nv">E_BADPARAMS</span><span class="o">=</span>99
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage </span><span class="nv">$0</span><span class="s2"> param1 ...&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADPARAMS</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span> <span class="si">${</span><span class="p">@:</span><span class="nv">0</span><span class="si">}</span>
+
+<span class="c"># bash3 show-params.bash4 one two three</span>
+<span class="c"># one two three</span>
+
+<span class="c"># bash4 show-params.bash4 one two three</span>
+<span class="c"># show-params.bash4 one two three</span>
+
+<span class="c"># $0                $1  $2  $3</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">The new ** <a class="reference external" href="globbingref.html">globbing</a> operator matches</p>
+</li>
+</ul>
+<blockquote>
+<div><p>filenames and directories
+<a class="reference external" href="localvar.html#RECURSIONREF0">recursively</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash4</span>
+<span class="c"># filelist.bash4</span>
+
+<span class="nb">shopt</span> -s globstar  <span class="c"># Must enable globstar, otherwise ** doesn&#39;t work.</span>
+                   <span class="c"># The globstar shell option is new to version 4 of Bash.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Using *&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+<span class="k">for</span> filename in *
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span>
+<span class="k">done</span>   <span class="c"># Lists only files in current directory ($PWD).</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;--------------&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Using **&quot;</span>
+<span class="k">for</span> filename in **
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span>
+<span class="k">done</span>   <span class="c"># Lists complete file tree, recursively.</span>
+
+<span class="nb">exit</span>
+
+Using *
+
+allmyfiles
+filelist.bash4
+
+--------------
+
+Using **
+
+allmyfiles
+allmyfiles/file.index.txt
+allmyfiles/my_music
+allmyfiles/my_music/me-singing-60s-folksongs.ogg
+allmyfiles/my_music/me-singing-opera.ogg
+allmyfiles/my_music/piano-lesson.1.ogg
+allmyfiles/my_pictures
+allmyfiles/my_pictures/at-beach-with-Jade.png
+allmyfiles/my_pictures/picnic-with-Melissa.png
+filelist.bash4
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first">The new <a class="reference external" href="internalvariables.html#BASHPIDREF">$BASHPID</a> internal
+variable.</p>
+</li>
+<li><p class="first">There is a new <a class="reference external" href="internal.html#BUILTINREF">builtin</a> error-handling
+function named <strong>command_not_found_handle</strong> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash4</span>
+
+command_not_found_handle <span class="o">()</span>
+<span class="o">{</span> <span class="c"># Accepts implicit parameters.</span>
+  <span class="nb">echo</span> <span class="s2">&quot;The following command is not valid: \&quot;&quot;</span><span class="nv">$1</span><span class="se">\&quot;</span><span class="s2">&quot;&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;With the following argument(s): \&quot;&quot;</span><span class="nv">$2</span><span class="se">\&quot;</span><span class="s2">&quot; \&quot;&quot;</span><span class="nv">$3</span><span class="se">\&quot;</span><span class="s2">&quot;&quot;</span>   <span class="c"># $4, $5 ...</span>
+<span class="o">}</span> <span class="c"># $1, $2, etc. are not explicitly passed to the function.</span>
+
+bad_command arg1 arg2
+
+<span class="c"># The following command is not valid: &quot;bad_command&quot;</span>
+<span class="c"># With the following argument(s): &quot;arg1&quot; &quot;arg2&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p><em>Editorial comment</em></p>
+<p>Associative arrays? Coprocesses? Whatever happened to the lean and mean
+Bash we have come to know and love? Could it be suffering from
+(horrors!) &#8220;feature creep&#8221; ? Or perhaps even Korn shell envy?</p>
+<p><em>Note to Chet Ramey:</em> Please add only <em>essential</em> features in future
+Bash releases &#8211; perhaps <em>for-each</em> loops and support for
+multi-dimensional arrays. ` [5]  &lt;bashver4.html#FTN.AEN21179&gt;`__ Most
+Bash users won&#8217;t need, won&#8217;t use, and likely won&#8217;t greatly appreciate
+complex &#8220;features&#8221; like built-in debuggers, Perl interfaces, and bolt-on
+rocket boosters.</p>
+<blockquote>
+<div>37.3.1. Bash, version 4.1</div></blockquote>
+<hr class="docutils" />
+<blockquote>
+<div>Version 4.1 of Bash, released in May, 2010, was primarily a bugfix</div></blockquote>
+<p>update.</p>
+<ul class="simple">
+<li>The <a class="reference external" href="internal.html#PRINTFREF">printf</a> command now accepts a
+``         -v        `` option for setting
+<a class="reference external" href="arrays.html#ARRAYREF">array</a> indices.</li>
+<li>Within <a class="reference external" href="testconstructs.html#DBLBRACKETS">double brackets</a> , the
+<strong>&gt;</strong> and <strong>&lt;</strong> string comparison operators now conform to the
+<a class="reference external" href="localization.html#LOCALEREF">locale</a> . Since the locale setting
+may affect the sorting order of string expressions, this has
+side-effects on comparison tests within <em>[[ ... ]]</em> expressions.</li>
+<li>The <a class="reference external" href="internal.html#READREF">read</a> builtin now takes a
+``         -N        `` option ( <em>read -N chars</em> ), which causes the
+<em>read</em> to terminate after <em>chars</em> characters.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="exemple-8-reading-n-characters">
+<h2>Exemple 8. Reading N characters<a class="headerlink" href="#exemple-8-reading-n-characters" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Requires Bash version -ge 4.1 ...</span>
+
+<span class="nv">num_chars</span><span class="o">=</span>61
+
+<span class="nb">read</span> -N <span class="nv">$num_chars</span> var &lt; <span class="nv">$0</span>   <span class="c"># Read first 61 characters of script!</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span>
+<span class="nb">exit</span>
+
+<span class="c">####### Output of Script #######</span>
+
+<span class="c">#!/bin/bash</span>
+<span class="c"># Requires Bash version -ge 4.1 ...</span>
+
+<span class="nv">num_chars</span><span class="o">=</span>61
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><a class="reference external" href="here-docs.html#HEREDOCREF">Here documents</a> embedded in
+``                     $( ... )                   `` command
+substitution &lt;varassignment.html#COMMANDSUBREF0&gt;`__ constructs may
+terminate with a simple <strong>)</strong> .</li>
+</ul>
+</div>
+<div class="section" id="exemple-9-using-a-here-document-to-set-a-variable">
+<h2>Exemple 9. Using a <em>here document</em> to set a variable<a class="headerlink" href="#exemple-9-using-a-here-document-to-set-a-variable" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># here-commsub.sh</span>
+<span class="c"># Requires Bash version -ge 4.1 ...</span>
+
+<span class="nv">multi_line_var</span><span class="o">=</span><span class="k">$(</span> cat <span class="s">&lt;&lt;ENDxxx</span>
+<span class="s">------------------------------</span>
+<span class="s">This is line 1 of the variable</span>
+<span class="s">This is line 2 of the variable</span>
+<span class="s">This is line 3 of the variable</span>
+<span class="s">------------------------------</span>
+<span class="s">ENDxxx</span><span class="k">)</span>
+
+<span class="c">#  Rather than what Bash 4.0 requires:</span>
+<span class="c">#+ that the terminating limit string and</span>
+<span class="c">#+ the terminating close-parenthesis be on separate lines.</span>
+
+<span class="c"># ENDxxx</span>
+<span class="c"># )</span>
+
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$multi_line_var</span><span class="s2">&quot;</span>
+
+<span class="c">#  Bash still emits a warning, though.</span>
+<span class="c">#  warning: here-document at line 10 delimited</span>
+<span class="c">#+ by end-of-file (wanted `ENDxxx&#39;)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>37.3.2. Bash, version 4.2</p>
+</div></blockquote>
+<hr class="docutils" />
+<blockquote>
+<div>Version 4.2 of Bash, released in February, 2011, contains a number of</div></blockquote>
+<p>new features and enhancements, in addition to bugfixes.</p>
+<ul>
+<li><p class="first">Bash now supports the the ``                   u                 ``
+and ``                   U                 `` <em>Unicode</em> escape.</p>
+<p>Unicode is a cross-platform standard for encoding into numerical
+values letters and graphic symbols. This permits representing and
+displaying characters in foreign alphabets and unusual fonts.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">echo</span> -e <span class="s1">&#39;\u2630&#39;</span>   <span class="c"># Horizontal triple bar character.</span>
+<span class="c"># Equivalent to the more roundabout:</span>
+<span class="nb">echo</span> -e <span class="s2">&quot;\xE2\x98\xB0&quot;</span>
+                   <span class="c"># Recognized by earlier Bash versions.</span>
+
+<span class="nb">echo</span> -e <span class="s1">&#39;\u220F&#39;</span>   <span class="c"># PI (Greek letter and mathematical symbol)</span>
+<span class="nb">echo</span> -e <span class="s1">&#39;\u0416&#39;</span>   <span class="c"># Capital &quot;ZHE&quot; (Cyrillic letter)</span>
+<span class="nb">echo</span> -e <span class="s1">&#39;\u2708&#39;</span>   <span class="c"># Airplane (Dingbat font) symbol</span>
+<span class="nb">echo</span> -e <span class="s1">&#39;\u2622&#39;</span>   <span class="c"># Radioactivity trefoil</span>
+
+<span class="nb">echo</span> -e <span class="s2">&quot;The amplifier circuit requires a 100 \u2126 pull-up resistor.&quot;</span>
+
+
+<span class="nv">unicode_var</span><span class="o">=</span><span class="s1">&#39;\u2640&#39;</span>
+<span class="nb">echo</span> -e <span class="nv">$unicode_var</span>      <span class="c"># Female symbol</span>
+<span class="nb">printf</span> <span class="s2">&quot;</span><span class="nv">$unicode_var</span><span class="s2"> \n&quot;</span>  <span class="c"># Female symbol, with newline</span>
+
+
+<span class="c">#  And for something a bit more elaborate . . .</span>
+
+<span class="c">#  We can store Unicode symbols in an associative array,</span>
+<span class="c">#+ then retrieve them by name.</span>
+<span class="c">#  Run this in a gnome-terminal or a terminal with a large, bold font</span>
+<span class="c">#+ for better legibility.</span>
+
+<span class="nb">declare</span> -A symbol  <span class="c"># Associative array.</span>
+
+symbol<span class="o">[</span>script_E<span class="o">]=</span><span class="s1">&#39;\u2130&#39;</span>
+symbol<span class="o">[</span>script_F<span class="o">]=</span><span class="s1">&#39;\u2131&#39;</span>
+symbol<span class="o">[</span>script_J<span class="o">]=</span><span class="s1">&#39;\u2110&#39;</span>
+symbol<span class="o">[</span>script_M<span class="o">]=</span><span class="s1">&#39;\u2133&#39;</span>
+symbol<span class="o">[</span>Rx<span class="o">]=</span><span class="s1">&#39;\u211E&#39;</span>
+symbol<span class="o">[</span>TEL<span class="o">]=</span><span class="s1">&#39;\u2121&#39;</span>
+symbol<span class="o">[</span>FAX<span class="o">]=</span><span class="s1">&#39;\u213B&#39;</span>
+symbol<span class="o">[</span>care_of<span class="o">]=</span><span class="s1">&#39;\u2105&#39;</span>
+symbol<span class="o">[</span>account<span class="o">]=</span><span class="s1">&#39;\u2100&#39;</span>
+symbol<span class="o">[</span>trademark<span class="o">]=</span><span class="s1">&#39;\u2122&#39;</span>
+
+
+<span class="nb">echo</span> -ne <span class="s2">&quot;</span><span class="si">${</span><span class="nv">symbol</span><span class="p">[script_E]</span><span class="si">}</span><span class="s2">   &quot;</span>
+<span class="nb">echo</span> -ne <span class="s2">&quot;</span><span class="si">${</span><span class="nv">symbol</span><span class="p">[script_F]</span><span class="si">}</span><span class="s2">   &quot;</span>
+<span class="nb">echo</span> -ne <span class="s2">&quot;</span><span class="si">${</span><span class="nv">symbol</span><span class="p">[script_J]</span><span class="si">}</span><span class="s2">   &quot;</span>
+<span class="nb">echo</span> -ne <span class="s2">&quot;</span><span class="si">${</span><span class="nv">symbol</span><span class="p">[script_M]</span><span class="si">}</span><span class="s2">   &quot;</span>
+<span class="nb">echo</span> -ne <span class="s2">&quot;</span><span class="si">${</span><span class="nv">symbol</span><span class="p">[Rx]</span><span class="si">}</span><span class="s2">   &quot;</span>
+<span class="nb">echo</span> -ne <span class="s2">&quot;</span><span class="si">${</span><span class="nv">symbol</span><span class="p">[TEL]</span><span class="si">}</span><span class="s2">   &quot;</span>
+<span class="nb">echo</span> -ne <span class="s2">&quot;</span><span class="si">${</span><span class="nv">symbol</span><span class="p">[FAX]</span><span class="si">}</span><span class="s2">   &quot;</span>
+<span class="nb">echo</span> -ne <span class="s2">&quot;</span><span class="si">${</span><span class="nv">symbol</span><span class="p">[care_of]</span><span class="si">}</span><span class="s2">   &quot;</span>
+<span class="nb">echo</span> -ne <span class="s2">&quot;</span><span class="si">${</span><span class="nv">symbol</span><span class="p">[account]</span><span class="si">}</span><span class="s2">   &quot;</span>
+<span class="nb">echo</span> -ne <span class="s2">&quot;</span><span class="si">${</span><span class="nv">symbol</span><span class="p">[trademark]</span><span class="si">}</span><span class="s2">   &quot;</span>
+<span class="nb">echo</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">The above example uses the <a class="reference external" href="escapingsection.html#STRQ">**$&#8217; ...
+&#8216;**</a> <em>string-expansion</em> construct.</p>
+</div>
+<ul class="simple">
+<li>When the ``                   lastpipe                 `` shell
+option is set, the last command in a
+<a class="reference external" href="special-chars.html#PIPEREF">pipe</a> <em>doesn&#8217;t run in a subshell</em> .</li>
+</ul>
+</div>
+<div class="section" id="exemple-10-piping-input-to-a-read">
+<h2>Exemple 10. Piping input to a <a class="reference external" href="internal.html#READREF">read</a><a class="headerlink" href="#exemple-10-piping-input-to-a-read" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># lastpipe-option.sh</span>
+
+<span class="nv">line</span><span class="o">=</span><span class="s1">&#39;&#39;</span>                   <span class="c"># Null value.</span>
+<span class="nb">echo</span> <span class="s2">&quot;\$line = &quot;</span><span class="nv">$line</span><span class="s2">&quot;&quot;</span>   <span class="c"># $line =</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">shopt</span> -s lastpipe         <span class="c"># Error on Bash version -lt 4.2.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Exit status of attempting to set \&quot;lastpipe\&quot; option is </span><span class="nv">$?</span><span class="s2">&quot;</span>
+<span class="c">#     1 if Bash version -lt 4.2, 0 otherwise.</span>
+
+<span class="nb">echo</span>
+
+head -1 <span class="nv">$0read</span> line    <span class="c"># Pipe the first line of the script to read.</span>
+<span class="c">#            ^^^^^^^^^      Not in a subshell!!!</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;\$line = &quot;</span><span class="nv">$line</span><span class="s2">&quot;&quot;</span>
+<span class="c"># Older Bash releases       $line =</span>
+<span class="c"># Bash version 4.2          $line = #!/bin/bash</span>
+</pre></div>
+</div>
+<p>This option offers possible &#8220;fixups&#8221; for these example scripts:
+<a class="reference external" href="gotchas.html#BADREAD">Example 34-3</a> and <a class="reference external" href="internal.html#READPIPE">Example
+15-8</a> .</p>
+</div></blockquote>
+<ul class="simple">
+<li>Negative <a class="reference external" href="arrays.html#ARRAYREF">array</a> indices permit counting
+backwards from the end of an array.</li>
+</ul>
+</div>
+<div class="section" id="exemple-11-negative-array-indices">
+<h2>Exemple 11. Negative array indices<a class="headerlink" href="#exemple-11-negative-array-indices" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># neg-array.sh</span>
+<span class="c"># Requires Bash, version -ge 4.2.</span>
+
+<span class="nv">array</span><span class="o">=(</span> zero one two three four five <span class="o">)</span>   <span class="c"># Six-element array.</span>
+<span class="c">#         0    1   2    3    4    5</span>
+<span class="c">#        -6   -5  -4   -3   -2   -1</span>
+
+<span class="c"># Negative array indices now permitted.</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">array</span><span class="p">[-1]</span><span class="si">}</span>   <span class="c"># five</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">array</span><span class="p">[-2]</span><span class="si">}</span>   <span class="c"># four</span>
+<span class="c"># ...</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">array</span><span class="p">[-6]</span><span class="si">}</span>   <span class="c"># zero</span>
+<span class="c"># Negative array indices count backward from the last element+1.</span>
+
+<span class="c"># But, you cannot index past the beginning of the array.</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">array</span><span class="p">[-7]</span><span class="si">}</span>   <span class="c"># array: bad array subscript</span>
+
+
+<span class="c"># So, what is this new feature good for?</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;The last element in the array is &quot;</span><span class="si">${</span><span class="nv">array</span><span class="p">[-1]</span><span class="si">}</span><span class="s2">&quot;&quot;</span>
+<span class="c"># Which is quite a bit more straightforward than:</span>
+<span class="nb">echo</span> <span class="s2">&quot;The last element in the array is &quot;</span><span class="si">${</span><span class="nv">array</span><span class="p">[</span><span class="si">${#</span><span class="nv">array</span><span class="p">[*]</span><span class="si">}</span><span class="p">-1]</span><span class="si">}</span><span class="s2">&quot;&quot;</span>
+<span class="nb">echo</span>
+
+<span class="c"># And ...</span>
+
+<span class="nv">index</span><span class="o">=</span>0
+<span class="nb">let</span> <span class="s2">&quot;neg_element_count = 0 - </span><span class="si">${#</span><span class="nv">array</span><span class="p">[*]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="c"># Number of elements, converted to a negative number.</span>
+
+<span class="k">while</span> <span class="o">[</span> <span class="nv">$index</span> -gt <span class="nv">$neg_element_count</span> <span class="o">]</span><span class="p">;</span> <span class="k">do</span>
+  <span class="o">((</span>index--<span class="o">))</span><span class="p">;</span> <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="si">${</span><span class="nv">array</span><span class="p">[index]</span><span class="si">}</span><span class="s2"> &quot;</span>
+<span class="k">done</span>  <span class="c"># Lists the elements in the array, backwards.</span>
+      <span class="c"># We have just simulated the &quot;tac&quot; command on this array.</span>
+
+<span class="nb">echo</span>
+
+<span class="c"># See also neg-offset.sh.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><a class="reference external" href="string-manipulation.html#SUBSTREXTR01">Substring extraction</a> uses
+a negative <em>length</em> parameter to specify an offset from the <em>end</em> of
+the target string.</li>
+</ul>
+</div>
+<div class="section" id="exemple-12-negative-parameter-in-string-extraction-construct">
+<h2>Exemple 12. Negative parameter in string-extraction construct<a class="headerlink" href="#exemple-12-negative-parameter-in-string-extraction-construct" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Bash, version -ge 4.2</span>
+<span class="c"># Negative length-index in substring extraction.</span>
+<span class="c"># Important: It changes the interpretation of this construct!</span>
+
+<span class="nv">stringZ</span><span class="o">=</span>abcABC123ABCabc
+
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">stringZ</span><span class="si">}</span>                              <span class="c"># abcABC123ABCabc</span>
+<span class="c">#                   Position within string:    0123456789.....</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">stringZ</span><span class="p">:</span><span class="nv">2</span><span class="p">:</span><span class="nv">3</span><span class="si">}</span>                          <span class="c">#   cAB</span>
+<span class="c">#  Count 2 chars forward from string beginning, and extract 3 chars.</span>
+<span class="c">#  ${string:position:length}</span>
+
+<span class="c">#  So far, nothing new, but now ...</span>
+
+                                             <span class="c"># abcABC123ABCabc</span>
+<span class="c">#                   Position within string:    0123....6543210</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">stringZ</span><span class="p">:</span><span class="nv">3</span><span class="k">:-</span><span class="nv">6</span><span class="si">}</span>                         <span class="c">#    ABC123</span>
+<span class="c">#                ^</span>
+<span class="c">#  Index 3 chars forward from beginning and 6 chars backward from end,</span>
+<span class="c">#+ and extract everything in between.</span>
+<span class="c">#  ${string:offset-from-front:offset-from-end}</span>
+<span class="c">#  When the &quot;length&quot; parameter is negative,</span>
+<span class="c">#+ it serves as an offset-from-end parameter.</span>
+
+<span class="c">#  See also neg-array.sh.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>` [1]  &lt;bashver4.html#AEN21025&gt;`__</p>
+<p>To be more specific, Bash 4+ has <em>limited</em> support for associative
+arrays. It&#8217;s a bare-bones implementation, and it lacks the much of the
+functionality of such arrays in other programming languages. Note,
+however, that <a class="reference external" href="optimizations.html#ASSOCARRTST">associative arrays in Bash seem to execute faster and
+more efficiently than numerically-indexed
+arrays</a> .</p>
+<p>` [2]  &lt;bashver4.html#AEN21068&gt;`__</p>
+<p>Copyright 1995-2009 by Chester Ramey.</p>
+<p>` [3]  &lt;bashver4.html#AEN21096&gt;`__</p>
+<p>This only works with <a class="reference external" href="special-chars.html#PIPEREF">pipes</a> and certain
+other <em>special</em> files.</p>
+<p>` [4]  &lt;bashver4.html#AEN21101&gt;`__</p>
+<p>But only in conjunction with <a class="reference external" href="internal.html#READLINEREF">readline</a> ,
+i.e., from the command-line.</p>
+<p>` [5]  &lt;bashver4.html#AEN21179&gt;`__</p>
+<p>And while you&#8217;re at it, consider fixing the notorious <a class="reference external" href="internal.html#PIPEREADREF0">piped
+read</a> problem.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

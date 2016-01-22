@@ -1,0 +1,511 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 7.2. File test operators &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="Part 2. Conceptes bàsics" href="part2.html"/>
+        <link rel="next" title="XXX 7.3. Other Comparison Operators" href="comparison-ops.html"/>
+        <link rel="prev" title="XXX 7.1. Test Constructs" href="testconstructs.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="special-chars.html">XXX 3. Caràcters especials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">4. Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quoting.html">Chapter 5. Cometes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exit-status.html">XXX Chapter 6. Exit and Exit Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html">XXX Chapter 7. Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testconstructs.html">XXX  7.1. Test Constructs</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  7.2. File test operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparison-ops.html">XXX  7.3. Other Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedifthen.html">7.4. Condicionals aniuats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testtest.html">XXX  7.5. Testing Your Knowledge of Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations.html">XXX Chapter 8. Operations and Related Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ops.html">XXX  8.1. Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="numerical-constants.html">XXX  8.2. Numerical Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dblparens.html">XXX  8.3. The Double-Parentheses Construct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opprecedence.html">XXX  8.4. Operator Precedence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part2.html">Part 2. Conceptes bàsics</a> &raquo;</li>
+      
+    <li>XXX  7.2. File test operators</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-7-2-file-test-operators">
+<h1>XXX  7.2. File test operators<a class="headerlink" href="#xxx-7-2-file-test-operators" title="Link permanent a aquest títol">¶</a></h1>
+<p>** Returns true if...**</p>
+<blockquote>
+<div><table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-e</span></kbd></td>
+<td>file exists</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-a</span></kbd></td>
+<td><p class="first">file exists</p>
+<dl class="last docutils">
+<dt>This is identical in effect to -e . It has been &#8220;deprecated,&#8221; ` [1]</dt>
+<dd>&lt;fto.html#FTN.AEN3289&gt;`__ and its use is discouraged.</dd>
+</dl>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-f</span></kbd></td>
+<td>file is a ``                   regular                 `` file (not
+a directory or <a class="reference external" href="devref1.html#DEVFILEREF">device file</a> )</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-s</span></kbd></td>
+<td>file is not zero size</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-d</span></kbd></td>
+<td>file is a directory</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-b</span></kbd></td>
+<td>file is a <a class="reference external" href="devref1.html#BLOCKDEVREF">block device</a></td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-c</span></kbd></td>
+<td><blockquote class="first">
+<div>file is a <a class="reference external" href="devref1.html#CHARDEVREF">character device</a></div></blockquote>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="nv">device0</span><span class="o">=</span><span class="s2">&quot;/dev/sda2&quot;</span>    <span class="c"># /   (root directory)</span>
+<span class="k">if</span> <span class="o">[</span> -b <span class="s2">&quot;</span><span class="nv">$device0</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$device0</span><span class="s2"> is a block device.&quot;</span>
+<span class="k">fi</span>
+
+<span class="c"># /dev/sda2 is a block device.</span>
+
+
+
+<span class="nv">device1</span><span class="o">=</span><span class="s2">&quot;/dev/ttyS1&quot;</span>   <span class="c"># PCMCIA modem card.</span>
+<span class="k">if</span> <span class="o">[</span> -c <span class="s2">&quot;</span><span class="nv">$device1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$device1</span><span class="s2"> is a character device.&quot;</span>
+<span class="k">fi</span>
+
+<span class="c"># /dev/ttyS1 is a character device.</span>
+</pre></div>
+</div>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-p</span></kbd></td>
+<td><p class="first">file is a <a class="reference external" href="special-chars.html#PIPEREF">pipe</a></p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="k">function</span> show_input_type<span class="o">()</span>
+<span class="o">{</span>
+   <span class="o">[</span> -p /dev/fd/0 <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo </span>PIPE <span class="p">|</span><span class="nb">echo </span>STDIN
+<span class="o">}</span>
+
+show_input_type <span class="s2">&quot;Input&quot;</span>                           <span class="c"># STDIN</span>
+<span class="nb">echo</span> <span class="s2">&quot;Input&quot;</span>show_input_type                    <span class="c"># PIPE</span>
+
+<span class="c"># This example courtesy of Carl Anderson.</span>
+</pre></div>
+</div>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-h</span></kbd></td>
+<td>file is a <a class="reference external" href="basic.html#SYMLINKREF">symbolic link</a></td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-L</span></kbd></td>
+<td>file is a symbolic link</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-S</span></kbd></td>
+<td>file is a <a class="reference external" href="devref1.html#SOCKETREF">socket</a></td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-t</span></kbd></td>
+<td><blockquote class="first">
+<div>file ( <a class="reference external" href="io-redirection.html#FDREF">descriptor</a> ) is associated</div></blockquote>
+<p>with a terminal device</p>
+<p class="last">This test option <a class="reference external" href="intandnonint.html#II2TEST">may be used to
+check</a> whether the
+``         stdin        ``
+``                   [ -t 0 ]                 `` or
+``         stdout        ``
+``                   [ -t 1 ]                 `` in a given script
+is a terminal.</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-r</span></kbd></td>
+<td>file has read permission ( <em>for the user running the test</em> )</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-w</span></kbd></td>
+<td>file has write permission (for the user running the test)</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-x</span></kbd></td>
+<td>file has execute permission (for the user running the test)</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-g</span></kbd></td>
+<td><p class="first">set-group-id (sgid) flag set on file or directory</p>
+<p class="last">If a directory has the ``                   sgid                 ``
+flag set, then a file created within that directory belongs to the
+group that owns the directory, not necessarily to the group of the
+user who created the file. This may be useful for a directory shared
+by a workgroup.</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-u</span></kbd></td>
+<td><p class="first">set-user-id (suid) flag set on file</p>
+<p>A binary owned by <em>root</em> with
+``                   set-user-id                 `` flag set runs
+with <em>root</em> privileges, even when an ordinary user invokes it. ` [2]</p>
+<blockquote>
+<div>&lt;fto.html#FTN.AEN3400&gt;`__ This is useful for executables (such as</div></blockquote>
+<p><strong>pppd</strong> and <strong>cdrecord</strong> ) that need to access system hardware.
+Lacking the <em>suid</em> flag, these binaries could not be invoked by a
+<em>non-root</em> user.</p>
+<div class="highlight-sh"><div class="highlight"><pre>-rwsr-xr-t    <span class="m">1</span> root       <span class="m">178236</span> Oct  <span class="m">2</span>  <span class="m">2000</span> /usr/sbin/pppd
+</pre></div>
+</div>
+<p class="last">A file with the ``                   suid                 `` flag
+set shows an <em>s</em> in its permissions.</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-k</span></kbd></td>
+<td><p class="first">``                   sticky bit                 `` set</p>
+<p>Commonly known as the <em>sticky bit,</em> the <em>save-text-mode</em> flag is a
+special type of file permission. If a file has this flag set, that
+file will be kept in cache memory, for quicker access. ` [3]</p>
+<blockquote>
+<div>&lt;fto.html#FTN.AEN3423&gt;`__ If set on a directory, it restricts write</div></blockquote>
+<p>permission. Setting the sticky bit adds a <em>t</em> to the permissions on
+the file or directory listing. This restricts altering or deleting
+specific files in that directory to the owner of those files.</p>
+<div class="highlight-sh"><div class="highlight"><pre>drwxrwxrwt    <span class="m">7</span> root         <span class="m">1024</span> May <span class="m">19</span> 21:26 tmp/
+</pre></div>
+</div>
+<p class="last">If a user does not own a directory that has the sticky bit set, but
+has write permission in that directory, she can only delete those
+files that she owns in it. This keeps users from inadvertently
+overwriting or deleting each other&#8217;s files in a publicly accessible
+directory, such as ``         /tmp        `` . (The <em>owner</em> of the
+directory or <em>root</em> can, of course, delete or rename files there.)</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-O</span></kbd></td>
+<td>you are owner of file</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-G</span></kbd></td>
+<td>group-id of file same as yours</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-N</span></kbd></td>
+<td>file modified since it was last read</td></tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>f1 -nt f2</dt>
+<dd>file ``                   f1                 `` is newer than
+``                   f2                 ``</dd>
+<dt>f1 -ot f2</dt>
+<dd>file ``                   f1                 `` is older than
+``                   f2                 ``</dd>
+<dt>f1 -ef f2</dt>
+<dd>files ``                   f1                 `` and
+``                   f2                 `` are hard links to the
+same file</dd>
+</dl>
+<dl class="docutils">
+<dt>!</dt>
+<dd><blockquote class="first">
+<div>&#8220;not&#8221; &#8211; reverses the sense of the tests above (returns true if</div></blockquote>
+<p class="last">condition absent).</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="section" id="exemple-4-testing-for-broken-links">
+<h2>Exemple 4. Testing for broken links<a class="headerlink" href="#exemple-4-testing-for-broken-links" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># broken-link.sh</span>
+<span class="c"># Written by Lee bigelow &lt;ligelowbee@yahoo.com&gt;</span>
+<span class="c"># Used in ABS Guide with permission.</span>
+
+<span class="c">#  A pure shell script to find dead symlinks and output them quoted</span>
+<span class="c">#+ so they can be fed to xargs and dealt with :)</span>
+<span class="c">#+ eg. sh broken-link.sh /somedir /someotherdir|xargs rm</span>
+<span class="c">#</span>
+<span class="c">#  This, however, is a better method:</span>
+<span class="c">#</span>
+<span class="c">#  find &quot;somedir&quot; -type l -print0|\</span>
+<span class="c">#  xargs -r0 file|\</span>
+<span class="c">#  grep &quot;broken symbolic&quot;</span>
+<span class="c">#  sed -e &#39;s/^\|: *broken symbolic.*$/&quot;/g&#39;</span>
+<span class="c">#</span>
+<span class="c">#+ but that wouldn&#39;t be pure Bash, now would it.</span>
+<span class="c">#  Caution: beware the /proc file system and any circular links!</span>
+<span class="c">################################################################</span>
+
+
+<span class="c">#  If no args are passed to the script set directories-to-search</span>
+<span class="c">#+ to current directory.  Otherwise set the directories-to-search</span>
+<span class="c">#+ to the args passed.</span>
+<span class="c">######################</span>
+
+<span class="o">[</span> <span class="nv">$# </span>-eq <span class="m">0</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nv">directorys</span><span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span> <span class="p">|</span><span class="nv">directorys</span><span class="o">=</span><span class="nv">$@</span>
+
+
+<span class="c">#  Setup the function linkchk to check the directory it is passed</span>
+<span class="c">#+ for files that are links and don&#39;t exist, then print them quoted.</span>
+<span class="c">#  If one of the elements in the directory is a subdirectory then</span>
+<span class="c">#+ send that subdirectory to the linkcheck function.</span>
+<span class="c">##########</span>
+
+linkchk <span class="o">()</span> <span class="o">{</span>
+    <span class="k">for</span> element in <span class="nv">$1</span>/*<span class="p">;</span> <span class="k">do</span>
+      <span class="o">[</span> -h <span class="s2">&quot;</span><span class="nv">$element</span><span class="s2">&quot;</span> -a ! -e <span class="s2">&quot;</span><span class="nv">$element</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="se">\&quot;</span><span class="nv">$element</span><span class="se">\&quot;</span>
+      <span class="o">[</span> -d <span class="s2">&quot;</span><span class="nv">$element</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> linkchk <span class="nv">$element</span>
+    <span class="c"># Of course, &#39;-h&#39; tests for symbolic link, &#39;-d&#39; for directory.</span>
+    <span class="k">done</span>
+<span class="o">}</span>
+
+<span class="c">#  Send each arg that was passed to the script to the linkchk() function</span>
+<span class="c">#+ if it is a valid directoy.  If not, then print the error message</span>
+<span class="c">#+ and usage info.</span>
+<span class="c">##################</span>
+<span class="k">for</span> directory in <span class="nv">$directorys</span><span class="p">;</span> <span class="k">do</span>
+    <span class="k">if</span> <span class="o">[</span> -d <span class="nv">$directory</span> <span class="o">]</span>
+    <span class="k">then</span> linkchk <span class="nv">$directory</span>
+    <span class="k">else</span>
+        <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$directory</span><span class="s2"> is not a directory&quot;</span>
+        <span class="nb">echo</span> <span class="s2">&quot;Usage: </span><span class="nv">$0</span><span class="s2"> dir1 dir2 ...&quot;</span>
+    <span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="zeros.html#COOKIES">Example 31-1</a> , <a class="reference external" href="loops1.html#BINGREP">Example
+11-8</a> , <a class="reference external" href="loops1.html#FILEINFO">Example 11-3</a>
+, <a class="reference external" href="zeros.html#RAMDISK">Example 31-3</a> , and <a class="reference external" href="contributed-scripts.html#MAILFORMAT">Example
+A-1</a> also illustrate uses of the
+file test operators.</p>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;fto.html#AEN3289&gt;`__</p>
+<p>Per the 1913 edition of <em>Webster&#8217;s Dictionary</em> :</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>Deprecate
+...
+
+To pray against, as
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>an evil;</dt>
+<dd>to seek to avert by</dd>
+<dt>prayer;</dt>
+<dd>to desire the remova</dd>
+<dt>l of;</dt>
+<dd>to seek deliverance</dd>
+<dt>from;</dt>
+<dd>to express deep regr</dd>
+<dt>et for;</dt>
+<dd>to disapprove of str</dd>
+</dl>
+<p>ongly.</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>Deprecate
+...
+
+To pray against, as an evil<span class="p">;</span>
+to seek to avert by prayer<span class="p">;</span>
+to desire the removal of<span class="p">;</span>
+to seek deliverance from<span class="p">;</span>
+to express deep regret <span class="k">for</span><span class="p">;</span>
+to disapprove of strongly.
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>Deprecate
+...
+
+To pray against, as an evil<span class="p">;</span>
+to seek to avert by prayer<span class="p">;</span>
+to desire the removal of<span class="p">;</span>
+to seek deliverance from<span class="p">;</span>
+to express deep regret <span class="k">for</span><span class="p">;</span>
+to disapprove of strongly.
+</pre></div>
+</div>
+<p>` [2]  &lt;fto.html#AEN3400&gt;`__</p>
+<p>Be aware that <em>suid</em> binaries may open security holes. The <em>suid</em> flag
+has no effect on shell scripts.</p>
+<p>` [3]  &lt;fto.html#AEN3423&gt;`__</p>
+<p>On Linux systems, the sticky bit is no longer used for files, only on
+directories.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="comparison-ops.html" class="btn btn-neutral float-right" title="XXX 7.3. Other Comparison Operators" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="testconstructs.html" class="btn btn-neutral" title="XXX 7.1. Test Constructs"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

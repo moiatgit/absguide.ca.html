@@ -1,0 +1,239 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 36.8. Security Issues &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  36.8. Security Issues</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-36-8-security-issues">
+<h1>XXX  36.8. Security Issues<a class="headerlink" href="#xxx-36-8-security-issues" title="Link permanent a aquest títol">¶</a></h1>
+<blockquote>
+<div>36.8.1. Infected Shell Scripts</div></blockquote>
+<hr class="docutils" />
+<p>A brief warning about script security is indicated. A shell script may
+contain a <em>worm</em> , <em>trojan</em> , or even a <em>virus</em> . For that reason, never
+run as <em>root</em> a script (or permit it to be inserted into the system
+startup scripts in ``       /etc/rc.d      `` ) unless you have obtained
+said script from a trusted source or you have carefully analyzed it to
+make certain it does nothing harmful.</p>
+<p>Various researchers at Bell Labs and other sites, including M. Douglas
+McIlroy, Tom Duff, and Fred Cohen have investigated the implications of
+shell script viruses. They conclude that it is all too easy for even a
+novice, a &#8220;script kiddie,&#8221; to write one. ` [1]</p>
+<blockquote>
+<div>&lt;securityissues.html#FTN.AEN20748&gt;`__</div></blockquote>
+<p>Here is yet another reason to learn scripting. Being able to look at and
+understand scripts may protect your system from being compromised by a
+rogue script.</p>
+<blockquote>
+<div>36.8.2. Hiding Shell Script Source</div></blockquote>
+<hr class="docutils" />
+<p>For security purposes, it may be necessary to render a script
+unreadable. If only there were a utility to create a stripped binary
+executable from a script. Francisco Rosales&#8217; <a class="reference external" href="http://www.datsi.fi.upm.es/~frosal/sources/">shc &#8211; generic shell
+script compiler</a> does
+exactly that.</p>
+<p>Unfortunately, according to <a class="reference external" href="http://www.linuxjournal.com/article/8256">an
+article</a> in the October,
+2005 <em>Linux Journal</em> , the binary can, in at least some cases, be
+decrypted to recover the original script source. Still, this could be a
+useful method of keeping scripts secure from all but the most skilled
+hackers.</p>
+<blockquote>
+<div>36.8.3. Writing Secure Shell Scripts</div></blockquote>
+<hr class="docutils" />
+<p><em>Dan Stromberg</em> suggests the following guidelines for writing
+(relatively) secure shell scripts.</p>
+<ul class="simple">
+<li>Don&#8217;t put secret data in <a class="reference external" href="othertypesv.html#ENVREF">environment
+variables</a> .</li>
+<li>Don&#8217;t pass secret data in an external command&#8217;s arguments (pass them
+in via a <a class="reference external" href="special-chars.html#PIPEREF">pipe</a> or
+<a class="reference external" href="io-redirection.html#IOREDIRREF">redirection</a> instead).</li>
+<li>Set your <a class="reference external" href="internalvariables.html#PATHREF">$PATH</a> carefully. Don&#8217;t
+just trust whatever path you inherit from the caller if your script
+is running as <em>root</em> . In fact, whenever you use an environment
+variable inherited from the caller, think about what could happen if
+the caller put something misleading in the variable, e.g., if the
+caller set <a class="reference external" href="internalvariables.html#HOMEDIRREF">$HOME</a> to
+``         /etc        `` .</li>
+</ul>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h2>
+<p>` [1]  &lt;securityissues.html#AEN20748&gt;`__</p>
+<p>See Marius van Oers&#8217; article, <a class="reference external" href="http://www.virusbtn.com/magazine/archives/200204/malshell.xml">Unix Shell Scripting
+Malware</a>
+, and also the <a class="reference external" href="biblio.html#DENNINGREF">*Denning* reference</a> in the
+<em>bibliography</em> .</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

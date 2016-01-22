@@ -1,0 +1,435 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Chapter 26. List Constructs &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Part 5. Advanced Topics" href="part5.html"/>
+        <link rel="next" title="XXX Chapter 27. Arrays" href="arrays.html"/>
+        <link rel="prev" title="XXX Capítol 25. Àlies" href="aliases.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="regexp.html">XXX Chapter 18. Regular Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="here-docs.html">XXX  Chapter 19. Document immediat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io-redirection.html">XXX  Chapter 20. I/O Redirection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subshells.html">XXX  Chapter 21. Subshells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restricted-sh.html">XXX  Chapter 22. Restricted Shells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process-sub.html">XXX  Chapter 23. Process Substitution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">XXX  Chapter 24. Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aliases.html">XXX Capítol 25. Àlies</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  Chapter 26. List Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrays.html">XXX  Chapter 27. Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ivr.html">XXX  Chapter 28. Indirect References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networkprogramming.html">XXX  Chapter 30. Network Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zeros.html">XXX  Chapter 31. Of Zeros and Nulls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">XXX  Chapter 32. Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html">XXX  Chapter 33. Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gotchas.html">XXX Chapter 34. Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scrstyle.html">XXX  Chapter 35. Scripting With Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unofficialst.html">XXX  35.1. Unofficial Shell Scripting Stylesheet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellany.html">XXX  Chapter 36. Miscellany</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash2.html">XXX  Chapter 37. Bash, versions 2, 3, and 4</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part5.html">XXX Part 5. Advanced Topics</a> &raquo;</li>
+      
+    <li>XXX  Chapter 26. List Constructs</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-chapter-26-list-constructs">
+<h1>XXX  Chapter 26. List Constructs<a class="headerlink" href="#xxx-chapter-26-list-constructs" title="Link permanent a aquest títol">¶</a></h1>
+<p>The <em>and list</em> and <em>or list</em> constructs provide a means of processing a
+number of commands consecutively. These can effectively replace complex
+nested <a class="reference external" href="testconstructs.html#TESTCONSTRUCTS1">if/then</a> or even
+<a class="reference external" href="testbranch.html#CASEESAC1">case</a> statements.</p>
+<p>** Chaining together commands**</p>
+<blockquote>
+<div><p>and list</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="nb">command</span>-1 <span class="o">&amp;&amp;</span> <span class="nb">command</span>-2 <span class="o">&amp;&amp;</span> <span class="nb">command</span>-3 <span class="o">&amp;&amp;</span> ... <span class="nb">command</span>-n
+</pre></div>
+</div>
+<p>Each command executes in turn, provided that the previous command
+has given a return value of ``                 true               ``
+(zero). At the first ``                 false               ``
+(non-zero) return, the command chain terminates (the first command
+returning ``                 false               `` is the last one
+to execute).</p>
+<p>An interesting use of a two-condition <em>and list</em> from an early
+version of YongYe&#8217;s <a class="reference external" href="http://bash.deta.in/Tetris_Game.sh">Tetris game
+script</a> :</p>
+<div class="highlight-sh"><div class="highlight"><pre>equation<span class="o">()</span>
+
+<span class="o">{</span>  <span class="c"># core algorithm used for doubling and halving the coordinates</span>
+   <span class="o">[[</span> <span class="si">${</span><span class="nv">cdx</span><span class="si">}</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="o">((</span><span class="nv">y</span><span class="o">=</span>cy+<span class="o">(</span>ccy-cdy<span class="o">)</span><span class="si">${</span><span class="nv">2</span><span class="si">}</span>2<span class="o">))</span>
+   <span class="nb">eval</span> <span class="si">${</span><span class="nv">1</span><span class="si">}</span>+<span class="o">=</span><span class="se">\&quot;</span><span class="si">${</span><span class="nv">x</span><span class="si">}</span> <span class="si">${</span><span class="nv">y</span><span class="si">}</span> <span class="se">\&quot;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<div class="section" id="exemple-1-using-an-and-list-to-test-for-command-line-arguments">
+<h2>Exemple 1. Using an <em>and list</em> to test for command-line arguments<a class="headerlink" href="#exemple-1-using-an-and-list-to-test-for-command-line-arguments" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># and list</span>
+
+<span class="k">if</span> <span class="o">[</span> ! -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;Argument #1 = </span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> ! -z <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+<span class="c">#                ^^                         ^^               ^^</span>
+<span class="nb">echo</span> <span class="s2">&quot;Argument #2 = </span><span class="nv">$2</span><span class="s2">&quot;</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;At least 2 arguments passed to script.&quot;</span>
+  <span class="c"># All the chained commands return true.</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Fewer than 2 arguments passed to script.&quot;</span>
+  <span class="c"># At least one of the chained commands returns false.</span>
+<span class="k">fi</span>
+<span class="c"># Note that &quot;if [ ! -z $1 ]&quot; works, but its alleged equivalent,</span>
+<span class="c">#   &quot;if [ -n $1 ]&quot; does not.</span>
+<span class="c">#     However, quoting fixes this.</span>
+<span class="c">#  if &quot;[ -n &quot;$1&quot; ]&quot; works.</span>
+<span class="c">#           ^  ^    Careful!</span>
+<span class="c"># It is always best to QUOTE the variables being tested.</span>
+
+
+<span class="c"># This accomplishes the same thing, using &quot;pure&quot; if/then statements.</span>
+<span class="k">if</span> <span class="o">[</span> ! -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Argument #1 = </span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+<span class="k">if</span> <span class="o">[</span> ! -z <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Argument #2 = </span><span class="nv">$2</span><span class="s2">&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;At least 2 arguments passed to script.&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Fewer than 2 arguments passed to script.&quot;</span>
+<span class="k">fi</span>
+<span class="c"># It&#39;s longer and more ponderous than using an &quot;and list&quot;.</span>
+
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-2-another-command-line-arg-test-using-an-and-list">
+<h2>Exemple 2. Another command-line arg test using an <em>and list</em><a class="headerlink" href="#exemple-2-another-command-line-arg-test-using-an-and-list" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">ARGS</span><span class="o">=</span><span class="m">1</span>        <span class="c"># Number of arguments expected.</span>
+<span class="nv">E_BADARGS</span><span class="o">=</span><span class="m">85</span>  <span class="c"># Exit value if incorrect number of args passed.</span>
+
+<span class="nb">test</span> <span class="nv">$# </span>-ne <span class="nv">$ARGS</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+<span class="c">#    ^^^^^^^^^^^^ condition #1</span>
+<span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` </span><span class="nv">$ARGS</span><span class="s2"> argument(s)&quot;</span> <span class="o">&amp;&amp;</span> <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="c">#                                             ^^</span>
+<span class="c">#  If condition #1 tests true (wrong number of args passed to script),</span>
+<span class="c">#+ then the rest of the line executes, and script terminates.</span>
+
+<span class="c"># Line below executes only if the above test fails.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Correct number of arguments passed to this script.&quot;</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># To check exit value, do a &quot;echo $?&quot; after script termination.</span>
+</pre></div>
+</div>
+<p>Of course, an <em>and list</em> can also <em>set</em> variables to a default
+value.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">arg1</span><span class="o">=</span><span class="nv">$@</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$arg1</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nv">arg1</span><span class="o">=</span>DEFAULT
+
+              <span class="c"># Set $arg1 to command-line arguments, if any.</span>
+              <span class="c"># But . . . set to DEFAULT if not specified on command-line.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>or list</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="nb">command</span>-1 <span class="p">|</span><span class="nb">command</span>-2 <span class="o">||</span> <span class="nb">command</span>-3 <span class="o">||</span> ... <span class="nb">command</span>-n
+</pre></div>
+</div>
+<p>Each command executes in turn for as long as the previous command
+returns false . At the first true return, the command chain
+terminates (the first command returning true is the last one to
+execute). This is obviously the inverse of the &#8220;and list&#8221; .</p>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-3-using-or-lists-in-combination-with-an-and-list">
+<h2>Exemple 3. Using <em>or lists</em> in combination with an <em>and list</em><a class="headerlink" href="#exemple-3-using-or-lists-in-combination-with-an-and-list" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c">#  delete.sh, a not-so-cunning file deletion utility.</span>
+<span class="c">#  Usage: delete filename</span>
+
+<span class="nv">E_BADARGS</span><span class="o">=</span>85
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` filename&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>  <span class="c"># No arg? Bail out.</span>
+<span class="k">else</span>
+  <span class="nv">file</span><span class="o">=</span><span class="nv">$1</span>          <span class="c"># Set filename.</span>
+<span class="k">fi</span>
+
+
+<span class="o">[</span> ! -f <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;File \&quot;</span><span class="nv">$file</span><span class="s2">\&quot; not found. \</span>
+<span class="s2">Cowardly refusing to delete a nonexistent file.&quot;</span>
+<span class="c"># AND LIST, to give error message if file not present.</span>
+<span class="c"># Note echo message continuing on to a second line after an escape.</span>
+
+<span class="o">[</span> ! -f <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="p">|</span><span class="o">(</span>rm -f <span class="nv">$file</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;File \&quot;</span><span class="nv">$file</span><span class="s2">\&quot; deleted.&quot;</span><span class="o">)</span>
+<span class="c"># OR LIST, to delete file if present.</span>
+
+<span class="c"># Note logic inversion above.</span>
+<span class="c"># AND LIST executes on true, OR LIST on false.</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<p class="last">If the first command in an <em>or list</em> returns true , it
+``                         will                       `` execute.</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># ==&gt; The following snippets from the /etc/rc.d/init.d/single</span>
+<span class="c">#+==&gt; script by Miquel van Smoorenburg</span>
+<span class="c">#+==&gt; illustrate use of &quot;and&quot; and &quot;or&quot; lists.</span>
+<span class="c"># ==&gt; &quot;Arrowed&quot; comments added by document author.</span>
+
+<span class="o">[</span> -x /usr/bin/clear <span class="o">]</span> <span class="o">&amp;&amp;</span> /usr/bin/clear
+  <span class="c"># ==&gt; If /usr/bin/clear exists, then invoke it.</span>
+  <span class="c"># ==&gt; Checking for the existence of a command before calling it</span>
+  <span class="c">#+==&gt; avoids error messages and other awkward consequences.</span>
+
+  <span class="c"># ==&gt; . . .</span>
+
+<span class="c"># If they want to run something in single user mode, might as well run it...</span>
+<span class="k">for</span> i in /etc/rc1.d/S<span class="o">[</span>0-9<span class="o">][</span>0-9<span class="o">]</span>* <span class="p">;</span> <span class="k">do</span>
+        <span class="c"># Check if the script is there.</span>
+        <span class="o">[</span> -x <span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span> <span class="o">]</span>.. <span class="k">continue</span>::
+  <span class="c"># ==&gt; If corresponding file in $PWD *not* found,</span>
+  <span class="c">#+==&gt; then &quot;continue&quot; by jumping to the top of the loop.</span>
+
+        <span class="c"># Reject backup files and files generated by rpm.</span>
+        <span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> in
+                *.rpmsave<span class="p">|</span>*.rpmorig<span class="p">|</span>*.rpmnew<span class="p">|</span>*~<span class="p">|</span>*.orig<span class="o">)</span>
+                        <span class="k">continue</span><span class="p">;;</span>
+        <span class="k">esac</span>
+        <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;/etc/rc1.d/S00single&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="k">continue</span>
+  <span class="c"># ==&gt; Set script name, but don&#39;t execute it yet.</span>
+        <span class="nv">$i</span> start
+<span class="k">done</span>
+
+  <span class="c"># ==&gt; . . .</span>
+</pre></div>
+</div>
+<p><a href="#id1"><span class="problematic" id="id2">|</span></a>Important</p>
+<p>The <a class="reference external" href="exit-status.html#EXITSTATUSREF">exit status</a> of an
+``                   and list                 `` or an
+``                   or list                 `` is the exit status of
+the last command executed.</p>
+<p>Clever combinations of <em>and</em> and <em>or</em> lists are possible, but the logic
+may easily become convoluted and require close attention to <a class="reference external" href="opprecedence.html#OPPRECEDENCE1">operator
+precedence rules</a> , and possibly
+extensive debugging.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">false</span> <span class="o">&amp;&amp;</span> <span class="nb">true</span> <span class="p">|</span><span class="nb">echo false</span>         <span class="c"># false</span>
+
+<span class="c"># Same result as</span>
+<span class="o">(</span> <span class="nb">false</span> <span class="o">&amp;&amp;</span> <span class="nb">true</span> <span class="o">)</span> <span class="p">|</span><span class="nb">echo false</span>     <span class="c"># false</span>
+<span class="c"># But NOT</span>
+<span class="nb">false</span> <span class="o">&amp;&amp;</span> <span class="o">(</span> <span class="nb">true</span> <span class="p">|</span><span class="nb">echo false</span> <span class="o">)</span>     <span class="c"># (nothing echoed)</span>
+
+<span class="c">#  Note left-to-right grouping and evaluation of statements.</span>
+
+<span class="c">#  It&#39;s usually best to avoid such complexities.</span>
+
+<span class="c">#  Thanks, S.C.</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="contributed-scripts.html#DAYSBETWEEN">Example A-7</a> and <a class="reference external" href="fto.html#BROKENLINK">Example
+7-4</a> for illustrations of using
+``             and     / or list           `` constructs to test
+variables.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="arrays.html" class="btn btn-neutral float-right" title="XXX Chapter 27. Arrays" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="aliases.html" class="btn btn-neutral" title="XXX Capítol 25. Àlies"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,488 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Appendix B. Reference Cards &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  Appendix B. Reference Cards</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-appendix-b-reference-cards">
+<h1>XXX  Appendix B. Reference Cards<a class="headerlink" href="#xxx-appendix-b-reference-cards" title="Link permanent a aquest títol">¶</a></h1>
+<p>The following reference cards provide a useful <em>summary</em> of certain
+scripting concepts. The foregoing text treats these matters in more
+depth, as well as giving usage examples.</p>
+<p><strong>Table B-1. Special Shell Variables</strong></p>
+<p>Variable</p>
+<p>Meaning</p>
+<p>``        $0       ``</p>
+<p>Filename of script</p>
+<p>``        $1       ``</p>
+<p>Positional parameter #1</p>
+<p>``        $2 - $9       ``</p>
+<p>Positional parameters #2 - #9</p>
+<p>``        ${10}       ``</p>
+<p>Positional parameter #10</p>
+<p>``        $#       ``</p>
+<p>Number of positional parameters</p>
+<p>``        &#8220;$*&#8221;       ``</p>
+<p>All the positional parameters (as a single word) *</p>
+<p>``        &#8220;$&#64;&#8221;       ``</p>
+<p>All the positional parameters (as separate strings)</p>
+<p>``        ${#*}       ``</p>
+<p>Number of positional parameters</p>
+<p>``        ${#&#64;}       ``</p>
+<p>Number of positional parameters</p>
+<p>``        $?       ``</p>
+<p>Return value</p>
+<p>``        $$       ``</p>
+<p>Process ID (PID) of script</p>
+<p>``        $-       ``</p>
+<p>Flags passed to script (using <em>set</em> )</p>
+<p>``        $_       ``</p>
+<p>Last argument of previous command</p>
+<p>``        $!       ``</p>
+<p>Process ID (PID) of last job run in background</p>
+<p><strong>*</strong> <em>Must be quoted</em> , otherwise it defaults to ``      $&#64;     `` .</p>
+<p><strong>Table B-2. TEST Operators: Binary Comparison</strong></p>
+<p>Operator</p>
+<p>Meaning</p>
+<hr class="docutils" />
+<p>Operator</p>
+<p>Meaning</p>
+<p><a class="reference external" href="comparison-ops.html#ICOMPARISON1">Arithmetic Comparison</a></p>
+<p><a class="reference external" href="comparison-ops.html#SCOMPARISON1">String Comparison</a></p>
+<p>``        -eq       ``</p>
+<p>Equal to</p>
+<p>``        =       ``</p>
+<p>Equal to</p>
+<p>``        ==       ``</p>
+<p>Equal to</p>
+<p>``        -ne       ``</p>
+<p>Not equal to</p>
+<p>``        !=       ``</p>
+<p>Not equal to</p>
+<p>``        -lt       ``</p>
+<p>Less than</p>
+<p>``        &lt;       ``</p>
+<p>Less than ( <a class="reference external" href="special-chars.html#ASCIIDEF">ASCII</a> ) *</p>
+<p>``        -le       ``</p>
+<p>Less than or equal to</p>
+<p>``        -gt       ``</p>
+<p>Greater than</p>
+<p>``        &gt;       ``</p>
+<p>Greater than (ASCII) *</p>
+<p>``        -ge       ``</p>
+<p>Greater than or equal to</p>
+<p>``        -z       ``</p>
+<p>String is empty</p>
+<p>``        -n       ``</p>
+<p>String is not empty</p>
+<p>Arithmetic Comparison</p>
+<p><a class="reference external" href="testconstructs.html#DBLPRX">within double parentheses</a> (( ... ))</p>
+<p>``        &gt;       ``</p>
+<p>Greater than</p>
+<p>``        &gt;=       ``</p>
+<p>Greater than or equal to</p>
+<p>``        &lt;       ``</p>
+<p>Less than</p>
+<p>``        &lt;=       ``</p>
+<p>Less than or equal to</p>
+<p><strong>*</strong> <em>If within a double-bracket</em> [[ ... ]] <em>test construct, then no
+escape</em> \ <em>is needed.</em></p>
+<p><strong>Table B-3. TEST Operators: Files</strong></p>
+<p>Operator</p>
+<p>Tests Whether</p>
+<hr class="docutils" />
+<p>Operator</p>
+<p>Tests Whether</p>
+<p>``        -e       ``</p>
+<p>File exists</p>
+<p>``        -s       ``</p>
+<p>File is not zero size</p>
+<p>``        -f       ``</p>
+<p>File is a <em>regular</em> file</p>
+<p>``        -d       ``</p>
+<p>File is a <em>directory</em></p>
+<p>``        -r       ``</p>
+<p>File has <em>read</em> permission</p>
+<p>``        -h       ``</p>
+<p>File is a <a class="reference external" href="basic.html#SYMLINKREF">symbolic link</a></p>
+<p>``        -w       ``</p>
+<p>File has <em>write</em> permission</p>
+<p>``        -L       ``</p>
+<p>File is a <em>symbolic link</em></p>
+<p>``        -x       ``</p>
+<p>File has <em>execute</em> permission</p>
+<p>``        -b       ``</p>
+<p>File is a <a class="reference external" href="devref1.html#BLOCKDEVREF">block device</a></p>
+<p>``        -c       ``</p>
+<p>File is a <a class="reference external" href="devref1.html#CHARDEVREF">character device</a></p>
+<p>``        -g       ``</p>
+<p><em>sgid</em> flag set</p>
+<p>``        -p       ``</p>
+<p>File is a <a class="reference external" href="special-chars.html#PIPEREF">pipe</a></p>
+<p>``        -u       ``</p>
+<p><em>suid</em> flag set</p>
+<p>``        -S       ``</p>
+<p>File is a <a class="reference external" href="devref1.html#SOCKETREF">socket</a></p>
+<p>``        -k       ``</p>
+<blockquote>
+<div>&#8220;sticky bit&#8221; set</div></blockquote>
+<p>``        -t       ``</p>
+<p>File is associated with a <em>terminal</em></p>
+<p>``        -N       ``</p>
+<p>File modified since it was last read</p>
+<p>``        F1 -nt F2       ``</p>
+<p>File F1 is <em>newer</em> than F2 *</p>
+<p>``        -O       ``</p>
+<p>You own the file</p>
+<p>``        F1 -ot F2       ``</p>
+<p>File F1 is <em>older</em> than F2 *</p>
+<p>``        -G       ``</p>
+<p><em>Group id</em> of file same as yours</p>
+<p>``        F1 -ef F2       ``</p>
+<p>Files F1 and F2 are <em>hard links</em> to the same file *</p>
+<p>``        !       ``</p>
+<p>NOT (inverts sense of above tests)</p>
+<p><strong>*</strong> <em>Binary</em> operator (requires two operands).</p>
+<p><strong>Table B-4. Parameter Substitution and Expansion</strong></p>
+<p>Expression</p>
+<p>Meaning</p>
+<p>``        ${var}       ``</p>
+<p>Value of ``                 var               `` (same as
+``                 $var               `` )</p>
+<p>``        ${var-$DEFAULT}       ``</p>
+<p>If ``                 var               `` not set,
+<a class="reference external" href="internal.html#EVALREF">evaluate</a> expression as
+``                 $DEFAULT               `` *</p>
+<p>``        ${var:-$DEFAULT}       ``</p>
+<p>If ``                 var               `` not set or is empty,
+<em>evaluate</em> expression as ``                 $DEFAULT               `` *</p>
+<p>``        ${var=$DEFAULT}       ``</p>
+<p>If ``                 var               `` not set, evaluate expression
+as ``                 $DEFAULT               `` *</p>
+<p>``        ${var:=$DEFAULT}       ``</p>
+<p>If ``                 var               `` not set or is empty, evaluate
+expression as ``                 $DEFAULT               `` *</p>
+<p>``        ${var+$OTHER}       ``</p>
+<p>If ``                 var               `` set, evaluate expression as
+``                 $OTHER               `` , otherwise as null string</p>
+<p>``        ${var:+$OTHER}       ``</p>
+<p>If ``                 var               `` set, evaluate expression as
+``                 $OTHER               `` , otherwise as null string</p>
+<p>``        ${var?$ERR_MSG}       ``</p>
+<p>If ``                 var               `` not set, print
+``                 $ERR_MSG               `` and abort script with an
+exit status of 1 .*</p>
+<p>``        ${var:?$ERR_MSG}       ``</p>
+<p>If ``                 var               `` not set, print
+``                 $ERR_MSG               `` and abort script with an
+exit status of 1 .*</p>
+<p>``        ${!varprefix*}       ``</p>
+<p>Matches all previously declared variables beginning with
+``                 varprefix               ``</p>
+<p>``        ${!varprefix&#64;}       ``</p>
+<p>Matches all previously declared variables beginning with
+``                 varprefix               ``</p>
+<p><strong>*</strong> If ``             var           `` <em>is</em> set, evaluate the
+expression as ``             $var           `` with no side-effects.</p>
+<p><strong># Note</strong> that some of the above behavior of operators has changed from
+earlier versions of Bash.</p>
+<p><strong>Table B-5. String Operations</strong></p>
+<p>Expression</p>
+<p>Meaning</p>
+<p>``        ${#string}       ``</p>
+<p>Length of ``                 $string               ``</p>
+<p>``        ${string:position}       ``</p>
+<p>Extract substring from ``                 $string               `` at
+``                 $position               ``</p>
+<p>``        ${string:position:length}       ``</p>
+<p>Extract ``                 $length               `` characters substring
+from ``                 $string               `` at
+``                 $position               `` [zero-indexed, first
+character is at position 0]</p>
+<p>``        ${string#substring}       ``</p>
+<p>Strip shortest match of ``                 $substring               ``
+from front of ``                 $string               ``</p>
+<p>``        ${string##substring}       ``</p>
+<p>Strip longest match of ``                 $substring               ``
+from front of ``                 $string               ``</p>
+<p>``        ${string%substring}       ``</p>
+<p>Strip shortest match of ``                 $substring               ``
+from back of ``                 $string               ``</p>
+<p>``        ${string%%substring}       ``</p>
+<p>Strip longest match of ``                 $substring               ``
+from back of ``                 $string               ``</p>
+<p>``        ${string/substring/replacement}       ``</p>
+<p>Replace first match of ``                 $substring               ``
+with ``                 $replacement               ``</p>
+<p>``        ${string//substring/replacement}       ``</p>
+<p>Replace <em>all</em> matches of ``                 $substring               ``
+with ``                 $replacement               ``</p>
+<p>``        ${string/#substring/replacement}       ``</p>
+<p>If ``                 $substring               `` matches <em>front</em> end of
+``                 $string               `` , substitute
+``                 $replacement               `` for
+``                 $substring               ``</p>
+<p>``        ${string/%substring/replacement}       ``</p>
+<p>If ``                 $substring               `` matches <em>back</em> end of
+``                 $string               `` , substitute
+``                 $replacement               `` for
+``                 $substring               ``</p>
+<p>``        expr match &#8220;$string&#8221; &#8216;$substring&#8217;       ``</p>
+<p>Length of matching ``                 $substring               `` * at
+beginning of ``                 $string               ``</p>
+<p>``        expr &#8220;$string&#8221; : &#8216;$substring&#8217;       ``</p>
+<p>Length of matching ``                 $substring               `` * at
+beginning of ``                 $string               ``</p>
+<p>``        expr index &#8220;$string&#8221; $substring       ``</p>
+<p>Numerical position in ``                 $string               `` of
+first character in ``                 $substring               `` *
+that matches [0 if no match, first character counts as position 1]</p>
+<p>``        expr substr $string $position             $length       ``</p>
+<p>Extract ``                 $length               `` characters from
+``                 $string               `` starting at
+``                 $position               `` [0 if no match, first
+character counts as position 1]</p>
+<p>``        expr match &#8220;$string&#8221;             &#8216;($substring)&#8217;       ``</p>
+<p>Extract ``                 $substring               `` *, searching
+from beginning of ``                 $string               ``</p>
+<p>``        expr &#8220;$string&#8221; :             &#8216;($substring)&#8217;       ``</p>
+<p>Extract ``                 $substring               `` * , searching
+from beginning of ``                 $string               ``</p>
+<p>``        expr match &#8220;$string&#8221;             &#8216;.*($substring)&#8217;       ``</p>
+<p>Extract ``                 $substring               `` *, searching
+from end of ``                 $string               ``</p>
+<p>``        expr &#8220;$string&#8221; :             &#8216;.*($substring)&#8217;       ``</p>
+<p>Extract ``                 $substring               `` *, searching
+from end of ``                 $string               ``</p>
+<p><strong>*</strong> Where ``             $substring           `` is a <a class="reference external" href="regexp.html#REGEXREF">Regular
+Expression</a> .</p>
+<p><strong>Table B-6. Miscellaneous Constructs</strong></p>
+<p>Expression</p>
+<p>Interpretation</p>
+<p><a class="reference external" href="x17129.html#BRACKETSREF">Brackets</a></p>
+<p>``        if [ CONDITION ]       ``</p>
+<p><a class="reference external" href="special-chars.html#LEFTBRACKET">Test construct</a></p>
+<p>``        if [[ CONDITION ]]       ``</p>
+<p><a class="reference external" href="testconstructs.html#DBLBRACKETS">Extended test construct</a></p>
+<p>``        Array[1]=element1       ``</p>
+<p><a class="reference external" href="arrays.html#ARRAYREF">Array initialization</a></p>
+<p>``        [a-z]       ``</p>
+<p><a class="reference external" href="x17129.html#BRACKETSREF">Range of characters</a> within a <a class="reference external" href="regexp.html#REGEXREF">Regular
+Expression</a></p>
+<p>Curly Brackets</p>
+<p>``        ${variable}       ``</p>
+<p><a class="reference external" href="parameter-substitution.html#PARAMSUBREF">Parameter substitution</a></p>
+<p>``        ${!variable}       ``</p>
+<p><a class="reference external" href="ivr.html#IVRREF">Indirect variable reference</a></p>
+<p>``        { command1; command2; . . . commandN; }       ``</p>
+<p><a class="reference external" href="special-chars.html#CODEBLOCKREF">Block of code</a></p>
+<p>``        {string1,string2,string3,...}       ``</p>
+<p><a class="reference external" href="special-chars.html#BRACEEXPREF">Brace expansion</a></p>
+<p>``        {a..z}       ``</p>
+<p><a class="reference external" href="bashver3.html#BRACEEXPREF3">Extended brace expansion</a></p>
+<p>``        {}       ``</p>
+<p>Text replacement, after <a class="reference external" href="moreadv.html#CURLYBRACKETSREF">find</a> and
+<a class="reference external" href="moreadv.html#XARGSCURLYREF">xargs</a></p>
+<p><a class="reference external" href="special-chars.html#PARENSREF">Parentheses</a></p>
+<p>``        ( command1; command2 )       ``</p>
+<p>Command group executed within a
+<a class="reference external" href="subshells.html#SUBSHELLSREF">subshell</a></p>
+<p>``        Array=(element1 element2 element3)       ``</p>
+<p><a class="reference external" href="arrays.html#ARRAYINIT0">Array initialization</a></p>
+<p>``        result=$(COMMAND)       ``</p>
+<p><a class="reference external" href="commandsub.html#CSPARENS">Command substitution</a> , new style</p>
+<p>``        &gt;(COMMAND)       ``</p>
+<p><a class="reference external" href="process-sub.html#PROCESSSUBREF">Process substitution</a></p>
+<p>``        &lt;(COMMAND)       ``</p>
+<p>Process substitution</p>
+<p><a class="reference external" href="dblparens.html">Double Parentheses</a></p>
+<p>``        (( var = 78 ))       ``</p>
+<p><a class="reference external" href="dblparens.html#DBLPARENSREF">Integer arithmetic</a></p>
+<p>``        var=$(( 20 + 5 ))       ``</p>
+<p>Integer arithmetic, with variable assignment</p>
+<p>``        (( var++ ))       ``</p>
+<p><em>C-style</em> <a class="reference external" href="dblparens.html#PLUSPLUSREF">variable increment</a></p>
+<p>``        (( var&#8211; ))       ``</p>
+<p><em>C-style</em> <a class="reference external" href="dblparens.html#PLUSPLUSREF">variable decrement</a></p>
+<p>``        (( var0 = var1&lt;98?9:21 ))       ``</p>
+<p><em>C-style</em> <a class="reference external" href="special-chars.html#CSTRINARY">ternary</a> operation</p>
+<p><a class="reference external" href="quoting.html#QUOTINGREF">Quoting</a></p>
+<p>``        &#8220;$variable&#8221;       ``</p>
+<p><a class="reference external" href="varsubn.html#DBLQUO">&#8220;Weak&#8221; quoting</a></p>
+<p>``        &#8216;string&#8217;       ``</p>
+<p><a class="reference external" href="varsubn.html#SNGLQUO">&#8216;Strong&#8217; quoting</a></p>
+<p><a class="reference external" href="commandsub.html#BACKQUOTESREF">Back Quotes</a></p>
+<p>``        result=`COMMAND`       ``</p>
+<p><a class="reference external" href="commandsub.html#COMMANDSUBREF">Command substitution</a> , classic style</p>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

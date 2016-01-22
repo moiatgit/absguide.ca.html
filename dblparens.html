@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 8.3. The Double-Parentheses Construct &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="Part 2. Conceptes bàsics" href="part2.html"/>
+        <link rel="next" title="XXX 8.4. Operator Precedence" href="opprecedence.html"/>
+        <link rel="prev" title="XXX 8.2. Numerical Constants" href="numerical-constants.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="special-chars.html">XXX 3. Caràcters especials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">4. Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quoting.html">Chapter 5. Cometes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exit-status.html">XXX Chapter 6. Exit and Exit Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html">XXX Chapter 7. Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testconstructs.html">XXX  7.1. Test Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fto.html">XXX  7.2. File test operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparison-ops.html">XXX  7.3. Other Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedifthen.html">7.4. Condicionals aniuats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testtest.html">XXX  7.5. Testing Your Knowledge of Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations.html">XXX Chapter 8. Operations and Related Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ops.html">XXX  8.1. Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="numerical-constants.html">XXX  8.2. Numerical Constants</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  8.3. The Double-Parentheses Construct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opprecedence.html">XXX  8.4. Operator Precedence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part2.html">Part 2. Conceptes bàsics</a> &raquo;</li>
+      
+    <li>XXX  8.3. The Double-Parentheses Construct</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-8-3-the-double-parentheses-construct">
+<h1>XXX  8.3. The Double-Parentheses Construct<a class="headerlink" href="#xxx-8-3-the-double-parentheses-construct" title="Link permanent a aquest títol">¶</a></h1>
+<p>Similar to the <a class="reference external" href="internal.html#LETREF">let</a> command, the <strong>(( ... ))</strong>
+construct permits arithmetic expansion and evaluation. In its simplest
+form, ``             a=$(( 5 + 3 ))           `` would set
+``             a           `` to ``             5 + 3           `` , or
+``             8           `` . However, this double-parentheses
+construct is also a mechanism for allowing C-style manipulation of
+variables in Bash, for example, ``      (( var++ ))     `` .</p>
+<div class="section" id="exemple-5-c-style-manipulation-of-variables">
+<h2>Exemple 5. C-style manipulation of variables<a class="headerlink" href="#exemple-5-c-style-manipulation-of-variables" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># c-vars.sh</span>
+<span class="c"># Manipulating a variable, C-style, using the (( ... )) construct.</span>
+
+
+<span class="nb">echo</span>
+
+<span class="o">((</span> <span class="nv">a</span> <span class="o">=</span> <span class="m">23</span> <span class="o">))</span>  <span class="c">#  Setting a value, C-style,</span>
+              <span class="c">#+ with spaces on both sides of the &quot;=&quot;.</span>
+<span class="nb">echo</span> <span class="s2">&quot;a (initial value) = </span><span class="nv">$a</span><span class="s2">&quot;</span>   <span class="c"># 23</span>
+
+<span class="o">((</span> a++ <span class="o">))</span>     <span class="c">#  Post-increment &#39;a&#39;, C-style.</span>
+<span class="nb">echo</span> <span class="s2">&quot;a (after a++) = </span><span class="nv">$a</span><span class="s2">&quot;</span>       <span class="c"># 24</span>
+
+<span class="o">((</span> a-- <span class="o">))</span>     <span class="c">#  Post-decrement &#39;a&#39;, C-style.</span>
+<span class="nb">echo</span> <span class="s2">&quot;a (after a--) = </span><span class="nv">$a</span><span class="s2">&quot;</span>       <span class="c"># 23</span>
+
+
+<span class="o">((</span> ++a <span class="o">))</span>     <span class="c">#  Pre-increment &#39;a&#39;, C-style.</span>
+<span class="nb">echo</span> <span class="s2">&quot;a (after ++a) = </span><span class="nv">$a</span><span class="s2">&quot;</span>       <span class="c"># 24</span>
+
+<span class="o">((</span> --a <span class="o">))</span>     <span class="c">#  Pre-decrement &#39;a&#39;, C-style.</span>
+<span class="nb">echo</span> <span class="s2">&quot;a (after --a) = </span><span class="nv">$a</span><span class="s2">&quot;</span>       <span class="c"># 23</span>
+
+<span class="nb">echo</span>
+
+<span class="c">########################################################</span>
+<span class="c">#  Note that, as in C, pre- and post-decrement operators</span>
+<span class="c">#+ have different side-effects.</span>
+
+<span class="nv">n</span><span class="o">=</span>1<span class="p">;</span> <span class="nb">let</span> --n <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;True&quot;</span> <span class="p">|</span><span class="nb">echo</span> <span class="s2">&quot;False&quot;</span>  <span class="c"># False</span>
+<span class="nv">n</span><span class="o">=</span>1<span class="p">;</span> <span class="nb">let </span>n-- <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;True&quot;</span> <span class="p">|</span><span class="nb">echo</span> <span class="s2">&quot;False&quot;</span>  <span class="c"># True</span>
+
+<span class="c">#  Thanks, Jeroen Domburg.</span>
+<span class="c">########################################################</span>
+
+<span class="nb">echo</span>
+
+<span class="o">((</span> <span class="nv">t</span> <span class="o">=</span> a&lt;45?7:11 <span class="o">))</span>   <span class="c"># C-style trinary operator.</span>
+<span class="c">#       ^  ^ ^</span>
+<span class="nb">echo</span> <span class="s2">&quot;If a &lt; 45, then t = 7, else t = 11.&quot;</span>  <span class="c"># a = 23</span>
+<span class="nb">echo</span> <span class="s2">&quot;t = </span><span class="nv">$t</span><span class="s2"> &quot;</span>                              <span class="c"># t = 7</span>
+
+<span class="nb">echo</span>
+
+
+<span class="c"># -----------------</span>
+<span class="c"># Easter Egg alert!</span>
+<span class="c"># -----------------</span>
+<span class="c">#  Chet Ramey seems to have snuck a bunch of undocumented C-style</span>
+<span class="c">#+ constructs into Bash (actually adapted from ksh, pretty much).</span>
+<span class="c">#  In the Bash docs, Ramey calls (( ... )) shell arithmetic,</span>
+<span class="c">#+ but it goes far beyond that.</span>
+<span class="c">#  Sorry, Chet, the secret is out.</span>
+
+<span class="c"># See also &quot;for&quot; and &quot;while&quot; loops using the (( ... )) construct.</span>
+
+<span class="c"># These work only with version 2.04 or later of Bash.</span>
+
+<span class="nb">exit</span>
+</pre></div>
+</div>
+<p>See also <a class="reference external" href="loops1.html#FORLOOPC">Example 11-13</a> and <a class="reference external" href="numerical-constants.html#NUMBERS">Example
+8-4</a> .</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="opprecedence.html" class="btn btn-neutral float-right" title="XXX 8.4. Operator Precedence" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="numerical-constants.html" class="btn btn-neutral" title="XXX 8.2. Numerical Constants"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

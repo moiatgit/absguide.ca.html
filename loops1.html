@@ -1,0 +1,1266 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 11.1. Loops &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Part 3. Beyond the Basics" href="part3.html"/>
+        <link rel="next" title="XXX 11.2. Nested Loops" href="nestedloops.html"/>
+        <link rel="prev" title="Chapter 11. Loops and Branches" href="loops.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="variables2.html">XXX  Chapter 9. Another Look at Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internalvariables.html">XXX  9.1. Internal Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="declareref.html">XXX  9.2. Typing variables: <strong>declare</strong> or <strong>typeset</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="randomvar.html">XXX  9.3. $RANDOM: generate random integer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manipulatingvars.html">XXX  Chapter 10. Manipulating Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="string-manipulation.html">XXX  10.1. Manipulating Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parameter-substitution.html">XXX 10.2. Substitució de paràmetres</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loops.html">Chapter 11. Loops and Branches</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  11.1. Loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedloops.html">XXX  11.2. Nested Loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loopcontrol.html">XXX  11.3. Loop Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testbranch.html">XXX  11.4. Testing and Branching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commandsub.html">XXX  Chapter 12. Substitució de comanda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arithexp.html">XXX  Chapter 13. Arithmetic Expansion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recess-time.html">XXX  Chapter 14. Recess Time</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part3.html">XXX Part 3. Beyond the Basics</a> &raquo;</li>
+      
+    <li>XXX  11.1. Loops</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-11-1-loops">
+<h1>XXX  11.1. Loops<a class="headerlink" href="#xxx-11-1-loops" title="Link permanent a aquest títol">¶</a></h1>
+<dl class="docutils">
+<dt>A <em>loop</em> is a block of code that <em>iterates</em> ` [1]</dt>
+<dd>&lt;loops1.html#FTN.AEN6560&gt;`__ a list of commands as long as the <a href="#id1"><span class="problematic" id="id2">*</span></a>loop</dd>
+</dl>
+<p>control condition* is true.</p>
+<p>** for loops**</p>
+<blockquote>
+<div><a href="#id3"><span class="problematic" id="id4">**</span></a>for ``                   arg                 `` in</div></blockquote>
+<dl class="docutils">
+<dt>``                   [list]                 <a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">**</span></a></dt>
+<dd>This is the basic looping construct. It differs significantly from
+its <em>C</em> counterpart.</dd>
+<dt><strong>for</strong> ``                   arg                 `` in [</dt>
+<dd><blockquote class="first">
+<div>``                   list                 `` ]</div></blockquote>
+<p class="last">do
+``                   command(s)                 `` ...
+done</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p>During each pass through the loop,
+``                         arg                       `` takes on the
+value of each successive variable in the
+``                         list                       `` .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">for</span> arg in <span class="s2">&quot;</span><span class="nv">$var1</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$var2</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$var3</span><span class="s2">&quot;</span> ... <span class="s2">&quot;</span><span class="nv">$varN</span><span class="s2">&quot;</span>
+<span class="c"># In pass 1 of the loop, arg = $var1</span>
+<span class="c"># In pass 2 of the loop, arg = $var2</span>
+<span class="c"># In pass 3 of the loop, arg = $var3</span>
+<span class="c"># ...</span>
+<span class="c"># In pass N of the loop, arg = $varN</span>
+
+<span class="c"># Arguments in [list] quoted to prevent possible word splitting.</span>
+</pre></div>
+</div>
+<p>The argument ``                   list                 `` may
+contain <a class="reference external" href="special-chars.html#ASTERISKREF">wild cards</a> .</p>
+<p class="last">If <em>do</em> is on same line as <em>for</em> , there needs to be a semicolon
+after list.</p>
+</div>
+<dl class="docutils">
+<dt><strong>for</strong> ``                   arg                 `` in [</dt>
+<dd>``                   list                 `` ] ; do</dd>
+</dl>
+<div class="section" id="exemple-1-simple-for-loops">
+<h2>Exemple 1. Simple <em>for</em> loops<a class="headerlink" href="#exemple-1-simple-for-loops" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Listing the planets.</span>
+
+<span class="k">for</span> planet in Mercury Venus Earth Mars Jupiter Saturn Uranus Neptune Pluto
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="nv">$planet</span>  <span class="c"># Each planet on a separate line.</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="k">for</span> planet in <span class="s2">&quot;Mercury Venus Earth Mars Jupiter Saturn Uranus Neptune Pluto&quot;</span>
+    <span class="c"># All planets on same line.</span>
+    <span class="c"># Entire &#39;list&#39; enclosed in quotes creates a single variable.</span>
+    <span class="c"># Why? Whitespace incorporated into the variable.</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="nv">$planet</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;Whoops! Pluto is no longer a planet!&quot;</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Each ``                   [list]                 `` element may
+contain multiple parameters. This is useful when processing
+parameters in groups. In such cases, use the
+<a class="reference external" href="internal.html#SETREF">set</a> command (see <a class="reference external" href="internal.html#EX34">Example
+15-16</a> ) to force parsing of each
+``                   [list]                 `` element and
+assignment of each component to the positional parameters.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-2-for-loop-with-two-parameters-in-each-list-element">
+<h2>Exemple 2. <em>for</em> loop with two parameters in each [list] element<a class="headerlink" href="#exemple-2-for-loop-with-two-parameters-in-each-list-element" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Planets revisited.</span>
+
+<span class="c"># Associate the name of each planet with its distance from the sun.</span>
+
+<span class="k">for</span> planet in <span class="s2">&quot;Mercury 36&quot;</span> <span class="s2">&quot;Venus 67&quot;</span> <span class="s2">&quot;Earth 93&quot;</span>  <span class="s2">&quot;Mars 142&quot;</span> <span class="s2">&quot;Jupiter 483&quot;</span>
+<span class="k">do</span>
+  <span class="nb">set</span> -- <span class="nv">$planet</span>  <span class="c">#  Parses variable &quot;planet&quot;</span>
+                  <span class="c">#+ and sets positional parameters.</span>
+  <span class="c">#  The &quot;--&quot; prevents nasty surprises if $planet is null or</span>
+  <span class="c">#+ begins with a dash.</span>
+
+  <span class="c">#  May need to save original positional parameters,</span>
+  <span class="c">#+ since they get overwritten.</span>
+  <span class="c">#  One way of doing this is to use an array,</span>
+  <span class="c">#         original_params=(&quot;$@&quot;)</span>
+
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">      </span><span class="nv">$2</span><span class="s2">,000,000 miles from the sun&quot;</span>
+  <span class="c">#-------two  tabs---concatenate zeroes onto parameter $2</span>
+<span class="k">done</span>
+
+<span class="c"># (Thanks, S.C., for additional clarification.)</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>A variable may supply the
+``                   [list]                 `` in a <em>for loop</em> .</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-3-fileinfo-operating-on-a-file-list-contained-in-a-variable">
+<h2>Exemple 3. <em>Fileinfo:</em> operating on a file list contained in a variable<a class="headerlink" href="#exemple-3-fileinfo-operating-on-a-file-list-contained-in-a-variable" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># fileinfo.sh</span>
+
+<span class="nv">FILES</span><span class="o">=</span><span class="s2">&quot;/usr/sbin/accept</span>
+<span class="s2">/usr/sbin/pwck</span>
+<span class="s2">/usr/sbin/chroot</span>
+<span class="s2">/usr/bin/fakefile</span>
+<span class="s2">/sbin/badblocks</span>
+<span class="s2">/sbin/ypbind&quot;</span>     <span class="c"># List of files you are curious about.</span>
+                  <span class="c"># Threw in a dummy file, /usr/bin/fakefile.</span>
+
+<span class="nb">echo</span>
+
+<span class="k">for</span> file in <span class="nv">$FILES</span>
+<span class="k">do</span>
+
+  <span class="k">if</span> <span class="o">[</span> ! -e <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span> <span class="o">]</span>       <span class="c"># Check if file exists.</span>
+  <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2"> does not exist.&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+<span class="nb">    </span><span class="k">continue</span>                <span class="c"># On to next.</span>
+   <span class="k">fi</span>
+
+  ls -l <span class="nv">$fileawk</span> <span class="s1">&#39;{ print $8 &quot;         file size: &quot; $5 }&#39;</span>  <span class="c"># Print 2 fields.</span>
+  whatis <span class="sb">`</span>basename <span class="nv">$file</span><span class="sb">`</span>   <span class="c"># File info.</span>
+  <span class="c"># Note that the whatis database needs to have been set up for this to work.</span>
+  <span class="c"># To do this, as root run /usr/bin/makewhatis.</span>
+  <span class="nb">echo</span>
+<span class="k">done</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>The ``                   [list]                 `` in a <em>for loop</em>
+may be parameterized.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-4-operating-on-a-parameterized-file-list">
+<h2>Exemple 4. Operating on a parameterized file list<a class="headerlink" href="#exemple-4-operating-on-a-parameterized-file-list" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">filename</span><span class="o">=</span><span class="s2">&quot;*txt&quot;</span>
+
+<span class="k">for</span> file in <span class="nv">$filename</span>
+<span class="k">do</span>
+ <span class="nb">echo</span> <span class="s2">&quot;Contents of </span><span class="nv">$file</span><span class="s2">&quot;</span>
+ <span class="nb">echo</span> <span class="s2">&quot;---&quot;</span>
+ cat <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>
+ <span class="nb">echo</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<p>If the ``                   [list]                 `` in a <em>for
+loop</em> contains wild cards ( * and ? ) used in filename expansion,
+then <a class="reference external" href="globbingref.html">globbing</a> takes place.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-5-operating-on-files-with-a-for-loop">
+<h2>Exemple 5. Operating on files with a <em>for</em> loop<a class="headerlink" href="#exemple-5-operating-on-files-with-a-for-loop" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># list-glob.sh: Generating [list] in a for-loop, using &quot;globbing&quot; ...</span>
+<span class="c"># Globbing = filename expansion.</span>
+
+<span class="nb">echo</span>
+
+<span class="k">for</span> file in *
+<span class="c">#           ^  Bash performs filename expansion</span>
+<span class="c">#+             on expressions that globbing recognizes.</span>
+<span class="k">do</span>
+  ls -l <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>  <span class="c"># Lists all files in $PWD (current directory).</span>
+  <span class="c">#  Recall that the wild card character &quot;*&quot; matches every filename,</span>
+  <span class="c">#+ however, in &quot;globbing,&quot; it doesn&#39;t match dot-files.</span>
+
+  <span class="c">#  If the pattern matches no file, it is expanded to itself.</span>
+  <span class="c">#  To prevent this, set the nullglob option</span>
+  <span class="c">#+   (shopt -s nullglob).</span>
+  <span class="c">#  Thanks, S.C.</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="k">for</span> file in <span class="o">[</span>jx<span class="o">]</span>*
+<span class="k">do</span>
+  rm -f <span class="nv">$file</span>    <span class="c"># Removes only files beginning with &quot;j&quot; or &quot;x&quot; in $PWD.</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Removed file \&quot;</span><span class="nv">$file</span><span class="s2">\&quot;&quot;</span>.
+<span class="k">done</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Omitting the ``                   in [list]                 `` part
+of a <em>for loop</em> causes the loop to operate on $&#64; &#8211; the <a class="reference external" href="internalvariables.html#POSPARAMREF">positional
+parameters</a> . A particularly
+clever illustration of this is <a class="reference external" href="contributed-scripts.html#PRIMES">Example
+A-15</a> . See also <a class="reference external" href="internal.html#REVPOSPARAMS">Example
+15-17</a> .</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-6-missing-in-list-in-a-for-loop">
+<h2>Exemple 6. Missing ``                       in [list]                     `` in a <em>for</em> loop<a class="headerlink" href="#exemple-6-missing-in-list-in-a-for-loop" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c">#  Invoke this script both with and without arguments,</span>
+<span class="c">#+ and see what happens.</span>
+
+<span class="k">for</span> a
+<span class="k">do</span>
+ <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> &quot;</span>
+<span class="k">done</span>
+
+<span class="c">#  The &#39;in list&#39; missing, therefore the loop operates on &#39;$@&#39;</span>
+<span class="c">#+ (command-line argument list, including whitespace).</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>It is possible to use <a class="reference external" href="commandsub.html#COMMANDSUBREF">command
+substitution</a> to generate the
+``                   [list]                 `` in a <em>for loop</em> . See
+also <a class="reference external" href="extmisc.html#EX53">Example 16-54</a> , <a class="reference external" href="loops1.html#SYMLINKS">Example
+11-11</a> and <a class="reference external" href="mathc.html#BASE">Example
+16-48</a> .</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-7-generating-the-list-in-a-for-loop-with-command-substitution">
+<h2>Exemple 7. Generating the <code class="docutils literal"><span class="pre">[list]</span></code> in a <em>for</em> loop with command substitution<a class="headerlink" href="#exemple-7-generating-the-list-in-a-for-loop-with-command-substitution" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c">#  for-loopcmd.sh: for-loop with [list]</span>
+<span class="c">#+ generated by command substitution.</span>
+
+<span class="nv">NUMBERS</span><span class="o">=</span><span class="s2">&quot;9 7 3 8 37.53&quot;</span>
+
+<span class="k">for</span> number in <span class="sb">`</span><span class="nb">echo</span> <span class="nv">$NUMBERS</span><span class="sb">`</span>  <span class="c"># for number in 9 7 3 8 37.53</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$number</span><span class="s2"> &quot;</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span>
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Here is a somewhat more complex example of using command
+substitution to create the
+``                   [list]                 `` .</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-8-a-grep-replacement-for-binary-files">
+<h2>Exemple 8. A <em>grep</em> replacement for binary files<a class="headerlink" href="#exemple-8-a-grep-replacement-for-binary-files" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># bin-grep.sh: Locates matching strings in a binary file.</span>
+
+<span class="c"># A &quot;grep&quot; replacement for binary files.</span>
+<span class="c"># Similar effect to &quot;grep -a&quot;</span>
+
+<span class="nv">E_BADARGS</span><span class="o">=</span>65
+<span class="nv">E_NOFILE</span><span class="o">=</span>66
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-ne <span class="m">2</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` search_string filename&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> ! -f <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;File \&quot;</span><span class="nv">$2</span><span class="s2">\&quot; does not exist.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOFILE</span>
+<span class="k">fi</span>
+
+
+<span class="nv">IFS</span><span class="o">=</span><span class="s1">$&#39;\012&#39;</span>       <span class="c"># Per suggestion of Anton Filippov.</span>
+                  <span class="c"># was:  IFS=&quot;\n&quot;</span>
+<span class="k">for</span> word in <span class="k">$(</span> strings <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>grep <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="k">)</span>
+<span class="c"># The &quot;strings&quot; command lists strings in binary files.</span>
+<span class="c"># Output then piped to &quot;grep&quot;, which tests for desired string.</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="nv">$word</span>
+<span class="k">done</span>
+
+<span class="c"># As S.C. points out, lines 23 - 30 could be replaced with the simpler</span>
+<span class="c">#    strings &quot;$2&quot;grep &quot;$1&quot; | tr -s &quot;$IFS&quot; &#39;[\n*]&#39;</span>
+
+
+<span class="c">#  Try something like  &quot;./bin-grep.sh mem /bin/ls&quot;</span>
+<span class="c">#+ to exercise this script.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>More of the same.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-9-listing-all-users-on-the-system">
+<h2>Exemple 9. Listing all users on the system<a class="headerlink" href="#exemple-9-listing-all-users-on-the-system" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># userlist.sh</span>
+
+<span class="nv">PASSWORD_FILE</span><span class="o">=</span>/etc/passwd
+<span class="nv">n</span><span class="o">=</span><span class="m">1</span>           <span class="c"># User number</span>
+
+<span class="k">for</span> name in <span class="k">$(</span>awk <span class="s1">&#39;BEGIN{FS=&quot;:&quot;}{print $1}&#39;</span> &lt; <span class="s2">&quot;</span><span class="nv">$PASSWORD_FILE</span><span class="s2">&quot;</span> <span class="k">)</span>
+<span class="c"># Field separator = :    ^^^^^^</span>
+<span class="c"># Print first field              ^^^^^^^^</span>
+<span class="c"># Get input from password file  /etc/passwd  ^^^^^^^^^^^^^^^^^</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;USER #</span><span class="nv">$n</span><span class="s2"> = </span><span class="nv">$name</span><span class="s2">&quot;</span>
+  <span class="nb">let</span> <span class="s2">&quot;n += 1&quot;</span>
+<span class="k">done</span>
+
+
+<span class="c"># USER #1 = root</span>
+<span class="c"># USER #2 = bin</span>
+<span class="c"># USER #3 = daemon</span>
+<span class="c"># ...</span>
+<span class="c"># USER #33 = bozo</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c">#  Discussion:</span>
+<span class="c">#  ----------</span>
+<span class="c">#  How is it that an ordinary user, or a script run by same,</span>
+<span class="c">#+ can read /etc/passwd? (Hint: Check the /etc/passwd file permissions.)</span>
+<span class="c">#  Is this a security hole? Why or why not?</span>
+</pre></div>
+</div>
+<p>Yet another example of the
+``                   [list]                 `` resulting from
+command substitution.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-10-checking-all-the-binaries-in-a-directory-for-authorship">
+<h2>Exemple 10. Checking all the binaries in a directory for authorship<a class="headerlink" href="#exemple-10-checking-all-the-binaries-in-a-directory-for-authorship" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># findstring.sh:</span>
+<span class="c"># Find a particular string in the binaries in a specified directory.</span>
+
+<span class="nv">directory</span><span class="o">=</span>/usr/bin/
+<span class="nv">fstring</span><span class="o">=</span><span class="s2">&quot;Free Software Foundation&quot;</span>  <span class="c"># See which files come from the FSF.</span>
+
+<span class="k">for</span> file in <span class="k">$(</span> find <span class="nv">$directory</span> -type f -name <span class="s1">&#39;*&#39;</span>sort <span class="k">)</span>
+<span class="k">do</span>
+  strings -f <span class="nv">$filegrep</span> <span class="s2">&quot;</span><span class="nv">$fstring</span><span class="s2">&quot;</span> <span class="p">|</span> sed -e <span class="s2">&quot;s%</span><span class="nv">$directory</span><span class="s2">%%&quot;</span>
+  <span class="c">#  In the &quot;sed&quot; expression,</span>
+  <span class="c">#+ it is necessary to substitute for the normal &quot;/&quot; delimiter</span>
+  <span class="c">#+ because &quot;/&quot; happens to be one of the characters filtered out.</span>
+  <span class="c">#  Failure to do so gives an error message. (Try it.)</span>
+<span class="k">done</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c">#  Exercise (easy):</span>
+<span class="c">#  ---------------</span>
+<span class="c">#  Convert this script to take command-line parameters</span>
+<span class="c">#+ for $directory and $fstring.</span>
+</pre></div>
+</div>
+<p>A final example of ``                   [list]                 `` /
+command substitution, but this time the &#8220;command&#8221; is a
+<a class="reference external" href="functions.html#FUNCTIONREF">function</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre>generate_list <span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">echo</span> <span class="s2">&quot;one two three&quot;</span>
+<span class="o">}</span>
+
+<span class="k">for</span> word in <span class="k">$(</span>generate_list<span class="k">)</span>  <span class="c"># Let &quot;word&quot; grab output of function.</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$word</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+
+<span class="c"># one</span>
+<span class="c"># two</span>
+<span class="c"># three</span>
+</pre></div>
+</div>
+<p>The output of a <em>for loop</em> may be piped to a command or commands.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-11-listing-the-symbolic-links-in-a-directory">
+<h2>Exemple 11. Listing the <em>symbolic links</em> in a directory<a class="headerlink" href="#exemple-11-listing-the-symbolic-links-in-a-directory" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># symlinks.sh: Lists symbolic links in a directory.</span>
+
+
+<span class="nv">directory</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="p">-</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span><span class="si">}</span>
+<span class="c">#  Defaults to current working directory,</span>
+<span class="c">#+ if not otherwise specified.</span>
+<span class="c">#  Equivalent to code block below.</span>
+<span class="c"># ----------------------------------------------------------</span>
+<span class="c"># ARGS=1                 # Expect one command-line argument.</span>
+<span class="c">#</span>
+<span class="c"># if [ $# -ne &quot;$ARGS&quot; ]  # If not 1 arg...</span>
+<span class="c"># then</span>
+<span class="c">#   directory=`pwd`      # current working directory</span>
+<span class="c"># else</span>
+<span class="c">#   directory=$1</span>
+<span class="c"># fi</span>
+<span class="c"># ----------------------------------------------------------</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;symbolic links in directory \&quot;</span><span class="nv">$directory</span><span class="s2">\&quot;&quot;</span>
+
+<span class="k">for</span> file in <span class="s2">&quot;</span><span class="k">$(</span> find <span class="nv">$directory</span> -type l <span class="k">)</span><span class="s2">&quot;</span>   <span class="c"># -type l = symbolic links</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>
+donesort                                  <span class="c"># Otherwise file list is unsorted.</span>
+<span class="c">#  Strictly speaking, a loop isn&#39;t really necessary here,</span>
+<span class="c">#+ since the output of the &quot;find&quot; command is expanded into a single word.</span>
+<span class="c">#  However, it&#39;s easy to understand and illustrative this way.</span>
+
+<span class="c">#  As Dominik &#39;Aeneas&#39; Schnitzer points out,</span>
+<span class="c">#+ failing to quote  $( find $directory -type l )</span>
+<span class="c">#+ will choke on filenames with embedded whitespace.</span>
+<span class="c">#  containing whitespace.</span>
+
+<span class="nb">exit </span>0
+
+
+<span class="c"># --------------------------------------------------------</span>
+<span class="c"># Jean Helou proposes the following alternative:</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;symbolic links in directory \&quot;</span><span class="nv">$directory</span><span class="s2">\&quot;&quot;</span>
+<span class="c"># Backup of the current IFS. One can never be too cautious.</span>
+<span class="nv">OLDIFS</span><span class="o">=</span><span class="nv">$IFS</span>
+<span class="nv">IFS</span><span class="o">=</span>:
+
+<span class="k">for</span> file in <span class="k">$(</span>find <span class="nv">$directory</span> -type l -printf <span class="s2">&quot;%p</span><span class="nv">$IFS</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="k">do</span>     <span class="c">#                              ^^^^^^^^^^^^^^^^</span>
+       <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>
+       <span class="k">done</span><span class="p">|</span>sort
+
+<span class="c"># And, James &quot;Mike&quot; Conley suggests modifying Helou&#39;s code thusly:</span>
+
+<span class="nv">OLDIFS</span><span class="o">=</span><span class="nv">$IFS</span>
+<span class="nv">IFS</span><span class="o">=</span><span class="s1">&#39;&#39;</span> <span class="c"># Null IFS means no word breaks</span>
+<span class="k">for</span> file in <span class="k">$(</span> find <span class="nv">$directory</span> -type l <span class="k">)</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="nv">$file</span>
+  donesort
+
+<span class="c">#  This works in the &quot;pathological&quot; case of a directory name having</span>
+<span class="c">#+ an embedded colon.</span>
+<span class="c">#  &quot;This also fixes the pathological case of the directory name having</span>
+<span class="c">#+  a colon (or space in earlier example) as well.&quot;</span>
+</pre></div>
+</div>
+<p>The ``         stdout        `` of a loop may be
+<a class="reference external" href="io-redirection.html#IOREDIRREF">redirected</a> to a file, as this
+slight modification to the previous example shows.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-12-symbolic-links-in-a-directory-saved-to-a-file">
+<h2>Exemple 12. Symbolic links in a directory, saved to a file<a class="headerlink" href="#exemple-12-symbolic-links-in-a-directory-saved-to-a-file" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># symlinks.sh: Lists symbolic links in a directory.</span>
+
+<span class="nv">OUTFILE</span><span class="o">=</span>symlinks.list                         <span class="c"># save-file</span>
+
+<span class="nv">directory</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="p">-</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span><span class="si">}</span>
+<span class="c">#  Defaults to current working directory,</span>
+<span class="c">#+ if not otherwise specified.</span>
+
+
+<span class="nb">echo</span> <span class="s2">&quot;symbolic links in directory \&quot;</span><span class="nv">$directory</span><span class="s2">\&quot;&quot;</span> &gt; <span class="s2">&quot;</span><span class="nv">$OUTFILE</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;---------------------------&quot;</span> &gt;&gt; <span class="s2">&quot;</span><span class="nv">$OUTFILE</span><span class="s2">&quot;</span>
+
+<span class="k">for</span> file in <span class="s2">&quot;</span><span class="k">$(</span> find <span class="nv">$directory</span> -type l <span class="k">)</span><span class="s2">&quot;</span>    <span class="c"># -type l = symbolic links</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>
+donesort &gt;&gt; <span class="s2">&quot;</span><span class="nv">$OUTFILE</span><span class="s2">&quot;</span>                     <span class="c"># stdout of loop</span>
+<span class="c">#           ^^^^^^^^^^^^^                       redirected to save file.</span>
+
+<span class="c"># echo &quot;Output file = $OUTFILE&quot;</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+<p>There is an alternative syntax to a <em>for loop</em> that will look very
+familiar to C programmers. This requires <a class="reference external" href="dblparens.html#DBLPARENSREF">double
+parentheses</a> .</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-13-a-c-style-for-loop">
+<h2>Exemple 13. A C-style <em>for</em> loop<a class="headerlink" href="#exemple-13-a-c-style-for-loop" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Multiple ways to count up to 10.</span>
+
+<span class="nb">echo</span>
+
+<span class="c"># Standard syntax.</span>
+<span class="k">for</span> a in <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span> <span class="m">6</span> <span class="m">7</span> <span class="m">8</span> <span class="m">9</span> 10
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> &quot;</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="c"># +==========================================+</span>
+
+<span class="c"># Using &quot;seq&quot; ...</span>
+<span class="k">for</span> a in <span class="sb">`</span>seq 10<span class="sb">`</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> &quot;</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="c"># +==========================================+</span>
+
+<span class="c"># Using brace expansion ...</span>
+<span class="c"># Bash, version 3+.</span>
+<span class="k">for</span> a in <span class="o">{</span>1..10<span class="o">}</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> &quot;</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="c"># +==========================================+</span>
+
+<span class="c"># Now, let&#39;s do the same, using C-like syntax.</span>
+
+<span class="nv">LIMIT</span><span class="o">=</span>10
+
+<span class="k">for</span> <span class="o">((</span><span class="nv">a</span><span class="o">=</span>1<span class="p">;</span> a &lt;<span class="o">=</span> LIMIT <span class="p">;</span> a++<span class="o">))</span>  <span class="c"># Double parentheses, and naked &quot;LIMIT&quot;</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> &quot;</span>
+<span class="k">done</span>                           <span class="c"># A construct borrowed from ksh93.</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="c"># +=========================================================================+</span>
+
+<span class="c"># Let&#39;s use the C &quot;comma operator&quot; to increment two variables simultaneously.</span>
+
+<span class="k">for</span> <span class="o">((</span><span class="nv">a</span><span class="o">=</span>1, <span class="nv">b</span><span class="o">=</span>1<span class="p">;</span> a &lt;<span class="o">=</span> LIMIT <span class="p">;</span> a++, b++<span class="o">))</span>
+<span class="k">do</span>  <span class="c"># The comma concatenates operations.</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">-</span><span class="nv">$b</span><span class="s2"> &quot;</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>See also <a class="reference external" href="arrays.html#QFUNCTION">Example 27-16</a> , <a class="reference external" href="arrays.html#TWODIM">Example
+27-17</a> , and <a class="reference external" href="contributed-scripts.html#COLLATZ">Example
+A-6</a> .</p>
+<p>&#8212;</p>
+<p>Now, a <em>for loop</em> used in a &#8220;real-life&#8221; context.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-14-using-efax-in-batch-mode">
+<h2>Exemple 14. Using <em>efax</em> in batch mode<a class="headerlink" href="#exemple-14-using-efax-in-batch-mode" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Faxing (must have &#39;efax&#39; package installed).</span>
+
+<span class="nv">EXPECTED_ARGS</span><span class="o">=</span>2
+<span class="nv">E_BADARGS</span><span class="o">=</span>85
+<span class="nv">MODEM_PORT</span><span class="o">=</span><span class="s2">&quot;/dev/ttyS2&quot;</span>   <span class="c"># May be different on your machine.</span>
+<span class="c">#                ^^^^^      PCMCIA modem card default port.</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-ne <span class="nv">$EXPECTED_ARGS</span> <span class="o">]</span>
+<span class="c"># Check for proper number of command-line args.</span>
+<span class="k">then</span>
+   <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` phone# text-file&quot;</span>
+   <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+
+
+<span class="k">if</span> <span class="o">[</span> ! -f <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;File </span><span class="nv">$2</span><span class="s2"> is not a text file.&quot;</span>
+  <span class="c">#     File is not a regular file, or does not exist.</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+
+
+fax make <span class="nv">$2</span>              <span class="c">#  Create fax-formatted files from text files.</span>
+
+<span class="k">for</span> file in <span class="k">$(</span>ls <span class="nv">$2</span>.0*<span class="k">)</span>  <span class="c">#  Concatenate the converted files.</span>
+                         <span class="c">#  Uses wild card (filename &quot;globbing&quot;)</span>
+             <span class="c">#+ in variable list.</span>
+<span class="k">do</span>
+  <span class="nv">fil</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$fil</span><span class="s2"> </span><span class="nv">$file</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+
+efax -d <span class="s2">&quot;</span><span class="nv">$MODEM_PORT</span><span class="s2">&quot;</span>  -t <span class="s2">&quot;T</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="nv">$fil</span>   <span class="c"># Finally, do the work.</span>
+<span class="c"># Trying adding  -o1  if above line fails.</span>
+
+
+<span class="c">#  As S.C. points out, the for-loop can be eliminated with</span>
+<span class="c">#     efax -d /dev/ttyS2 -o1 -t &quot;T$1&quot; $2.0*</span>
+<span class="c">#+ but it&#39;s not quite as instructive [grin].</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>   <span class="c"># Also, efax sends diagnostic messages to stdout.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div>The <a class="reference external" href="internal.html#KEYWORDREF">keywords</a> <strong>do</strong> and <strong>done</strong></div></blockquote>
+<p class="last">delineate the <em>for-loop</em> command block. However, these may, in
+certain contexts, be omitted by framing the command block within
+<a class="reference external" href="special-chars.html#CODEBLOCKREF">curly brackets</a></p>
+</div>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">for</span><span class="o">((</span><span class="nv">n</span><span class="o">=</span>1<span class="p">;</span> n&lt;<span class="o">=</span>10<span class="p">;</span> n++
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>))</dt>
+<dd><blockquote class="first">
+<div><p># No do!
+{</p>
+<blockquote>
+<div>echo -n &#8220;* $n <a href="#id9"><span class="problematic" id="id10">*</span></a>&#8220;</div></blockquote>
+<p>}
+# No done!</p>
+<p># Outputs:
+# * 1 ** 2 ** 3 ** 4</p>
+</div></blockquote>
+<p class="last">** 5 ** 6 ** 7 ** 8 **</p>
+</dd>
+<dt>9 ** 10 *</dt>
+<dd># And, echo $? retur</dd>
+</dl>
+<p>ns 0, so Bash does not r
+egister an error.</p>
+<blockquote>
+<div><blockquote>
+<div><p>echo</p>
+<p>#  But, note that in</p>
+</div></blockquote>
+<p>a classic for-loop:</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>for n in [list] ...</dt>
+<dd>#+ a terminal semico</dd>
+</dl>
+<p>lon is required.</p>
+<blockquote>
+<div><blockquote>
+<div><p>for n in 1 2 3
+{  echo -n &#8220;$n &#8221;; }
+#               ^</p>
+<p># Thank you, YongYe,</p>
+</div></blockquote>
+<p>for pointing this out.</p>
+</div></blockquote>
+<hr class="docutils" />
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="k">for</span><span class="o">((</span><span class="nv">n</span><span class="o">=</span>1<span class="p">;</span> n&lt;<span class="o">=</span>10<span class="p">;</span> n++<span class="o">))</span>
+<span class="c"># No do!</span>
+<span class="o">{</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;* </span><span class="nv">$n</span><span class="s2"> *&quot;</span>
+<span class="o">}</span>
+<span class="c"># No done!</span>
+
+
+<span class="c"># Outputs:</span>
+<span class="c"># * 1 ** 2 ** 3 ** 4 ** 5 ** 6 ** 7 ** 8 ** 9 ** 10 *</span>
+<span class="c"># And, echo $? returns 0, so Bash does not register an error.</span>
+
+
+<span class="nb">echo</span>
+
+
+<span class="c">#  But, note that in a classic for-loop:    for n in [list] ...</span>
+<span class="c">#+ a terminal semicolon is required.</span>
+
+<span class="k">for</span> n in <span class="m">1</span> <span class="m">2</span> 3
+<span class="o">{</span>  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$n</span><span class="s2"> &quot;</span><span class="p">;</span> <span class="o">}</span>
+<span class="c">#               ^</span>
+
+
+<span class="c"># Thank you, YongYe, for pointing this out.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">for</span><span class="o">((</span><span class="nv">n</span><span class="o">=</span>1<span class="p">;</span> n&lt;<span class="o">=</span>10<span class="p">;</span> n++<span class="o">))</span>
+<span class="c"># No do!</span>
+<span class="o">{</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;* </span><span class="nv">$n</span><span class="s2"> *&quot;</span>
+<span class="o">}</span>
+<span class="c"># No done!</span>
+
+
+<span class="c"># Outputs:</span>
+<span class="c"># * 1 ** 2 ** 3 ** 4 ** 5 ** 6 ** 7 ** 8 ** 9 ** 10 *</span>
+<span class="c"># And, echo $? returns 0, so Bash does not register an error.</span>
+
+
+<span class="nb">echo</span>
+
+
+<span class="c">#  But, note that in a classic for-loop:    for n in [list] ...</span>
+<span class="c">#+ a terminal semicolon is required.</span>
+
+<span class="k">for</span> n in <span class="m">1</span> <span class="m">2</span> 3
+<span class="o">{</span>  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$n</span><span class="s2"> &quot;</span><span class="p">;</span> <span class="o">}</span>
+<span class="c">#               ^</span>
+
+
+<span class="c"># Thank you, YongYe, for pointing this out.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>while</strong></dt>
+<dd>This construct tests for a condition at the top of a loop, and keeps
+looping as long as that condition is true (returns a 0 <a class="reference external" href="exit-status.html#EXITSTATUSREF">exit
+status</a> ). In contrast to a <a class="reference external" href="loops1.html#FORLOOPREF1">for
+loop</a> , a <em>while loop</em> finds use in
+situations where the number of loop repetitions is not known
+beforehand.</dd>
+</dl>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>while</strong> [ ``                   condition                 `` ]</dt>
+<dd><p class="first">do
+``                   command(s)                 `` ...
+done</p>
+<blockquote class="last">
+<div><p>The bracket construct in a <em>while loop</em> is nothing more than our old
+friend, the <a class="reference external" href="testconstructs.html#TESTCONSTRUCTS1">test brackets</a>
+used in an <em>if/then</em> test. In fact, a <em>while loop</em> can legally use
+the more versatile <a class="reference external" href="testconstructs.html#DBLBRACKETS">double-brackets
+construct</a> (while [[ condition
+]]).</p>
+<p><a class="reference external" href="loops1.html#NEEDSEMICOLON">As is the case with *for loops*</a> ,
+placing the <em>do</em> on the same line as the condition test requires a
+semicolon.</p>
+<p><strong>while</strong> [ ``                   condition                 `` ] ; do</p>
+<p>Note that the <em>test brackets</em> <a class="reference external" href="loops1.html#WHILENOBRACKETS">are *not*
+mandatory</a> in a <em>while</em> loop. See,
+for example, the <a class="reference external" href="internal.html#GETOPTSX">getopts construct</a> .</p>
+</div></blockquote>
+</dd>
+</dl>
+</div>
+<div class="section" id="exemple-15-simple-while-loop">
+<h2>Exemple 15. Simple <em>while</em> loop<a class="headerlink" href="#exemple-15-simple-while-loop" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">var0</span><span class="o">=</span>0
+<span class="nv">LIMIT</span><span class="o">=</span>10
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$var0</span><span class="s2">&quot;</span> -lt <span class="s2">&quot;</span><span class="nv">$LIMIT</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="c">#      ^                    ^</span>
+<span class="c"># Spaces, because these are &quot;test-brackets&quot; . . .</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$var0</span><span class="s2"> &quot;</span>        <span class="c"># -n suppresses newline.</span>
+  <span class="c">#             ^           Space, to separate printed out numbers.</span>
+
+  <span class="nv">var0</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$var0</span> + 1<span class="sb">`</span>   <span class="c"># var0=$(($var0+1))  also works.</span>
+                          <span class="c"># var0=$((var0 + 1)) also works.</span>
+                          <span class="c"># let &quot;var0 += 1&quot;    also works.</span>
+<span class="k">done</span>                      <span class="c"># Various other methods also work.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-16-another-while-loop">
+<h2>Exemple 16. Another <em>while</em> loop<a class="headerlink" href="#exemple-16-another-while-loop" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span>
+                               <span class="c"># Equivalent to:</span>
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$var1</span><span class="s2">&quot;</span> !<span class="o">=</span> <span class="s2">&quot;end&quot;</span> <span class="o">]</span>     <span class="c"># while test &quot;$var1&quot; != &quot;end&quot;</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Input variable #1 (end to exit) &quot;</span>
+  <span class="nb">read </span>var1                    <span class="c"># Not &#39;read $var1&#39; (why?).</span>
+  <span class="nb">echo</span> <span class="s2">&quot;variable #1 = </span><span class="nv">$var1</span><span class="s2">&quot;</span>   <span class="c"># Need quotes because of &quot;#&quot; . . .</span>
+  <span class="c"># If input is &#39;end&#39;, echoes it here.</span>
+  <span class="c"># Does not test for termination condition until top of loop.</span>
+  <span class="nb">echo</span>
+<span class="k">done</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>A <em>while loop</em> may have multiple conditions. Only the final
+condition determines when the loop terminates. This necessitates a
+slightly different loop syntax, however.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-17-while-loop-with-multiple-conditions">
+<h2>Exemple 17. <em>while</em> loop with multiple conditions<a class="headerlink" href="#exemple-17-while-loop-with-multiple-conditions" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">var1</span><span class="o">=</span><span class="nb">unset</span>
+<span class="nv">previous</span><span class="o">=</span><span class="nv">$var1</span>
+
+<span class="k">while</span> <span class="nb">echo</span> <span class="s2">&quot;previous-variable = </span><span class="nv">$previous</span><span class="s2">&quot;</span>
+      <span class="nb">echo</span>
+<span class="nb">      </span><span class="nv">previous</span><span class="o">=</span><span class="nv">$var1</span>
+      <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$var1</span><span class="s2">&quot;</span> !<span class="o">=</span> end <span class="o">]</span> <span class="c"># Keeps track of what $var1 was previously.</span>
+      <span class="c"># Four conditions on *while*, but only the final one controls loop.</span>
+      <span class="c"># The *last* exit status is the one that counts.</span>
+<span class="k">do</span>
+<span class="nb">echo</span> <span class="s2">&quot;Input variable #1 (end to exit) &quot;</span>
+  <span class="nb">read </span>var1
+  <span class="nb">echo</span> <span class="s2">&quot;variable #1 = </span><span class="nv">$var1</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+
+<span class="c"># Try to figure out how this all works.</span>
+<span class="c"># It&#39;s a wee bit tricky.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>As with a <em>for loop</em> , a <em>while loop</em> may employ C-style syntax by
+using the double-parentheses construct (see also <a class="reference external" href="dblparens.html#CVARS">Example
+8-5</a> ).</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-18-c-style-syntax-in-a-while-loop">
+<h2>Exemple 18. C-style syntax in a <em>while</em> loop<a class="headerlink" href="#exemple-18-c-style-syntax-in-a-while-loop" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># wh-loopc.sh: Count to 10 in a &quot;while&quot; loop.</span>
+
+<span class="nv">LIMIT</span><span class="o">=</span><span class="m">10</span>                 <span class="c"># 10 iterations.</span>
+<span class="nv">a</span><span class="o">=</span>1
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> -le <span class="nv">$LIMIT</span> <span class="o">]</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> &quot;</span>
+  <span class="nb">let</span> <span class="s2">&quot;a+=1&quot;</span>
+<span class="k">done</span>                     <span class="c"># No surprises, so far.</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="c"># +=================================================================+</span>
+
+<span class="c"># Now, we&#39;ll repeat with C-like syntax.</span>
+
+<span class="o">((</span><span class="nv">a</span> <span class="o">=</span> 1<span class="o">))</span>      <span class="c"># a=1</span>
+<span class="c"># Double parentheses permit space when setting a variable, as in C.</span>
+
+<span class="k">while</span> <span class="o">((</span> a &lt;<span class="o">=</span> LIMIT <span class="o">))</span>   <span class="c">#  Double parentheses,</span>
+<span class="k">do</span>                       <span class="c">#+ and no &quot;$&quot; preceding variables.</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> &quot;</span>
+  <span class="o">((</span>a +<span class="o">=</span> 1<span class="o">))</span>             <span class="c"># let &quot;a+=1&quot;</span>
+  <span class="c"># Yes, indeed.</span>
+  <span class="c"># Double parentheses permit incrementing a variable with C-like syntax.</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span>
+
+<span class="c"># C and Java programmers can feel right at home in Bash.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Inside its test brackets, a <em>while loop</em> can call a
+<a class="reference external" href="functions.html#FUNCTIONREF">function</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">t</span><span class="o">=</span>0
+
+condition <span class="o">()</span>
+<span class="o">{</span>
+  <span class="o">((</span>t++<span class="o">))</span>
+
+  <span class="k">if</span> <span class="o">[</span> <span class="nv">$t</span> -lt <span class="m">5</span> <span class="o">]</span>
+  <span class="k">then</span>
+    <span class="k">return</span> <span class="m">0</span>  <span class="c"># true</span>
+  <span class="k">else</span>
+    <span class="k">return</span> <span class="m">1</span>  <span class="c"># false</span>
+  <span class="k">fi</span>
+<span class="o">}</span>
+
+<span class="k">while</span> condition
+<span class="c">#     ^^^^^^^^^</span>
+<span class="c">#     Function call -- four loop iterations.</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Still going: t = </span><span class="nv">$t</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+
+<span class="c"># Still going: t = 1</span>
+<span class="c"># Still going: t = 2</span>
+<span class="c"># Still going: t = 3</span>
+<span class="c"># Still going: t = 4</span>
+</pre></div>
+</div>
+<p>Similar to the <a class="reference external" href="testconstructs.html#IFGREPREF">if-test</a>
+construct, a <em>while</em> loop can omit the test brackets.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">while</span> condition
+<span class="k">do</span>
+   <span class="nb">command</span><span class="o">(</span>s<span class="o">)</span> ...
+<span class="k">done</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">while</span> condition
+<span class="k">do</span>
+   <span class="nb">command</span><span class="o">(</span>s<span class="o">)</span> ...
+<span class="k">done</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">while</span> condition
+<span class="k">do</span>
+   <span class="nb">command</span><span class="o">(</span>s<span class="o">)</span> ...
+<span class="k">done</span>
+</pre></div>
+</div>
+<p>By coupling the power of the <a class="reference external" href="internal.html#READREF">read</a>
+command with a <em>while loop</em> , we get the handy <a class="reference external" href="internal.html#WHILEREADREF">while
+read</a> construct, useful for reading
+and parsing files.</p>
+<div class="highlight-sh"><div class="highlight"><pre>cat <span class="nv">$filename</span>  <span class="c"># Supply input from a file.</span>
+<span class="k">while</span> <span class="nb">read </span>line   <span class="c"># As long as there is another line to read ...</span>
+<span class="k">do</span>
+  ...
+<span class="k">done</span>
+
+<span class="c"># =========== Snippet from &quot;sd.sh&quot; example script ========== #</span>
+
+  <span class="k">while</span> <span class="nb">read </span>value   <span class="c"># Read one data point at a time.</span>
+  <span class="k">do</span>
+    <span class="nv">rt</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">&quot;scale=</span><span class="nv">$SC</span><span class="s2">; </span><span class="nv">$rt</span><span class="s2"> + </span><span class="nv">$value</span><span class="s2">&quot;</span>bc<span class="k">)</span>
+    <span class="o">((</span> ct++ <span class="o">))</span>
+  <span class="k">done</span>
+
+  <span class="nv">am</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">&quot;scale=</span><span class="nv">$SC</span><span class="s2">; </span><span class="nv">$rt</span><span class="s2"> / </span><span class="nv">$ct</span><span class="s2">&quot;</span>bc<span class="k">)</span>
+
+  <span class="nb">echo</span> <span class="nv">$am</span><span class="p">;</span> <span class="k">return</span> <span class="nv">$ct</span>   <span class="c"># This function &quot;returns&quot; TWO values!</span>
+  <span class="c">#  Caution: This little trick will not work if $ct &gt; 255!</span>
+  <span class="c">#  To handle a larger number of data points,</span>
+  <span class="c">#+ simply comment out the &quot;return $ct&quot; above.</span>
+<span class="o">}</span> &lt;<span class="s2">&quot;</span><span class="nv">$datafile</span><span class="s2">&quot;</span>   <span class="c"># Feed in data file.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div><p>A <em>while loop</em> may have its ``            stdin           ``
+<a class="reference external" href="redircb.html#REDIRREF">redirected to a file</a> by a &lt; at its end.</p>
+<p>A <em>while loop</em> may have its ``            stdin           ``
+<a class="reference external" href="internal.html#READPIPEREF">supplied by a pipe</a> .</p>
+</div></blockquote>
+<dl class="last docutils">
+<dt><strong>until</strong></dt>
+<dd>This construct tests for a condition at the top of a loop, and keeps
+looping as long as that condition is <em>false</em> (opposite of <em>while
+loop</em> ).</dd>
+</dl>
+</div>
+<dl class="docutils">
+<dt><strong>until</strong> [</dt>
+<dd><blockquote class="first">
+<div>``                   condition-is-true                 `` ]</div></blockquote>
+<p>do
+``                   command(s)                 `` ...
+done</p>
+<blockquote class="last">
+<div><p>Note that an <em>until loop</em> tests for the terminating condition at the
+<em>top</em> of the loop, differing from a similar construct in some
+programming languages.</p>
+<p>As is the case with <em>for loops</em> , placing the <em>do</em> on the same line
+as the condition test requires a semicolon.</p>
+<p><strong>until</strong> [
+``                   condition-is-true                 `` ] ; do</p>
+</div></blockquote>
+</dd>
+</dl>
+</div>
+<div class="section" id="exemple-19-until-loop">
+<h2>Exemple 19. <em>until</em> loop<a class="headerlink" href="#exemple-19-until-loop" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">END_CONDITION</span><span class="o">=</span>end
+
+<span class="k">until</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$var1</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$END_CONDITION</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="c"># Tests condition here, at top of loop.</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Input variable #1 &quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;(</span><span class="nv">$END_CONDITION</span><span class="s2"> to exit)&quot;</span>
+  <span class="nb">read </span>var1
+  <span class="nb">echo</span> <span class="s2">&quot;variable #1 = </span><span class="nv">$var1</span><span class="s2">&quot;</span>
+  <span class="nb">echo</span>
+<span class="k">done</span>
+
+<span class="c">#                     ---                        #</span>
+
+<span class="c">#  As with &quot;for&quot; and &quot;while&quot; loops,</span>
+<span class="c">#+ an &quot;until&quot; loop permits C-like test constructs.</span>
+
+<span class="nv">LIMIT</span><span class="o">=</span>10
+<span class="nv">var</span><span class="o">=</span>0
+
+<span class="k">until</span> <span class="o">((</span> var &gt; LIMIT <span class="o">))</span>
+<span class="k">do</span>  <span class="c"># ^^ ^     ^     ^^   No brackets, no $ prefixing variables.</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$var</span><span class="s2"> &quot;</span>
+  <span class="o">((</span> var++ <span class="o">))</span>
+<span class="k">done</span>    <span class="c"># 0 1 2 3 4 5 6 7 8 9 10</span>
+
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<p>How to choose between a <em>for</em> loop or a <em>while</em> loop or <em>until</em> loop? In
+<strong>C</strong> , you would typically use a <em>for</em> loop when the number of loop
+iterations is known beforehand. With <em>Bash</em> , however, the situation is
+fuzzier. The Bash <em>for</em> loop is more loosely structured and more
+flexible than its equivalent in other languages. Therefore, feel free to
+use whatever type of loop gets the job done in the simplest way.</p>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;loops1.html#AEN6560&gt;`__</p>
+<blockquote>
+<div><em>Iteration</em> : Repeated execution of a command or group of commands,</div></blockquote>
+<p>usually &#8211; but not always, <em>while</em> a given condition holds, or <em>until</em> a
+given condition is met.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="nestedloops.html" class="btn btn-neutral float-right" title="XXX 11.2. Nested Loops" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="loops.html" class="btn btn-neutral" title="Chapter 11. Loops and Branches"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

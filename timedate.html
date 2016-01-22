@@ -1,0 +1,439 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Comandes de data i hora &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX Comandes de data i hora</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-comandes-de-data-i-hora">
+<h1>XXX Comandes de data i hora<a class="headerlink" href="#xxx-comandes-de-data-i-hora" title="Link permanent a aquest títol">¶</a></h1>
+<p>En aquesta secció estudiarem les comandes time, date i el càlcul de
+temps.</p>
+<dl class="docutils">
+<dt><strong>date</strong></dt>
+<dd>Invocant-la directament, <strong>date</strong> escriu la data i l&#8217;hora a la
+sortida estàndard (<code class="docutils literal"><span class="pre">stdout</span></code>). Aquesta comanda es torna més
+interessant quan es fan servir les opcions de formatat i anàlisi.</dd>
+</dl>
+<div class="section" id="exemple-10-us-de-date">
+<h2>Exemple 10. Ús de <em>date</em><a class="headerlink" href="#exemple-10-us-de-date" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Ús de la comanda &#39;date&#39;</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;El nombre de dies des de l&#39;inici de l&#39;any és `date +%j`.&quot;</span>
+<span class="c"># Cal un &#39;+&#39; per invocar el formatat.</span>
+<span class="c"># %j retorna el dia de l&#39;any.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;El nombre de segons que ha passat des de 01/01/1970 és `date +%s`.&quot;</span>
+<span class="c">#  %s genera el nombre de segons des de que va començar l&#39; &quot;UNIX epoch&quot;,</span>
+<span class="c">#+ Però, de què ens pot servir això?</span>
+
+<span class="nv">prefix</span><span class="o">=</span>temp
+<span class="nv">suffix</span><span class="o">=</span><span class="k">$(</span>date +%s<span class="k">)</span>  <span class="c"># L&#39;opció &quot;+%s&quot; de &#39;date&#39; és específica de GNU.</span>
+<span class="nv">filename</span><span class="o">=</span><span class="nv">$prefix</span>.<span class="nv">$suffix</span>
+<span class="nb">echo</span> <span class="s2">&quot;Nom de fitxer temporal = </span><span class="nv">$filename</span><span class="s2">&quot;</span>
+<span class="c">#  És perfecte per crear fitxers temporals amb noms &quot;únics i aleatoris&quot;,</span>
+<span class="c">#+ fins i tot millor que fer servir $$.</span>
+
+<span class="c"># Llegiu la pàgina man de &#39;date&#39; per a conèixer més opcions de formatat.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>L&#8217;opció <code class="docutils literal"><span class="pre">-u</span></code> retorna l&#8217; UTC o Temps Universal Coordinat (Universal
+Coordinated Time).</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>date
+Fri Mar <span class="m">29</span> 21:07:39 MST 2002
+
+
+
+bash<span class="nv">$ </span>date -u
+Sat Mar <span class="m">30</span> 04:07:42 UTC 2002
+</pre></div>
+</div>
+<p>Aquesta opció facilita el càlcul del temps entre diferents dates.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-11-calculs-amb-date">
+<h2>Exemple 11. Càlculs amb <em>Date</em><a class="headerlink" href="#exemple-11-calculs-amb-date" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># date-calc.sh</span>
+<span class="c"># Autor: Nathan Coulter</span>
+
+<span class="nv">MPHR</span><span class="o">=</span><span class="m">60</span>    <span class="c"># Minuts per hora.</span>
+<span class="nv">HPD</span><span class="o">=</span><span class="m">24</span>     <span class="c"># Hores per dia.</span>
+
+diff <span class="o">()</span> <span class="o">{</span>
+        <span class="nb">printf</span> <span class="s1">&#39;%s&#39;</span> <span class="k">$((</span> <span class="k">$(</span>date -u -d<span class="s2">&quot;</span><span class="nv">$TARGET</span><span class="s2">&quot;</span> +%s<span class="k">)</span> <span class="o">-</span>
+                        <span class="k">$(</span>date -u -d<span class="s2">&quot;</span><span class="nv">$CURRENT</span><span class="s2">&quot;</span> +%s<span class="k">)))</span>
+<span class="c">#                       %d = dia del mes</span>
+<span class="o">}</span>
+
+
+<span class="nv">CURRENT</span><span class="o">=</span><span class="k">$(</span>date -u -d <span class="s1">&#39;2007-09-01 17:30:24&#39;</span> <span class="s1">&#39;+%F %T.%N %Z&#39;</span><span class="k">)</span>
+<span class="nv">TARGET</span><span class="o">=</span><span class="k">$(</span>date -u -d<span class="s1">&#39;2007-12-25 12:30:00&#39;</span> <span class="s1">&#39;+%F %T.%N %Z&#39;</span><span class="k">)</span>
+<span class="c"># %F = data completa, %T = %H:%M:%S, %N = nanosegons, %Z = zona horària.</span>
+
+<span class="nb">printf</span> <span class="s1">&#39;\nEl %s de 2007 &#39;</span> <span class="se">\</span>
+       <span class="s2">&quot;</span><span class="k">$(</span>date -d<span class="s2">&quot;</span><span class="nv">$CURRENT</span><span class="s2"> +</span>
+<span class="s2">        </span><span class="k">$((</span> <span class="k">$(</span>diff<span class="k">)</span> <span class="o">/</span><span class="nv">$MPHR</span> <span class="o">/</span><span class="nv">$MPHR</span> <span class="o">/</span><span class="nv">$HPD</span> <span class="o">/</span> <span class="m">2</span> <span class="k">))</span><span class="s2"> days&quot;</span> <span class="s1">&#39;+%d %B&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="c">#       %B = nom del mes                ^ mig camí</span>
+<span class="nb">printf</span> <span class="s1">&#39;estava a mig camí entre  %s &#39;</span> <span class="s2">&quot;</span><span class="k">$(</span>date -d<span class="s2">&quot;</span><span class="nv">$CURRENT</span><span class="s2">&quot;</span> <span class="s1">&#39;+%d %B&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">printf</span> <span class="s1">&#39;i %s\n&#39;</span> <span class="s2">&quot;</span><span class="k">$(</span>date -d<span class="s2">&quot;</span><span class="nv">$TARGET</span><span class="s2">&quot;</span> <span class="s1">&#39;+%d %B&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+
+<span class="nb">printf</span> <span class="s1">&#39;\nEl %s a les %s hi quedaven\n&#39;</span> <span class="se">\</span>
+        <span class="k">$(</span>date -u -d<span class="s2">&quot;</span><span class="nv">$CURRENT</span><span class="s2">&quot;</span> +%F<span class="k">)</span> <span class="k">$(</span>date -u -d<span class="s2">&quot;</span><span class="nv">$CURRENT</span><span class="s2">&quot;</span> +%T<span class="k">)</span>
+<span class="nv">DAYS</span><span class="o">=</span><span class="k">$((</span> <span class="k">$(</span>diff<span class="k">)</span> <span class="o">/</span> <span class="nv">$MPHR</span> <span class="o">/</span> <span class="nv">$MPHR</span> <span class="o">/</span> <span class="nv">$HPD</span> <span class="k">))</span>
+<span class="nv">CURRENT</span><span class="o">=</span><span class="k">$(</span>date -d<span class="s2">&quot;</span><span class="nv">$CURRENT</span><span class="s2"> +</span><span class="nv">$DAYS</span><span class="s2"> days&quot;</span> <span class="s1">&#39;+%F %T.%N %Z&#39;</span><span class="k">)</span>
+<span class="nv">HOURS</span><span class="o">=</span><span class="k">$((</span> <span class="k">$(</span>diff<span class="k">)</span> <span class="o">/</span> <span class="nv">$MPHR</span> <span class="o">/</span> <span class="nv">$MPHR</span> <span class="k">))</span>
+<span class="nv">CURRENT</span><span class="o">=</span><span class="k">$(</span>date -d<span class="s2">&quot;</span><span class="nv">$CURRENT</span><span class="s2"> +</span><span class="nv">$HOURS</span><span class="s2"> hours&quot;</span> <span class="s1">&#39;+%F %T.%N %Z&#39;</span><span class="k">)</span>
+<span class="nv">MINUTES</span><span class="o">=</span><span class="k">$((</span> <span class="k">$(</span>diff<span class="k">)</span> <span class="o">/</span> <span class="nv">$MPHR</span> <span class="k">))</span>
+<span class="nv">CURRENT</span><span class="o">=</span><span class="k">$(</span>date -d<span class="s2">&quot;</span><span class="nv">$CURRENT</span><span class="s2"> +</span><span class="nv">$MINUTES</span><span class="s2"> minutes&quot;</span> <span class="s1">&#39;+%F %T.%N %Z&#39;</span><span class="k">)</span>
+<span class="nb">printf</span> <span class="s1">&#39;%s dies, %s hores, &#39;</span> <span class="s2">&quot;</span><span class="nv">$DAYS</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$HOURS</span><span class="s2">&quot;</span>
+<span class="nb">printf</span> <span class="s1">&#39;%s minuts, i %s segons &#39;</span> <span class="s2">&quot;</span><span class="nv">$MINUTES</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="k">$(</span>diff<span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">printf</span> <span class="s1">&#39;fins el dinar de Nadal!\n\n&#39;</span>
+
+<span class="c">#  Exercici:</span>
+<span class="c">#  --------</span>
+<span class="c">#  Reescriu la funció diff () de manera que accepti paràmetres en comptes de variables globals.</span>
+<span class="c">#+ NdT. Realitza els canvis que calguin per mostrar l&#39;article davant els noms dels mesos.</span>
+</pre></div>
+</div>
+<p>La comanda <em>date</em> disposa d&#8217;un bon nombre d&#8217;opcions de sortida
+(<em>output</em>). Per exemple <code class="docutils literal"><span class="pre">%N</span></code> retorna la part dels nanosegons del
+temps actual. Això pot ser útil, per exemple, per generar d&#8217;enters
+aleatoris.</p>
+<div class="highlight-sh"><div class="highlight"><pre>date +%Nsed -e <span class="s1">&#39;s/000$//&#39;</span> -e <span class="s1">&#39;s/^0//&#39;</span>
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<span class="c">#  Elimina els zeros que hi puguin haver a l&#39;inici i al final.</span>
+<span class="c">#  La longitud de l&#39;enter generat depèn de</span>
+<span class="c">#+ quants zeros s&#39;hagin eliminat.,</span>
+
+<span class="c"># 115281032</span>
+<span class="c"># 63408725</span>
+<span class="c"># 394504284</span>
+</pre></div>
+</div>
+<p>Hi ha moltes altres opcions (mira <strong>man date</strong>).</p>
+<div class="highlight-sh"><div class="highlight"><pre>date +%j
+<span class="c"># Mostra el dia de l&#39;any (dies que han passat des del 1 de gener).</span>
+
+date +%k%M
+<span class="c"># Mostra l&#39;hora i el minut en format 24-hores en un únic string.</span>
+
+
+
+<span class="c"># El paràmetre &#39;TZ&#39; permet reemplaçar la zona horària per defecte.</span>
+date                 <span class="c"># Mon Mar 28 21:42:16 MST 2005</span>
+<span class="nv">TZ</span><span class="o">=</span>EST date          <span class="c"># Mon Mar 28 23:42:16 EST 2005</span>
+
+
+
+<span class="nv">FaSisDies</span><span class="o">=</span><span class="k">$(</span>date --date<span class="o">=</span><span class="s1">&#39;6 days ago&#39;</span><span class="k">)</span>
+<span class="nv">FaUnMes</span><span class="o">=</span><span class="k">$(</span>date --date<span class="o">=</span><span class="s1">&#39;1 month ago&#39;</span><span class="k">)</span>  <span class="c"># Quatre setmanes abans (no un mes!)</span>
+<span class="nv">FaUnAny</span><span class="o">=</span><span class="k">$(</span>date --date<span class="o">=</span><span class="s1">&#39;1 year ago&#39;</span><span class="k">)</span>
+</pre></div>
+</div>
+<p>Mira també l&#8217; <a class="reference external" href="special-chars.ca.html#EX58">Exemple 3-4</a> i <a class="reference external" href="contributed-scripts.ca.html#STOPWATCH">Exemple
+A-43</a>.</p>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>zdump</strong></dt>
+<dd><p class="first">Mostra el temps en la zona horària que se li especifiqui.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>zdump EST
+EST  Tue Sep <span class="m">18</span> 22:09:22 <span class="m">2001</span> EST
+</pre></div>
+</div>
+</dd>
+<dt><strong>time</strong></dt>
+<dd><p class="first">Mostra estadístiques detallades de temps de l&#8217;execució d&#8217;una
+comanda.</p>
+<p><code class="docutils literal"><span class="pre">time</span> <span class="pre">ls</span> <span class="pre">-l</span> <span class="pre">/</span></code> retorna quelcom similar a:</p>
+<div class="highlight-sh"><div class="highlight"><pre>real    0m0.067s
+ user    0m0.004s
+ sys     0m0.005s
+</pre></div>
+</div>
+<p>Mira també a la secció anterior la comanda (molt semblant)
+<a class="reference external" href="x9445.ca.html#TIMESREF">times</a>.</p>
+<p class="last"><em>Atenció</em>: Des de la <a class="reference external" href="bashver2.ca.html#BASH2REF">versió 2.0</a> de
+Bash, <strong>time</strong> és una paraula reservada. Presenta un comportament
+lleugerament diferent amb pipelines.</p>
+</dd>
+<dt><strong>touch</strong></dt>
+<dd><p class="first">Utilitat que modifica els temps de darrera modificació i accés d&#8217;un
+fitxer al temps del sistema o bé a un d&#8217;especificat. També és útil
+per a crear un nou fitxer. La comanda <code class="docutils literal"><span class="pre">touch</span> <span class="pre">zzz</span></code> crea un nou
+fitxer de longitud zero, amb el nom <code class="docutils literal"><span class="pre">zzz</span></code> sempre, és clar, que no
+existeixi ja <code class="docutils literal"><span class="pre">zzz</span></code>. És útil deixar marques de temps d&#8217;aquesta
+manera en fitxers buits de manera que es pugui fer seguiment dels
+moments de modificació d&#8217;un projecte.</p>
+<p><em>Atenció</em>: La comanda <strong>touch</strong> equival a <code class="docutils literal"><span class="pre">:</span> <span class="pre">&gt;&gt;</span> <span class="pre">newfile</span></code> o <code class="docutils literal"><span class="pre">&gt;&gt;</span>
+<span class="pre">newfile</span></code> (en el cas de fitxers ordinaris).</p>
+<p><em>Truc</em>: Abans de fer <a class="reference external" href="basic.ca.html#CPREF">cp -u</a> (<em>copia /
+actualitza</em>), fes servir <strong>touch</strong> per a actualitzar la marca de
+temps d&#8217;aquells fitxers que no vulguis sobreescriure.</p>
+<p class="last">Per exemple, si el directori <code class="docutils literal"><span class="pre">/home/bozo/tax_audit</span></code> conté els
+fitxers <code class="docutils literal"><span class="pre">calculs-051606.data</span></code>, <code class="docutils literal"><span class="pre">calculs-051706.data</span></code>, i
+<code class="docutils literal"><span class="pre">calculs-051806.data</span></code>, llavors fent un <strong>touch calculs*.data</strong>
+protegirà aquests fitxers de ser sobreescrits per fitxers amb el
+mateix nom durant l&#8217;execució de <strong>cp -u
+/home/bozo/financial_info/calculs*data /home/bozo/tax_audit</strong>.</p>
+</dd>
+<dt><strong>at</strong></dt>
+<dd><p class="first">La comanda de control de treballs <strong>at</strong> executa un conjunt de
+comandes donat en el moment especificat. Recorda al
+<a class="reference external" href="system.ca.html#CRONREF">cron</a> però <strong>at</strong> és realment útil quan
+volem executar un únic cop un conjunt de comandes.</p>
+<p><code class="docutils literal"><span class="pre">at</span> <span class="pre">2pm</span> <span class="pre">January</span> <span class="pre">15</span></code> demana per un conjunt de comandes a ser
+executades en el moment indicat. Aquestes comandes han de ser
+compatibles amb shell-script donat que, a efectes pràctics, l&#8217;usuari
+està escrivint un script de shell línia a línia. L&#8217;entrada finalitza
+amb <a class="reference external" href="special-chars.ca.html#CTLDREF">Ctl-D</a>.</p>
+<p><strong>at</strong> llegeix la llista de comandes des d&#8217;un fitxer tant indicant
+l&#8217;opció <code class="docutils literal"><span class="pre">-f</span></code> com redireccionant l&#8217;entrada (&lt;), El fitxer contindrà
+un shell script tot qualsevol, per suposat sempre i quant no sigui
+interactiu. Resulta particularment adequat incloure la comanda
+<a class="reference external" href="extmisc.ca.html#RUNPARTSREF">run-parts</a> al fitxer per a executar un
+conjunt diferent de scripts.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>at 2:30 am Friday &lt; at-jobs.list
+job <span class="m">2</span> at 2000-10-27 02:30
+</pre></div>
+</div>
+</dd>
+<dt><strong>batch</strong></dt>
+<dd><p class="first">La comanda de control de treballs <strong>batch</strong> és similar a <strong>at</strong>, Es
+diferencia del segon en que executa la llista de comandes quan la
+càrrega del sistema cau per sota de <code class="docutils literal"><span class="pre">.8</span></code>. Al igual que <strong>at</strong>, pot
+llegir comandes d&#8217;un fitxer amb l&#8217;opció <code class="docutils literal"><span class="pre">-f</span></code>.</p>
+<p class="last">El concepte de processament en segon pla o <em>batch processing</em> data
+de l&#8217;era de les computadores mainframe. Vol dir, executar un conjunt
+de comandes sense intervenció de l&#8217;usuari.</p>
+</dd>
+<dt><strong>cal</strong></dt>
+<dd>Mostra un calendari ben formatat per sortida estàndard (
+<code class="docutils literal"><span class="pre">stdout</span></code>). Funciona tant per l&#8217;any actual com per un ampli rang
+d&#8217;anys al passat i al futur,</dd>
+<dt><strong>sleep</strong></dt>
+<dd><p class="first">És l&#8217;equivalent per la shell d&#8217;un <em>bucle d&#8217;espera</em>. Es queda en
+pausa durant el nombre especificat de segons sense fer res. Pot ser
+útil per calcular temps i també en processos que s&#8217;executen en segon
+pla comprovant un esdeveniment amb certa freqüència (polling), com
+ara a l&#8217;<a class="reference external" href="debugging.ca.html#ONLINE">Exemple 31-6</a>.</p>
+<div class="highlight-sh"><div class="highlight"><pre>sleep <span class="m">3</span>     <span class="c"># Pausa 3 segons.</span>
+</pre></div>
+</div>
+<p><em>Atenció</em>: Per defecte la comanda <strong>sleep</strong> funciona amb segons,
+però es pot especificar també minuts, hores o dies.</p>
+<div class="highlight-sh"><div class="highlight"><pre>sleep <span class="m">3</span> h   <span class="c"># Pausa 3 hores!</span>
+</pre></div>
+</div>
+<p class="last"><em>Atenció</em>: La comanda <a class="reference external" href="system.ca.html#WATCHREF">watch</a> pot ser una
+millor elecció que <strong>sleep</strong> quan el que volem és executar
+comandes cada cert interval de temps.</p>
+</dd>
+<dt><strong>usleep</strong></dt>
+<dd><blockquote class="first">
+<div><p><em>Microsleep</em> (la <em>u</em> es llegeix com la lletra grega <em>mu</em>, o el
+prefix <em>micro-</em>). És el mateix que <strong>sleep</strong>, però amb intervals de
+microsegons. Pot ser usada per càlcul de temps amb precisió, o bé
+per controlar un procés amb un interval molt freqüent.</p>
+<div class="highlight-sh"><div class="highlight"><pre>usleep <span class="m">30</span>     <span class="c"># Pausa 30 microsegons.</span>
+</pre></div>
+</div>
+<p>Aquesta comanda és part dels paquet de Red Hat <em>initscripts /
+rc-scripts</em>.</p>
+</div></blockquote>
+<p class="last"><em>Compte!</em>: La comanda <strong>usleep</strong> no ofereix un càlcul de temps
+particularment precís i , per tant, no és adequada per a bucles on
+el temps sigui crític.</p>
+</dd>
+<dt><strong>hwclock</strong>, <strong>clock</strong></dt>
+<dd><p class="first">La comanda <strong>hwclock</strong> accedeix o ajusta el rellotge físic de la
+màquina. Algunes opcions requereixen privilegis de <em>root</em>. El fitxer
+d&#8217;inici <code class="docutils literal"><span class="pre">/etc/rc.d/rc.sysinit</span></code> fa servir <strong>hwclock</strong> per a
+assignar durant l&#8217;arrancada l&#8217;hora del sistema a partir del rellotge
+de la màquina.</p>
+<p class="last">La comanda <strong>clock</strong> s&#8217;anomena també <strong>hwclock</strong>.</p>
+</dd>
+</dl>
+<hr class="docutils" />
+<p><a class="reference external" href="index.ca.html">Inici</a> :  Guia avançada de Bash-Scripting</p>
+<p><a class="reference external" href="external.ca.html">Amunt</a> : Capítol 16. Filtres externs, programes i
+comandes</p>
+<p><a class="reference external" href="moreadv.ca.html">Anterior</a> : Comandes complexes</p>
+<p><a class="reference external" href="textproc.ca.html">Següent</a> : Comandes de processament de text</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,2645 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Chapter 15. Internal Commands and Builtins &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Part 4. Commands" href="part4.html"/>
+        <link rel="next" title="XXX Chapter 16. External Filters, Programs and Commands" href="external.html"/>
+        <link rel="prev" title="XXX Part 4. Commands" href="part4.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  Chapter 15. Internal Commands and Builtins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="external.html">XXX  Chapter 16. External Filters, Programs and Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">XXX  Chapter 17. System and Administrative Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part4.html">XXX Part 4. Commands</a> &raquo;</li>
+      
+    <li>XXX  Chapter 15. Internal Commands and Builtins</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-chapter-15-internal-commands-and-builtins">
+<h1>XXX  Chapter 15. Internal Commands and Builtins<a class="headerlink" href="#xxx-chapter-15-internal-commands-and-builtins" title="Link permanent a aquest títol">¶</a></h1>
+<p>A <em>builtin</em> is a <strong>command</strong> contained within the Bash tool set,
+literally <em>built in</em> . This is either for performance reasons &#8211;
+builtins execute faster than external commands, which usually require
+<em>forking off</em> ` [1]  &lt;internal.html#FTN.AEN8607&gt;`__ a separate process
+&#8211; or because a particular builtin needs direct access to the shell
+internals.</p>
+<p>When a command or the shell itself initiates (or <em>spawns</em> ) a new
+subprocess to carry out a task, this is called <em>forking</em> . This new
+process is the <em>child</em> , and the process that <em>forked</em> it off is the
+<em>parent</em> . While the <em>child process</em> is doing its work, the <em>parent
+process</em> is still executing.</p>
+<p>Note that while a <em>parent process</em> gets the <em>process ID</em> of the <em>child
+process</em> , and can thus pass arguments to it, <em>the reverse is not true</em>
+. <a class="reference external" href="gotchas.html#PARCHILDPROBREF">This can create problems that are subtle and hard to track
+down.</a></p>
+<div class="section" id="exemple-1-a-script-that-spawns-multiple-instances-of-itself">
+<h2>Exemple 1. A script that spawns multiple instances of itself<a class="headerlink" href="#exemple-1-a-script-that-spawns-multiple-instances-of-itself" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># spawn.sh</span>
+
+
+<span class="nv">PIDS</span><span class="o">=</span><span class="k">$(</span>pidof sh <span class="nv">$0</span><span class="k">)</span>  <span class="c"># Process IDs of the various instances of this script.</span>
+<span class="nv">P_array</span><span class="o">=(</span> <span class="nv">$PIDS</span> <span class="o">)</span>    <span class="c"># Put them in an array (why?).</span>
+<span class="nb">echo</span> <span class="nv">$PIDS</span>           <span class="c"># Show process IDs of parent and child processes.</span>
+<span class="nb">let</span> <span class="s2">&quot;instances = </span><span class="si">${#</span><span class="nv">P_array</span><span class="p">[*]</span><span class="si">}</span><span class="s2"> - 1&quot;</span>  <span class="c"># Count elements, less 1.</span>
+                                      <span class="c"># Why subtract 1?</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$instances</span><span class="s2"> instance(s) of this script running.&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;[Hit Ctl-C to exit.]&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+
+
+sleep <span class="m">1</span>              <span class="c"># Wait.</span>
+sh <span class="nv">$0</span>                <span class="c"># Play it again, Sam.</span>
+
+<span class="nb">exit </span><span class="m">0</span>               <span class="c"># Not necessary; script will never get to here.</span>
+                     <span class="c"># Why not?</span>
+
+<span class="c">#  After exiting with a Ctl-C,</span>
+<span class="c">#+ do all the spawned instances of the script die?</span>
+<span class="c">#  If so, why?</span>
+
+<span class="c"># Note:</span>
+<span class="c"># ----</span>
+<span class="c"># Be careful not to run this script too long.</span>
+<span class="c"># It will eventually eat up too many system resources.</span>
+
+<span class="c">#  Is having a script spawn multiple instances of itself</span>
+<span class="c">#+ an advisable scripting technique.</span>
+<span class="c">#  Why or why not?</span>
+</pre></div>
+</div>
+<p>Generally, a Bash <em>builtin</em> does not fork a subprocess when it executes
+within a script. An external system command or filter in a script
+usually <em>will</em> fork a subprocess.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># spawn.sh</span>
+
+
+<span class="nv">PIDS</span><span class="o">=</span><span class="k">$(</span>pidof sh <span class="nv">$0</span><span class="k">)</span>  <span class="c"># Process IDs of the various instances of this script.</span>
+<span class="nv">P_array</span><span class="o">=(</span> <span class="nv">$PIDS</span> <span class="o">)</span>    <span class="c"># Put them in an array (why?).</span>
+<span class="nb">echo</span> <span class="nv">$PIDS</span>           <span class="c"># Show process IDs of parent and child processes.</span>
+<span class="nb">let</span> <span class="s2">&quot;instances = </span><span class="si">${#</span><span class="nv">P_array</span><span class="p">[*]</span><span class="si">}</span><span class="s2"> - 1&quot;</span>  <span class="c"># Count elements, less 1.</span>
+                                      <span class="c"># Why subtract 1?</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$instances</span><span class="s2"> instance(s) of this script running.&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;[Hit Ctl-C to exit.]&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+
+
+sleep <span class="m">1</span>              <span class="c"># Wait.</span>
+sh <span class="nv">$0</span>                <span class="c"># Play it again, Sam.</span>
+
+<span class="nb">exit </span><span class="m">0</span>               <span class="c"># Not necessary; script will never get to here.</span>
+                     <span class="c"># Why not?</span>
+
+<span class="c">#  After exiting with a Ctl-C,</span>
+<span class="c">#+ do all the spawned instances of the script die?</span>
+<span class="c">#  If so, why?</span>
+
+<span class="c"># Note:</span>
+<span class="c"># ----</span>
+<span class="c"># Be careful not to run this script too long.</span>
+<span class="c"># It will eventually eat up too many system resources.</span>
+
+<span class="c">#  Is having a script spawn multiple instances of itself</span>
+<span class="c">#+ an advisable scripting technique.</span>
+<span class="c">#  Why or why not?</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># spawn.sh</span>
+
+
+<span class="nv">PIDS</span><span class="o">=</span><span class="k">$(</span>pidof sh <span class="nv">$0</span><span class="k">)</span>  <span class="c"># Process IDs of the various instances of this script.</span>
+<span class="nv">P_array</span><span class="o">=(</span> <span class="nv">$PIDS</span> <span class="o">)</span>    <span class="c"># Put them in an array (why?).</span>
+<span class="nb">echo</span> <span class="nv">$PIDS</span>           <span class="c"># Show process IDs of parent and child processes.</span>
+<span class="nb">let</span> <span class="s2">&quot;instances = </span><span class="si">${#</span><span class="nv">P_array</span><span class="p">[*]</span><span class="si">}</span><span class="s2"> - 1&quot;</span>  <span class="c"># Count elements, less 1.</span>
+                                      <span class="c"># Why subtract 1?</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$instances</span><span class="s2"> instance(s) of this script running.&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;[Hit Ctl-C to exit.]&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+
+
+sleep <span class="m">1</span>              <span class="c"># Wait.</span>
+sh <span class="nv">$0</span>                <span class="c"># Play it again, Sam.</span>
+
+<span class="nb">exit </span><span class="m">0</span>               <span class="c"># Not necessary; script will never get to here.</span>
+                     <span class="c"># Why not?</span>
+
+<span class="c">#  After exiting with a Ctl-C,</span>
+<span class="c">#+ do all the spawned instances of the script die?</span>
+<span class="c">#  If so, why?</span>
+
+<span class="c"># Note:</span>
+<span class="c"># ----</span>
+<span class="c"># Be careful not to run this script too long.</span>
+<span class="c"># It will eventually eat up too many system resources.</span>
+
+<span class="c">#  Is having a script spawn multiple instances of itself</span>
+<span class="c">#+ an advisable scripting technique.</span>
+<span class="c">#  Why or why not?</span>
+</pre></div>
+</div>
+<p>A builtin may be a synonym to a system command of the same name, but
+Bash reimplements it internally. For example, the Bash <strong>echo</strong> command
+is not the same as ``      /bin/echo     `` , although their behavior is
+almost identical.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;This line uses the \&quot;echo\&quot; builtin.&quot;</span>
+/bin/echo <span class="s2">&quot;This line uses the /bin/echo system command.&quot;</span>
+</pre></div>
+</div>
+<div class="section" id="keyword">
+<span id="internal-keyword"></span><h3>Keyword<a class="headerlink" href="#keyword" title="Link permanent a aquest títol">¶</a></h3>
+<p>A <em>keyword</em> is a <em>reserved</em> word, token or operator. Keywords have a
+special meaning to the shell, and indeed are the building blocks of the
+shell&#8217;s syntax. As examples, <em>for</em> , <em>while</em> , <em>do</em> , and <em>!</em> are
+keywords. Similar to a <a class="reference external" href="internal.html#BUILTINREF">builtin</a> , a
+keyword is hard-coded into Bash, but unlike a <em>builtin</em> , a keyword is
+not in itself a command, but <em>a subunit of a command construct</em> . ` [2]
+&lt;internal.html#FTN.AEN8650&gt;`__</p>
+</div>
+</div>
+<div class="section" id="i-o">
+<h2>I/O<a class="headerlink" href="#i-o" title="Link permanent a aquest títol">¶</a></h2>
+<div class="section" id="echo">
+<h3>echo<a class="headerlink" href="#echo" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div><p>prints (to ``         stdout        `` ) an expression or variable
+(see <a class="reference external" href="varsubn.html#EX9">Example 4-1</a> ).</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">echo </span>Hello
+<span class="nb">echo</span> <span class="nv">$a</span>
+</pre></div>
+</div>
+<p>An <strong>echo</strong> requires the ``         -e        `` option to print
+escaped characters. See <a class="reference external" href="escapingsection.html#ESCAPED">Example
+5-2</a> .</p>
+<p>Normally, each <strong>echo</strong> command prints a terminal newline, but the
+``         -n        `` option suppresses this.</p>
+</div></blockquote>
+<p>Note</p>
+<blockquote>
+<div>An <strong>echo</strong> can be used to feed a sequence of commands down a pipe.</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre>    <span class="k">if</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$VAR</span><span class="s2">&quot;</span> <span class="p">|</span> gre
+p -q txt   <span class="c"># if [[ $VAR</span>
+<span class="o">=</span> *txt* <span class="o">]]</span>
+    <span class="k">then</span>
+      <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$VAR</span><span class="s2"> contain</span>
+<span class="s2">s the substring sequence</span>
+<span class="s2"> \&quot;txt\&quot;&quot;</span>
+    <span class="k">fi</span>
+
+
+
+.. code-block:: sh
+
+    <span class="k">if</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$VAR</span><span class="s2">&quot;</span>grep -q txt   <span class="c"># if [[ $VAR = *txt* ]]</span>
+    <span class="k">then</span>
+      <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$VAR</span><span class="s2"> contains the substring sequence \&quot;txt\&quot;&quot;</span>
+    <span class="k">fi</span>
+
+
+.. code-block:: sh
+
+    <span class="k">if</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$VAR</span><span class="s2">&quot;</span>grep -q txt   <span class="c"># if [[ $VAR = *txt* ]]</span>
+    <span class="k">then</span>
+      <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$VAR</span><span class="s2"> contains the substring sequence \&quot;txt\&quot;&quot;</span>
+    <span class="k">fi</span>
+</pre></div>
+</div>
+<p>Note</p>
+<blockquote>
+<div><p>An <strong>echo</strong> , in combination with <a class="reference external" href="commandsub.html#COMMANDSUBREF">command
+substitution</a> can set a variable.</p>
+<p>``                         a=`echo           &#8220;HELLO&#8221;tr A-Z a-z`                       ``</p>
+<p>See also <a class="reference external" href="textproc.html#LOWERCASE">Example 16-22</a> , <a class="reference external" href="moreadv.html#EX57">Example
+16-3</a> , <a class="reference external" href="mathc.html#MONTHLYPMT">Example
+16-47</a> , and <a class="reference external" href="mathc.html#BASE">Example
+16-48</a> .</p>
+<p>Be aware that <strong>echo `command`</strong> deletes any linefeeds that the
+output of ``                   command                 `` generates.</p>
+<p>The <a class="reference external" href="internalvariables.html#IFSREF">$IFS</a> (internal field
+separator) variable normally contains \n (linefeed) as one of its
+set of <a class="reference external" href="special-chars.html#WHITESPACEREF">whitespace</a> characters.
+Bash therefore splits the output of
+``                   command                 `` at linefeeds into
+arguments to <strong>echo</strong> . Then <strong>echo</strong> outputs these arguments,
+separated by spaces.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>ls -l /usr/share/apps/kjezz/sounds
+-rw-r--r--    <span class="m">1</span> root     root         <span class="m">1407</span> Nov  <span class="m">7</span>  <span class="m">2000</span> reflect.au
+ -rw-r--r--    <span class="m">1</span> root     root          <span class="m">362</span> Nov  <span class="m">7</span>  <span class="m">2000</span> seconds.au
+
+
+
+
+bash<span class="nv">$ </span><span class="nb">echo</span> <span class="sb">`</span>ls -l /usr/share/apps/kjezz/sounds<span class="sb">`</span>
+total <span class="m">40</span> -rw-r--r-- <span class="m">1</span> root root <span class="m">716</span> Nov <span class="m">7</span> <span class="m">2000</span> reflect.au -rw-r--r-- <span class="m">1</span> root root ...
+</pre></div>
+</div>
+<p>So, how can we embed a linefeed within an
+<a class="reference external" href="internal.html#ECHOREF">echoed</a> character string?</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Embedding a linefeed?</span>
+<span class="nb">echo</span> <span class="s2">&quot;Why doesn&#39;t this string \n split on two lines?&quot;</span>
+<span class="c"># Doesn&#39;t split.</span>
+
+<span class="c"># Let&#39;s try something else.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">$&quot;A line of text containing</span>
+<span class="s2">a linefeed.&quot;</span>
+<span class="c"># Prints as two distinct lines (embedded linefeed).</span>
+<span class="c"># But, is the &quot;$&quot; variable prefix really necessary?</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;This string splits</span>
+<span class="s2">on two lines.&quot;</span>
+<span class="c"># No, the &quot;$&quot; is not needed.</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;---------------&quot;</span>
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> -n <span class="s2">$&quot;Another line of text containing</span>
+<span class="s2">a linefeed.&quot;</span>
+<span class="c"># Prints as two distinct lines (embedded linefeed).</span>
+<span class="c"># Even the -n option fails to suppress the linefeed here.</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;---------------&quot;</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span>
+
+<span class="c"># However, the following doesn&#39;t work as expected.</span>
+<span class="c"># Why not? Hint: Assignment to a variable.</span>
+<span class="nv">string1</span><span class="o">=</span><span class="s2">$&quot;Yet another line of text containing</span>
+<span class="s2">a linefeed (maybe).&quot;</span>
+
+<span class="nb">echo</span> <span class="nv">$string1</span>
+<span class="c"># Yet another line of text containing a linefeed (maybe).</span>
+<span class="c">#                                    ^</span>
+<span class="c"># Linefeed becomes a space.</span>
+
+<span class="c"># Thanks, Steve Parker, for pointing this out.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Note</p>
+<blockquote>
+<div>This command is a shell builtin, and not the same as
+``            /bin/echo           `` , although its behavior is
+similar.</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre>    bash<span class="nv">$ </span><span class="nb">type</span> -a <span class="nb">echo</span>
+<span class="nb">    echo </span>is a shell <span class="nb">builtin</span>
+<span class="nb">    echo </span>is /bin/echo
+
+
+
+
+.. code-block:: sh
+
+    bash<span class="nv">$ </span><span class="nb">type</span> -a <span class="nb">echo</span>
+<span class="nb">    echo </span>is a shell <span class="nb">builtin</span>
+<span class="nb">     echo </span>is /bin/echo
+
+
+
+.. code-block:: sh
+
+    bash<span class="nv">$ </span><span class="nb">type</span> -a <span class="nb">echo</span>
+<span class="nb">    echo </span>is a shell <span class="nb">builtin</span>
+<span class="nb">     echo </span>is /bin/echo
+</pre></div>
+</div>
+</div>
+<div class="section" id="printf">
+<h3>printf<a class="headerlink" href="#printf" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div><p>The <strong>printf</strong> , formatted print, command is an enhanced <strong>echo</strong> .
+It is a limited variant of the <em>C</em> language
+``         printf()        `` library function, and its syntax is
+somewhat different.</p>
+<p><strong>printf</strong> ``                   format-string                 `` ...
+``                   parameter                 `` ...</p>
+<p>This is the Bash <em>builtin</em> version of the
+``         /bin/printf        `` or
+``         /usr/bin/printf        `` command. See the <strong>printf</strong>
+<a class="reference external" href="basic.html#MANREF">manpage</a> (of the system command) for in-depth
+coverage.</p>
+</div></blockquote>
+<p>Caution</p>
+<blockquote>
+<div>Older versions of Bash may not support <strong>printf</strong> .</div></blockquote>
+</div>
+</div>
+<div class="section" id="exemple-2-printf-in-action">
+<h2>Exemple 2. <em>printf</em> in action<a class="headerlink" href="#exemple-2-printf-in-action" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># printf demo</span>
+
+<span class="nb">declare</span> -r <span class="nv">PI</span><span class="o">=</span>3.14159265358979     <span class="c"># Read-only variable, i.e., a constant.</span>
+<span class="nb">declare</span> -r <span class="nv">DecimalConstant</span><span class="o">=</span>31373
+
+<span class="nv">Message1</span><span class="o">=</span><span class="s2">&quot;Greetings,&quot;</span>
+<span class="nv">Message2</span><span class="o">=</span><span class="s2">&quot;Earthling.&quot;</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">printf</span> <span class="s2">&quot;Pi to 2 decimal places = %1.2f&quot;</span> <span class="nv">$PI</span>
+<span class="nb">echo</span>
+<span class="nb">printf</span> <span class="s2">&quot;Pi to 9 decimal places = %1.9f&quot;</span> <span class="nv">$PI</span>  <span class="c"># It even rounds off correctly.</span>
+
+<span class="nb">printf</span> <span class="s2">&quot;\n&quot;</span>                                  <span class="c"># Prints a line feed,</span>
+                                             <span class="c"># Equivalent to &#39;echo&#39; . . .</span>
+
+<span class="nb">printf</span> <span class="s2">&quot;Constant = \t%d\n&quot;</span> <span class="nv">$DecimalConstant</span>  <span class="c"># Inserts tab (\t).</span>
+
+<span class="nb">printf</span> <span class="s2">&quot;%s %s \n&quot;</span> <span class="nv">$Message1</span> <span class="nv">$Message2</span>
+
+<span class="nb">echo</span>
+
+<span class="c"># ==========================================#</span>
+<span class="c"># Simulation of C function, sprintf().</span>
+<span class="c"># Loading a variable with a formatted string.</span>
+
+<span class="nb">echo</span>
+
+<span class="nv">Pi12</span><span class="o">=</span><span class="k">$(</span><span class="nb">printf</span> <span class="s2">&quot;%1.12f&quot;</span> <span class="nv">$PI</span><span class="k">)</span>
+<span class="nb">echo</span> <span class="s2">&quot;Pi to 12 decimal places = </span><span class="nv">$Pi12</span><span class="s2">&quot;</span>      <span class="c"># Roundoff error!</span>
+
+<span class="nv">Msg</span><span class="o">=</span><span class="sb">`</span><span class="nb">printf</span> <span class="s2">&quot;%s %s \n&quot;</span> <span class="nv">$Message1</span> <span class="nv">$Message2</span><span class="sb">`</span>
+<span class="nb">echo</span> <span class="nv">$Msg</span><span class="p">;</span> <span class="nb">echo</span> <span class="nv">$Msg</span>
+
+<span class="c">#  As it happens, the &#39;sprintf&#39; function can now be accessed</span>
+<span class="c">#+ as a loadable module to Bash,</span>
+<span class="c">#+ but this is not portable.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Formatting error messages is a useful application of <strong>printf</strong></p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">E_BADDIR</span><span class="o">=</span>85
+
+<span class="nv">var</span><span class="o">=</span>nonexistent_directory
+
+error<span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">printf</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span> &gt;<span class="p">&amp;</span>2
+  <span class="c"># Formats positional params passed, and sends them to stderr.</span>
+  <span class="nb">echo</span>
+<span class="nb">  exit</span> <span class="nv">$E_BADDIR</span>
+<span class="o">}</span>
+
+<span class="nb">cd</span> <span class="nv">$var</span> <span class="p">|</span>error <span class="s2">$&quot;Can&#39;t cd to %s.&quot;</span> <span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span>
+
+<span class="c"># Thanks, S.C.</span>
+</pre></div>
+</div>
+<p>See also <a class="reference external" href="assortedtips.html#PROGRESSBAR">Example 36-17</a> .</p>
+</div></blockquote>
+<div class="section" id="read">
+<h3>read<a class="headerlink" href="#read" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div>&#8220;Reads&#8221; the value of a variable from ``         stdin        `` ,
+that is, interactively fetches input from the keyboard. The
+``         -a        `` option lets <strong>read</strong> get array variables
+(see <a class="reference external" href="arrays.html#EX67">Example 27-6</a> ).</div></blockquote>
+</div>
+</div>
+<div class="section" id="exemple-3-variable-assignment-using-read">
+<span id="internal-variableassignwithread"></span><h2>Exemple 3. Variable assignment, using <em>read</em><a class="headerlink" href="#exemple-3-variable-assignment-using-read" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># &quot;Reading&quot; variables.</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;Enter the value of variable &#39;var1&#39;: &quot;</span>
+<span class="c"># The -n option to echo suppresses newline.</span>
+
+<span class="nb">read </span>var1
+<span class="c"># Note no &#39;$&#39; in front of var1, since it is being set.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;var1 = </span><span class="nv">$var1</span><span class="s2">&quot;</span>
+
+
+<span class="nb">echo</span>
+
+<span class="c"># A single &#39;read&#39; statement can set multiple variables.</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;Enter the values of variables &#39;var2&#39; and &#39;var3&#39; &quot;</span>
+<span class="nb">echo</span> <span class="o">=</span>n <span class="s2">&quot;(separated by a space or tab): &quot;</span>
+<span class="nb">read </span>var2 var3
+<span class="nb">echo</span> <span class="s2">&quot;var2 = </span><span class="nv">$var2</span><span class="s2">      var3 = </span><span class="nv">$var3</span><span class="s2">&quot;</span>
+<span class="c">#  If you input only one value,</span>
+<span class="c">#+ the other variable(s) will remain unset (null).</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>A <strong>read</strong> without an associated variable assigns its input to the
+dedicated variable <a class="reference external" href="internalvariables.html#REPLYREF">$REPLY</a> .</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-4-what-happens-when-read-has-no-variable">
+<h2>Exemple 4. What happens when <em>read</em> has no variable<a class="headerlink" href="#exemple-4-what-happens-when-read-has-no-variable" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># read-novar.sh</span>
+
+<span class="nb">echo</span>
+
+<span class="c"># -------------------------- #</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;Enter a value: &quot;</span>
+<span class="nb">read </span>var
+<span class="nb">echo</span> <span class="s2">&quot;\&quot;var\&quot; = &quot;</span><span class="nv">$var</span><span class="s2">&quot;&quot;</span>
+<span class="c"># Everything as expected here.</span>
+<span class="c"># -------------------------- #</span>
+
+<span class="nb">echo</span>
+
+<span class="c"># ------------------------------------------------------------------- #</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;Enter another value: &quot;</span>
+<span class="nb">read</span>           <span class="c">#  No variable supplied for &#39;read&#39;, therefore...</span>
+               <span class="c">#+ Input to &#39;read&#39; assigned to default variable, $REPLY.</span>
+<span class="nv">var</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$REPLY</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;\&quot;var\&quot; = &quot;</span><span class="nv">$var</span><span class="s2">&quot;&quot;</span>
+<span class="c"># This is equivalent to the first code block.</span>
+<span class="c"># ------------------------------------------------------------------- #</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;=========================&quot;</span>
+<span class="nb">echo</span>
+
+
+<span class="c">#  This example is similar to the &quot;reply.sh&quot; script.</span>
+<span class="c">#  However, this one shows that $REPLY is available</span>
+<span class="c">#+ even after a &#39;read&#39; to a variable in the conventional way.</span>
+
+
+<span class="c"># ================================================================= #</span>
+
+<span class="c">#  In some instances, you might wish to discard the first value read.</span>
+<span class="c">#  In such cases, simply ignore the $REPLY variable.</span>
+
+<span class="o">{</span> <span class="c"># Code block.</span>
+<span class="nb">read</span>            <span class="c"># Line 1, to be discarded.</span>
+<span class="nb">read </span>line2      <span class="c"># Line 2, saved in variable.</span>
+  <span class="o">}</span> &lt;<span class="nv">$0</span>
+<span class="nb">echo</span> <span class="s2">&quot;Line 2 of this script is:&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$line2</span><span class="s2">&quot;</span>   <span class="c">#   # read-novar.sh</span>
+<span class="nb">echo</span>            <span class="c">#   #!/bin/bash  line discarded.</span>
+
+<span class="c"># See also the soundcard-on.sh script.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Normally, inputting a ``                                   ``
+suppresses a newline during input to a <strong>read</strong> . The
+``         -r        `` option causes an inputted
+``                                   `` to be interpreted
+literally.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-5-multi-line-input-to-read">
+<h2>Exemple 5. Multi-line input to <em>read</em><a class="headerlink" href="#exemple-5-multi-line-input-to-read" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Enter a string terminated by a \\, then press &lt;ENTER&gt;.&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Then, enter a second string (no \\ this time), and again press &lt;ENTER&gt;.&quot;</span>
+
+<span class="nb">read </span>var1     <span class="c"># The &quot;\&quot; suppresses the newline, when reading $var1.</span>
+              <span class="c">#     first line \</span>
+              <span class="c">#     second line</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;var1 = </span><span class="nv">$var1</span><span class="s2">&quot;</span>
+<span class="c">#     var1 = first line second line</span>
+
+<span class="c">#  For each line terminated by a &quot;\&quot;</span>
+<span class="c">#+ you get a prompt on the next line to continue feeding characters into var1.</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Enter another string terminated by a \\ , then press &lt;ENTER&gt;.&quot;</span>
+<span class="nb">read</span> -r var2  <span class="c"># The -r option causes the &quot;\&quot; to be read literally.</span>
+              <span class="c">#     first line \</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;var2 = </span><span class="nv">$var2</span><span class="s2">&quot;</span>
+<span class="c">#     var2 = first line \</span>
+
+<span class="c"># Data entry terminates with the first &lt;ENTER&gt;.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>The <strong>read</strong> command has some interesting options that permit
+echoing a prompt and even reading keystrokes without hitting
+<strong>ENTER</strong> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Read a keypress without hitting ENTER.</span>
+
+<span class="nb">read</span> -s -n1 -p <span class="s2">&quot;Hit a key &quot;</span> keypress
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;Keypress was &quot;</span><span class="se">\&quot;</span><span class="nv">$keypress</span><span class="se">\&quot;</span><span class="s2">&quot;.&quot;</span>
+
+<span class="c"># -s option means do not echo input.</span>
+<span class="c"># -n N option means accept only N characters of input.</span>
+<span class="c"># -p option means echo the following prompt before reading input.</span>
+
+<span class="c"># Using these options is tricky, since they need to be in the correct order.</span>
+</pre></div>
+</div>
+<p>The ``         -n        `` option to <strong>read</strong> also allows detection
+of the <strong>arrow keys</strong> and certain of the other unusual keys.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-6-detecting-the-arrow-keys">
+<h2>Exemple 6. Detecting the arrow keys<a class="headerlink" href="#exemple-6-detecting-the-arrow-keys" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># arrow-detect.sh: Detects the arrow keys, and a few more.</span>
+<span class="c"># Thank you, Sandro Magi, for showing me how.</span>
+
+<span class="c"># --------------------------------------------</span>
+<span class="c"># Character codes generated by the keypresses.</span>
+<span class="nv">arrowup</span><span class="o">=</span><span class="s1">&#39;\[A&#39;</span>
+<span class="nv">arrowdown</span><span class="o">=</span><span class="s1">&#39;\[B&#39;</span>
+<span class="nv">arrowrt</span><span class="o">=</span><span class="s1">&#39;\[C&#39;</span>
+<span class="nv">arrowleft</span><span class="o">=</span><span class="s1">&#39;\[D&#39;</span>
+<span class="nv">insert</span><span class="o">=</span><span class="s1">&#39;\[2&#39;</span>
+<span class="nv">delete</span><span class="o">=</span><span class="s1">&#39;\[3&#39;</span>
+<span class="c"># --------------------------------------------</span>
+
+<span class="nv">SUCCESS</span><span class="o">=</span>0
+<span class="nv">OTHER</span><span class="o">=</span>65
+
+<span class="nb">echo</span> -n <span class="s2">&quot;Press a key...  &quot;</span>
+<span class="c"># May need to also press ENTER if a key not listed above pressed.</span>
+<span class="nb">read</span> -n3 key                      <span class="c"># Read 3 characters.</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$key</span><span class="s2">&quot;</span>grep <span class="s2">&quot;</span><span class="nv">$arrowup</span><span class="s2">&quot;</span>  <span class="c">#Check if character code detected.</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$?</span><span class="s2">&quot;</span> -eq <span class="nv">$SUCCESS</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Up-arrow key pressed.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$SUCCESS</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$key</span><span class="s2">&quot;</span>grep <span class="s2">&quot;</span><span class="nv">$arrowdown</span><span class="s2">&quot;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$?</span><span class="s2">&quot;</span> -eq <span class="nv">$SUCCESS</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Down-arrow key pressed.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$SUCCESS</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$key</span><span class="s2">&quot;</span>grep <span class="s2">&quot;</span><span class="nv">$arrowrt</span><span class="s2">&quot;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$?</span><span class="s2">&quot;</span> -eq <span class="nv">$SUCCESS</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Right-arrow key pressed.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$SUCCESS</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$key</span><span class="s2">&quot;</span>grep <span class="s2">&quot;</span><span class="nv">$arrowleft</span><span class="s2">&quot;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$?</span><span class="s2">&quot;</span> -eq <span class="nv">$SUCCESS</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Left-arrow key pressed.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$SUCCESS</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$key</span><span class="s2">&quot;</span>grep <span class="s2">&quot;</span><span class="nv">$insert</span><span class="s2">&quot;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$?</span><span class="s2">&quot;</span> -eq <span class="nv">$SUCCESS</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;\&quot;Insert\&quot; key pressed.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$SUCCESS</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$key</span><span class="s2">&quot;</span>grep <span class="s2">&quot;</span><span class="nv">$delete</span><span class="s2">&quot;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$?</span><span class="s2">&quot;</span> -eq <span class="nv">$SUCCESS</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;\&quot;Delete\&quot; key pressed.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$SUCCESS</span>
+<span class="k">fi</span>
+
+
+<span class="nb">echo</span> <span class="s2">&quot; Some other key pressed.&quot;</span>
+
+<span class="nb">exit</span> <span class="nv">$OTHER</span>
+
+<span class="c"># ========================================= #</span>
+
+<span class="c">#  Mark Alexander came up with a simplified</span>
+<span class="c">#+ version of the above script (Thank you!).</span>
+<span class="c">#  It eliminates the need for grep.</span>
+
+<span class="c">#!/bin/bash</span>
+
+  <span class="nv">uparrow</span><span class="o">=</span><span class="s1">$&#39;\x1b[A&#39;</span>
+  <span class="nv">downarrow</span><span class="o">=</span><span class="s1">$&#39;\x1b[B&#39;</span>
+  <span class="nv">leftarrow</span><span class="o">=</span><span class="s1">$&#39;\x1b[D&#39;</span>
+  <span class="nv">rightarrow</span><span class="o">=</span><span class="s1">$&#39;\x1b[C&#39;</span>
+
+  <span class="nb">read</span> -s -n3 -p <span class="s2">&quot;Hit an arrow key: &quot;</span> x
+
+  <span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$x</span><span class="s2">&quot;</span> in
+  <span class="nv">$uparrow</span><span class="o">)</span>
+     <span class="nb">echo</span> <span class="s2">&quot;You pressed up-arrow&quot;</span>
+     <span class="p">;;</span>
+  <span class="nv">$downarrow</span><span class="o">)</span>
+     <span class="nb">echo</span> <span class="s2">&quot;You pressed down-arrow&quot;</span>
+     <span class="p">;;</span>
+  <span class="nv">$leftarrow</span><span class="o">)</span>
+     <span class="nb">echo</span> <span class="s2">&quot;You pressed left-arrow&quot;</span>
+     <span class="p">;;</span>
+  <span class="nv">$rightarrow</span><span class="o">)</span>
+     <span class="nb">echo</span> <span class="s2">&quot;You pressed right-arrow&quot;</span>
+     <span class="p">;;</span>
+  <span class="k">esac</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c"># ========================================= #</span>
+
+<span class="c"># Antonio Macchi has a simpler alternative.</span>
+
+<span class="c">#!/bin/bash</span>
+
+<span class="k">while</span> <span class="nb">true</span>
+<span class="k">do</span>
+  <span class="nb">read</span> -sn1 a
+  <span class="nb">test</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="sb">`</span><span class="nb">echo</span> -en <span class="s2">&quot;\e&quot;</span><span class="sb">`</span>.. <span class="k">continue</span>::
+  <span class="nb">read</span> -sn1 a
+  <span class="nb">test</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;[&quot;</span>.. <span class="k">continue</span>::
+  <span class="nb">read</span> -sn1 a
+  <span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> in
+    A<span class="o">)</span>  <span class="nb">echo</span> <span class="s2">&quot;up&quot;</span><span class="p">;;</span>
+    B<span class="o">)</span>  <span class="nb">echo</span> <span class="s2">&quot;down&quot;</span><span class="p">;;</span>
+    C<span class="o">)</span>  <span class="nb">echo</span> <span class="s2">&quot;right&quot;</span><span class="p">;;</span>
+    D<span class="o">)</span>  <span class="nb">echo</span> <span class="s2">&quot;left&quot;</span><span class="p">;;</span>
+  <span class="k">esac</span>
+<span class="k">done</span>
+
+<span class="c"># ========================================= #</span>
+
+<span class="c">#  Exercise:</span>
+<span class="c">#  --------</span>
+<span class="c">#  1) Add detection of the &quot;Home,&quot; &quot;End,&quot; &quot;PgUp,&quot; and &quot;PgDn&quot; keys.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Note</p>
+<blockquote>
+<div><p>The ``            -n           `` option to <strong>read</strong> will not detect
+the <strong>ENTER</strong> (newline) key.</p>
+<p>The ``         -t        `` option to <strong>read</strong> permits timed input
+(see <a class="reference external" href="internalvariables.html#TOUT">Example 9-4</a> and <a class="reference external" href="contributed-scripts.html#QKY">Example
+A-41</a> ).</p>
+<p>The ``         -u        `` option takes the <a class="reference external" href="io-redirection.html#FDREF">file
+descriptor</a> of the target file.</p>
+<p>The <strong>read</strong> command may also &#8220;read&#8221; its variable value from a file
+<a class="reference external" href="io-redirection.html#IOREDIRREF">redirected</a> to
+``         stdin        `` . If the file contains more than one
+line, only the first line is assigned to the variable. If <strong>read</strong>
+has more than one parameter, then each of these variables gets
+assigned a successive
+<a class="reference external" href="special-chars.html#WHITESPACEREF">whitespace-delineated</a> string.
+Caution!</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-7-using-read-with-file-redirection">
+<h2>Exemple 7. Using <em>read</em> with <a class="reference external" href="io-redirection.html#IOREDIRREF">file redirection</a><a class="headerlink" href="#exemple-7-using-read-with-file-redirection" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">read </span>var1 &lt;data-file
+<span class="nb">echo</span> <span class="s2">&quot;var1 = </span><span class="nv">$var1</span><span class="s2">&quot;</span>
+<span class="c"># var1 set to the entire first line of the input file &quot;data-file&quot;</span>
+
+<span class="nb">read </span>var2 var3 &lt;data-file
+<span class="nb">echo</span> <span class="s2">&quot;var2 = </span><span class="nv">$var2</span><span class="s2">   var3 = </span><span class="nv">$var3</span><span class="s2">&quot;</span>
+<span class="c"># Note non-intuitive behavior of &quot;read&quot; here.</span>
+<span class="c"># 1) Rewinds back to the beginning of input file.</span>
+<span class="c"># 2) Each variable is now set to a corresponding string,</span>
+<span class="c">#    separated by whitespace, rather than to an entire line of text.</span>
+<span class="c"># 3) The final variable gets the remainder of the line.</span>
+<span class="c"># 4) If there are more variables to be set than whitespace-terminated strings</span>
+<span class="c">#    on the first line of the file, then the excess variables remain empty.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;------------------------------------------------&quot;</span>
+
+<span class="c"># How to resolve the above problem with a loop:</span>
+<span class="k">while</span> <span class="nb">read </span>line
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$line</span><span class="s2">&quot;</span>
+<span class="k">done</span> &lt;data-file
+<span class="c"># Thanks, Heiner Steven for pointing this out.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;------------------------------------------------&quot;</span>
+
+<span class="c"># Use $IFS (Internal Field Separator variable) to split a line of input to</span>
+<span class="c"># &quot;read&quot;, if you do not want the default to be whitespace.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;List of all users:&quot;</span>
+<span class="nv">OIFS</span><span class="o">=</span><span class="nv">$IFS</span><span class="p">;</span> <span class="nv">IFS</span><span class="o">=</span>:       <span class="c"># /etc/passwd uses &quot;:&quot; for field separator.</span>
+<span class="k">while</span> <span class="nb">read </span>name passwd uid gid fullname ignore
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$name</span><span class="s2"> (</span><span class="nv">$fullname</span><span class="s2">)&quot;</span>
+<span class="k">done</span> &lt;/etc/passwd   <span class="c"># I/O redirection.</span>
+<span class="nv">IFS</span><span class="o">=</span><span class="nv">$OIFS</span>              <span class="c"># Restore original $IFS.</span>
+<span class="c"># This code snippet also by Heiner Steven.</span>
+
+
+
+<span class="c">#  Setting the $IFS variable within the loop itself</span>
+<span class="c">#+ eliminates the need for storing the original $IFS</span>
+<span class="c">#+ in a temporary variable.</span>
+<span class="c">#  Thanks, Dim Segebart, for pointing this out.</span>
+<span class="nb">echo</span> <span class="s2">&quot;------------------------------------------------&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;List of all users:&quot;</span>
+
+<span class="k">while</span> <span class="nv">IFS</span><span class="o">=</span>: <span class="nb">read </span>name passwd uid gid fullname ignore
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$name</span><span class="s2"> (</span><span class="nv">$fullname</span><span class="s2">)&quot;</span>
+<span class="k">done</span> &lt;/etc/passwd   <span class="c"># I/O redirection.</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;\$IFS still </span><span class="nv">$IFS</span><span class="s2">&quot;</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<p>Note</p>
+<blockquote>
+<div><p><a class="reference external" href="special-chars.html#PIPEREF">Piping</a> output to a <em>read</em> , using
+<a class="reference external" href="internal.html#ECHOREF">echo</a> to set variables <a class="reference external" href="gotchas.html#BADREAD0">will
+fail</a> .</p>
+<p>Yet, piping the output of <a class="reference external" href="basic.html#CATREF">cat</a> <em>seems</em> to
+work.</p>
+</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre>cat file1 file2 <span class="p">|</span>
+<span class="k">while</span> <span class="nb">read </span>line
+<span class="k">do</span>
+<span class="nb">echo</span> <span class="nv">$line</span>
+<span class="k">done</span>
+
+
+However, as Bjรถn Eriksson shows:
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-7-problems-reading-from-a-pipe">
+<h2>Exemple 7. Problems reading from a pipe<a class="headerlink" href="#exemple-7-problems-reading-from-a-pipe" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/sh</span>
+<span class="c"># readpipe.sh</span>
+<span class="c"># This example contributed by Bjon Eriksson.</span>
+
+<span class="c">### shopt -s lastpipe</span>
+
+<span class="nv">last</span><span class="o">=</span><span class="s2">&quot;(null)&quot;</span>
+cat <span class="nv">$0</span>
+<span class="k">while</span> <span class="nb">read </span>line
+<span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&quot;{</span><span class="nv">$line</span><span class="s2">}&quot;</span>
+    <span class="nv">last</span><span class="o">=</span><span class="nv">$line</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;++++++++++++++++++++++&quot;</span>
+<span class="nb">printf</span> <span class="s2">&quot;\nAll done, last: </span><span class="nv">$last</span><span class="s2">\n&quot;</span> <span class="c">#  The output of this line</span>
+                                   <span class="c">#+ changes if you uncomment line 5.</span>
+                                   <span class="c">#  (Bash, version -ge 4.2 required.)</span>
+
+<span class="nb">exit </span><span class="m">0</span>  <span class="c"># End of code.</span>
+        <span class="c"># (Partial) output of script follows.</span>
+        <span class="c"># The &#39;echo&#39; supplies extra brackets.</span>
+
+<span class="c">#############################################</span>
+
+./readpipe.sh
+
+<span class="o">{</span><span class="c">#!/bin/sh}</span>
+<span class="o">{</span><span class="nv">last</span><span class="o">=</span><span class="s2">&quot;(null)&quot;</span><span class="o">}</span>
+<span class="o">{</span>cat <span class="nv">$0</span> <span class="p">|</span><span class="o">}</span>
+<span class="o">{</span><span class="k">while</span> <span class="nb">read </span>line<span class="o">}</span>
+<span class="o">{</span><span class="k">do</span><span class="o">}</span>
+<span class="o">{</span><span class="nb">echo</span> <span class="s2">&quot;{</span><span class="nv">$line</span><span class="s2">}&quot;</span><span class="o">}</span>
+<span class="o">{</span><span class="nv">last</span><span class="o">=</span><span class="nv">$line</span><span class="o">}</span>
+<span class="o">{</span><span class="k">done</span><span class="o">}</span>
+<span class="o">{</span><span class="nb">printf</span> <span class="s2">&quot;nAll done, last: </span><span class="nv">$lastn</span><span class="s2">&quot;</span><span class="o">}</span>
+
+
+All <span class="k">done</span>, last: <span class="o">(</span>null<span class="o">)</span>
+
+The variable <span class="o">(</span>last<span class="o">)</span> is <span class="nb">set </span>within the loop/subshell
+but its value does not persist outside the loop.
+</pre></div>
+</div>
+<p>The <em>gendiff</em> script, usually found in
+``            /usr/bin           `` on many Linux distros, pipes the
+output of <a class="reference external" href="moreadv.html#FINDREF">find</a> to a <em>while read</em>
+construct.</p>
+</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre>find <span class="nv">$1</span> <span class="se">\(</span> -name <span class="s2">&quot;*</span><span class="nv">$ </span><span class="s2">2&quot;</span> -o -name <span class="s2">&quot;.*</span><span class="nv">$2</span><span class="s2">&quot;</span> <span class="se">\)</span> -print <span class="p">|</span>
+<span class="k">while</span> <span class="nb">read </span>f<span class="p">;</span> <span class="k">do</span>
+. . .
+
+
+
+.. code-block:: sh
+
+    cat file1 file2
+    <span class="k">while</span> <span class="nb">read </span>line
+    <span class="k">do</span>
+    <span class="nb">echo</span> <span class="nv">$line</span>
+    <span class="k">done</span>
+
+
+.. code-block:: sh
+
+    <span class="c">#!/bin/sh</span>
+    <span class="c"># readpipe.sh</span>
+    <span class="c"># This example contributed by Bjon Eriksson.</span>
+
+    <span class="c">### shopt -s lastpipe</span>
+
+    <span class="nv">last</span><span class="o">=</span><span class="s2">&quot;(null)&quot;</span>
+    cat <span class="nv">$0</span>
+    <span class="k">while</span> <span class="nb">read </span>line
+    <span class="k">do</span>
+        <span class="nb">echo</span> <span class="s2">&quot;{</span><span class="nv">$line</span><span class="s2">}&quot;</span>
+        <span class="nv">last</span><span class="o">=</span><span class="nv">$line</span>
+    <span class="k">done</span>
+
+    <span class="nb">echo</span>
+<span class="nb">    echo</span> <span class="s2">&quot;++++++++++++++++++++++&quot;</span>
+    <span class="nb">printf</span> <span class="s2">&quot;\nAll done, last: </span><span class="nv">$last</span><span class="s2">\n&quot;</span> <span class="c">#  The output of this line</span>
+                                       <span class="c">#+ changes if you uncomment line 5.</span>
+                                       <span class="c">#  (Bash, version -ge 4.2 required.)</span>
+
+    <span class="nb">exit </span><span class="m">0</span>  <span class="c"># End of code.</span>
+            <span class="c"># (Partial) output of script follows.</span>
+            <span class="c"># The &#39;echo&#39; supplies extra brackets.</span>
+
+    <span class="c">#############################################</span>
+
+    ./readpipe.sh
+
+    <span class="o">{</span><span class="c">#!/bin/sh}</span>
+    <span class="o">{</span><span class="nv">last</span><span class="o">=</span><span class="s2">&quot;(null)&quot;</span><span class="o">}</span>
+    <span class="o">{</span>cat <span class="nv">$0</span> <span class="p">|</span><span class="o">}</span>
+    <span class="o">{</span><span class="k">while</span> <span class="nb">read </span>line<span class="o">}</span>
+    <span class="o">{</span><span class="k">do</span><span class="o">}</span>
+    <span class="o">{</span><span class="nb">echo</span> <span class="s2">&quot;{</span><span class="nv">$line</span><span class="s2">}&quot;</span><span class="o">}</span>
+    <span class="o">{</span><span class="nv">last</span><span class="o">=</span><span class="nv">$line</span><span class="o">}</span>
+    <span class="o">{</span><span class="k">done</span><span class="o">}</span>
+    <span class="o">{</span><span class="nb">printf</span> <span class="s2">&quot;nAll done, last: </span><span class="nv">$lastn</span><span class="s2">&quot;</span><span class="o">}</span>
+
+
+    All <span class="k">done</span>, last: <span class="o">(</span>null<span class="o">)</span>
+
+    The variable <span class="o">(</span>last<span class="o">)</span> is <span class="nb">set </span>within the loop/subshell
+    but its value does not persist outside the loop.
+
+
+.. code-block:: sh
+
+    find <span class="nv">$1</span> <span class="se">\(</span> -name <span class="s2">&quot;*</span><span class="nv">$2</span><span class="s2">&quot;</span> -o -name <span class="s2">&quot;.*</span><span class="nv">$2</span><span class="s2">&quot;</span> <span class="se">\)</span> -print
+    <span class="k">while</span> <span class="nb">read </span>f<span class="p">;</span> <span class="k">do</span>
+    . . .
+
+
+.. code-block:: sh
+
+    cat file1 file2
+    <span class="k">while</span> <span class="nb">read </span>line
+    <span class="k">do</span>
+    <span class="nb">echo</span> <span class="nv">$line</span>
+    <span class="k">done</span>
+
+
+.. code-block:: sh
+
+    <span class="c">#!/bin/sh</span>
+    <span class="c"># readpipe.sh</span>
+    <span class="c"># This example contributed by Bjon Eriksson.</span>
+
+    <span class="c">### shopt -s lastpipe</span>
+
+    <span class="nv">last</span><span class="o">=</span><span class="s2">&quot;(null)&quot;</span>
+    cat <span class="nv">$0</span>
+    <span class="k">while</span> <span class="nb">read </span>line
+    <span class="k">do</span>
+        <span class="nb">echo</span> <span class="s2">&quot;{</span><span class="nv">$line</span><span class="s2">}&quot;</span>
+        <span class="nv">last</span><span class="o">=</span><span class="nv">$line</span>
+    <span class="k">done</span>
+
+    <span class="nb">echo</span>
+<span class="nb">    echo</span> <span class="s2">&quot;++++++++++++++++++++++&quot;</span>
+    <span class="nb">printf</span> <span class="s2">&quot;\nAll done, last: </span><span class="nv">$last</span><span class="s2">\n&quot;</span> <span class="c">#  The output of this line</span>
+                                       <span class="c">#+ changes if you uncomment line 5.</span>
+                                       <span class="c">#  (Bash, version -ge 4.2 required.)</span>
+
+    <span class="nb">exit </span><span class="m">0</span>  <span class="c"># End of code.</span>
+            <span class="c"># (Partial) output of script follows.</span>
+            <span class="c"># The &#39;echo&#39; supplies extra brackets.</span>
+
+    <span class="c">#############################################</span>
+
+    ./readpipe.sh
+
+    <span class="o">{</span><span class="c">#!/bin/sh}</span>
+    <span class="o">{</span><span class="nv">last</span><span class="o">=</span><span class="s2">&quot;(null)&quot;</span><span class="o">}</span>
+    <span class="o">{</span>cat <span class="nv">$0</span> <span class="p">|</span><span class="o">}</span>
+    <span class="o">{</span><span class="k">while</span> <span class="nb">read </span>line<span class="o">}</span>
+    <span class="o">{</span><span class="k">do</span><span class="o">}</span>
+    <span class="o">{</span><span class="nb">echo</span> <span class="s2">&quot;{</span><span class="nv">$line</span><span class="s2">}&quot;</span><span class="o">}</span>
+    <span class="o">{</span><span class="nv">last</span><span class="o">=</span><span class="nv">$line</span><span class="o">}</span>
+    <span class="o">{</span><span class="k">done</span><span class="o">}</span>
+    <span class="o">{</span><span class="nb">printf</span> <span class="s2">&quot;nAll done, last: </span><span class="nv">$lastn</span><span class="s2">&quot;</span><span class="o">}</span>
+
+
+    All <span class="k">done</span>, last: <span class="o">(</span>null<span class="o">)</span>
+
+    The variable <span class="o">(</span>last<span class="o">)</span> is <span class="nb">set </span>within the loop/subshell
+    but its value does not persist outside the loop.
+
+
+.. code-block:: sh
+
+    find <span class="nv">$1</span> <span class="se">\(</span> -name <span class="s2">&quot;*</span><span class="nv">$2</span><span class="s2">&quot;</span> -o -name <span class="s2">&quot;.*</span><span class="nv">$2</span><span class="s2">&quot;</span> <span class="se">\)</span> -print
+    <span class="k">while</span> <span class="nb">read </span>f<span class="p">;</span> <span class="k">do</span>
+    . . .
+</pre></div>
+</div>
+<p>Tip</p>
+<blockquote>
+<div>It is possible to <em>paste</em> text into the input field of a <em>read</em> (but
+<em>not</em> multiple lines!). See <a class="reference external" href="contributed-scripts.html#PADSW">Example
+A-38</a> .</div></blockquote>
+</div>
+<div class="section" id="filesystem">
+<h2>Filesystem<a class="headerlink" href="#filesystem" title="Link permanent a aquest títol">¶</a></h2>
+<div class="section" id="cd">
+<h3>cd<a class="headerlink" href="#cd" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div><p>The familiar <strong>cd</strong> change directory command finds use in scripts
+where execution of a command requires being in a specified
+directory.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span><span class="nb">cd</span> /source/directory <span class="o">&amp;&amp;</span> tar cf - . <span class="o">)(</span><span class="nb">cd</span> /dest/directory <span class="o">&amp;&amp;</span> tar xpvf -<span class="o">)</span>
+</pre></div>
+</div>
+<p>[from the <a class="reference external" href="special-chars.html#COXEX">previously cited</a> example by
+Alan Cox]</p>
+<p>The ``         -P        `` (physical) option to <strong>cd</strong> causes it to
+ignore symbolic links.</p>
+<p><strong>cd -</strong> changes to <a class="reference external" href="internalvariables.html#OLDPWD">$OLDPWD</a> ,
+the previous working directory.</p>
+</div></blockquote>
+<p>Caution</p>
+<blockquote>
+<div>The <strong>cd</strong> command does not function as expected when presented with
+two forward slashes.</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">cd</span> //
+bash<span class="nv">$ </span><span class="nb">pwd</span>
+//
+
+
+
+The output should, of course, be <span class="sb">``</span>           /          <span class="sb">``</span> . This
+is a problem both from the <span class="nb">command</span>-line and in a script.
+
+
+.. code-block:: sh
+
+    bash<span class="nv">$ </span><span class="nb">cd</span> //
+    bash<span class="nv">$ </span><span class="nb">pwd</span>
+    //
+
+
+
+.. code-block:: sh
+
+    bash<span class="nv">$ </span><span class="nb">cd</span> //
+    bash<span class="nv">$ </span><span class="nb">pwd</span>
+    //
+</pre></div>
+</div>
+</div>
+<div class="section" id="pwd">
+<h3>pwd<a class="headerlink" href="#pwd" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div>Print Working Directory. This gives the user&#8217;s (or script&#8217;s) current
+directory (see <a class="reference external" href="internal.html#EX37">Example 15-9</a> ). The effect
+is identical to reading the value of the builtin variable
+<a class="reference external" href="internalvariables.html#PWDREF">$PWD</a> .</div></blockquote>
+</div>
+<div class="section" id="pushd-popd-dirs">
+<h3>pushd , <strong>popd</strong> , <strong>dirs</strong><a class="headerlink" href="#pushd-popd-dirs" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div><p>This command set is a mechanism for bookmarking working directories,
+a means of moving back and forth through directories in an orderly
+manner. A pushdown <a class="reference external" href="internalvariables.html#STACKDEFREF">stack</a> is
+used to keep track of directory names. Options allow various
+manipulations of the directory stack.</p>
+<p>``                   pushd           dir-name                 ``
+pushes the path ``                   dir-name                 ``
+onto the directory stack (to the <em>top</em> of the stack) and
+simultaneously changes the current working directory to
+``                   dir-name                 ``</p>
+<p><strong>popd</strong> removes (pops) the top directory path name off the
+directory stack and simultaneously changes the current working
+directory to the directory now at the <em>top</em> of the stack.</p>
+<p><strong>dirs</strong> lists the contents of the directory stack (compare this
+with the <a class="reference external" href="internalvariables.html#DIRSTACKREF">$DIRSTACK</a>
+variable). A successful <strong>pushd</strong> or <strong>popd</strong> will automatically
+invoke <strong>dirs</strong> .</p>
+<p>Scripts that require various changes to the current working
+directory without hard-coding the directory name changes can make
+good use of these commands. Note that the implicit
+``         $DIRSTACK        `` array variable, accessible from
+within a script, holds the contents of the directory stack.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="exemple-8-changing-the-current-working-directory">
+<h2>Exemple 8. Changing the current working directory<a class="headerlink" href="#exemple-8-changing-the-current-working-directory" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">dir1</span><span class="o">=</span>/usr/local
+<span class="nv">dir2</span><span class="o">=</span>/var/spool
+
+<span class="nb">pushd</span> <span class="nv">$dir1</span>
+<span class="c"># Will do an automatic &#39;dirs&#39; (list directory stack to stdout).</span>
+<span class="nb">echo</span> <span class="s2">&quot;Now in directory `pwd`.&quot;</span> <span class="c"># Uses back-quoted &#39;pwd&#39;.</span>
+
+<span class="c"># Now, do some stuff in directory &#39;dir1&#39;.</span>
+<span class="nb">pushd</span> <span class="nv">$dir2</span>
+<span class="nb">echo</span> <span class="s2">&quot;Now in directory `pwd`.&quot;</span>
+
+<span class="c"># Now, do some stuff in directory &#39;dir2&#39;.</span>
+<span class="nb">echo</span> <span class="s2">&quot;The top entry in the DIRSTACK array is </span><span class="nv">$DIRSTACK</span><span class="s2">.&quot;</span>
+<span class="nb">popd</span>
+<span class="nb">echo</span> <span class="s2">&quot;Now back in directory `pwd`.&quot;</span>
+
+<span class="c"># Now, do some more stuff in directory &#39;dir1&#39;.</span>
+<span class="nb">popd</span>
+<span class="nb">echo</span> <span class="s2">&quot;Now back in original working directory `pwd`.&quot;</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># What happens if you don&#39;t &#39;popd&#39; -- then exit the script?</span>
+<span class="c"># Which directory do you end up in? Why?</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="variables">
+<h2>Variables<a class="headerlink" href="#variables" title="Link permanent a aquest títol">¶</a></h2>
+<div class="section" id="let">
+<h3>let<a class="headerlink" href="#let" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div>The <strong>let</strong> command carries out <em>arithmetic</em> operations on
+variables. ` [3]  &lt;internal.html#FTN.AEN9009&gt;`__ In many cases, it
+functions as a less complex version of
+<a class="reference external" href="moreadv.html#EXPRREF">expr</a> .</div></blockquote>
+</div>
+</div>
+<div class="section" id="exemple-9-letting-let-do-arithmetic">
+<h2>Exemple 9. Letting <em>let</em> do arithmetic.<a class="headerlink" href="#exemple-9-letting-let-do-arithmetic" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">let </span><span class="nv">a</span><span class="o">=</span><span class="m">11</span>            <span class="c"># Same as &#39;a=11&#39;</span>
+<span class="nb">let </span><span class="nv">a</span><span class="o">=</span>a+5           <span class="c"># Equivalent to  let &quot;a = a + 5&quot;</span>
+                    <span class="c"># (Double quotes and spaces make it more readable.)</span>
+<span class="nb">echo</span> <span class="s2">&quot;11 + 5 = </span><span class="nv">$a</span><span class="s2">&quot;</span>  <span class="c"># 16</span>
+
+<span class="nb">let</span> <span class="s2">&quot;a &lt;&lt;= 3&quot;</span>       <span class="c"># Equivalent to  let &quot;a = a &lt;&lt; 3&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;\&quot;\$a\&quot; (=16) left-shifted 3 places = </span><span class="nv">$a</span><span class="s2">&quot;</span>
+                    <span class="c"># 128</span>
+
+<span class="nb">let</span> <span class="s2">&quot;a /= 4&quot;</span>        <span class="c"># Equivalent to  let &quot;a = a / 4&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;128 / 4 = </span><span class="nv">$a</span><span class="s2">&quot;</span> <span class="c"># 32</span>
+
+<span class="nb">let</span> <span class="s2">&quot;a -= 5&quot;</span>        <span class="c"># Equivalent to  let &quot;a = a - 5&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;32 - 5 = </span><span class="nv">$a</span><span class="s2">&quot;</span>  <span class="c"># 27</span>
+
+<span class="nb">let</span> <span class="s2">&quot;a *=  10&quot;</span>      <span class="c"># Equivalent to  let &quot;a = a * 10&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;27 * 10 = </span><span class="nv">$a</span><span class="s2">&quot;</span> <span class="c"># 270</span>
+
+<span class="nb">let</span> <span class="s2">&quot;a %= 8&quot;</span>        <span class="c"># Equivalent to  let &quot;a = a % 8&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;270 modulo 8 = </span><span class="nv">$a</span><span class="s2">  (270 / 8 = 33, remainder </span><span class="nv">$a</span><span class="s2">)&quot;</span>
+                    <span class="c"># 6</span>
+
+
+<span class="c"># Does &quot;let&quot; permit C-style operators?</span>
+<span class="c"># Yes, just as the (( ... )) double-parentheses construct does.</span>
+
+<span class="nb">let </span>a++             <span class="c"># C-style (post) increment.</span>
+<span class="nb">echo</span> <span class="s2">&quot;6++ = </span><span class="nv">$a</span><span class="s2">&quot;</span>     <span class="c"># 6++ = 7</span>
+<span class="nb">let </span>a--             <span class="c"># C-style decrement.</span>
+<span class="nb">echo</span> <span class="s2">&quot;7-- = </span><span class="nv">$a</span><span class="s2">&quot;</span>     <span class="c"># 7-- = 6</span>
+<span class="c"># Of course, ++a, etc., also allowed . . .</span>
+<span class="nb">echo</span>
+
+
+<span class="c"># Trinary operator.</span>
+
+<span class="c"># Note that $a is 6, see above.</span>
+<span class="nb">let</span> <span class="s2">&quot;t = a&lt;7?7:11&quot;</span>   <span class="c"># True</span>
+<span class="nb">echo</span> <span class="nv">$t</span>  <span class="c"># 7</span>
+
+<span class="nb">let </span>a++
+<span class="nb">let</span> <span class="s2">&quot;t = a&lt;7?7:11&quot;</span>   <span class="c"># False</span>
+<span class="nb">echo</span> <span class="nv">$t</span>  <span class="c">#     11</span>
+
+<span class="nb">exit</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Caution</p>
+<blockquote>
+<div>The <em>let</em> command can, in certain contexts, return a surprising
+<a class="reference external" href="exit-status.html#EXITSTATUSREF">exit status</a> .</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Evgeniy Ivanov poi nts out:</span>
+
+<span class="nv">var</span><span class="o">=</span>0
+<span class="nb">echo</span> <span class="nv">$?</span>     <span class="c"># 0</span>
+            <span class="c"># As exp ected.</span>
+
+<span class="nb">let </span>var++
+<span class="nb">echo</span> <span class="nv">$?</span>     <span class="c"># 1</span>
+            <span class="c"># The co mmand was successful, so why isn&#39;t $?=0 ???</span>
+            <span class="c"># Anomal y!</span>
+
+<span class="nb">let </span>var++
+<span class="nb">echo</span> <span class="nv">$?</span>     <span class="c"># 0</span>
+            <span class="c"># As exp ected.</span>
+
+
+<span class="c"># Likewise . . .</span>
+
+<span class="nb">let </span><span class="nv">var</span><span class="o">=</span>0
+<span class="nb">echo</span> <span class="nv">$?</span>     <span class="c"># 1</span>
+            <span class="c"># The co mmand was successful, so why isn&#39;t $?=0 ???</span>
+
+<span class="c">#  However, as Jeff Gorak points out, #+ this is part of t he design spec for &#39;let&#39; . . .</span>
+<span class="c"># &quot;If the last ARG e valuates to 0, let retur ns 1;</span>
+<span class="c">#  let returns 0 oth erwise.&quot; [&#39;help let&#39;]</span>
+
+
+
+.. code-block:: sh
+
+    <span class="c"># Evgeniy Ivanov points out:</span>
+
+    <span class="nv">var</span><span class="o">=</span>0
+    <span class="nb">echo</span> <span class="nv">$?</span>     <span class="c"># 0</span>
+                <span class="c"># As expected.</span>
+
+    <span class="nb">let </span>var++
+    <span class="nb">echo</span> <span class="nv">$?</span>     <span class="c"># 1</span>
+                <span class="c"># The command was successful, so why isn&#39;t $?=0 ???</span>
+                <span class="c"># Anomaly!</span>
+
+    <span class="nb">let </span>var++
+    <span class="nb">echo</span> <span class="nv">$?</span>     <span class="c"># 0</span>
+                <span class="c"># As expected.</span>
+
+
+    <span class="c"># Likewise . . .</span>
+
+    <span class="nb">let </span><span class="nv">var</span><span class="o">=</span>0
+    <span class="nb">echo</span> <span class="nv">$?</span>     <span class="c"># 1</span>
+                <span class="c"># The command was successful, so why isn&#39;t $?=0 ???</span>
+
+    <span class="c">#  However, as Jeff Gorak points out,</span>
+    <span class="c">#+ this is part of the design spec for &#39;let&#39; . . .</span>
+    <span class="c"># &quot;If the last ARG evaluates to 0, let returns 1;</span>
+    <span class="c">#  let returns 0 otherwise.&quot; [&#39;help let&#39;]</span>
+
+
+.. code-block:: sh
+
+    <span class="c"># Evgeniy Ivanov points out:</span>
+
+    <span class="nv">var</span><span class="o">=</span>0
+    <span class="nb">echo</span> <span class="nv">$?</span>     <span class="c"># 0</span>
+                <span class="c"># As expected.</span>
+
+    <span class="nb">let </span>var++
+    <span class="nb">echo</span> <span class="nv">$?</span>     <span class="c"># 1</span>
+                <span class="c"># The command was successful, so why isn&#39;t $?=0 ???</span>
+                <span class="c"># Anomaly!</span>
+
+    <span class="nb">let </span>var++
+    <span class="nb">echo</span> <span class="nv">$?</span>     <span class="c"># 0</span>
+                <span class="c"># As expected.</span>
+
+
+    <span class="c"># Likewise . . .</span>
+
+    <span class="nb">let </span><span class="nv">var</span><span class="o">=</span>0
+    <span class="nb">echo</span> <span class="nv">$?</span>     <span class="c"># 1</span>
+                <span class="c"># The command was successful, so why isn&#39;t $?=0 ???</span>
+
+    <span class="c">#  However, as Jeff Gorak points out,</span>
+    <span class="c">#+ this is part of the design spec for &#39;let&#39; . . .</span>
+    <span class="c"># &quot;If the last ARG evaluates to 0, let returns 1;</span>
+    <span class="c">#  let returns 0 otherwise.&quot; [&#39;help let&#39;]</span>
+</pre></div>
+</div>
+<div class="section" id="eval">
+<h3>eval<a class="headerlink" href="#eval" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div><p>``                   eval arg1 [arg2] ... [argN]                 ``</p>
+<p>Combines the arguments in an expression or list of expressions and
+``                   evaluates                 `` them. Any
+variables within the expression are expanded. The net result is to
+<strong>convert a string into a command</strong> .</p>
+</div></blockquote>
+<p>Tip</p>
+<blockquote>
+<div><p>The <strong>eval</strong> command can be used for code generation from the
+command-line or within a script.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ command_string</span><span class="o">=</span><span class="s2">&quot;ps ax&quot;</span>
+bash<span class="nv">$ process</span><span class="o">=</span><span class="s2">&quot;ps ax&quot;</span>
+bash<span class="nv">$ </span><span class="nb">eval</span> <span class="s2">&quot;</span><span class="nv">$command_string</span><span class="s2">&quot;</span>grep <span class="s2">&quot;</span><span class="nv">$process</span><span class="s2">&quot;</span>
+<span class="m">26973</span> pts/3    R+     0:00 grep --color ps ax
+ <span class="m">26974</span> pts/3    R+     0:00 ps ax
+</pre></div>
+</div>
+<p>Each invocation of <em>eval</em> forces a re- <em>evaluation</em> of its
+arguments.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;$b&#39;</span>
+<span class="nv">b</span><span class="o">=</span><span class="s1">&#39;$c&#39;</span>
+<span class="nv">c</span><span class="o">=</span>d
+
+<span class="nb">echo</span> <span class="nv">$a</span>             <span class="c"># $b</span>
+                    <span class="c"># First level.</span>
+<span class="nb">eval echo</span> <span class="nv">$a</span>        <span class="c"># $c</span>
+                    <span class="c"># Second level.</span>
+<span class="nb">eval eval echo</span> <span class="nv">$a</span>   <span class="c"># d</span>
+                    <span class="c"># Third level.</span>
+
+<span class="c"># Thank you, E. Choroba.</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="exemple-10-showing-the-effect-of-eval">
+<h2>Exemple 10. Showing the effect of <em>eval</em><a class="headerlink" href="#exemple-10-showing-the-effect-of-eval" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Exercising &quot;eval&quot; ...</span>
+
+<span class="nv">y</span><span class="o">=</span><span class="sb">`</span><span class="nb">eval </span>ls -l<span class="sb">`</span>  <span class="c">#  Similar to y=`ls -l`</span>
+<span class="nb">echo</span> <span class="nv">$y</span>         <span class="c">#+ but linefeeds removed because &quot;echoed&quot; variable is unquoted.</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$y</span><span class="s2">&quot;</span>       <span class="c">#  Linefeeds preserved when variable is quoted.</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nv">y</span><span class="o">=</span><span class="sb">`</span><span class="nb">eval </span>df<span class="sb">`</span>     <span class="c">#  Similar to y=`df`</span>
+<span class="nb">echo</span> <span class="nv">$y</span>         <span class="c">#+ but linefeeds removed.</span>
+
+<span class="c">#  When LF&#39;s not preserved, it may make it easier to parse output,</span>
+<span class="c">#+ using utilities such as &quot;awk&quot;.</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;===========================================================&quot;</span>
+<span class="nb">echo</span>
+
+<span class="nb">eval</span> <span class="s2">&quot;`seq 3sed -e &#39;s/.*/echo var&amp;=ABCDEFGHIJ/&#39;`&quot;</span>
+<span class="c"># var1=ABCDEFGHIJ</span>
+<span class="c"># var2=ABCDEFGHIJ</span>
+<span class="c"># var3=ABCDEFGHIJ</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;===========================================================&quot;</span>
+<span class="nb">echo</span>
+
+
+<span class="c"># Now, showing how to do something useful with &quot;eval&quot; . . .</span>
+<span class="c"># (Thank you, E. Choroba!)</span>
+
+<span class="nv">version</span><span class="o">=</span>3.4     <span class="c">#  Can we split the version into major and minor</span>
+                <span class="c">#+ part in one command?</span>
+<span class="nb">echo</span> <span class="s2">&quot;version = </span><span class="nv">$version</span><span class="s2">&quot;</span>
+<span class="nb">eval </span><span class="nv">major</span><span class="o">=</span><span class="si">${</span><span class="nv">version</span><span class="p">/./;minor=</span><span class="si">}</span>     <span class="c">#  Replaces &#39;.&#39; in version by &#39;;minor=&#39;</span>
+                                    <span class="c">#  The substitution yields &#39;3; minor=4&#39;</span>
+                                    <span class="c">#+ so eval does minor=4, major=3</span>
+<span class="nb">echo </span>Major: <span class="nv">$major</span>, minor: <span class="nv">$minor</span>   <span class="c">#  Major: 3, minor: 4</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-11-using-eval-to-select-among-variables">
+<h2>Exemple 11. Using <em>eval</em> to select among variables<a class="headerlink" href="#exemple-11-using-eval-to-select-among-variables" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># arr-choice.sh</span>
+
+<span class="c">#  Passing arguments to a function to select</span>
+<span class="c">#+ one particular variable out of a group.</span>
+
+<span class="nv">arr0</span><span class="o">=(</span> <span class="m">10</span> <span class="m">11</span> <span class="m">12</span> <span class="m">13</span> <span class="m">14</span> <span class="m">15</span> <span class="o">)</span>
+<span class="nv">arr1</span><span class="o">=(</span> <span class="m">20</span> <span class="m">21</span> <span class="m">22</span> <span class="m">23</span> <span class="m">24</span> <span class="m">25</span> <span class="o">)</span>
+<span class="nv">arr2</span><span class="o">=(</span> <span class="m">30</span> <span class="m">31</span> <span class="m">32</span> <span class="m">33</span> <span class="m">34</span> <span class="m">35</span> <span class="o">)</span>
+<span class="c">#       0  1  2  3  4  5      Element number (zero-indexed)</span>
+
+
+choose_array <span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">eval </span><span class="nv">array_member</span><span class="o">=</span><span class="se">\$</span><span class="o">{</span>arr<span class="si">${</span><span class="nv">array_number</span><span class="si">}</span><span class="o">[</span>element_number<span class="o">]}</span>
+  <span class="c">#                 ^       ^^^^^^^^^^^^</span>
+  <span class="c">#  Using eval to construct the name of a variable,</span>
+  <span class="c">#+ in this particular case, an array name.</span>
+
+  <span class="nb">echo</span> <span class="s2">&quot;Element </span><span class="nv">$element_number</span><span class="s2"> of array </span><span class="nv">$array_number</span><span class="s2"> is </span><span class="nv">$array_member</span><span class="s2">&quot;</span>
+<span class="o">}</span> <span class="c">#  Function can be rewritten to take parameters.</span>
+
+<span class="nv">array_number</span><span class="o">=</span><span class="m">0</span>    <span class="c"># First array.</span>
+<span class="nv">element_number</span><span class="o">=</span>3
+choose_array      <span class="c"># 13</span>
+
+<span class="nv">array_number</span><span class="o">=</span><span class="m">2</span>    <span class="c"># Third array.</span>
+<span class="nv">element_number</span><span class="o">=</span>4
+choose_array      <span class="c"># 34</span>
+
+<span class="nv">array_number</span><span class="o">=</span><span class="m">3</span>    <span class="c"># Null array (arr3 not allocated).</span>
+<span class="nv">element_number</span><span class="o">=</span>4
+choose_array      <span class="c"># (null)</span>
+
+<span class="c"># Thank you, Antonio Macchi, for pointing this out.</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-12-echoing-the-command-line-parameters">
+<h2>Exemple 12. <em>Echoing</em> the <em>command-line parameters</em><a class="headerlink" href="#exemple-12-echoing-the-command-line-parameters" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># echo-params.sh</span>
+
+<span class="c"># Call this script with a few command-line parameters.</span>
+<span class="c"># For example:</span>
+<span class="c">#     sh echo-params.sh first second third fourth fifth</span>
+
+<span class="nv">params</span><span class="o">=</span><span class="nv">$# </span>             <span class="c"># Number of command-line parameters.</span>
+<span class="nv">param</span><span class="o">=</span><span class="m">1</span>                <span class="c"># Start at first command-line param.</span>
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$param</span><span class="s2">&quot;</span> -le <span class="s2">&quot;</span><span class="nv">$params</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;Command-line parameter &quot;</span>
+  <span class="nb">echo</span> -n <span class="se">\$</span><span class="nv">$param</span>     <span class="c">#  Gives only the *name* of variable.</span>
+<span class="c">#         ^^^          #  $1, $2, $3, etc.</span>
+                       <span class="c">#  Why?</span>
+                       <span class="c">#  \$ escapes the first &quot;$&quot;</span>
+                       <span class="c">#+ so it echoes literally,</span>
+                       <span class="c">#+ and $param dereferences &quot;$param&quot; . . .</span>
+                       <span class="c">#+ . . . as expected.</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot; = &quot;</span>
+  <span class="nb">eval echo</span> <span class="se">\$</span><span class="nv">$param</span>   <span class="c">#  Gives the *value* of variable.</span>
+<span class="c"># ^^^^      ^^^        #  The &quot;eval&quot; forces the *evaluation*</span>
+                       <span class="c">#+ of \$$</span>
+                       <span class="c">#+ as an indirect variable reference.</span>
+
+<span class="o">((</span> param ++ <span class="o">))</span>         <span class="c"># On to the next.</span>
+<span class="k">done</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c"># =================================================</span>
+
+<span class="nv">$ </span>sh <span class="nb">echo</span>-params.sh first second third fourth fifth
+Command-line parameter <span class="nv">$1</span> <span class="o">=</span> first
+Command-line parameter <span class="nv">$2</span> <span class="o">=</span> second
+Command-line parameter <span class="nv">$3</span> <span class="o">=</span> third
+Command-line parameter <span class="nv">$4</span> <span class="o">=</span> fourth
+Command-line parameter <span class="nv">$5</span> <span class="o">=</span> fifth
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-13-forcing-a-log-off">
+<h2>Exemple 13. Forcing a log-off<a class="headerlink" href="#exemple-13-forcing-a-log-off" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Killing ppp to force a log-off.</span>
+<span class="c"># For dialup connection, of course.</span>
+
+<span class="c"># Script should be run as root user.</span>
+
+<span class="nv">SERPORT</span><span class="o">=</span>ttyS3
+<span class="c">#  Depending on the hardware and even the kernel version,</span>
+<span class="c">#+ the modem port on your machine may be different --</span>
+<span class="c">#+ /dev/ttyS1 or /dev/ttyS2.</span>
+
+
+<span class="nv">killppp</span><span class="o">=</span><span class="s2">&quot;eval kill -9 `ps axawk &#39;/ppp/ { print </span><span class="nv">$1</span><span class="s2"> }&#39;`&quot;</span>
+<span class="c">#                     -------- process ID of ppp -------</span>
+
+<span class="nv">$killppp</span>                     <span class="c"># This variable is now a command.</span>
+
+
+<span class="c"># The following operations must be done as root user.</span>
+
+chmod <span class="m">666</span> /dev/<span class="nv">$SERPORT</span>      <span class="c"># Restore r+w permissions, or else what?</span>
+<span class="c">#  Since doing a SIGKILL on ppp changed the permissions on the serial port,</span>
+<span class="c">#+ we restore permissions to previous state.</span>
+
+rm /var/lock/LCK..<span class="nv">$SERPORT</span>   <span class="c"># Remove the serial port lock file. Why?</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c"># Exercises:</span>
+<span class="c"># ---------</span>
+<span class="c"># 1) Have script check whether root user is invoking it.</span>
+<span class="c"># 2) Do a check on whether the process to be killed</span>
+<span class="c">#+   is actually running before attempting to kill it.</span>
+<span class="c"># 3) Write an alternate version of this script based on &#39;fuser&#39;:</span>
+<span class="c">#+      if [ fuser -s /dev/modem ]; then . . .</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-14-a-version-of-rot13">
+<h2>Exemple 14. A version of <em>rot13</em><a class="headerlink" href="#exemple-14-a-version-of-rot13" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># A version of &quot;rot13&quot; using &#39;eval&#39;.</span>
+<span class="c"># Compare to &quot;rot13.sh&quot; example.</span>
+
+setvar_rot_13<span class="o">()</span>              <span class="c"># &quot;rot13&quot; scrambling</span>
+<span class="o">{</span>
+  <span class="nb">local </span><span class="nv">varname</span><span class="o">=</span><span class="nv">$1</span> <span class="nv">varvalue</span><span class="o">=</span><span class="nv">$2</span>
+  <span class="nb">eval</span> <span class="nv">$varname</span><span class="o">=</span><span class="s1">&#39;$(echo &quot;$varvalue&quot;tr a-z n-za-m)&#39;</span>
+<span class="o">}</span>
+
+
+setvar_rot_13 var <span class="s2">&quot;foobar&quot;</span>   <span class="c"># Run &quot;foobar&quot; through rot13.</span>
+<span class="nb">echo</span> <span class="nv">$var</span>                    <span class="c"># sbbone</span>
+
+setvar_rot_13 var <span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span>     <span class="c"># Run &quot;sbbone&quot; through rot13.</span>
+                             <span class="c"># Back to original variable.</span>
+<span class="nb">echo</span> <span class="nv">$var</span>                    <span class="c"># foobar</span>
+
+<span class="c"># This example by Stephane Chazelas.</span>
+<span class="c"># Modified by document author.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Here is another example of using <em>eval</em> to <em>evaluate</em> a complex
+expression, this one from an earlier version of YongYe&#8217;s <a class="reference external" href="https://github.com/yongye/shell/blob/master/Tetris_Game.sh">Tetris
+game
+script</a>
+.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">eval</span> <span class="si">${</span><span class="nv">1</span><span class="si">}</span>+<span class="o">=</span><span class="se">\&quot;</span><span class="si">${</span><span class="nv">x</span><span class="si">}</span> <span class="si">${</span><span class="nv">y</span><span class="si">}</span> <span class="se">\&quot;</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="contributed-scripts.html#SAMORSE">Example A-53</a> uses <em>eval</em> to
+convert <a class="reference external" href="arrays.html#ARRAYREF">array</a> elements into a command
+list.</p>
+<p>The <em>eval</em> command occurs in the older version of <a class="reference external" href="ivr.html#IVRREF">indirect
+referencing</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">eval </span><span class="nv">var</span><span class="o">=</span><span class="se">\$</span><span class="nv">$var</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Tip</p>
+<blockquote>
+<div>The <em>eval</em> command can be used to <a class="reference external" href="bashver3.html#BRACEEXPREF3">parameterize *brace
+expansion*</a> .</div></blockquote>
+<p>Caution</p>
+<blockquote>
+<div>The <strong>eval</strong> command can be risky, and normally should be avoided
+when there exists a reasonable alternative. An
+``                         eval           $COMMANDS                       ``
+executes the contents of
+``                         COMMANDS                       `` , which
+may contain such unpleasant surprises as <strong>rm -rf *</strong> . Running an
+<strong>eval</strong> on unfamiliar code written by persons unknown is living
+dangerously.</div></blockquote>
+<div class="section" id="set">
+<h3>set<a class="headerlink" href="#set" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div>The <strong>set</strong> command changes the value of internal script
+variables/options. One use for this is to toggle <a class="reference external" href="options.html#OPTIONSREF">option
+flags</a> which help determine the behavior
+of the script. Another application for it is to reset the
+<a class="reference external" href="internalvariables.html#POSPARAMREF">positional parameters</a> that
+a script sees as the result of a command (
+``                   set           <cite>command</cite>                 `` ).
+The script can then parse the
+<a class="reference external" href="special-chars.html#FIELDREF">fields</a> of the command output.</div></blockquote>
+</div>
+</div>
+<div class="section" id="exemple-15-using-set-with-positional-parameters">
+<h2>Exemple 15. Using <em>set</em> with positional parameters<a class="headerlink" href="#exemple-15-using-set-with-positional-parameters" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># ex34.sh</span>
+<span class="c"># Script &quot;set-test&quot;</span>
+
+<span class="c"># Invoke this script with three command-line parameters,</span>
+<span class="c"># for example, &quot;sh ex34.sh one two three&quot;.</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Positional parameters before  set \`uname -a\` :&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Command-line argument #1 = </span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Command-line argument #2 = </span><span class="nv">$2</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Command-line argument #3 = </span><span class="nv">$3</span><span class="s2">&quot;</span>
+
+
+<span class="nb">set</span> <span class="sb">`</span>uname -a<span class="sb">`</span> <span class="c"># Sets the positional parameters to the output</span>
+               <span class="c"># of the command `uname -a`</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> +++++
+<span class="nb">echo</span> <span class="nv">$_</span>        <span class="c"># +++++</span>
+<span class="c"># Flags set in script.</span>
+<span class="nb">echo</span> <span class="nv">$-</span>        <span class="c"># hB</span>
+<span class="c">#                Anomalous behavior?</span>
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Positional parameters after  set \`uname -a\` :&quot;</span>
+<span class="c"># $1, $2, $3, etc. reinitialized to result of `uname -a`</span>
+<span class="nb">echo</span> <span class="s2">&quot;Field #1 of &#39;uname -a&#39; = </span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Field #2 of &#39;uname -a&#39; = </span><span class="nv">$2</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Field #3 of &#39;uname -a&#39; = </span><span class="nv">$3</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="se">\#\#\#</span>
+<span class="nb">echo</span> <span class="nv">$_</span>        <span class="c"># ###</span>
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>More fun with positional parameters.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-16-reversing-the-positional-parameters">
+<h2>Exemple 16. Reversing the positional parameters<a class="headerlink" href="#exemple-16-reversing-the-positional-parameters" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># revposparams.sh: Reverse positional parameters.</span>
+<span class="c"># Script by Dan Jacobson, with stylistic revisions by document author.</span>
+
+
+<span class="nb">set </span>a<span class="se">\ </span>b c d<span class="se">\ </span>e<span class="p">;</span>
+<span class="c">#     ^      ^     Spaces escaped</span>
+<span class="c">#       ^ ^        Spaces not escaped</span>
+<span class="nv">OIFS</span><span class="o">=</span><span class="nv">$IFS</span><span class="p">;</span> <span class="nv">IFS</span><span class="o">=</span>:<span class="p">;</span>
+<span class="c">#              ^   Saving old IFS and setting new one.</span>
+
+<span class="nb">echo</span>
+
+<span class="k">until</span> <span class="o">[</span> <span class="nv">$# </span>-eq <span class="m">0</span> <span class="o">]</span>
+<span class="k">do</span>          <span class="c">#      Step through positional parameters.</span>
+  <span class="nb">echo</span> <span class="s2">&quot;### k0 = &quot;</span><span class="nv">$k</span><span class="s2">&quot;&quot;</span>     <span class="c"># Before</span>
+  <span class="nv">k</span><span class="o">=</span><span class="nv">$1</span>:<span class="nv">$k</span><span class="p">;</span>  <span class="c">#      Append each pos param to loop variable.</span>
+<span class="c">#     ^</span>
+  <span class="nb">echo</span> <span class="s2">&quot;### k = &quot;</span><span class="nv">$k</span><span class="s2">&quot;&quot;</span>      <span class="c"># After</span>
+  <span class="nb">echo</span>
+<span class="nb">  shift</span><span class="p">;</span>
+<span class="k">done</span>
+
+<span class="nb">set</span> <span class="nv">$k</span>  <span class="c">#  Set new positional parameters.</span>
+<span class="nb">echo</span> -
+<span class="nb">echo</span> <span class="nv">$# </span><span class="c">#  Count of positional parameters.</span>
+<span class="nb">echo</span> -
+<span class="nb">echo</span>
+
+<span class="k">for</span> i   <span class="c">#  Omitting the &quot;in list&quot; sets the variable -- i --</span>
+        <span class="c">#+ to the positional parameters.</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="nv">$i</span>  <span class="c"># Display new positional parameters.</span>
+<span class="k">done</span>
+
+<span class="nv">IFS</span><span class="o">=</span><span class="nv">$OIFS</span>  <span class="c"># Restore IFS.</span>
+
+<span class="c">#  Question:</span>
+<span class="c">#  Is it necessary to set an new IFS, internal field separator,</span>
+<span class="c">#+ in order for this script to work properly?</span>
+<span class="c">#  What happens if you don&#39;t? Try it.</span>
+<span class="c">#  And, why use the new IFS -- a colon -- in line 17,</span>
+<span class="c">#+ to append to the loop variable?</span>
+<span class="c">#  What is the purpose of this?</span>
+
+<span class="nb">exit </span>0
+
+<span class="nv">$ </span>./revposparams.sh
+
+<span class="c">### k0 =</span>
+<span class="c">### k = a b</span>
+
+<span class="c">### k0 = a b</span>
+<span class="c">### k = c a b</span>
+
+<span class="c">### k0 = c a b</span>
+<span class="c">### k = d e c a b</span>
+
+-
+3
+-
+
+d e
+c
+a b
+</pre></div>
+</div>
+<p>Invoking <strong>set</strong> without any options or arguments simply lists all
+the <a class="reference external" href="othertypesv.html#ENVREF">environmental</a> and other variables
+that have been initialized.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">set</span>
+<span class="nv">AUTHORCOPY</span><span class="o">=</span>/home/bozo/posts
+ <span class="nv">BASH</span><span class="o">=</span>/bin/bash
+ <span class="nv">BASH_VERSION</span><span class="o">=</span><span class="s1">$&#39;2.05.8(1)-release&#39;</span>
+ ...
+ <span class="nv">XAUTHORITY</span><span class="o">=</span>/home/bozo/.Xauthority
+ <span class="nv">_</span><span class="o">=</span>/etc/bashrc
+ <span class="nv">variable22</span><span class="o">=</span>abc
+ <span class="nv">variable23</span><span class="o">=</span>xzy
+</pre></div>
+</div>
+<p>Using <strong>set</strong> with the ``         &#8211;        `` option explicitly
+assigns the contents of a variable to the positional parameters. If
+no variable follows the ``         &#8211;        `` it <em>unsets</em> the
+positional parameters.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-17-reassigning-the-positional-parameters">
+<h2>Exemple 17. Reassigning the positional parameters<a class="headerlink" href="#exemple-17-reassigning-the-positional-parameters" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">variable</span><span class="o">=</span><span class="s2">&quot;one two three four five&quot;</span>
+
+<span class="nb">set</span> -- <span class="nv">$variable</span>
+<span class="c"># Sets positional parameters to the contents of &quot;$variable&quot;.</span>
+
+<span class="nv">first_param</span><span class="o">=</span><span class="nv">$1</span>
+<span class="nv">second_param</span><span class="o">=</span><span class="nv">$2</span>
+<span class="nb">shift</span><span class="p">;</span> <span class="nb">shift</span>        <span class="c"># Shift past first two positional params.</span>
+<span class="c"># shift 2             also works.</span>
+<span class="nv">remaining_params</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$*</span><span class="s2">&quot;</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;first parameter = </span><span class="nv">$first_param</span><span class="s2">&quot;</span>             <span class="c"># one</span>
+<span class="nb">echo</span> <span class="s2">&quot;second parameter = </span><span class="nv">$second_param</span><span class="s2">&quot;</span>           <span class="c"># two</span>
+<span class="nb">echo</span> <span class="s2">&quot;remaining parameters = </span><span class="nv">$remaining_params</span><span class="s2">&quot;</span>   <span class="c"># three four five</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="c"># Again.</span>
+<span class="nb">set</span> -- <span class="nv">$variable</span>
+<span class="nv">first_param</span><span class="o">=</span><span class="nv">$1</span>
+<span class="nv">second_param</span><span class="o">=</span><span class="nv">$2</span>
+<span class="nb">echo</span> <span class="s2">&quot;first parameter = </span><span class="nv">$first_param</span><span class="s2">&quot;</span>             <span class="c"># one</span>
+<span class="nb">echo</span> <span class="s2">&quot;second parameter = </span><span class="nv">$second_param</span><span class="s2">&quot;</span>           <span class="c"># two</span>
+
+<span class="c"># ======================================================</span>
+
+<span class="nb">set</span> --
+<span class="c"># Unsets positional parameters if no variable specified.</span>
+
+<span class="nv">first_param</span><span class="o">=</span><span class="nv">$1</span>
+<span class="nv">second_param</span><span class="o">=</span><span class="nv">$2</span>
+<span class="nb">echo</span> <span class="s2">&quot;first parameter = </span><span class="nv">$first_param</span><span class="s2">&quot;</span>             <span class="c"># (null value)</span>
+<span class="nb">echo</span> <span class="s2">&quot;second parameter = </span><span class="nv">$second_param</span><span class="s2">&quot;</span>           <span class="c"># (null value)</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>See also <a class="reference external" href="loops1.html#EX22A">Example 11-2</a> and <a class="reference external" href="extmisc.html#EX33A">Example
+16-56</a> .</p>
+</div></blockquote>
+<div class="section" id="unset">
+<h3>unset<a class="headerlink" href="#unset" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div><p>The <strong>unset</strong> command deletes a shell variable, effectively setting
+it to <em>null</em> . Note that this command does not affect positional
+parameters.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash$ unset PATH
+
+bash$ echo $PATH
+
+bash$
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="exemple-18-unsetting-a-variable">
+<h2>Exemple 18. &#8220;Unsetting&#8221; a variable<a class="headerlink" href="#exemple-18-unsetting-a-variable" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># unset.sh: Unsetting a variable.</span>
+
+<span class="nv">variable</span><span class="o">=</span>hello                       <span class="c">#  Initialized.</span>
+<span class="nb">echo</span> <span class="s2">&quot;variable = </span><span class="nv">$variable</span><span class="s2">&quot;</span>
+
+<span class="nb">unset </span>variable                       <span class="c">#  Unset.</span>
+                                     <span class="c">#  In this particular context,</span>
+                                     <span class="c">#+ same effect as:   variable=</span>
+<span class="nb">echo</span> <span class="s2">&quot;(unset) variable = </span><span class="nv">$variable</span><span class="s2">&quot;</span>  <span class="c">#  $variable is null.</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$variable</span><span class="s2">&quot;</span> <span class="o">]</span>                <span class="c">#  Try a string-length test.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;\$variable has zero length.&quot;</span>
+<span class="k">fi</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<p>Note</p>
+<blockquote>
+<div>In most contexts, an <em>undeclared</em> variable and one that has been
+<em>unset</em> are equivalent. However, the
+<a class="reference external" href="parameter-substitution.html#UNDDR">${parameter:-default}</a>
+parameter substitution construct can distinguish between the two.</div></blockquote>
+<div class="section" id="export">
+<h3>export<a class="headerlink" href="#export" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div>The <strong>export</strong> ` [4]  &lt;internal.html#FTN.AEN9199&gt;`__ command makes
+available variables to all child processes of the running script or
+shell. One important use of the <strong>export</strong> command is in <a class="reference external" href="files.html#FILESREF1">startup
+files</a> , to initialize and make accessible
+<a class="reference external" href="othertypesv.html#ENVREF">environmental variables</a> to subsequent
+user processes.</div></blockquote>
+<p>Caution</p>
+<blockquote>
+<div>Unfortunately, <a class="reference external" href="gotchas.html#PARCHILDPROBREF">there is no way to export variables back to the
+parent process</a> , to the process
+that called or invoked the script or shell.</div></blockquote>
+</div>
+</div>
+<div class="section" id="exemple-20-using-export-to-pass-a-variable-to-an-embedded-awk-script">
+<h2>Exemple 20. Using <em>export</em> to pass a variable to an embedded <em>awk</em> script<a class="headerlink" href="#exemple-20-using-export-to-pass-a-variable-to-an-embedded-awk-script" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c">#  Yet another version of the &quot;column totaler&quot; script (col-totaler.sh)</span>
+<span class="c">#+ that adds up a specified column (of numbers) in the target file.</span>
+<span class="c">#  This uses the environment to pass a script variable to &#39;awk&#39; . . .</span>
+<span class="c">#+ and places the awk script in a variable.</span>
+
+
+<span class="nv">ARGS</span><span class="o">=</span>2
+<span class="nv">E_WRONGARGS</span><span class="o">=</span>85
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-ne <span class="s2">&quot;</span><span class="nv">$ARGS</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="c"># Check for proper number of command-line args.</span>
+<span class="k">then</span>
+   <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` filename column-number&quot;</span>
+   <span class="nb">exit</span> <span class="nv">$E_WRONGARGS</span>
+<span class="k">fi</span>
+
+<span class="nv">filename</span><span class="o">=</span><span class="nv">$1</span>
+<span class="nv">column_number</span><span class="o">=</span><span class="nv">$2</span>
+
+<span class="c">#===== Same as original script, up to this point =====#</span>
+
+<span class="nb">export </span>column_number
+<span class="c"># Export column number to environment, so it&#39;s available for retrieval.</span>
+
+
+<span class="c"># -----------------------------------------------</span>
+<span class="nv">awkscript</span><span class="o">=</span><span class="s1">&#39;{ total += $ENVIRON[&quot;column_number&quot;] }</span>
+<span class="s1">END { print total }&#39;</span>
+<span class="c"># Yes, a variable can hold an awk script.</span>
+<span class="c"># -----------------------------------------------</span>
+
+<span class="c"># Now, run the awk script.</span>
+awk <span class="s2">&quot;</span><span class="nv">$awkscript</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span>
+
+<span class="c"># Thanks, Stephane Chazelas.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<p>Tip</p>
+<blockquote>
+<div><p>It is possible to initialize and export variables in the same
+operation, as in <strong>export var1=xxx</strong> .</p>
+<p>However, as Greg Keraunen points out, in certain situations this may
+have a different effect than setting a variable, then exporting it.</p>
+</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">export </span><span class="nv">var</span><span class="o">=(</span>a b<span class="o">)</span><span class="p">;</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">var</span><span class="p">[0]</span><span class="si">}</span>
+<span class="o">(</span>a b<span class="o">)</span>
+
+
+
+bash<span class="nv">$ var</span><span class="o">=(</span>a b<span class="o">)</span><span class="p">;</span> exp ort var<span class="p">;</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">var</span><span class="p">[0]</span><span class="si">}</span>
+a
+
+
+
+
+.. code-block:: sh
+
+    bash<span class="nv">$ </span><span class="nb">export </span><span class="nv">var</span><span class="o">=(</span>a b<span class="o">)</span><span class="p">;</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">var</span><span class="p">[0]</span><span class="si">}</span>
+    <span class="o">(</span>a b<span class="o">)</span>
+
+
+
+    bash<span class="nv">$ var</span><span class="o">=(</span>a b<span class="o">)</span><span class="p">;</span> <span class="nb">export </span>var<span class="p">;</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">var</span><span class="p">[0]</span><span class="si">}</span>
+    a
+
+
+
+.. code-block:: sh
+
+    bash<span class="nv">$ </span><span class="nb">export </span><span class="nv">var</span><span class="o">=(</span>a b<span class="o">)</span><span class="p">;</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">var</span><span class="p">[0]</span><span class="si">}</span>
+    <span class="o">(</span>a b<span class="o">)</span>
+
+
+
+    bash<span class="nv">$ var</span><span class="o">=(</span>a b<span class="o">)</span><span class="p">;</span> <span class="nb">export </span>var<span class="p">;</span> <span class="nb">echo</span> <span class="si">${</span><span class="nv">var</span><span class="p">[0]</span><span class="si">}</span>
+    a
+</pre></div>
+</div>
+<p>Note</p>
+<blockquote>
+<div>A variable to be exported may require special treatment. See
+<a class="reference external" href="sample-bashrc.html#BASHPROF">Example M-2</a> .</div></blockquote>
+<div class="section" id="declare-typeset">
+<h3>declare , <strong>typeset</strong><a class="headerlink" href="#declare-typeset" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div>The <a class="reference external" href="declareref.html">declare</a> and <a class="reference external" href="declareref.html">typeset</a>
+commands specify and/or restrict properties of variables.</div></blockquote>
+</div>
+<div class="section" id="readonly">
+<h3>readonly<a class="headerlink" href="#readonly" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div>Same as <a class="reference external" href="declareref.html">declare -r</a> , sets a variable as
+read-only, or, in effect, as a constant. Attempts to change the
+variable fail with an error message. This is the shell analog of the
+<em>C</em> language <strong>const</strong> type qualifier.</div></blockquote>
+</div>
+<div class="section" id="getopts">
+<h3>getopts<a class="headerlink" href="#getopts" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div><p>This powerful tool parses command-line arguments passed to the
+script. This is the Bash analog of the
+<a class="reference external" href="extmisc.html#GETOPTY">getopt</a> external command and the <em>getopt</em>
+library function familiar to <em>C</em> programmers. It permits passing and
+concatenating multiple options ` [5]  &lt;internal.html#FTN.AEN9289&gt;`__
+and associated arguments to a script (for example
+``                   scriptname -abc -e           /usr/local                 ``
+).</p>
+<p>The <strong>getopts</strong> construct uses two implicit variables.
+``         $OPTIND        `` is the argument pointer ( <em>OPTion
+INDex</em> ) and ``         $OPTARG        `` ( <em>OPTion ARGument</em> ) the
+(optional) argument attached to an option. A colon following the
+option name in the declaration tags that option as having an
+associated argument.</p>
+<p>A <strong>getopts</strong> construct usually comes packaged in a <a class="reference external" href="loops1.html#WHILELOOPREF">while
+loop</a> , which processes the options and
+arguments one at a time, then increments the implicit
+``         $OPTIND        `` variable to point to the next.</p>
+</div></blockquote>
+<p>Note</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>The arguments passed from the command-line to the script must be
+preceded by a dash ( ``              -             `` ). It is
+the prefixed ``              -             `` that lets
+<strong>getopts</strong> recognize command-line arguments as <em>options</em> . In
+fact, <strong>getopts</strong> will not process arguments without the prefixed
+``              -             `` , and will terminate option
+processing at the first argument encountered lacking them.</li>
+<li>The <strong>getopts</strong> template differs slightly from the standard
+<a class="reference external" href="loops1.html#WHILELOOPREF">while loop</a> , in that it lacks
+condition brackets.</li>
+<li>The <strong>getopts</strong> construct is a highly functional replacement for
+the traditional <a class="reference external" href="extmisc.html#GETOPTY">getopt</a> external
+command.</li>
+</ol>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">while</span> <span class="nb">getopts</span> <span class="s2">&quot;:abcde:fg&quot;</span> Option
+<span class="c"># Initial declaration.</span>
+<span class="c"># a, b, c, d, e, f, and g are the options (flags) expected.</span>
+<span class="c"># The : after option &#39;e&#39; shows it will have an argument passed with it.</span>
+<span class="k">do</span>
+  <span class="k">case</span> <span class="nv">$Option</span> in
+    a <span class="o">)</span> <span class="c"># Do something with variable &#39;a&#39;.</span>
+    b <span class="o">)</span> <span class="c"># Do something with variable &#39;b&#39;.</span>
+    ...
+    e<span class="o">)</span>  <span class="c"># Do something with &#39;e&#39;, and also with $OPTARG,</span>
+        <span class="c"># which is the associated argument passed with option &#39;e&#39;.</span>
+    ...
+    g <span class="o">)</span> <span class="c"># Do something with variable &#39;g&#39;.</span>
+  <span class="k">esac</span>
+<span class="k">done</span>
+<span class="nb">shift</span> <span class="k">$((</span><span class="nv">$OPTIND</span> <span class="o">-</span> <span class="m">1</span><span class="k">))</span>
+<span class="c"># Move argument pointer to next.</span>
+
+<span class="c"># All this is not nearly as complicated as it looks &lt;grin&gt;.</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="exemple-21-using-getopts-to-read-the-options-arguments-passed-to-a-script">
+<h2>Exemple 21. Using <em>getopts</em> to read the options/arguments passed to a script<a class="headerlink" href="#exemple-21-using-getopts-to-read-the-options-arguments-passed-to-a-script" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># ex33.sh: Exercising getopts and OPTIND</span>
+<span class="c">#          Script modified 10/09/03 at the suggestion of Bill Gradwohl.</span>
+
+
+<span class="c"># Here we observe how &#39;getopts&#39; processes command-line arguments to script.</span>
+<span class="c"># The arguments are parsed as &quot;options&quot; (flags) and associated arguments.</span>
+
+<span class="c"># Try invoking this script with:</span>
+<span class="c">#   &#39;scriptname -mn&#39;</span>
+<span class="c">#   &#39;scriptname -oq qOption&#39; (qOption can be some arbitrary string.)</span>
+<span class="c">#   &#39;scriptname -qXXX -r&#39;</span>
+<span class="c">#</span>
+<span class="c">#   &#39;scriptname -qr&#39;</span>
+<span class="c">#+      - Unexpected result, takes &quot;r&quot; as the argument to option &quot;q&quot;</span>
+<span class="c">#   &#39;scriptname -q -r&#39;</span>
+<span class="c">#+      - Unexpected result, same as above</span>
+<span class="c">#   &#39;scriptname -mnop -mnop&#39;  - Unexpected result</span>
+<span class="c">#   (OPTIND is unreliable at stating where an option came from.)</span>
+<span class="c">#</span>
+<span class="c">#  If an option expects an argument (&quot;flag:&quot;), then it will grab</span>
+<span class="c">#+ whatever is next on the command-line.</span>
+
+<span class="nv">NO_ARGS</span><span class="o">=</span>0
+<span class="nv">E_OPTERROR</span><span class="o">=</span>85
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-eq <span class="s2">&quot;</span><span class="nv">$NO_ARGS</span><span class="s2">&quot;</span> <span class="o">]</span>    <span class="c"># Script invoked with no command-line args?</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` options (-mnopqrs)&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_OPTERROR</span>          <span class="c"># Exit and explain usage.</span>
+                            <span class="c"># Usage: scriptname -options</span>
+                            <span class="c"># Note: dash (-) necessary</span>
+<span class="k">fi</span>
+
+
+<span class="k">while</span> <span class="nb">getopts</span> <span class="s2">&quot;:mnopq:rs&quot;</span> Option
+<span class="k">do</span>
+  <span class="k">case</span> <span class="nv">$Option</span> in
+    m     <span class="o">)</span> <span class="nb">echo</span> <span class="s2">&quot;Scenario #1: option -m-   [OPTIND=</span><span class="si">${</span><span class="nv">OPTIND</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">;;</span>
+    no <span class="o">)</span> <span class="nb">echo</span> <span class="s2">&quot;Scenario #2: option -</span><span class="nv">$Option</span><span class="s2">-   [OPTIND=</span><span class="si">${</span><span class="nv">OPTIND</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">;;</span>
+    p     <span class="o">)</span> <span class="nb">echo</span> <span class="s2">&quot;Scenario #3: option -p-   [OPTIND=</span><span class="si">${</span><span class="nv">OPTIND</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">;;</span>
+    q     <span class="o">)</span> <span class="nb">echo</span> <span class="s2">&quot;Scenario #4: option -q-\</span>
+<span class="s2">                  with argument \&quot;</span><span class="nv">$OPTARG</span><span class="s2">\&quot;   [OPTIND=</span><span class="si">${</span><span class="nv">OPTIND</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">;;</span>
+    <span class="c">#  Note that option &#39;q&#39; must have an associated argument,</span>
+    <span class="c">#+ otherwise it falls through to the default.</span>
+    rs <span class="o">)</span> <span class="nb">echo</span> <span class="s2">&quot;Scenario #5: option -</span><span class="nv">$Option</span><span class="s2">-&quot;</span><span class="p">;;</span>
+    *     <span class="o">)</span> <span class="nb">echo</span> <span class="s2">&quot;Unimplemented option chosen.&quot;</span><span class="p">;;</span>   <span class="c"># Default.</span>
+  <span class="k">esac</span>
+<span class="k">done</span>
+
+<span class="nb">shift</span> <span class="k">$((</span><span class="nv">$OPTIND</span> <span class="o">-</span> <span class="m">1</span><span class="k">))</span>
+<span class="c">#  Decrements the argument pointer so it points to next argument.</span>
+<span class="c">#  $1 now references the first non-option item supplied on the command-line</span>
+<span class="c">#+ if one exists.</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c">#   As Bill Gradwohl states,</span>
+<span class="c">#  &quot;The getopts mechanism allows one to specify:  scriptname -mnop -mnop</span>
+<span class="c">#+  but there is no reliable way to differentiate what came</span>
+<span class="c">#+ from where by using OPTIND.&quot;</span>
+<span class="c">#  There are, however, workarounds.</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="script-behavior">
+<h2>Script Behavior<a class="headerlink" href="#script-behavior" title="Link permanent a aquest títol">¶</a></h2>
+</div>
+<div class="section" id="source">
+<span id="internal-dotcommand"></span><h2>source<a class="headerlink" href="#source" title="Link permanent a aquest títol">¶</a></h2>
+<p>També anomenat comanda punt o <em>dot command</em>.</p>
+<p>Quan invoquem aquesta comanda des de la línia de comandes, s&#8217;executa
+un guió.
+En canvi, dins d&#8217;un guió, <code class="docutils literal"><span class="pre">source</span> <span class="pre">nomfitxer</span></code> carrega el fitxer
+<em>nomfitxer</em> de manera que el contingut d&#8217;aquest fitxer passa a formar part
+del guió. Es diu que el guió <em>importa</em> el codi guardat a <em>nomfitxer</em>.</p>
+<p>Aquesta importació, en anglés se la coneix com a <em>sourcing</em> i implica el
+mateix resultat que la directiva <code class="docutils literal"><span class="pre">#include</span></code> en un programa C. És a
+dir, el resultat final equival a si el contingut de <em>nomfitxer</em> hagués
+estat escrit directament en el guió que l&#8217;importa.</p>
+<p>Un possible ús és per permetre que més d&#8217;un guió comparteixi un matex
+fitxer de dades o una mateixa biblioteca de funcions.</p>
+</div>
+<div class="section" id="exemple-19-including-a-data-file">
+<h2>Exemple 19. &#8220;Including&#8221; a data file<a class="headerlink" href="#exemple-19-including-a-data-file" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c">#  Note that this example must be invoked with bash, i.e., bash ex38.sh</span>
+<span class="c">#+ not  sh ex38.sh !</span>
+
+. data-file    <span class="c"># Load a data file.</span>
+<span class="c"># Same effect as &quot;source data-file&quot;, but more portable.</span>
+
+<span class="c">#  The file &quot;data-file&quot; must be present in current working directory,</span>
+<span class="c">#+ since it is referred to by its basename.</span>
+
+<span class="c"># Now, let&#39;s reference some data from that file.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;variable1 (from data-file) = </span><span class="nv">$variable1</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;variable3 (from data-file) = </span><span class="nv">$variable3</span><span class="s2">&quot;</span>
+
+<span class="nb">let</span> <span class="s2">&quot;sum = </span><span class="nv">$variable2</span><span class="s2"> + </span><span class="nv">$variable4</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Sum of variable2 + variable4 (from data-file) = </span><span class="nv">$sum</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;message1 (from data-file) is \&quot;</span><span class="nv">$message1</span><span class="s2">\&quot;&quot;</span>
+<span class="c">#                                  Escaped quotes</span>
+<span class="nb">echo</span> <span class="s2">&quot;message2 (from data-file) is \&quot;</span><span class="nv">$message2</span><span class="s2">\&quot;&quot;</span>
+
+print_message This is the message-print <span class="k">function</span> in the data-file.
+
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+<p>File ``          data-file         `` for <a class="reference external" href="internal.html#EX38">Example
+15-22</a> , above. Must be present in same
+directory.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># This is a data file loaded by a script.</span>
+<span class="c"># Files of this type may contain variables, functions, etc.</span>
+<span class="c"># It loads with a &#39;source&#39; or &#39;.&#39; command from a shell script.</span>
+
+<span class="c"># Let&#39;s initialize some variables.</span>
+
+<span class="nv">variable1</span><span class="o">=</span>23
+<span class="nv">variable2</span><span class="o">=</span>474
+<span class="nv">variable3</span><span class="o">=</span>5
+<span class="nv">variable4</span><span class="o">=</span>97
+
+<span class="nv">message1</span><span class="o">=</span><span class="s2">&quot;Greetings from *** line </span><span class="nv">$LINENO</span><span class="s2"> *** of the data file!&quot;</span>
+<span class="nv">message2</span><span class="o">=</span><span class="s2">&quot;Enough for now. Goodbye.&quot;</span>
+
+print_message <span class="o">()</span>
+<span class="o">{</span>   <span class="c"># Echoes any message passed to it.</span>
+
+  <span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+  <span class="k">then</span>
+    <span class="k">return</span> <span class="m">1</span> <span class="c"># Error, if argument missing.</span>
+  <span class="k">fi</span>
+
+  <span class="nb">echo</span>
+
+<span class="nb">  </span><span class="k">until</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+  <span class="k">do</span>             <span class="c"># Step through arguments passed to function.</span>
+    <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="c"># Echo args one at a time, suppressing line feeds.</span>
+    <span class="nb">echo</span> -n <span class="s2">&quot; &quot;</span>  <span class="c"># Insert spaces between words.</span>
+    <span class="nb">shift</span>        <span class="c"># Next one.</span>
+  <span class="k">done</span>
+
+  <span class="nb">echo</span>
+
+<span class="nb">  </span><span class="k">return</span> 0
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>If the <em>sourced</em> file is itself an executable script, then it will
+run, then return control to the script that called it. A <em>sourced</em>
+executable script may use a <a class="reference external" href="complexfunct.html#RETURNREF">return</a>
+for this purpose.</p>
+<p>Arguments may be (optionally) passed to the <em>sourced</em> file as
+<a class="reference external" href="othertypesv.html#POSPARAMREF1">positional parameters</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">source</span> <span class="nv">$filename</span> <span class="nv">$arg1</span> arg2
+</pre></div>
+</div>
+<p>It is even possible for a script to <em>source</em> itself, though this
+does not seem to have any practical applications.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-20-un-guio-inutil-que-s-autocarrega">
+<span id="internal-uselessthatsourcesitself"></span><h2>Exemple 20. Un guió (inutil) que s&#8217;autocarrega<a class="headerlink" href="#exemple-20-un-guio-inutil-que-s-autocarrega" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c"># Aquest guió es carrega a si mateix de manera recursiva</span>
+
+<span class="nv">LIMIT_COMPTADOR</span><span class="o">=</span><span class="m">100</span>    <span class="c"># Valor màxim del comptador</span>
+
+<span class="nb">echo</span> -n  <span class="s2">&quot;</span><span class="nv">$comptador</span><span class="s2">  &quot;</span>
+<span class="c">#  A la primera execució, la comanda anterior només mostra dos espais en blanc.</span>
+<span class="c">#+ donat que la variable $comptador encara no ha estat inicialitzada.</span>
+
+<span class="nb">let</span> <span class="s2">&quot;comptador += 1&quot;</span>
+<span class="c">#  Assumeix que la variable $comptador pot ser incrementada encara que </span>
+<span class="c">#+ estigui sense inicialitzar la primera vegada.</span>
+<span class="c">#  Això funcionarà amb Bash i pdksh, però es basa en un comportament no </span>
+<span class="c">#+ portable, i probablement perillós.</span>
+<span class="c">#  És preferible inicialitzar $comptador a 0 abans d&#39;incrementar.</span>
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$comptador</span><span class="s2">&quot;</span> -le <span class="nv">$LIMIT_COMPTADOR</span> <span class="o">]</span>
+<span class="k">do</span>
+    . <span class="nv">$0</span>   <span class="c"># Torna a carregar aquest mateix guió, en comptes de cridar-se a si mateix.</span>
+    <span class="c"># ./$0 (que seria recursivitat real) no funciona aquí. Saps per què?</span>
+<span class="k">done</span>
+
+<span class="c">#  El que passa aquí no és una recursivitat real. Per contra, el guió</span>
+<span class="c">#  s&#39;espandeix a si mateix, és a dir, genera una nova secció de codi per cada</span>
+<span class="c">#  iteració del bucle while.</span>
+<span class="c">#</span>
+<span class="c">#  La primera línia amb el sha-bang només és interpretada com a tal el primer</span>
+<span class="c">#  cop. La resta es consideren simplement comentaris.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span><span class="m">0</span>   <span class="c"># El resultat final és comptar del 1 al 100.</span>
+<span class="c"># Impressionant!</span>
+
+<span class="c"># Exercici: Escriu un guió que faci servir aquest truc, però que faci alguna cosa</span>
+<span class="c"># útil.</span>
+</pre></div>
+</div>
+<div class="section" id="exit">
+<h3>exit<a class="headerlink" href="#exit" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div>Unconditionally terminates a script. ` [6]
+&lt;internal.html#FTN.AEN9393&gt;`__ The <strong>exit</strong> command may optionally
+take an integer argument, which is returned to the shell as the
+<a class="reference external" href="exit-status.html#EXITSTATUSREF">exit status</a> of the script. It
+is good practice to end all but the simplest scripts with an
+``                   exit 0                 `` , indicating a
+successful run.</div></blockquote>
+<p>Note</p>
+<blockquote>
+<div>If a script terminates with an <strong>exit</strong> lacking an argument, the
+exit status of the script is the exit status of the last command
+executed in the script, not counting the <strong>exit</strong> . This is
+equivalent to an <strong>exit $?</strong> .</div></blockquote>
+<p>Note</p>
+<blockquote>
+<div>An <strong>exit</strong> command may also be used to terminate a
+<a class="reference external" href="subshells.html#SUBSHELLSREF">subshell</a> .</div></blockquote>
+</div>
+<div class="section" id="exec">
+<h3>exec<a class="headerlink" href="#exec" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div>This shell builtin replaces the current process with a specified
+command. Normally, when the shell encounters a command, it <a class="reference external" href="internal.html#FORKREF">forks
+off</a> a child process to actually execute
+the command. Using the <strong>exec</strong> builtin, the shell does not fork,
+and the command <em>exec</em> &#8216;ed replaces the shell. When used in a
+script, therefore, it forces an exit from the script when the
+<strong>exec</strong> &#8216;ed command terminates. ` [7]
+&lt;internal.html#FTN.AEN9425&gt;`__</div></blockquote>
+</div>
+</div>
+<div class="section" id="exemple-21-effects-of-exec">
+<h2>Exemple 21. Effects of <em>exec</em><a class="headerlink" href="#exemple-21-effects-of-exec" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">exec echo</span> <span class="s2">&quot;Exiting \&quot;</span><span class="nv">$0</span><span class="s2">\&quot; at line </span><span class="nv">$LINENO</span><span class="s2">.&quot;</span>   <span class="c"># Exit from script here.</span>
+<span class="c"># $LINENO is an internal Bash variable set to the line number it&#39;s on.</span>
+
+<span class="c"># ----------------------------------</span>
+<span class="c"># The following lines never execute.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;This echo fails to echo.&quot;</span>
+
+<span class="nb">exit </span><span class="m">99</span>                       <span class="c">#  This script will not exit here.</span>
+                              <span class="c">#  Check exit value after script terminates</span>
+                              <span class="c">#+ with an &#39;echo $?&#39;.</span>
+                              <span class="c">#  It will *not* be 99.</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-22-a-script-that-exec-s-itself">
+<h2>Exemple 22. A script that <em>exec&#8217;s</em> itself<a class="headerlink" href="#exemple-22-a-script-that-exec-s-itself" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># self-exec.sh</span>
+
+<span class="c"># Note: Set permissions on this script to 555 or 755,</span>
+<span class="c">#       then call it with ./self-exec.sh or sh ./self-exec.sh.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;This line appears ONCE in the script, yet it keeps echoing.&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;The PID of this instance of the script is still </span><span class="nv">$$</span><span class="s2">.&quot;</span>
+<span class="c">#     Demonstrates that a subshell is not forked off.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;==================== Hit Ctl-C to exit ====================&quot;</span>
+
+sleep 1
+
+<span class="nb">exec</span> <span class="nv">$0</span>   <span class="c">#  Spawns another instance of this same script</span>
+          <span class="c">#+ that replaces the previous one.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;This line will never echo!&quot;</span>  <span class="c"># Why not?</span>
+
+<span class="nb">exit </span><span class="m">99</span>                            <span class="c"># Will not exit here!</span>
+                                   <span class="c"># Exit code will not be 99!</span>
+</pre></div>
+</div>
+<p>An <strong>exec</strong> also serves to <a class="reference external" href="x17974.html#USINGEXECREF">reassign file
+descriptors</a> . For example,
+``                   exec           &lt;zzz-file                 ``
+replaces ``         stdin        `` with the file
+``         zzz-file        `` .</p>
+</div></blockquote>
+<p>Note</p>
+<blockquote>
+<div>The ``            -exec           `` option to
+<a class="reference external" href="moreadv.html#FINDREF">find</a> is
+``                         not                       `` the same as
+the <strong>exec</strong> shell builtin.</div></blockquote>
+<div class="section" id="shopt">
+<h3>shopt<a class="headerlink" href="#shopt" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div><p>This command permits changing <em>shell options</em> on the fly (see
+<a class="reference external" href="aliases.html#AL">Example 25-1</a> and <a class="reference external" href="aliases.html#UNAL">Example
+25-2</a> ). It often appears in the Bash <a class="reference external" href="files.html#FILESREF1">startup
+files</a> , but also has its uses in scripts.
+Needs <a class="reference external" href="bashver2.html#BASH2REF">version 2</a> or later of Bash.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">shopt</span> -s cdspell
+<span class="c"># Allows minor misspelling of directory names with &#39;cd&#39;</span>
+<span class="c"># Option -s sets, -u unsets.</span>
+
+<span class="nb">cd</span> /hpme  <span class="c"># Oops! Mistyped &#39;/home&#39;.</span>
+<span class="nb">pwd</span>       <span class="c"># /home</span>
+          <span class="c"># The shell corrected the misspelling.</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="caller">
+<h3>caller<a class="headerlink" href="#caller" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div><p>Putting a <strong>caller</strong> command inside a
+<a class="reference external" href="functions.html#FUNCTIONREF">function</a> echoes to
+``         stdout        `` information about the <em>caller</em> of that
+function.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+function1 <span class="o">()</span>
+<span class="o">{</span>
+  <span class="c"># Inside function1 ().</span>
+  <span class="nb">caller </span><span class="m">0</span>   <span class="c"># Tell me about it.</span>
+<span class="o">}</span>
+
+function1    <span class="c"># Line 9 of script.</span>
+
+<span class="c"># 9 main test.sh</span>
+<span class="c"># ^                 Line number that the function was called from.</span>
+<span class="c">#   ^^^^            Invoked from &quot;main&quot; part of script.</span>
+<span class="c">#        ^^^^^^^    Name of calling script.</span>
+
+<span class="nb">caller </span><span class="m">0</span>     <span class="c"># Has no effect because it&#39;s not inside a function.</span>
+</pre></div>
+</div>
+<p>A <strong>caller</strong> command can also return <em>caller</em> information from a
+script <a class="reference external" href="internal.html#SOURCEREF">sourced</a> within another script.
+Analogous to a function, this is a &#8220;subroutine call.&#8221;</p>
+<p>You may find this command useful in debugging.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Link permanent a aquest títol">¶</a></h2>
+<div class="section" id="true">
+<h3>true<a class="headerlink" href="#true" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div><p>A command that returns a successful ( zero ) <a class="reference external" href="exit-status.html#EXITSTATUSREF">exit
+status</a> , but does nothing else.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">true</span>
+bash<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$?</span>
+0
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Endless loop</span>
+<span class="k">while</span> <span class="nb">true</span>   <span class="c"># alias for &quot;:&quot;</span>
+<span class="k">do</span>
+   operation-1
+   operation-2
+   ...
+   operation-n
+   <span class="c"># Need a way to break out of loop or script will hang.</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="false">
+<h3>false<a class="headerlink" href="#false" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div><p>A command that returns an unsuccessful <a class="reference external" href="exit-status.html#EXITSTATUSREF">exit
+status</a> , but does nothing else.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">false</span>
+bash<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$?</span>
+1
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Testing &quot;false&quot;</span>
+<span class="k">if</span> <span class="nb">false</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;false evaluates \&quot;true\&quot;&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;false evaluates \&quot;false\&quot;&quot;</span>
+<span class="k">fi</span>
+<span class="c"># false evaluates &quot;false&quot;</span>
+
+
+<span class="c"># Looping while &quot;false&quot; (null loop)</span>
+<span class="k">while</span> <span class="nb">false</span>
+<span class="k">do</span>
+   <span class="c"># The following code will not execute.</span>
+   operation-1
+   operation-2
+   ...
+   operation-n
+   <span class="c"># Nothing happens!</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="type-cmd">
+<h3>type [cmd]<a class="headerlink" href="#type-cmd" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div><p>Similar to the <a class="reference external" href="filearchiv.html#WHICHREF">which</a> external
+command, <strong>type cmd</strong> identifies &#8220;cmd.&#8221; Unlike <strong>which</strong> , <strong>type</strong>
+is a Bash builtin. The useful ``         -a        `` option to
+<strong>type</strong> identifies ``                   keywords                 ``
+and ``                   builtins                 `` , and also
+locates system commands with identical names.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">type</span> <span class="s1">&#39;[&#39;</span>
+<span class="o">[</span> is a shell <span class="nb">builtin</span>
+bash<span class="nv">$ </span><span class="nb">type</span> -a <span class="s1">&#39;[&#39;</span>
+<span class="o">[</span> is a shell <span class="nb">builtin</span>
+ <span class="o">[</span> is /usr/bin/<span class="o">[</span>
+
+
+bash<span class="nv">$ </span><span class="nb">type type</span>
+<span class="nb">type </span>is a shell <span class="nb">builtin</span>
+</pre></div>
+</div>
+<p>The <strong>type</strong> command can be useful for <a class="reference external" href="special-chars.html#DEVNULLREDIRECT">testing whether a certain
+command exists</a> .</p>
+</div></blockquote>
+</div>
+<div class="section" id="hash-cmds">
+<h3>hash [cmds]<a class="headerlink" href="#hash-cmds" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div>Records the <em>path</em> name of specified commands &#8211; in the shell <em>hash
+table</em> ` [8]  &lt;internal.html#FTN.AEN9591&gt;`__ &#8211; so the shell or
+script will not need to search the
+<a class="reference external" href="internalvariables.html#PATHREF">$PATH</a> on subsequent calls to
+those commands. When <strong>hash</strong> is called with no arguments, it simply
+lists the commands that have been hashed. The
+``         -r        `` option resets the hash table.</div></blockquote>
+</div>
+<div class="section" id="bind">
+<h3>bind<a class="headerlink" href="#bind" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div><dl class="docutils">
+<dt>The <strong>bind</strong> builtin displays or modifies <em>readline</em> ` [9]</dt>
+<dd>&lt;internal.html#FTN.AEN9621&gt;`__ key bindings.</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="help">
+<h3>help<a class="headerlink" href="#help" title="Link permanent a aquest títol">¶</a></h3>
+<blockquote>
+<div><p>Gets a short usage summary of a shell builtin. This is the
+counterpart to <a class="reference external" href="filearchiv.html#WHATISREF">whatis</a> , but for
+builtins. The display of <em>help</em> information got a much-needed update
+in the <a class="reference external" href="bashver4.html#BASH4REF">version 4 release</a> of Bash.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">help exit</span>
+<span class="nb">exit</span>: <span class="nb">exit</span> <span class="o">[</span>n<span class="o">]</span>
+    Exit the shell with a status of N.  If N is omitted, the <span class="nb">exit </span>status
+    is that of the last <span class="nb">command </span>executed.
+</pre></div>
+</div>
+</div></blockquote>
+<p class="rubric">Anotacions</p>
+<p>` [1]  &lt;internal.html#AEN8607&gt;`__</p>
+<p>As Nathan Coulter points out, &#8220;while forking a process is a low-cost
+operation, executing a new program in the newly-forked child process
+adds more overhead.&#8221;</p>
+<p>` [2]  &lt;internal.html#AEN8650&gt;`__</p>
+<p>An exception to this is the <a class="reference external" href="timedate.html#TIMREF">time</a> command,
+listed in the official Bash documentation as a keyword ( &#8220;reserved word&#8221;
+).</p>
+<p>` [3]  &lt;internal.html#AEN9009&gt;`__</p>
+<p>Note that <em>let</em> <a class="reference external" href="gotchas.html#LETBAD">cannot be used for setting *string*
+variables.</a></p>
+<p>` [4]  &lt;internal.html#AEN9199&gt;`__</p>
+<p>To <em>Export</em> information is to make it available in a more general
+context. See also <a class="reference external" href="subshells.html#SCOPEREF">scope</a> .</p>
+<p>` [5]  &lt;internal.html#AEN9289&gt;`__</p>
+<p>An <em>option</em> is an argument that acts as a flag, switching script
+behaviors on or off. The argument associated with a particular option
+indicates the behavior that the option (flag) switches on or off.</p>
+<p>` [6]  &lt;internal.html#AEN9393&gt;`__</p>
+<p>Technically, an <strong>exit</strong> only terminates the process (or shell) in which
+it is running, <em>not</em> the <em>parent process</em> .</p>
+<p>` [7]  &lt;internal.html#AEN9425&gt;`__</p>
+<p>Unless the <strong>exec</strong> is used to <a class="reference external" href="x17974.html#USINGEXECREF">reassign file
+descriptors</a> .</p>
+<p>` [8]  &lt;internal.html#AEN9591&gt;`__</p>
+<p><em>Hashing</em> is a method of creating lookup keys for data stored in a
+table. The <em>data items themselves</em> are &#8220;scrambled&#8221; to create keys, using
+one of a number of simple mathematical <em>algorithms</em> (methods, or
+recipes).</p>
+<p>An advantage of <em>hashing</em> is that it is fast. A disadvantage is that
+<em>collisions</em> &#8211; where a single key maps to more than one data item &#8211;
+are possible.</p>
+<p>For examples of hashing see <a class="reference external" href="contributed-scripts.html#HASHLIB">Example
+A-20</a> and <a class="reference external" href="contributed-scripts.html#HASHEXAMPLE">Example
+A-21</a> .</p>
+<p>` [9]  &lt;internal.html#AEN9621&gt;`__</p>
+<p>The <em>readline</em> library is what Bash uses for reading input in an
+interactive shell.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="external.html" class="btn btn-neutral float-right" title="XXX Chapter 16. External Filters, Programs and Commands" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="part4.html" class="btn btn-neutral" title="XXX Part 4. Commands"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,270 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Chapter 5. Cometes &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="Part 2. Conceptes bàsics" href="part2.html"/>
+        <link rel="next" title="5.1. Variables entre cometes" href="quotingvar.html"/>
+        <link rel="prev" title="XXX 4.4. Special Variable Types" href="othertypesv.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="special-chars.html">XXX 3. Caràcters especials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">4. Variables</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Chapter 5. Cometes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exit-status.html">XXX Chapter 6. Exit and Exit Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html">XXX Chapter 7. Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testconstructs.html">XXX  7.1. Test Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fto.html">XXX  7.2. File test operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparison-ops.html">XXX  7.3. Other Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedifthen.html">7.4. Condicionals aniuats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testtest.html">XXX  7.5. Testing Your Knowledge of Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations.html">XXX Chapter 8. Operations and Related Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ops.html">XXX  8.1. Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="numerical-constants.html">XXX  8.2. Numerical Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dblparens.html">XXX  8.3. The Double-Parentheses Construct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opprecedence.html">XXX  8.4. Operator Precedence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part2.html">Part 2. Conceptes bàsics</a> &raquo;</li>
+      
+    <li>Chapter 5. Cometes</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="chapter-5-cometes">
+<h1>Chapter 5. Cometes<a class="headerlink" href="#chapter-5-cometes" title="Link permanent a aquest títol">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quotingvar.html">5.1. Variables entre cometes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="escapingsection.html">XXX  5.2. Escapament</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</div>
+<p>Quan posem un text entre cometes, permet que es <em>protegeixin</em> part o tots els <a class="reference internal" href="special-chars.html"><em>caràcters
+especials</em></a> que contingui aquest, de manera que l&#8217;interpret de comandes no els
+interpreti de manera especial sinó com el seu significat literal.</p>
+<p>Per exemple, l&#8217;asterisc * representa qualsevol caràcter tan en <a class="reference internal" href="globbingref.html"><em>XXX 18.2. Globbing: expansió de noms de fitxer</em></a> com en
+<a class="reference internal" href="regexp.html"><em>XXX Chapter 18. Regular Expressions</em></a>.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>ls -l <span class="o">[</span>Vv<span class="o">]</span>*
+-rw-rw-r--    <span class="m">1</span> bozo  bozo       <span class="m">324</span> Apr  <span class="m">2</span> 15:05 VIEWDATA.BAT
+-rw-rw-r--    <span class="m">1</span> bozo  bozo       <span class="m">507</span> May  <span class="m">4</span> 14:25 vartrace.sh
+-rw-rw-r--    <span class="m">1</span> bozo  bozo       <span class="m">539</span> Apr <span class="m">14</span> 17:11 viewdata.sh
+
+<span class="nv">$ </span>ls -l <span class="s1">&#39;[Vv]*&#39;</span>
+ls: no s’ha pogut accedir a <span class="o">[</span>Vv<span class="o">]</span>*: El fitxer o directori no existeix
+</pre></div>
+</div>
+<p>En l&#8217;exemple anterior veiem com per la primera crida a <code class="docutils literal"><span class="pre">ls</span></code>, s&#8217;interpreta que es vol tots els
+fitxers amb nom iniciat per <code class="docutils literal"><span class="pre">V</span></code> o <code class="docutils literal"><span class="pre">v</span></code>. En canvi, a la segona crida de <code class="docutils literal"><span class="pre">ls</span></code>, s&#8217;interpreta que
+el que s&#8217;ha de llistar és l&#8217;entrada amb el nom literal <code class="docutils literal"><span class="pre">[Vv]*</span></code> que, al menys en aquest cas, no es
+troba.</p>
+<p>Quan escrivim un document en el nostre dia a dia, i posem una frase entre cometes, indiquem que
+aquest contingut és especial. En Bash, quan podem entre cometes un text, també l&#8217;estem marcant com a
+especial i <em>protegim</em> el seu significat literal.</p>
+<p>Hi ha alguns programes i utilitats que requereixen determinats caràcters especials
+dins del text que reben com a entrada i, per tant, ens cal evitar que la Shell els interpreti abans
+que arribin al programa objectiu:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>grep -H <span class="s1">&#39;[Pp]rimer&#39;</span> *.txt
+fitxer1.txt:Primer la obligació i després la devoció.
+fitxer2.txt:La obligació primer. Després la devoció.
+</pre></div>
+</div>
+<p>En l&#8217;exemple anterior, la utilitat <code class="docutils literal"><span class="pre">grep</span></code> rep literalment el text <code class="docutils literal"><span class="pre">[Pp]primer</span></code> com a primer
+argument de la crida, que interpretarà com a expressió regular per trobar tots els fitxers que
+continguin les paraules <code class="docutils literal"><span class="pre">primer</span></code> o <code class="docutils literal"><span class="pre">Primer</span></code>. L&#8217;asterisc, en canvi, arribarà a <code class="docutils literal"><span class="pre">grep</span></code> en forma
+de llista de fitxers amb extensió .txt que es trobin al directori actual.</p>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">De fet, Bash acceptaria correctament <code class="docutils literal"><span class="pre">grep</span> <span class="pre">-H</span> <span class="pre">[Pp]rimer</span> <span class="pre">*.txt</span></code> a menys que existeixi un fitxer
+anomenat <code class="docutils literal"><span class="pre">primer</span></code> o <code class="docutils literal"><span class="pre">Primer</span></code> en el directori actual.</p>
+</div>
+<p>Les cometes també poden fer que <code class="docutils literal"><span class="pre">echo</span></code> respecti els salts de línia. Mira <a class="reference internal" href="internal.html"><em>XXX  Chapter 15. Internal Commands and Builtins</em></a>.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="k">$(</span>ls /etc/mail*<span class="k">)</span>
+/etc/mailcap /etc/mailcap.order /etc/mailname /etc/mail.rc
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;</span><span class="k">$(</span>ls /etc/mail*<span class="k">)</span><span class="s2">&quot;</span>
+/etc/mailcap
+/etc/mailcap.order
+/etc/mailname
+/etc/mail.rc
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="quotingvar.html" class="btn btn-neutral float-right" title="5.1. Variables entre cometes" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="othertypesv.html" class="btn btn-neutral" title="XXX 4.4. Special Variable Types"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

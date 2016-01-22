@@ -1,0 +1,791 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 16.1. Basic Commands &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Chapter 16. External Filters, Programs and Commands" href="external.html"/>
+        <link rel="next" title="XXX 16.2. Complex Commands" href="moreadv.html"/>
+        <link rel="prev" title="XXX Chapter 16. External Filters, Programs and Commands" href="external.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="internal.html">XXX  Chapter 15. Internal Commands and Builtins</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="external.html">XXX  Chapter 16. External Filters, Programs and Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">XXX  Chapter 17. System and Administrative Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part4.html">XXX Part 4. Commands</a> &raquo;</li>
+      
+          <li><a href="external.html">XXX  Chapter 16. External Filters, Programs and Commands</a> &raquo;</li>
+      
+    <li>XXX  16.1. Basic Commands</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-16-1-basic-commands">
+<h1>XXX  16.1. Basic Commands<a class="headerlink" href="#xxx-16-1-basic-commands" title="Link permanent a aquest títol">¶</a></h1>
+<p>** The first commands a novice learns**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>ls</strong></dt>
+<dd><p class="first">The basic file &#8220;list&#8221; command. It is all too easy to underestimate
+the power of this humble command. For example, using the
+``         -R        `` , recursive option, <strong>ls</strong> provides a
+tree-like listing of a directory structure. Other useful options are
+``         -S        `` , sort listing by file size,
+``         -t        `` , sort by file modification time,
+``         -v        `` , sort by (numerical) version numbers
+embedded in the filenames, ` [1]  &lt;basic.html#FTN.AEN10025&gt;`__
+``         -b        `` , show escape characters, and
+``         -i        `` , show file inodes (see <a class="reference external" href="moreadv.html#IDELETE">Example
+16-4</a> ).</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>ls -l
+-rw-rw-r-- <span class="m">1</span> bozo bozo <span class="m">0</span> Sep <span class="m">14</span> 18:44 chapter10.txt
+ -rw-rw-r-- <span class="m">1</span> bozo bozo <span class="m">0</span> Sep <span class="m">14</span> 18:44 chapter11.txt
+ -rw-rw-r-- <span class="m">1</span> bozo bozo <span class="m">0</span> Sep <span class="m">14</span> 18:44 chapter12.txt
+ -rw-rw-r-- <span class="m">1</span> bozo bozo <span class="m">0</span> Sep <span class="m">14</span> 18:44 chapter1.txt
+ -rw-rw-r-- <span class="m">1</span> bozo bozo <span class="m">0</span> Sep <span class="m">14</span> 18:44 chapter2.txt
+ -rw-rw-r-- <span class="m">1</span> bozo bozo <span class="m">0</span> Sep <span class="m">14</span> 18:44 chapter3.txt
+ -rw-rw-r-- <span class="m">1</span> bozo bozo <span class="m">0</span> Sep <span class="m">14</span> 18:49 Chapter_headings.txt
+ -rw-rw-r-- <span class="m">1</span> bozo bozo <span class="m">0</span> Sep <span class="m">14</span> 18:49 Preface.txt
+
+
+bash<span class="nv">$ </span>ls -lv
+ total 0
+ -rw-rw-r-- <span class="m">1</span> bozo bozo <span class="m">0</span> Sep <span class="m">14</span> 18:49 Chapter_headings.txt
+ -rw-rw-r-- <span class="m">1</span> bozo bozo <span class="m">0</span> Sep <span class="m">14</span> 18:49 Preface.txt
+ -rw-rw-r-- <span class="m">1</span> bozo bozo <span class="m">0</span> Sep <span class="m">14</span> 18:44 chapter1.txt
+ -rw-rw-r-- <span class="m">1</span> bozo bozo <span class="m">0</span> Sep <span class="m">14</span> 18:44 chapter2.txt
+ -rw-rw-r-- <span class="m">1</span> bozo bozo <span class="m">0</span> Sep <span class="m">14</span> 18:44 chapter3.txt
+ -rw-rw-r-- <span class="m">1</span> bozo bozo <span class="m">0</span> Sep <span class="m">14</span> 18:44 chapter10.txt
+ -rw-rw-r-- <span class="m">1</span> bozo bozo <span class="m">0</span> Sep <span class="m">14</span> 18:44 chapter11.txt
+ -rw-rw-r-- <span class="m">1</span> bozo bozo <span class="m">0</span> Sep <span class="m">14</span> 18:44 chapter12.txt
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<p class="last">The <em>ls</em> command returns a non-zero <a class="reference external" href="exit-status.html#EXITSTATUSREF">exit
+status</a> when attempting to list a
+non-existent file.</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>ls abc
+ls: abc: No such fil
+</pre></div>
+</div>
+<p>e or directory</p>
+<blockquote>
+<div><p>bash$ echo $?
+2</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>ls abc
+ls: abc: No such file or directory
+
+
+bash<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$?</span>
+2
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>ls abc
+ls: abc: No such file or directory
+
+
+bash<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$?</span>
+2
+</pre></div>
+</div>
+</div></blockquote>
+<div class="section" id="exemple-1-using-ls-to-create-a-table-of-contents-for-burning-a-cdr-disk">
+<h2>Exemple 1. Using <em>ls</em> to create a table of contents for burning a CDR disk<a class="headerlink" href="#exemple-1-using-ls-to-create-a-table-of-contents-for-burning-a-cdr-disk" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># ex40.sh (burn-cd.sh)</span>
+<span class="c"># Script to automate burning a CDR.</span>
+
+
+<span class="nv">SPEED</span><span class="o">=</span><span class="m">10</span>         <span class="c"># May use higher speed if your hardware supports it.</span>
+<span class="nv">IMAGEFILE</span><span class="o">=</span>cdimage.iso
+<span class="nv">CONTENTSFILE</span><span class="o">=</span>contents
+<span class="c"># DEVICE=/dev/cdrom     For older versions of cdrecord</span>
+<span class="nv">DEVICE</span><span class="o">=</span><span class="s2">&quot;1,0,0&quot;</span>
+<span class="nv">DEFAULTDIR</span><span class="o">=</span>/opt  <span class="c"># This is the directory containing the data to be burned.</span>
+                 <span class="c"># Make sure it exists.</span>
+                 <span class="c"># Exercise: Add a test for this.</span>
+
+<span class="c"># Uses Joerg Schilling&#39;s &quot;cdrecord&quot; package:</span>
+<span class="c"># http://www.fokus.fhg.de/usr/schilling/cdrecord.html</span>
+
+<span class="c">#  If this script invoked as an ordinary user, may need to suid cdrecord</span>
+<span class="c">#+ chmod u+s /usr/bin/cdrecord, as root.</span>
+<span class="c">#  Of course, this creates a security hole, though a relatively minor one.</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nv">IMAGE_DIRECTORY</span><span class="o">=</span><span class="nv">$DEFAULTDIR</span>
+  <span class="c"># Default directory, if not specified on command-line.</span>
+<span class="k">else</span>
+    <span class="nv">IMAGE_DIRECTORY</span><span class="o">=</span><span class="nv">$1</span>
+<span class="k">fi</span>
+
+<span class="c"># Create a &quot;table of contents&quot; file.</span>
+ls -lRF <span class="nv">$IMAGE_DIRECTORY</span> &gt; <span class="nv">$IMAGE_DIRECTORY</span>/<span class="nv">$CONTENTSFILE</span>
+<span class="c"># The &quot;l&quot; option gives a &quot;long&quot; file listing.</span>
+<span class="c"># The &quot;R&quot; option makes the listing recursive.</span>
+<span class="c"># The &quot;F&quot; option marks the file types (directories get a trailing /).</span>
+<span class="nb">echo</span> <span class="s2">&quot;Creating table of contents.&quot;</span>
+
+<span class="c"># Create an image file preparatory to burning it onto the CDR.</span>
+mkisofs -r -o <span class="nv">$IMAGEFILE</span> <span class="nv">$IMAGE_DIRECTORY</span>
+<span class="nb">echo</span> <span class="s2">&quot;Creating ISO9660 file system image (</span><span class="nv">$IMAGEFILE</span><span class="s2">).&quot;</span>
+
+<span class="c"># Burn the CDR.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Burning the disk.&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Please be patient, this will take a while.&quot;</span>
+wodim -v -isosize <span class="nv">dev</span><span class="o">=</span><span class="nv">$DEVICE</span> <span class="nv">$IMAGEFILE</span>
+<span class="c">#  In newer Linux distros, the &quot;wodim&quot; utility assumes the</span>
+<span class="c">#+ functionality of &quot;cdrecord.&quot;</span>
+<span class="nv">exitcode</span><span class="o">=</span><span class="nv">$?</span>
+<span class="nb">echo</span> <span class="s2">&quot;Exit code = </span><span class="nv">$exitcode</span><span class="s2">&quot;</span>
+
+<span class="nb">exit</span> <span class="nv">$exitcode</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>cat</strong> , <strong>tac</strong></dt>
+<dd><p class="first"><strong>cat</strong> , an acronym for <em>concatenate</em> , lists a file to
+``         stdout        `` . When combined with redirection ( &gt; or
+&gt;&gt; ), it is commonly used to concatenate files.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Uses of &#39;cat&#39;</span>
+cat filename                          <span class="c"># Lists the file.</span>
+
+cat file.1 file.2 file.3 &gt; file.123   <span class="c"># Combines three files into one.</span>
+</pre></div>
+</div>
+<p>The ``        -n       `` option to <strong>cat</strong> inserts consecutive
+numbers before all lines of the target file(s). The
+``        -b       `` option numbers only the non-blank lines. The
+``        -v       `` option echoes nonprintable characters, using ^
+notation. The ``        -s       `` option squeezes multiple
+consecutive blank lines into a single blank line.</p>
+<p class="last">See also <a class="reference external" href="textproc.html#LNUM">Example 16-28</a> and <a class="reference external" href="textproc.html#ROT13">Example
+16-24</a> .</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div>In a <a class="reference external" href="special-chars.html#PIPEREF">pipe</a> , it may be more</div></blockquote>
+<p class="last">efficient to <a class="reference external" href="io-redirection.html#IOREDIRREF">redirect</a> the
+``            stdin           `` to a file, rather than to <strong>cat</strong>
+the file.</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>cat filename <span class="p">|</span> tr a-
+</pre></div>
+</div>
+<p>z A-Z</p>
+<blockquote>
+<div>tr a-z A-Z &lt; filenam</div></blockquote>
+<p>e   #  Same effect, but
+starts one less process,</p>
+<blockquote>
+<div>#+ and also dispense</div></blockquote>
+<p>s with the pipe.</p>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>cat filenametr a-z A-Z
+
+tr a-z A-Z &lt; filename   <span class="c">#  Same effect, but starts one less process,</span>
+                        <span class="c">#+ and also dispenses with the pipe.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>cat filenametr a-z A-Z
+
+tr a-z A-Z &lt; filename   <span class="c">#  Same effect, but starts one less process,</span>
+                        <span class="c">#+ and also dispenses with the pipe.</span>
+</pre></div>
+</div>
+<p><strong>tac</strong> , is the inverse of <em>cat</em> , listing a file backwards from
+its end.</p>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>rev</strong></dt>
+<dd><p class="first">reverses each line of a file, and outputs to
+``         stdout        `` . This does not have the same effect as
+<strong>tac</strong> , as it preserves the order of the lines, but flips each one
+around (mirror image).</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>cat file1.txt
+This is line 1.
+ This is line 2.
+
+
+bash<span class="nv">$ </span>tac file1.txt
+This is line 2.
+ This is line 1.
+
+
+bash<span class="nv">$ </span>rev file1.txt
+.1 enil si sihT
+ .2 enil si sihT
+</pre></div>
+</div>
+</dd>
+<dt><strong>cp</strong></dt>
+<dd>This is the file copy command.
+``                   cp file1           file2                 ``
+copies ``         file1        `` to ``         file2        `` ,
+overwriting ``         file2        `` if it already exists (see
+<a class="reference external" href="moreadv.html#EX42">Example 16-6</a> ).</dd>
+</dl>
+</div></blockquote>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<p class="last">Particularly useful are the ``            -a           `` archive
+flag (for copying an entire directory tree), the
+``            -u           `` update flag (which prevents
+overwriting identically-named newer files), and the
+``            -r           `` and ``            -R           ``
+recursive flags.</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>cp -u source_dir/* d
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>est_dir</dt>
+<dd>#  &#8220;Synchronize&#8221; des</dd>
+<dt>t_dir to source_dir</dt>
+<dd>#+  by copying over</dd>
+</dl>
+<p>all newer and not previo
+usly existing files.</p>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>cp -u source_dir/* dest_dir
+<span class="c">#  &quot;Synchronize&quot; dest_dir to source_dir</span>
+<span class="c">#+  by copying over all newer and not previously existing files.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>cp -u source_dir/* dest_dir
+<span class="c">#  &quot;Synchronize&quot; dest_dir to source_dir</span>
+<span class="c">#+  by copying over all newer and not previously existing files.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>mv</strong></dt>
+<dd>This is the file <em>move</em> command. It is equivalent to a combination
+of <strong>cp</strong> and <strong>rm</strong> . It may be used to move multiple files to a
+directory, or even to rename a directory. For some examples of using
+<strong>mv</strong> in a script, see <a class="reference external" href="parameter-substitution.html#RFE">Example
+10-11</a> and <a class="reference external" href="contributed-scripts.html#RN">Example
+A-2</a> .</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p>When used in a non-interactive script, <strong>mv</strong> takes the
+``            -f           `` ( <em>force</em> ) option to bypass user
+input.</p>
+<p class="last">When a directory is moved to a preexisting directory, it becomes a
+subdirectory of the destination directory.</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>mv source_dire
+</pre></div>
+</div>
+<p>ctory target_directory</p>
+<blockquote>
+<div>bash$ ls -lF <a href="#id3"><span class="problematic" id="id4">target_</span></a></div></blockquote>
+<dl class="docutils">
+<dt>directory</dt>
+<dd><dl class="first last docutils">
+<dt>total 1</dt>
+<dd>drwxrwxr-x    2 boz</dd>
+</dl>
+</dd>
+<dt>o  bozo      1024 May 28</dt>
+<dd><p class="first">19:20 source_directory/</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>mv source_directory target_directory
+
+bash<span class="nv">$ </span>ls -lF target_directory
+total 1
+ drwxrwxr-x    <span class="m">2</span> bozo  bozo      <span class="m">1024</span> May <span class="m">28</span> 19:20 source_directory/
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>mv source_directory target_directory
+
+bash<span class="nv">$ </span>ls -lF target_directory
+total 1
+ drwxrwxr-x    <span class="m">2</span> bozo  bozo      <span class="m">1024</span> May <span class="m">28</span> 19:20 source_directory/
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="last docutils">
+<dt><strong>rm</strong></dt>
+<dd>Delete (remove) a file or files. The ``         -f        `` option
+forces removal of even readonly files, and is useful for bypassing
+user input in a script.</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">The <em>rm</em> command will, by itself, fail to remove filenames beginning
+with a dash. Why? Because <em>rm</em> sees a dash-prefixed filename as an
+<em>option</em> .</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>rm -badname
+rm: invalid option -
+</pre></div>
+</div>
+<ul>
+<li><dl class="first docutils">
+<dt>b</dt>
+<dd><p class="first last">Try <a href="#id1"><span class="problematic" id="id2">`</span></a>rm &#8211;help&#8217; for</p>
+</dd>
+</dl>
+</li>
+</ul>
+<blockquote>
+<div><p>more information.</p>
+<blockquote>
+<div>One clever workaround is to precede the filename with a &#8221; &#8211; &#8221; (the
+<em>end-of-options</em> flag).</div></blockquote>
+</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>rm -- -badname
+
+
+
+Another method to is to preface the filename to be removed with a
+<span class="sb">``</span>            dot-slash           <span class="sb">``</span> .
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>rm ./-badname
+
+
+
+
+.. code-block:: sh
+
+    bash<span class="nv">$ </span>rm -badname
+    rm: invalid option -- b
+     Try <span class="sb">`</span>rm --help<span class="s1">&#39; for more information.</span>
+
+
+<span class="s1">.. code-block:: sh</span>
+
+<span class="s1">    bash$ rm -- -badname</span>
+
+
+<span class="s1">.. code-block:: sh</span>
+
+<span class="s1">    bash$ rm ./-badname</span>
+
+
+<span class="s1">.. code-block:: sh</span>
+
+<span class="s1">    bash$ rm -badname</span>
+<span class="s1">    rm: invalid option -- b</span>
+<span class="s1">     Try `rm --help&#39;</span> <span class="k">for</span> more information.
+
+
+.. code-block:: sh
+
+    bash<span class="nv">$ </span>rm -- -badname
+
+
+.. code-block:: sh
+
+    bash<span class="nv">$ </span>rm ./-badname
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Avís</p>
+<blockquote>
+<div><blockquote>
+<div>When used with the recursive flag ``            -r           `` ,</div></blockquote>
+<p>this command removes files all the way down the directory tree from
+the current directory. A careless <strong>rm -rf *</strong> can wipe out a big
+chunk of a directory structure.</p>
+</div></blockquote>
+<dl class="last docutils">
+<dt><strong>rmdir</strong></dt>
+<dd>Remove directory. The directory must be empty of all files &#8211;
+including &#8220;invisible&#8221; <em>dotfiles</em> ` [2]  &lt;basic.html#FTN.AEN10228&gt;`__
+&#8211; for this command to succeed.</dd>
+<dt><strong>mkdir</strong></dt>
+<dd>Make directory, creates a new directory. For example,
+``                   mkdir -p project/programs/December                 ``
+creates the named directory. The
+``                   -p                 `` option automatically
+creates any necessary parent directories.</dd>
+<dt><strong>chmod</strong></dt>
+<dd><p class="first">Changes the attributes of an existing file or directory (see
+<a class="reference external" href="internal.html#EX44">Example 15-14</a> ).</p>
+<div class="highlight-sh"><div class="highlight"><pre>chmod +x filename
+<span class="c"># Makes &quot;filename&quot; executable for all users.</span>
+
+chmod u+s filename
+<span class="c"># Sets &quot;suid&quot; bit on &quot;filename&quot; permissions.</span>
+<span class="c"># An ordinary user may execute &quot;filename&quot; with same privileges as the file&#39;s owner.</span>
+<span class="c"># (This does not apply to shell scripts.)</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>chmod <span class="m">644</span> filename
+<span class="c">#  Makes &quot;filename&quot; readable/writable to owner, readable to others</span>
+<span class="c">#+ (octal mode).</span>
+
+chmod <span class="m">444</span> filename
+<span class="c">#  Makes &quot;filename&quot; read-only for all.</span>
+<span class="c">#  Modifying the file (for example, with a text editor)</span>
+<span class="c">#+ not allowed for a user who does not own the file (except for root),</span>
+<span class="c">#+ and even the file owner must force a file-save</span>
+<span class="c">#+ if she modifies the file.</span>
+<span class="c">#  Same restrictions apply for deleting the file.</span>
+</pre></div>
+</div>
+<div class="last highlight-sh"><div class="highlight"><pre>chmod <span class="m">1777</span> directory-name
+<span class="c">#  Gives everyone read, write, and execute permission in directory,</span>
+<span class="c">#+ however also sets the &quot;sticky bit&quot;.</span>
+<span class="c">#  This means that only the owner of the directory,</span>
+<span class="c">#+ owner of the file, and, of course, root</span>
+<span class="c">#+ can delete any particular file in that directory.</span>
+
+chmod <span class="m">111</span> directory-name
+<span class="c">#  Gives everyone execute-only permission in a directory.</span>
+<span class="c">#  This means that you can execute and READ the files in that directory</span>
+<span class="c">#+ (execute permission necessarily includes read permission</span>
+<span class="c">#+ because you can&#39;t execute a file without being able to read it).</span>
+<span class="c">#  But you can&#39;t list the files or search for them with the &quot;find&quot; command.</span>
+<span class="c">#  These restrictions do not apply to root.</span>
+
+chmod <span class="m">000</span> directory-name
+<span class="c">#  No permissions at all for that directory.</span>
+<span class="c">#  Can&#39;t read, write, or execute files in it.</span>
+<span class="c">#  Can&#39;t even list files in it or &quot;cd&quot; to it.</span>
+<span class="c">#  But, you can rename (mv) the directory</span>
+<span class="c">#+ or delete it (rmdir) if it is empty.</span>
+<span class="c">#  You can even symlink to files in the directory,</span>
+<span class="c">#+ but you can&#39;t read, write, or execute the symlinks.</span>
+<span class="c">#  These restrictions do not apply to root.</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>chattr</strong></dt>
+<dd><p class="first"><strong>Ch</strong> ange file <strong>attr</strong> ibutes. This is analogous to <strong>chmod</strong>
+above, but with different options and a different invocation syntax,
+and it works only on <em>ext2/ext3</em> filesystems.</p>
+<p>One particularly interesting <strong>chattr</strong> option is
+``         i        `` . A <strong>chattr +i
+``          filename         ``</strong> marks the file as immutable. The
+file cannot be modified, linked to, or deleted, <em>not even by root</em> .
+This file attribute can be set or removed only by <em>root</em> . In a
+similar fashion, the ``         a        `` option marks the file as
+append only.</p>
+<div class="highlight-sh"><div class="highlight"><pre>root# chattr +i file1.txt
+
+
+root# rm file1.txt
+
+rm: remove write-protected regular file <span class="sb">`</span>file1.txt<span class="s1">&#39;? y</span>
+<span class="s1"> rm: cannot remove `file1.txt&#39;</span>: Operation not permitted
+</pre></div>
+</div>
+<p>If a file has the ``         s        `` (secure) attribute set,
+then when it is deleted its block is overwritten with binary zeroes.
+` [3]  &lt;basic.html#FTN.AEN10301&gt;`__</p>
+<p>If a file has the ``         u        `` (undelete) attribute set,
+then when it is deleted, its contents can still be retrieved
+(undeleted).</p>
+<p class="last">If a file has the ``         c        `` (compress) attribute set,
+then it will automatically be compressed on writes to disk, and
+uncompressed on reads.</p>
+</dd>
+</dl>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div>The file attributes set with <strong>chattr</strong> do not show in a file
+listing ( <strong>ls -l</strong> ).</div></blockquote>
+<dl class="last docutils">
+<dt><strong>ln</strong></dt>
+<dd><p class="first">Creates links to pre-existings files. A &#8220;link&#8221; is a reference to a
+file, an alternate name for it. The <strong>ln</strong> command permits
+referencing the linked file by more than one name and is a superior
+alternative to aliasing (see <a class="reference external" href="othertypesv.html#EX18">Example 4-6</a>
+).</p>
+<p>The <strong>ln</strong> creates only a reference, a pointer to the file only a
+few bytes in size.</p>
+<p>The <strong>ln</strong> command is most often used with the
+``         -s        `` , symbolic or &#8220;soft&#8221; link flag. Advantages
+of using the ``         -s        `` flag are that it permits
+linking across file systems or to directories.</p>
+<p class="last">The syntax of the command is a bit tricky. For example:
+``                   ln -s oldfile newfile                 `` links
+the previously existing ``         oldfile        `` to the newly
+created link, ``         newfile        `` .</p>
+</dd>
+</dl>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<p>If a file named ``            newfile           `` has previously
+existed, an error message will result.</p>
+<p><strong>Which type of link to use?</strong></p>
+<p>As John Macdonald explains it:</p>
+<p>Both of these [types of links] provide a certain measure of dual
+reference &#8211; if you edit the contents of the file using any name,
+your changes will affect both the original name and either a hard or
+soft new name. The differences between them occurs when you work at
+a higher level. The advantage of a hard link is that the new name is
+totally independent of the old name &#8211; if you remove or rename the
+old name, that does not affect the hard link, which continues to
+point to the data while it would leave a soft link hanging pointing
+to the old name which is no longer there. The advantage of a soft
+link is that it can refer to a different file system (since it is
+just a reference to a file name, not to actual data). And, unlike a
+hard link, a symbolic link can refer to a directory.</p>
+<p class="last">Links give the ability to invoke a script (or any other type of
+executable) with multiple names, and having that script behave
+according to how it was invoked.</p>
+</div>
+</div>
+<div class="section" id="exemple-2-hello-or-good-bye">
+<h2>Exemple 2. Hello or Good-bye<a class="headerlink" href="#exemple-2-hello-or-good-bye" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># hello.sh: Saying &quot;hello&quot; or &quot;goodbye&quot;</span>
+<span class="c">#+          depending on how script is invoked.</span>
+
+<span class="c"># Make a link in current working directory ($PWD) to this script:</span>
+<span class="c">#    ln -s hello.sh goodbye</span>
+<span class="c"># Now, try invoking this script both ways:</span>
+<span class="c"># ./hello.sh</span>
+<span class="c"># ./goodbye</span>
+
+
+<span class="nv">HELLO_CALL</span><span class="o">=</span>65
+<span class="nv">GOODBYE_CALL</span><span class="o">=</span>66
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$0</span> <span class="o">=</span> <span class="s2">&quot;./goodbye&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Good-bye!&quot;</span>
+  <span class="c"># Some other goodbye-type commands, as appropriate.</span>
+  <span class="nb">exit</span> <span class="nv">$GOODBYE_CALL</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Hello!&quot;</span>
+<span class="c"># Some other hello-type commands, as appropriate.</span>
+<span class="nb">exit</span> <span class="nv">$HELLO_CALL</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>man</strong> , <strong>info</strong></dt>
+<dd><p class="first">These commands access the manual and information pages on system
+commands and installed utilities. When available, the <em>info</em> pages
+usually contain more detailed descriptions than do the <em>man</em> pages.</p>
+<p class="last">There have been various attempts at &#8220;automating&#8221; the writing of <em>man
+pages</em> . For a script that makes a tentative first step in that
+direction, see <a class="reference external" href="contributed-scripts.html#MANED">Example A-39</a> .</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;basic.html#AEN10025&gt;`__</p>
+<p>The ``       -v      `` option also orders the sort by <em>upper- and
+lowercase prefixed</em> filenames.</p>
+<p>` [2]  &lt;basic.html#AEN10228&gt;`__</p>
+<p><em>Dotfiles</em> are files whose names begin with a <em>dot</em> , such as
+``       ~/.Xdefaults      `` . Such filenames do not appear in a normal
+<strong>ls</strong> listing (although an <strong>ls -a</strong> will show them), and they cannot
+be deleted by an accidental <strong>rm -rf *</strong> . Dotfiles are generally used
+as setup and configuration files in a user&#8217;s home directory.</p>
+<p>` [3]  &lt;basic.html#AEN10301&gt;`__</p>
+<p>This particular feature may not yet be implemented in the version of the
+ext2/ext3 filesystem installed on your system. Check the documentation
+for your Linux distro.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="moreadv.html" class="btn btn-neutral float-right" title="XXX 16.2. Complex Commands" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="external.html" class="btn btn-neutral" title="XXX Chapter 16. External Filters, Programs and Commands"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

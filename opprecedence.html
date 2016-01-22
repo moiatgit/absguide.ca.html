@@ -1,0 +1,392 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 8.4. Operator Precedence &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="Part 2. Conceptes bàsics" href="part2.html"/>
+        <link rel="next" title="XXX Part 3. Beyond the Basics" href="part3.html"/>
+        <link rel="prev" title="XXX 8.3. The Double-Parentheses Construct" href="dblparens.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="special-chars.html">XXX 3. Caràcters especials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">4. Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quoting.html">Chapter 5. Cometes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exit-status.html">XXX Chapter 6. Exit and Exit Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html">XXX Chapter 7. Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testconstructs.html">XXX  7.1. Test Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fto.html">XXX  7.2. File test operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparison-ops.html">XXX  7.3. Other Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedifthen.html">7.4. Condicionals aniuats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testtest.html">XXX  7.5. Testing Your Knowledge of Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations.html">XXX Chapter 8. Operations and Related Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ops.html">XXX  8.1. Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="numerical-constants.html">XXX  8.2. Numerical Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dblparens.html">XXX  8.3. The Double-Parentheses Construct</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  8.4. Operator Precedence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part2.html">Part 2. Conceptes bàsics</a> &raquo;</li>
+      
+    <li>XXX  8.4. Operator Precedence</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-8-4-operator-precedence">
+<h1>XXX  8.4. Operator Precedence<a class="headerlink" href="#xxx-8-4-operator-precedence" title="Link permanent a aquest títol">¶</a></h1>
+<p>In a script, operations execute in order of <em>precedence</em> : the higher
+precedence operations execute <em>before</em> the lower precedence ones. ` [1]</p>
+<blockquote>
+<div>&lt;opprecedence.html#FTN.AEN4290&gt;`__</div></blockquote>
+<p><strong>Table 8-1. Operator Precedence</strong></p>
+<p>Operator</p>
+<p>Meaning</p>
+<p>Comments</p>
+<p>``       ``</p>
+<p><strong>HIGHEST PRECEDENCE</strong></p>
+<p>``        var++ var&#8211;       ``</p>
+<p>post-increment, post-decrement</p>
+<p><a class="reference external" href="assortedtips.html#CSTYLE">C-style</a> operators</p>
+<p>``        ++var &#8211;var       ``</p>
+<p>pre-increment, pre-decrement</p>
+<p>``        ! ~       ``</p>
+<p><a class="reference external" href="special-chars.html#NOTREF">negation</a></p>
+<p>logical / bitwise, inverts sense of following operator</p>
+<p>``        **       ``</p>
+<p><a class="reference external" href="ops.html#EXPONENTIATIONREF">exponentiation</a></p>
+<p><a class="reference external" href="ops.html#AROPS1">arithmetic operation</a></p>
+<p>``        * / %       ``</p>
+<p>multiplication, division, modulo</p>
+<p>arithmetic operation</p>
+<p>``        + -       ``</p>
+<p>addition, subtraction</p>
+<p>arithmetic operation</p>
+<p>``        &lt;&lt; &gt;&gt;       ``</p>
+<p>left, right shift</p>
+<p><a class="reference external" href="ops.html#BITWSOPS1">bitwise</a></p>
+<p>``        -z -n       ``</p>
+<p><em>unary</em> comparison</p>
+<p>string is/is-not <a class="reference external" href="comparison-ops.html#STRINGNULL">null</a></p>
+<p>``        -e -f -t -x, etc.       ``</p>
+<p><em>unary</em> comparison</p>
+<p><a class="reference external" href="fto.html">file-test</a></p>
+<p>``        &lt; -lt &gt; -gt &lt;= -le &gt;= -ge       ``</p>
+<p><em>compound</em> comparison</p>
+<p>string and integer</p>
+<p>``        -nt -ot -ef       ``</p>
+<p><em>compound</em> comparison</p>
+<p>file-test</p>
+<p>``        == -eq                 !=                -ne       ``</p>
+<p>equality / inequality</p>
+<p>test operators, string and integer</p>
+<p>``        &amp;       ``</p>
+<p>AND</p>
+<p>bitwise</p>
+<p>``        ^       ``</p>
+<p>XOR</p>
+<p><em>exclusive</em> OR, bitwise</p>
+<p>``      ``</p>
+<p>OR</p>
+<p>bitwise</p>
+<p>``        &amp;&amp; -a       ``</p>
+<p>AND</p>
+<p><a class="reference external" href="ops.html#LOGOPS1">logical</a> , <em>compound</em> comparison</p>
+<p>``        <a href="#id1"><span class="problematic" id="id2">|</span></a>-o       ``</p>
+<p>OR</p>
+<p>logical, <em>compound</em> comparison</p>
+<p>``        ?:       ``</p>
+<p><a class="reference external" href="special-chars.html#CSTRINARY">trinary operator</a></p>
+<p>C-style</p>
+<p>``        =       ``</p>
+<p><a class="reference external" href="varassignment.html#EQREF">assignment</a></p>
+<p>(do not confuse with equality <em>test</em> )</p>
+<p>``        <a href="#id3"><span class="problematic" id="id4">*</span></a>= /= %= += -= &lt;&lt;= &gt;&gt;= &amp;=       ``</p>
+<p><a class="reference external" href="ops.html#ARITHOPSCOMB">combination assignment</a></p>
+<p>times-equal, divide-equal, mod-equal, etc.</p>
+<p>``        ,       ``</p>
+<p><a class="reference external" href="ops.html#COMMAOP">comma</a></p>
+<p>links a sequence of operations</p>
+<p>``       ``</p>
+<p><strong>LOWEST PRECEDENCE</strong></p>
+<p>In practice, all you really need to remember is the following:</p>
+<ul class="simple">
+<li>The &#8220;My Dear Aunt Sally&#8221; mantra ( <em>multiply, divide, add, subtract</em> )
+for the familiar <a class="reference external" href="ops.html#AROPS1">arithmetic operations</a> .</li>
+<li>The <em>compound</em> logical operators, <strong>&amp;&amp;</strong> , <strong>||</strong> , <strong>-a</strong> , and
+<strong>-o</strong> have low precedence.</li>
+<li>The order of evaluation of equal-precedence operators is usually
+<em>left-to-right</em> .</li>
+</ul>
+<p>Now, let&#8217;s utilize our knowledge of operator precedence to analyze a
+couple of lines from the ``      /etc/init.d/functions file     `` , as
+found in the <em>Fedora Core</em> Linux distro.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">while</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$remaining</span><span class="s2">&quot;</span> -a <span class="s2">&quot;</span><span class="nv">$retry</span><span class="s2">&quot;</span> -gt <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">do</span>
+
+<span class="c"># This looks rather daunting at first glance.</span>
+
+
+<span class="c"># Separate the conditions:</span>
+<span class="k">while</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$remaining</span><span class="s2">&quot;</span> -a <span class="s2">&quot;</span><span class="nv">$retry</span><span class="s2">&quot;</span> -gt <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">do</span>
+<span class="c">#       --condition 1-- ^^ --condition 2-</span>
+
+<span class="c">#  If variable &quot;$remaining&quot; is not zero length</span>
+<span class="c">#+      AND (-a)</span>
+<span class="c">#+ variable &quot;$retry&quot; is greater-than zero</span>
+<span class="c">#+ then</span>
+<span class="c">#+ the [ expresion-within-condition-brackets ] returns success (0)</span>
+<span class="c">#+ and the while-loop executes an iteration.</span>
+<span class="c">#  ==============================================================</span>
+<span class="c">#  Evaluate &quot;condition 1&quot; and &quot;condition 2&quot; ***before***</span>
+<span class="c">#+ ANDing them. Why? Because the AND (-a) has a lower precedence</span>
+<span class="c">#+ than the -n and -gt operators,</span>
+<span class="c">#+ and therefore gets evaluated *last*.</span>
+
+<span class="c">#################################################################</span>
+
+<span class="k">if</span> <span class="o">[</span> -f /etc/sysconfig/i18n -a -z <span class="s2">&quot;</span><span class="si">${</span><span class="nv">NOLOCALE</span><span class="k">:-</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+
+
+<span class="c"># Again, separate the conditions:</span>
+<span class="k">if</span> <span class="o">[</span> -f /etc/sysconfig/i18n -a -z <span class="s2">&quot;</span><span class="si">${</span><span class="nv">NOLOCALE</span><span class="k">:-</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+<span class="c">#    --condition 1--------- ^^ --condition 2-----</span>
+
+<span class="c">#  If file &quot;/etc/sysconfig/i18n&quot; exists</span>
+<span class="c">#+      AND (-a)</span>
+<span class="c">#+ variable $NOLOCALE is zero length</span>
+<span class="c">#+ then</span>
+<span class="c">#+ the [ test-expresion-within-condition-brackets ] returns success (0)</span>
+<span class="c">#+ and the commands following execute.</span>
+<span class="c">#</span>
+<span class="c">#  As before, the AND (-a) gets evaluated *last*</span>
+<span class="c">#+ because it has the lowest precedence of the operators within</span>
+<span class="c">#+ the test brackets.</span>
+<span class="c">#  ==============================================================</span>
+<span class="c">#  Note:</span>
+<span class="c">#  ${NOLOCALE:-} is a parameter expansion that seems redundant.</span>
+<span class="c">#  But, if $NOLOCALE has not been declared, it gets set to *null*,</span>
+<span class="c">#+ in effect declaring it.</span>
+<span class="c">#  This makes a difference in some contexts.</span>
+</pre></div>
+</div>
+<p><a href="#id5"><span class="problematic" id="id6">|</span></a>Tip</p>
+<p>To avoid confusion or error in a complex sequence of test operators,
+break up the sequence into bracketed sections.</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>  <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$v1</span><span class="s2">&quot;</span> -gt <span class="s2">&quot;</span><span class="nv">$v2</span><span class="s2">&quot;</span>
+-o  <span class="s2">&quot;</span><span class="nv">$v1</span><span class="s2">&quot;</span> -lt <span class="s2">&quot;</span><span class="nv">$v2</span><span class="s2">&quot;</span>  -
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>a  -e &#8220;$filename&#8221; ]</dt>
+<dd># Unclear what&#8217;s goi</dd>
+</dl>
+<p>ng on here...</p>
+<blockquote>
+<div>if [[ &#8220;$v1&#8221; -gt &#8220;$v2</div></blockquote>
+<p>&#8221; ]] || [[ &#8220;$v1&#8221; -lt &#8220;$v
+2&#8221; ]] &amp;&amp; [[ -e &#8220;$filenam
+e&#8221; ]]</p>
+<blockquote>
+<div><blockquote>
+<div># Much better &#8211; the</div></blockquote>
+<p>condition tests are gro</p>
+</div></blockquote>
+<p>uped in logical sections
+.</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$v1</span><span class="s2">&quot;</span> -gt <span class="s2">&quot;</span><span class="nv">$v2</span><span class="s2">&quot;</span>  -o  <span class="s2">&quot;</span><span class="nv">$v1</span><span class="s2">&quot;</span> -lt <span class="s2">&quot;</span><span class="nv">$v2</span><span class="s2">&quot;</span>  -a  -e <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="c"># Unclear what&#39;s going on here...</span>
+
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$v1</span><span class="s2">&quot;</span> -gt <span class="s2">&quot;</span><span class="nv">$v2</span><span class="s2">&quot;</span> <span class="o">]]</span> <span class="p">|</span><span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$v1</span><span class="s2">&quot;</span> -lt <span class="s2">&quot;</span><span class="nv">$v2</span><span class="s2">&quot;</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="o">[[</span> -e <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span> <span class="o">]]</span>
+<span class="c"># Much better -- the condition tests are grouped in logical sections.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$v1</span><span class="s2">&quot;</span> -gt <span class="s2">&quot;</span><span class="nv">$v2</span><span class="s2">&quot;</span>  -o  <span class="s2">&quot;</span><span class="nv">$v1</span><span class="s2">&quot;</span> -lt <span class="s2">&quot;</span><span class="nv">$v2</span><span class="s2">&quot;</span>  -a  -e <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="c"># Unclear what&#39;s going on here...</span>
+
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$v1</span><span class="s2">&quot;</span> -gt <span class="s2">&quot;</span><span class="nv">$v2</span><span class="s2">&quot;</span> <span class="o">]]</span> <span class="p">|</span><span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$v1</span><span class="s2">&quot;</span> -lt <span class="s2">&quot;</span><span class="nv">$v2</span><span class="s2">&quot;</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="o">[[</span> -e <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span> <span class="o">]]</span>
+<span class="c"># Much better -- the condition tests are grouped in logical sections.</span>
+</pre></div>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h2>
+<p>` [1]  &lt;opprecedence.html#AEN4290&gt;`__</p>
+<p><em>Precedence</em> , in this context, has approximately the same meaning as
+<em>priority</em></p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="part3.html" class="btn btn-neutral float-right" title="XXX Part 3. Beyond the Basics" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dblparens.html" class="btn btn-neutral" title="XXX 8.3. The Double-Parentheses Construct"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

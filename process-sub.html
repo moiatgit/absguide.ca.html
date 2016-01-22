@@ -1,0 +1,519 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Chapter 23. Process Substitution &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Part 5. Advanced Topics" href="part5.html"/>
+        <link rel="next" title="XXX Chapter 24. Functions" href="functions.html"/>
+        <link rel="prev" title="XXX Chapter 22. Restricted Shells" href="restricted-sh.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="regexp.html">XXX Chapter 18. Regular Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="here-docs.html">XXX  Chapter 19. Document immediat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io-redirection.html">XXX  Chapter 20. I/O Redirection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subshells.html">XXX  Chapter 21. Subshells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restricted-sh.html">XXX  Chapter 22. Restricted Shells</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  Chapter 23. Process Substitution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">XXX  Chapter 24. Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aliases.html">XXX Capítol 25. Àlies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="list-cons.html">XXX  Chapter 26. List Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrays.html">XXX  Chapter 27. Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ivr.html">XXX  Chapter 28. Indirect References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networkprogramming.html">XXX  Chapter 30. Network Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zeros.html">XXX  Chapter 31. Of Zeros and Nulls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">XXX  Chapter 32. Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html">XXX  Chapter 33. Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gotchas.html">XXX Chapter 34. Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scrstyle.html">XXX  Chapter 35. Scripting With Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unofficialst.html">XXX  35.1. Unofficial Shell Scripting Stylesheet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellany.html">XXX  Chapter 36. Miscellany</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash2.html">XXX  Chapter 37. Bash, versions 2, 3, and 4</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part5.html">XXX Part 5. Advanced Topics</a> &raquo;</li>
+      
+    <li>XXX  Chapter 23. Process Substitution</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-chapter-23-process-substitution">
+<h1>XXX  Chapter 23. Process Substitution<a class="headerlink" href="#xxx-chapter-23-process-substitution" title="Link permanent a aquest títol">¶</a></h1>
+<blockquote>
+<div><a class="reference external" href="special-chars.html#PIPEREF">Piping</a> the ``      stdout     `` of a</div></blockquote>
+<p>command into the ``      stdin     `` of another is a powerful
+technique. But, what if you need to pipe the ``      stdout     `` of
+<em>multiple</em> commands? This is where
+``             process     substitution           `` comes in.</p>
+<p><em>Process substitution</em> feeds the output of a
+<a class="reference external" href="special-chars.html#PROCESSREF">process</a> (or processes) into the
+``      stdin     `` of another process.</p>
+<p>** Template**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Command list enclosed within parentheses</dt>
+<dd><p class="first"><strong>&gt;(command_list)</strong></p>
+<p><strong>&lt;(command_list)</strong></p>
+<p class="last">Process substitution uses ``         /dev/fd/&lt;n&gt;        `` files to
+send the results of the process(es) within parentheses to another
+process. ` [1]  &lt;process-sub.html#FTN.AEN18244&gt;`__</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<p class="last">There is <em>no</em> space between the the &#8220;&lt;&#8221; or &#8220;&gt;&#8221; and the parentheses.
+Space there would give an error message.</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo</span> &gt;<span class="o">(</span><span class="nb">true</span><span class="o">)</span>
+/dev/fd/63
+
+bash<span class="nv">$ </span><span class="nb">echo</span> &lt;<span class="o">(</span><span class="nb">true</span><span class="o">)</span>
+/dev/fd/63
+
+bash<span class="nv">$ </span><span class="nb">echo</span> &gt;<span class="o">(</span><span class="nb">true</span><span class="o">)</span> &lt;<span class="o">(</span><span class="nb">true</span><span class="o">)</span>
+/dev/fd/63 /dev/fd/62
+
+
+
+bash<span class="nv">$ </span>wc &lt;<span class="o">(</span>cat /usr/share/dict/linux.words<span class="o">)</span>
+ <span class="m">483523</span>  <span class="m">483523</span> <span class="m">4992010</span> /dev/fd/63
+
+bash<span class="nv">$ </span>grep script /usr/share/dict/linux.wordswc
+    <span class="m">262</span>     <span class="m">262</span>    3601
+
+bash<span class="nv">$ </span>wc &lt;<span class="o">(</span>grep script /usr/share/dict/linux.words<span class="o">)</span>
+    <span class="m">262</span>     <span class="m">262</span>    <span class="m">3601</span> /dev/fd/63
+</pre></div>
+</div>
+<p><a href="#id1"><span class="problematic" id="id2">|</span></a>Note</p>
+<p>Bash creates a pipe with two <a class="reference external" href="io-redirection.html#FDREF">file
+descriptors</a> , ``         &#8211;fIn        ``
+and ``         fOut&#8211;        `` . The ``         stdin        `` of
+<a class="reference external" href="internal.html#TRUEREF">true</a> connects to ``         fOut        ``
+(dup2(fOut, 0)), then Bash passes a ``         /dev/fd/fIn        ``
+argument to <strong>echo</strong> . On systems lacking
+``         /dev/fd/&lt;n&gt;        `` files, Bash may use temporary files.
+(Thanks, S.C.)</p>
+<p>Process substitution can compare the output of two different commands,
+or even the output of different options to the same command.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>comm &lt;<span class="o">(</span>ls -l<span class="o">)</span> &lt;<span class="o">(</span>ls -al<span class="o">)</span>
+total 12
+-rw-rw-r--    <span class="m">1</span> bozo bozo       <span class="m">78</span> Mar <span class="m">10</span> 12:58 File0
+-rw-rw-r--    <span class="m">1</span> bozo bozo       <span class="m">42</span> Mar <span class="m">10</span> 12:58 File2
+-rw-rw-r--    <span class="m">1</span> bozo bozo      <span class="m">103</span> Mar <span class="m">10</span> 12:58 t2.sh
+        total 20
+        drwxrwxrwx    <span class="m">2</span> bozo bozo     <span class="m">4096</span> Mar <span class="m">10</span> 18:10 .
+        drwx------   <span class="m">72</span> bozo bozo     <span class="m">4096</span> Mar <span class="m">10</span> 17:58 ..
+        -rw-rw-r--    <span class="m">1</span> bozo bozo       <span class="m">78</span> Mar <span class="m">10</span> 12:58 File0
+        -rw-rw-r--    <span class="m">1</span> bozo bozo       <span class="m">42</span> Mar <span class="m">10</span> 12:58 File2
+        -rw-rw-r--    <span class="m">1</span> bozo bozo      <span class="m">103</span> Mar <span class="m">10</span> 12:58 t2.sh
+</pre></div>
+</div>
+<p>Process substitution can compare the contents of two directories &#8211; to
+see which filenames are in one, but not the other.</p>
+<div class="highlight-sh"><div class="highlight"><pre>diff &lt;<span class="o">(</span>ls <span class="nv">$first_directory</span><span class="o">)</span> &lt;<span class="o">(</span>ls <span class="nv">$second_directory</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>Some other usages and uses of process substitution:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">read</span> -a list &lt; &lt;<span class="o">(</span> od -Ad -w24 -t u2 /dev/urandom <span class="o">)</span>
+<span class="c">#  Read a list of random numbers from /dev/urandom,</span>
+<span class="c">#+ process with &quot;od&quot;</span>
+<span class="c">#+ and feed into stdin of &quot;read&quot; . . .</span>
+
+<span class="c">#  From &quot;insertion-sort.bash&quot; example script.</span>
+<span class="c">#  Courtesy of JuanJo Ciarlante.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">PORT</span><span class="o">=</span><span class="m">6881</span>   <span class="c"># bittorrent</span>
+
+<span class="c"># Scan the port to make sure nothing nefarious is going on.</span>
+netcat -l <span class="nv">$PORTtee</span>&gt;<span class="o">(</span>md5sum -&gt;mydata-orig.md5<span class="o">)</span>
+gziptee&gt;<span class="o">(</span>md5sum - <span class="p">|</span> sed <span class="s1">&#39;s/-$/mydata.lz2/&#39;</span>&gt;mydata-gz.md5<span class="o">)</span>&gt;mydata.gz
+
+<span class="c"># Check the decompression:</span>
+  gzip -d&lt;mydata.gzmd5sum -c mydata-orig.md5<span class="o">)</span>
+<span class="c"># The MD5sum of the original checks stdin and detects compression issues.</span>
+
+<span class="c">#  Bill Davidsen contributed this example</span>
+<span class="c">#+ (with light edits by the ABS Guide author).</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>   cat &lt;<span class="o">(</span>ls -l<span class="o">)</span>
+   <span class="c"># Same as     ls -lcat</span>
+
+   sort -k <span class="m">9</span> &lt;<span class="o">(</span>ls -l /bin<span class="o">)</span> &lt;<span class="o">(</span>ls -l /usr/bin<span class="o">)</span> &lt;<span class="o">(</span>ls -l /usr/X11R6/bin<span class="o">)</span>
+   <span class="c"># Lists all the files in the 3 main &#39;bin&#39; directories, and sorts by filename.</span>
+   <span class="c"># Note that three (count &#39;em) distinct commands are fed to &#39;sort&#39;.</span>
+
+
+   diff &lt;<span class="o">(</span>command1<span class="o">)</span> &lt;<span class="o">(</span>command2<span class="o">)</span>    <span class="c"># Gives difference in command output.</span>
+
+   tar cf &gt;<span class="o">(</span>bzip2 -c &gt; file.tar.bz2<span class="o">)</span> <span class="nv">$directory_name</span>
+   <span class="c"># Calls &quot;tar cf /dev/fd/?? $directory_name&quot;, and &quot;bzip2 -c &gt; file.tar.bz2&quot;.</span>
+   <span class="c">#</span>
+   <span class="c"># Because of the /dev/fd/&lt;n&gt; system feature,</span>
+   <span class="c"># the pipe between both commands does not need to be named.</span>
+   <span class="c">#</span>
+   <span class="c"># This can be emulated.</span>
+   <span class="c">#</span>
+   bzip2 -c &lt; pipe &gt; file.tar.bz2<span class="p">&amp;</span>
+   tar cf pipe <span class="nv">$directory_name</span>
+   rm pipe
+   <span class="c">#        or</span>
+   <span class="nb">exec </span>3&gt;<span class="p">&amp;</span>1
+   tar cf /dev/fd/4 <span class="nv">$directory_name</span> 4&gt;<span class="p">&amp;</span><span class="m">1</span> &gt;<span class="p">&amp;</span><span class="m">3</span> 3&gt;<span class="p">&amp;</span>-bzip2 -c &gt; file.tar.bz2 3&gt;<span class="p">&amp;</span>-
+   <span class="nb">exec </span>3&gt;<span class="p">&amp;</span>-
+
+
+   <span class="c"># Thanks, Stéphane Chazelas</span>
+
+
+
+Here is a method of circumventing the problem of an <span class="sb">`</span>*echo* piped to a
+</pre></div>
+</div>
+<p><em>while-read loop</em> &lt;gotchas.html#BADREAD0&gt;`__ running in a subshell.</p>
+<div class="section" id="exemple-1-code-block-redirection-without-forking">
+<h2>Exemple 1. Code block redirection without forking<a class="headerlink" href="#exemple-1-code-block-redirection-without-forking" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre>   <span class="c">#!/bin/bash</span>
+   <span class="c"># wr-ps.bash: while-read loop with process substitution.</span>
+
+   <span class="c"># This example contributed by Tomas Pospisek.</span>
+   <span class="c"># (Heavily edited by the ABS Guide author.)</span>
+
+   <span class="nb">echo</span>
+
+<span class="nb">   echo</span> <span class="s2">&quot;random input&quot;</span><span class="k">while</span> <span class="nb">read </span>i
+   <span class="k">do</span>
+     <span class="nv">global</span><span class="o">=</span>3D<span class="s2">&quot;: Not available outside the loop.&quot;</span>
+     <span class="c"># ... because it runs in a subshell.</span>
+   <span class="k">done</span>
+
+   <span class="nb">echo</span> <span class="s2">&quot;\$global (from outside the subprocess) = </span><span class="nv">$global</span><span class="s2">&quot;</span>
+   <span class="c"># $global (from outside the subprocess) =</span>
+
+   <span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;--&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nb">   </span><span class="k">while</span> <span class="nb">read </span>i
+   <span class="k">do</span>
+     <span class="nb">echo</span> <span class="nv">$i</span>
+     <span class="nv">global</span><span class="o">=</span>3D<span class="s2">&quot;: Available outside the loop.&quot;</span>
+     <span class="c"># ... because it does NOT run in a subshell.</span>
+   <span class="k">done</span> &lt; &lt;<span class="o">(</span> <span class="nb">echo</span> <span class="s2">&quot;random input&quot;</span> <span class="o">)</span>
+   <span class="c">#    ^ ^</span>
+
+   <span class="nb">echo</span> <span class="s2">&quot;\$global (using process substitution) = </span><span class="nv">$global</span><span class="s2">&quot;</span>
+   <span class="c"># Random input</span>
+   <span class="c"># $global (using process substitution) = 3D: Available outside the loop.</span>
+
+
+   <span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;##########&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+
+
+
+   <span class="c"># And likewise . . .</span>
+
+   <span class="nb">declare</span> -a inloop
+   <span class="nv">index</span><span class="o">=</span>0
+   cat <span class="nv">$0while</span> <span class="nb">read </span>line
+   <span class="k">do</span>
+     inloop<span class="o">[</span><span class="nv">$index</span><span class="o">]=</span><span class="s2">&quot;</span><span class="nv">$line</span><span class="s2">&quot;</span>
+     <span class="o">((</span>index++<span class="o">))</span>
+     <span class="c"># It runs in a subshell, so ...</span>
+   <span class="k">done</span>
+   <span class="nb">echo</span> <span class="s2">&quot;OUTPUT = &quot;</span>
+   <span class="nb">echo</span> <span class="si">${</span><span class="nv">inloop</span><span class="p">[*]</span><span class="si">}</span>           <span class="c"># ... nothing echoes.</span>
+
+
+   <span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;--&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+
+
+<span class="nb">   declare</span> -a outloop
+   <span class="nv">index</span><span class="o">=</span>0
+   <span class="k">while</span> <span class="nb">read </span>line
+   <span class="k">do</span>
+     outloop<span class="o">[</span><span class="nv">$index</span><span class="o">]=</span><span class="s2">&quot;</span><span class="nv">$line</span><span class="s2">&quot;</span>
+     <span class="o">((</span>index++<span class="o">))</span>
+     <span class="c"># It does NOT run in a subshell, so ...</span>
+   <span class="k">done</span> &lt; &lt;<span class="o">(</span> cat <span class="nv">$0</span> <span class="o">)</span>
+   <span class="nb">echo</span> <span class="s2">&quot;OUTPUT = &quot;</span>
+   <span class="nb">echo</span> <span class="si">${</span><span class="nv">outloop</span><span class="p">[*]</span><span class="si">}</span>          <span class="c"># ... the entire script echoes.</span>
+
+   <span class="nb">exit</span> <span class="nv">$?</span>
+
+
+
+
+This is a similar example.
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-2-redirecting-the-output-of-process-substitution-into-a-loop">
+<h2>Exemple 2. Redirecting the output of <em>process substitution</em> into a loop.<a class="headerlink" href="#exemple-2-redirecting-the-output-of-process-substitution-into-a-loop" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># psub.bash</span>
+
+<span class="c"># As inspired by Diego Molina (thanks!).</span>
+
+<span class="nb">declare</span> -a array0
+<span class="k">while</span> <span class="nb">read</span>
+<span class="k">do</span>
+  array0<span class="o">[</span><span class="si">${#</span><span class="nv">array0</span><span class="p">[@]</span><span class="si">}</span><span class="o">]=</span><span class="s2">&quot;</span><span class="nv">$REPLY</span><span class="s2">&quot;</span>
+<span class="k">done</span> &lt; &lt;<span class="o">(</span> sed -e <span class="s1">&#39;s/bash/CRASH-BANG!/&#39;</span> <span class="nv">$0grep</span> bin <span class="p">|</span> awk <span class="s1">&#39;{print $1}&#39;</span> <span class="o">)</span>
+<span class="c">#  Sets the default &#39;read&#39; variable, $REPLY, by process substitution,</span>
+<span class="c">#+ then copies it into an array.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">array0</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c"># ====================================== #</span>
+
+bash psub.bash
+
+<span class="c">#!/bin/CRASH-BANG! done #!/bin/CRASH-BANG!</span>
+</pre></div>
+</div>
+<p>A reader sent in the following interesting example of process
+substitution.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Script fragment taken from SuSE distribution:</span>
+
+<span class="c"># --------------------------------------------------------------#</span>
+<span class="k">while</span> <span class="nb">read  </span>des what mask iface<span class="p">;</span> <span class="k">do</span>
+<span class="c"># Some commands ...</span>
+<span class="k">done</span> &lt; &lt;<span class="o">(</span>route -n<span class="o">)</span>
+<span class="c">#    ^ ^  First &lt; is redirection, second is process substitution.</span>
+
+<span class="c"># To test it, let&#39;s make it do something.</span>
+<span class="k">while</span> <span class="nb">read  </span>des what mask iface<span class="p">;</span> <span class="k">do</span>
+  <span class="nb">echo</span> <span class="nv">$des</span> <span class="nv">$what</span> <span class="nv">$mask</span> <span class="nv">$iface</span>
+<span class="k">done</span> &lt; &lt;<span class="o">(</span>route -n<span class="o">)</span>
+
+<span class="c"># Output:</span>
+<span class="c"># Kernel IP routing table</span>
+<span class="c"># Destination Gateway Genmask Flags Metric Ref Use Iface</span>
+<span class="c"># 127.0.0.0 0.0.0.0 255.0.0.0 U 0 0 0 lo</span>
+<span class="c"># --------------------------------------------------------------#</span>
+
+<span class="c">#  As Stéphane Chazelas points out,</span>
+<span class="c">#+ an easier-to-understand equivalent is:</span>
+route -n
+  <span class="k">while</span> <span class="nb">read </span>des what mask iface<span class="p">;</span> <span class="k">do</span>   <span class="c"># Variables set from output of pipe.</span>
+    <span class="nb">echo</span> <span class="nv">$des</span> <span class="nv">$what</span> <span class="nv">$mask</span> <span class="nv">$iface</span>
+  <span class="k">done</span>  <span class="c">#  This yields the same output as above.</span>
+        <span class="c">#  However, as Ulrich Gayer points out . . .</span>
+        <span class="c">#+ this simplified equivalent uses a subshell for the while loop,</span>
+        <span class="c">#+ and therefore the variables disappear when the pipe terminates.</span>
+
+<span class="c"># --------------------------------------------------------------#</span>
+
+<span class="c">#  However, Filip Moritz comments that there is a subtle difference</span>
+<span class="c">#+ between the above two examples, as the following shows.</span>
+
+<span class="o">(</span>
+route -nwhile <span class="nb">read </span>x<span class="p">;</span> <span class="k">do</span> <span class="o">((</span>y++<span class="o">))</span><span class="p">;</span> <span class="k">done</span>
+<span class="nb">echo</span> <span class="nv">$y</span> <span class="c"># $y is still unset</span>
+
+<span class="k">while</span> <span class="nb">read </span>x<span class="p">;</span> <span class="k">do</span> <span class="o">((</span>y++<span class="o">))</span><span class="p">;</span> <span class="k">done</span> &lt; &lt;<span class="o">(</span>route -n<span class="o">)</span>
+<span class="nb">echo</span> <span class="nv">$y</span> <span class="c"># $y has the number of lines of output of route -n</span>
+<span class="o">)</span>
+
+More generally spoken
+<span class="o">(</span>
+:x<span class="o">=</span>x
+<span class="c"># seems to start a subshell like</span>
+:<span class="o">(</span> <span class="nv">x</span><span class="o">=</span>x <span class="o">)</span>
+<span class="c"># while</span>
+<span class="nv">x</span><span class="o">=</span>x &lt; &lt;<span class="o">(</span>:<span class="o">)</span>
+<span class="c"># does not</span>
+<span class="o">)</span>
+
+<span class="c"># This is useful, when parsing csv and the like.</span>
+<span class="c"># That is, in effect, what the original SuSE code fragment does.</span>
+</pre></div>
+</div>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;process-sub.html#AEN18244&gt;`__</p>
+<p>This has the same effect as a <a class="reference external" href="extmisc.html#NAMEDPIPEREF">named pipe</a>
+(temp file), and, in fact, named pipes were at one time used in process
+substitution.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="functions.html" class="btn btn-neutral float-right" title="XXX Chapter 24. Functions" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="restricted-sh.html" class="btn btn-neutral" title="XXX Chapter 22. Restricted Shells"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

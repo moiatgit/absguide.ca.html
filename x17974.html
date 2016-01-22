@@ -1,0 +1,387 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 20.1. Using exec &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  20.1. Using <em>exec</em></li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-20-1-using-exec">
+<h1>XXX  20.1. Using <em>exec</em><a class="headerlink" href="#xxx-20-1-using-exec" title="Link permanent a aquest títol">¶</a></h1>
+<p>An <strong>exec &lt;filename</strong> command redirects ``      stdin     `` to a file.
+From that point on, all ``      stdin     `` comes from that file,
+rather than its normal source (usually keyboard input). This provides a
+method of reading a file line by line and possibly parsing each line of
+input using <a class="reference external" href="sedawk.html#SEDREF">sed</a> and/or
+<a class="reference external" href="awk.html#AWKREF">awk</a> .</p>
+<div class="section" id="exemple-1-redirecting-stdin-using-exec">
+<h2>Exemple 1. Redirecting ``        stdin       `` using <em>exec</em><a class="headerlink" href="#exemple-1-redirecting-stdin-using-exec" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Redirecting stdin using &#39;exec&#39;.</span>
+
+
+<span class="nb">exec </span>6&lt;<span class="p">&amp;</span><span class="m">0</span>          <span class="c"># Link file descriptor #6 with stdin.</span>
+                   <span class="c"># Saves stdin.</span>
+
+<span class="nb">exec</span> &lt; data-file   <span class="c"># stdin replaced by file &quot;data-file&quot;</span>
+
+<span class="nb">read </span>a1            <span class="c"># Reads first line of file &quot;data-file&quot;.</span>
+<span class="nb">read </span>a2            <span class="c"># Reads second line of file &quot;data-file.&quot;</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Following lines read from file.&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;-------------------------------&quot;</span>
+<span class="nb">echo</span> <span class="nv">$a1</span>
+<span class="nb">echo</span> <span class="nv">$a2</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nb">exec </span>0&lt;<span class="p">&amp;</span><span class="m">6</span> 6&lt;<span class="p">&amp;</span>-
+<span class="c">#  Now restore stdin from fd #6, where it had been saved,</span>
+<span class="c">#+ and close fd #6 ( 6&lt;&amp;- ) to free it for other processes to use.</span>
+<span class="c">#</span>
+<span class="c"># &lt;&amp;6 6&lt;&amp;-    also works.</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;Enter data  &quot;</span>
+<span class="nb">read </span>b1  <span class="c"># Now &quot;read&quot; functions as expected, reading from normal stdin.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Input read from stdin.&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;----------------------&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;b1 = </span><span class="nv">$b1</span><span class="s2">&quot;</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Similarly, an <strong>exec &gt;filename</strong> command redirects ``      stdout     ``
+to a designated file. This sends all command output that would normally
+go to ``      stdout     `` to that file.</p>
+<p><a href="#id1"><span class="problematic" id="id2">|</span></a>Important</p>
+<p><strong>exec N &gt; filename</strong> affects the entire script or <em>current shell</em> .
+Redirection in the <a class="reference external" href="special-chars.html#PROCESSIDREF">PID</a> of the
+script or shell from that point on has changed. However . . .</p>
+<p><strong>N &gt; filename</strong> affects only the newly-forked process, not the entire
+script or shell.</p>
+<p>Thank you, Ahmed Darwish, for pointing this out.</p>
+</div>
+<div class="section" id="exemple-2-redirecting-stdout-using-exec">
+<h2>Exemple 2. Redirecting ``        stdout       `` using <em>exec</em><a class="headerlink" href="#exemple-2-redirecting-stdout-using-exec" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># reassign-stdout.sh</span>
+
+<span class="nv">LOGFILE</span><span class="o">=</span>logfile.txt
+
+<span class="nb">exec </span>6&gt;<span class="p">&amp;</span><span class="m">1</span>           <span class="c"># Link file descriptor #6 with stdout.</span>
+                    <span class="c"># Saves stdout.</span>
+
+<span class="nb">exec</span> &gt; <span class="nv">$LOGFILE</span>     <span class="c"># stdout replaced with file &quot;logfile.txt&quot;.</span>
+
+<span class="c"># ----------------------------------------------------------- #</span>
+<span class="c"># All output from commands in this block sent to file $LOGFILE.</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;Logfile: &quot;</span>
+date
+<span class="nb">echo</span> <span class="s2">&quot;-------------------------------------&quot;</span>
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Output of \&quot;ls -al\&quot; command&quot;</span>
+<span class="nb">echo</span>
+ls -al
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Output of \&quot;df\&quot; command&quot;</span>
+<span class="nb">echo</span>
+df
+
+<span class="c"># ----------------------------------------------------------- #</span>
+
+<span class="nb">exec </span>1&gt;<span class="p">&amp;</span><span class="m">6</span> 6&gt;<span class="p">&amp;</span>-      <span class="c"># Restore stdout and close file descriptor #6.</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;== stdout now restored to default == &quot;</span>
+<span class="nb">echo</span>
+ls -al
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-3-redirecting-both-stdin-and-stdout-in-the-same-script-with-exec">
+<h2>Exemple 3. Redirecting both ``        stdin       `` and ``        stdout       `` in the same script with <em>exec</em><a class="headerlink" href="#exemple-3-redirecting-both-stdin-and-stdout-in-the-same-script-with-exec" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># upperconv.sh</span>
+<span class="c"># Converts a specified input file to uppercase.</span>
+
+<span class="nv">E_FILE_ACCESS</span><span class="o">=</span>70
+<span class="nv">E_WRONG_ARGS</span><span class="o">=</span>71
+
+<span class="k">if</span> <span class="o">[</span> ! -r <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>     <span class="c"># Is specified input file readable?</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Can&#39;t read from input file!&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: </span><span class="nv">$0</span><span class="s2"> input-file output-file&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_FILE_ACCESS</span>
+<span class="k">fi</span>                   <span class="c">#  Will exit with same error</span>
+                     <span class="c">#+ even if input file ($1) not specified (why?).</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Need to specify output file.&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: </span><span class="nv">$0</span><span class="s2"> input-file output-file&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_WRONG_ARGS</span>
+<span class="k">fi</span>
+
+
+<span class="nb">exec </span>4&lt;<span class="p">&amp;</span>0
+<span class="nb">exec</span> &lt; <span class="nv">$1</span>            <span class="c"># Will read from input file.</span>
+
+<span class="nb">exec </span>7&gt;<span class="p">&amp;</span>1
+<span class="nb">exec</span> &gt; <span class="nv">$2</span>            <span class="c"># Will write to output file.</span>
+                     <span class="c"># Assumes output file writable (add check?).</span>
+
+<span class="c"># -----------------------------------------------</span>
+    cat -tr a-z A-Z   <span class="c"># Uppercase conversion.</span>
+<span class="c">#   ^^^^^                # Reads from stdin.</span>
+<span class="c">#           ^^^^^^^^^^   # Writes to stdout.</span>
+<span class="c"># However, both stdin and stdout were redirected.</span>
+<span class="c"># Note that the &#39;cat&#39; can be omitted.</span>
+<span class="c"># -----------------------------------------------</span>
+
+<span class="nb">exec </span>1&gt;<span class="p">&amp;</span><span class="m">7</span> 7&gt;<span class="p">&amp;</span>-       <span class="c"># Restore stout.</span>
+<span class="nb">exec </span>0&lt;<span class="p">&amp;</span><span class="m">4</span> 4&lt;<span class="p">&amp;</span>-       <span class="c"># Restore stdin.</span>
+
+<span class="c"># After restoration, the following line prints to stdout as expected.</span>
+<span class="nb">echo</span> <span class="s2">&quot;File \&quot;</span><span class="nv">$1</span><span class="s2">\&quot; written to \&quot;</span><span class="nv">$2</span><span class="s2">\&quot; as uppercase conversion.&quot;</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>I/O redirection is a clever way of avoiding the dreaded <a class="reference external" href="subshells.html#PARVIS">inaccessible
+variables within a subshell</a> problem.</p>
+</div>
+<div class="section" id="exemple-4-avoiding-a-subshell">
+<h2>Exemple 4. Avoiding a subshell<a class="headerlink" href="#exemple-4-avoiding-a-subshell" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># avoid-subshell.sh</span>
+<span class="c"># Suggested by Matthew Walker.</span>
+
+<span class="nv">Lines</span><span class="o">=</span>0
+
+<span class="nb">echo</span>
+
+cat myfile.txtwhile <span class="nb">read </span>line<span class="p">;</span>
+                 <span class="k">do</span> <span class="o">{</span>
+                   <span class="nb">echo</span> <span class="nv">$line</span>
+                   <span class="o">((</span> Lines++ <span class="o">))</span><span class="p">;</span>  <span class="c">#  Incremented values of this variable</span>
+                                   <span class="c">#+ inaccessible outside loop.</span>
+                                   <span class="c">#  Subshell problem.</span>
+                 <span class="o">}</span>
+                 <span class="k">done</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Number of lines read = </span><span class="nv">$Lines</span><span class="s2">&quot;</span>     <span class="c"># 0</span>
+                                         <span class="c"># Wrong!</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;------------------------&quot;</span>
+
+
+<span class="nb">exec </span>3&lt;&gt; myfile.txt
+<span class="k">while</span> <span class="nb">read </span>line &lt;<span class="p">&amp;</span>3
+<span class="k">do</span> <span class="o">{</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$line</span><span class="s2">&quot;</span>
+  <span class="o">((</span> Lines++ <span class="o">))</span><span class="p">;</span>                   <span class="c">#  Incremented values of this variable</span>
+                                   <span class="c">#+ accessible outside loop.</span>
+                                   <span class="c">#  No subshell, no problem.</span>
+<span class="o">}</span>
+<span class="k">done</span>
+<span class="nb">exec </span>3&gt;<span class="p">&amp;</span>-
+
+<span class="nb">echo</span> <span class="s2">&quot;Number of lines read = </span><span class="nv">$Lines</span><span class="s2">&quot;</span>     <span class="c"># 8</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># Lines below not seen by script.</span>
+
+<span class="nv">$ </span>cat myfile.txt
+
+Line 1.
+Line 2.
+Line 3.
+Line 4.
+Line 5.
+Line 6.
+Line 7.
+Line 8.
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

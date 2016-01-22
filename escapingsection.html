@@ -1,0 +1,675 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 5.2. Escapament &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="Chapter 5. Cometes" href="quoting.html"/>
+        <link rel="next" title="XXX Chapter 6. Exit and Exit Status" href="exit-status.html"/>
+        <link rel="prev" title="5.1. Variables entre cometes" href="quotingvar.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="special-chars.html">XXX 3. Caràcters especials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">4. Variables</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="quoting.html">Chapter 5. Cometes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exit-status.html">XXX Chapter 6. Exit and Exit Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html">XXX Chapter 7. Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testconstructs.html">XXX  7.1. Test Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fto.html">XXX  7.2. File test operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparison-ops.html">XXX  7.3. Other Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedifthen.html">7.4. Condicionals aniuats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testtest.html">XXX  7.5. Testing Your Knowledge of Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations.html">XXX Chapter 8. Operations and Related Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ops.html">XXX  8.1. Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="numerical-constants.html">XXX  8.2. Numerical Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dblparens.html">XXX  8.3. The Double-Parentheses Construct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opprecedence.html">XXX  8.4. Operator Precedence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part2.html">Part 2. Conceptes bàsics</a> &raquo;</li>
+      
+          <li><a href="quoting.html">Chapter 5. Cometes</a> &raquo;</li>
+      
+    <li>XXX  5.2. Escapament</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-5-2-escapament">
+<h1>XXX  5.2. Escapament<a class="headerlink" href="#xxx-5-2-escapament" title="Link permanent a aquest títol">¶</a></h1>
+<p>En diem <em>escapament</em> al mecanisme de remarcar un caràcter prefixant-lo amb el
+caràcter <code class="docutils literal"><span class="pre">\</span></code> per a indicar a la shell que interpreti el caràcter com el seu
+significat literal i no com un <a class="reference internal" href="special-chars.html"><em>caràcter especial</em></a>.</p>
+<p>En alguns contextos (ex. amb les comandes <a class="reference internal" href="internal.html"><em>echo</em></a> i i
+<a class="reference internal" href="sedawk.html"><em>sed</em></a>), escapar un caràcter pot tenir l&#8217;efecte contrari. Podria
+indicar que es consideri un significat especial pel caràcter escapat.</p>
+<div class="section" id="significats-especials-d-alguns-caracters">
+<h2>Significats especials d&#8217;alguns caràcters<a class="headerlink" href="#significats-especials-d-alguns-caracters" title="Link permanent a aquest títol">¶</a></h2>
+<p>Quan escapem els següents caràcters amb les comandes <code class="docutils literal"><span class="pre">echo</span></code> i <code class="docutils literal"><span class="pre">sed</span></code>, són
+interpretats de la següent manera:</p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">\n</span></code>: nova línia</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\r</span></code>: retorn de línia</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\t</span></code>: tabulador</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\v</span></code>: tabulador vertical</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\b</span></code>: espai en rere</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\a</span></code>: <em>alerta</em> (en forma de so o parpadeig)</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\0nn</span></code>: tradueix a l&#8217;equivalent ASCII en octal. Equival a <code class="docutils literal"><span class="pre">0nn</span></code> on <code class="docutils literal"><span class="pre">nn</span></code>
+és una cadena de dígits.</p>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Es poden assignar caràcters ASCII a variables fent servir valors octals o
+hexadecimals escapats dins de <code class="docutils literal"><span class="pre">$'</span> <span class="pre">...</span> <span class="pre">'</span></code>. Per exemple:
+<code class="docutils literal"><span class="pre">cometadoble=$'\\042'</span></code>.</p>
+</div>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\&quot;</span></code>: Indica que les cometes s&#8217;interpretin com el caràcter i no com inici o
+final de text entre cometes.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">echo</span> <span class="s2">&quot;Hola&quot;</span>                    <span class="c"># Sortida: Hola</span>
+<span class="nb">echo</span> <span class="s2">&quot;\&quot;Hola\&quot; ... va dir.&quot;</span>    <span class="c"># Sortida: &quot;Hola&quot; ... va dir.</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\$</span></code>: Indica que <code class="docutils literal"><span class="pre">$</span></code> sigui interpretat com el caràcter. Així, les
+variables precedides per <code class="docutils literal"><span class="pre">\$</span></code> no fan referència al seu valor.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">echo</span> <span class="se">\$</span>variable01             <span class="c"># Sortida: $variable01</span>
+<span class="nb">echo</span> <span class="s2">&quot;El llibre val \$7.98.&quot;</span>  <span class="c"># Sortida: El llibre val $7.98.</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<ul id="escapingsection-escapedbackslash">
+<li><p class="first"><code class="docutils literal"><span class="pre">\\</span></code>: Indica que la contrabarra sigui interpretada com el caràcter i no com
+escapament del següent caràcter.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">echo</span> <span class="s2">&quot;\\&quot;</span>  <span class="c"># Sortida: \</span>
+
+<span class="c"># Mentre que ...</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;\&quot;   # Escapa la segona cometa doble.</span>
+<span class="s2">           # Des de la línia de comandes invoca el *prompt* secundari</span>
+<span class="s2">           # per continuar introduint una comanda multi-linia en</span>
+<span class="s2">           # posteriors línies fins acabar amb ``&quot;</span><span class="sb">``</span> en aquest cas, o amb
+           <span class="c"># ``ctrl-d`` en general.</span>
+           <span class="c"># Dins d&#39;un guió, generaria un missatge d&#39;error.</span>
+
+<span class="c"># En canvi ...</span>
+
+<span class="nb">echo</span> <span class="s1">&#39;\&#39;</span>   <span class="c"># Sortida: \</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="exemple-1-caracters-escapats">
+<h2>Exemple 1. Caràcters escapats<a class="headerlink" href="#exemple-1-caracters-escapats" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Demostració de caràcters escapats</span>
+
+<span class="c">### Comencem veient uns exemples bàsics d&#39;escapament de caràcters</span>
+
+<span class="c"># Escapem un salt de línia</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;&quot;</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Aquest text es mostrarà</span>
+<span class="s2">en dues línies.&quot;</span>
+<span class="c"># Sortida: Aquest text es mostrarà</span>
+<span class="c">#          en dues línies.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Aquest text es mostrarà \</span>
+<span class="s2">en una única línia.&quot;</span>
+<span class="c"># Sortida: Aquest text es mostrarà en una única línia.</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;=============&quot;</span>
+
+
+<span class="nb">echo</span> <span class="s2">&quot;a\ve\vi\vo\vu&quot;</span>     <span class="c"># Sortida: a\ve\vi\vo\vu</span>
+<span class="c"># Amb l&#39;opció -e, la comanda echo mostrarà els caràcters escapats.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Tabulació vertical&quot;</span>
+<span class="nb">echo</span> -e <span class="s2">&quot;a\ve\vi\vo\vu&quot;</span>   <span class="c"># Sortida:    a</span>
+                          <span class="c">#                 e</span>
+                          <span class="c">#                     i</span>
+                          <span class="c">#                         o</span>
+                          <span class="c">#                             u</span>
+
+
+<span class="nb">echo</span> <span class="s2">&quot;Cometes dobles&quot;</span>
+<span class="nb">echo</span> -e <span class="s2">&quot;\042aeiou\042&quot;</span>       <span class="c"># Sortida: &quot;aeiou&quot;</span>
+
+<span class="c"># Amb $&#39;\X&#39; no cal l&#39;opció -e</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;Salt de línia i (potser) PIIIP&quot;</span>
+<span class="nb">echo</span> <span class="s1">$&#39;\n&#39;</span>           <span class="c"># Nova línia</span>
+<span class="nb">echo</span> <span class="s1">$&#39;\a&#39;</span>           <span class="c"># Alerta (PIIP).</span>
+<span class="c"># Depenent del terminal, pot no fer soroll sinó un parpadeig.</span>
+
+<span class="c"># Hem vist l&#39;expansió $&#39;\xxx&#39;. Ara...</span>
+
+<span class="c"># La versió 2 de Bash va introduir l&#39;expansió de cadenes de text $&#39;\nnn&#39;.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Introducció de l&#39;expansió de cadenes amb \$\&#39; ... \&#39; ...&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;... que inclou més marques de cometes.&quot;</span>
+
+<span class="nb">echo</span> <span class="s1">$&#39;a\t \042 \tz&#39;</span>   <span class="c"># Sortida: a    &quot;   z</span>
+<span class="c"># Atenció: &#39;\xxx&#39; és un valor octal</span>
+
+<span class="c"># També funciona amb valors hexadecimals amb $&#39;\xhhh&#39;.</span>
+<span class="nb">echo</span> <span class="s1">$&#39;a\t \x22 \tz&#39;</span>  <span class="c"># Sortida: a    &quot;   z</span>
+
+<span class="nb">echo</span>
+
+
+<span class="c"># Assignació d&#39;un caràcter ASCII a una variable.</span>
+<span class="nv">cometes</span><span class="o">=</span><span class="s1">$&#39;\042&#39;</span>        <span class="c"># &quot; ara $cometes val &quot;</span>
+<span class="nb">echo</span> <span class="nv">$cometes</span> text entre cometes <span class="nv">$cometes</span> i fora de les cometes.
+
+<span class="nb">echo</span>
+
+<span class="c"># Concatenació de caràcters ASCII en una variable.</span>
+<span class="nv">triple_subratllat</span><span class="o">=</span><span class="s1">$&#39;\137\137\137&#39;</span>  <span class="c"># 137 és el valor octal del caràcter ASCII _</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$triple_subratllat</span><span class="s2"> SUBRATLLAT </span><span class="nv">$triple_subratllat</span><span class="s2">&quot;</span>
+
+<span class="nb">echo</span>
+
+<span class="nv">ABC</span><span class="o">=</span><span class="s1">$&#39;\101\102\103\010&#39;</span>      <span class="c"># 101, 102, 103 són els valors en octal dels caràcters A, B i C.</span>
+<span class="nb">echo</span> <span class="nv">$ABC</span>
+
+<span class="nb">echo</span>
+
+<span class="nv">escape</span><span class="o">=</span><span class="s1">$&#39;\033&#39;</span>               <span class="c"># 033 és el valor octal pel caràcter d&#39;escape (tecla ESC)</span>
+<span class="nb">echo</span> <span class="s2">&quot;\&quot;escape\&quot; mostrat com </span><span class="nv">$escape</span><span class="s2">&quot;</span>
+<span class="c"># Sortida: &quot;escape&quot; mostrat com </span>
+<span class="c">#                               ^ en el teu terminal segurament es mostra amb un</span>
+<span class="c">#                               símbol &quot;raro&quot;</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-2-deteccio-de-tecles">
+<span id="escapingsection-detecciotecles"></span><h2>Exemple 2. Detecció de tecles<a class="headerlink" href="#exemple-2-deteccio-de-tecles" title="Link permanent a aquest títol">¶</a></h2>
+<p>A continuació un exemple més elaborat:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Demostració de captura de tecles</span>
+<span class="c"># Autor original: Sigurd Solaas, 20 abril 2011</span>
+<span class="c"># Per versió de Bash 4.2+.</span>
+
+<span class="nv">key</span><span class="o">=</span><span class="s2">&quot;De moment no has pres cap tecla&quot;</span>
+<span class="k">while</span> <span class="nb">true</span><span class="p">;</span> <span class="k">do</span>
+    clear
+    <span class="nb">echo</span> <span class="s2">&quot;Demostració de tecles extra. Prova amb les tecles:&quot;</span>
+    <span class="nb">echo</span>
+<span class="nb">    echo</span> <span class="s2">&quot;* Insert, Delete, Home, End, Page_Up i Page_Down&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;* Les quatre tecles del cursor&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;* Tab, enter, esc i barra d&#39;espai&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;* Les tecles de lletres, nombres, etc.&quot;</span>
+    <span class="nb">echo</span>
+<span class="nb">    echo</span> <span class="s2">&quot;    d = mostra la data i hora&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;    q = surt&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;================================&quot;</span>
+    <span class="nb">echo</span>
+
+    <span class="c"># Converteix la tecla separada home-key a home-key_num_7:</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$key</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s1">$&#39;\x1b\x4f\x48&#39;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nv">key</span><span class="o">=</span><span class="s1">$&#39;\x1b\x5b\x31\x7e&#39;</span> <span class="c">#   expansió de text entre cometes</span>
+    <span class="k">fi</span>
+
+    <span class="c"># Converteix la tecla separada end-key a end-key_num_1.</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$key</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s1">$&#39;\x1b\x4f\x46&#39;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nv">key</span><span class="o">=</span><span class="s1">$&#39;\x1b\x5b\x34\x7e&#39;</span>
+    <span class="k">fi</span>
+
+    <span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$key</span><span class="s2">&quot;</span> in
+        <span class="s1">$&#39;\x1b\x5b\x32\x7e&#39;</span><span class="o">)</span>  <span class="c"># Insert</span>
+            <span class="nb">echo </span>Insert
+            <span class="p">;;</span>
+        <span class="s1">$&#39;\x1b\x5b\x33\x7e&#39;</span><span class="o">)</span>  <span class="c"># Delete</span>
+            <span class="nb">echo </span>Delete
+            <span class="p">;;</span>
+        <span class="s1">$&#39;\x1b\x5b\x31\x7e&#39;</span><span class="o">)</span>  <span class="c"># Home_key_num_7</span>
+            <span class="nb">echo </span>Inici
+            <span class="p">;;</span>
+        <span class="s1">$&#39;\x1b\x5b\x34\x7e&#39;</span><span class="o">)</span>  <span class="c"># End_key_num_1</span>
+            <span class="nb">echo </span>Fi
+            <span class="p">;;</span>
+        <span class="s1">$&#39;\x1b\x5b\x35\x7e&#39;</span><span class="o">)</span>  <span class="c"># Page_Up</span>
+            <span class="nb">echo </span>Pàgina amunt
+            <span class="p">;;</span>
+        <span class="s1">$&#39;\x1b\x5b\x36\x7e&#39;</span><span class="o">)</span>  <span class="c"># Page_Down</span>
+            <span class="nb">echo </span>Pàgina abaix
+            <span class="p">;;</span>
+        <span class="s1">$&#39;\x1b\x5b\x41&#39;</span><span class="o">)</span>  <span class="c"># Up_arrow</span>
+            <span class="nb">echo </span>Cursor amunt
+            <span class="p">;;</span>
+        <span class="s1">$&#39;\x1b\x5b\x42&#39;</span><span class="o">)</span>  <span class="c"># Down_arrow</span>
+            <span class="nb">echo </span>Cursor abaix
+            <span class="p">;;</span>
+        <span class="s1">$&#39;\x1b\x5b\x43&#39;</span><span class="o">)</span>  <span class="c"># Right_arrow</span>
+            <span class="nb">echo </span>Cursor dreta
+            <span class="p">;;</span>
+        <span class="s1">$&#39;\x1b\x5b\x44&#39;</span><span class="o">)</span>  <span class="c"># Left_arrow</span>
+            <span class="nb">echo </span>Cursor esquerra
+            <span class="p">;;</span>
+        <span class="s1">$&#39;\x09&#39;</span><span class="o">)</span>  <span class="c"># Tab</span>
+            <span class="nb">echo </span>Tab
+            <span class="p">;;</span>
+        <span class="s1">$&#39;\x0a&#39;</span><span class="o">)</span>  <span class="c"># Enter</span>
+            <span class="nb">echo </span>Enter
+            <span class="p">;;</span>
+        <span class="s1">$&#39;\x1b&#39;</span><span class="o">)</span>  <span class="c"># Escape</span>
+            <span class="nb">echo </span>Escape
+            <span class="p">;;</span>
+        <span class="s1">$&#39;\x20&#39;</span><span class="o">)</span>  <span class="c"># Space</span>
+            <span class="nb">echo </span>Space
+            <span class="p">;;</span>
+        d<span class="o">)</span>
+            date
+            <span class="p">;;</span>
+        q<span class="o">)</span>
+            <span class="nb">echo</span> <span class="s2">&quot;Això s&#39;acaba...&quot;</span>
+            <span class="nb">echo</span>
+<span class="nb">            exit </span>0
+            <span class="p">;;</span>
+        *<span class="o">)</span>
+            <span class="nb">echo </span>Has pres: <span class="se">\&#39;</span><span class="s2">&quot;</span><span class="nv">$key</span><span class="s2">&quot;</span><span class="se">\&#39;</span>
+            <span class="p">;;</span>
+    <span class="k">esac</span>
+
+    <span class="nb">echo</span>
+<span class="nb">    echo</span> <span class="s2">&quot;================================&quot;</span>
+
+    <span class="nb">unset </span>K1 K2 K3
+    <span class="nb">read</span> -s -N1 -p <span class="s2">&quot;Prem una tecla: &quot;</span>
+    <span class="nv">K1</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$REPLY</span><span class="s2">&quot;</span>
+    <span class="nb">read</span> -s -N2 -t 0.001
+    <span class="nv">K2</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$REPLY</span><span class="s2">&quot;</span>
+    <span class="nb">read</span> -s -N1 -t 0.001
+    <span class="nv">K3</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$REPLY</span><span class="s2">&quot;</span>
+    <span class="nv">key</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$K1$K2$K3</span><span class="s2">&quot;</span>
+
+<span class="k">done</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-3-expansio-de-cadenes-de-text">
+<h2>Exemple 3. Expansió de cadenes de text<a class="headerlink" href="#exemple-3-expansio-de-cadenes-de-text" title="Link permanent a aquest títol">¶</a></h2>
+<p>Considera també el següent exemple que també apareix a <a class="reference internal" href="bashver2.html"><em>XXX  37.1. Bash, version 2</em></a>.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c"># XXX Demostració d&#39;expansió de cadenes de text</span>
+<span class="c"># Introduced with version 2 of Bash.</span>
+
+<span class="c">#  Strings of the form $&#39;xxx&#39;</span>
+<span class="c">#+ have the standard escaped characters interpreted.</span>
+
+<span class="nb">echo</span> <span class="s1">$&#39;Ringing bell 3 times \a \a \a&#39;</span>
+<span class="c"># May only ring once with certain terminals.</span>
+<span class="c"># Or ...</span>
+<span class="c"># May not ring at all, depending on terminal settings.</span>
+<span class="nb">echo</span> <span class="s1">$&#39;Three form feeds \f \f \f&#39;</span>
+<span class="nb">echo</span> <span class="s1">$&#39;10 newlines \n\n\n\n\n\n\n\n\n\n&#39;</span>
+<span class="nb">echo</span> <span class="s1">$&#39;\102\141\163\150&#39;</span>
+<span class="c">#   B   a   s   h</span>
+<span class="c"># Octal equivalent of characters.</span>
+
+<span class="nb">exit</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-4-comportament-de">
+<h2>Exemple 4. Comportament de <code class="docutils literal"><span class="pre">\</span></code><a class="headerlink" href="#exemple-4-comportament-de" title="Link permanent a aquest títol">¶</a></h2>
+<p>El comportament de <code class="docutils literal"><span class="pre">\</span></code> depén de si apareix:</p>
+<ul class="simple">
+<li>entre cometes dobles o simples (mira <a class="reference internal" href="varsubn.html"><em>4.1. Substitució de variables</em></a>),</li>
+<li>dins d&#8217;una substitució de comandes (mira <a class="reference internal" href="commandsub.html"><em>XXX  Chapter 12. Substitució de comanda</em></a>), o</li>
+<li>en un document immediat (mira <a class="reference internal" href="here-docs.html"><em>XXX  Chapter 19. Document immediat</em></a>)</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># XXX Demostració del comportament de \</span>
+
+                      <span class="c">#  Simple escaping and quoting</span>
+<span class="nb">echo</span> <span class="se">\z</span>               <span class="c">#  z</span>
+<span class="nb">echo</span> <span class="se">\\</span>z              <span class="c"># \z</span>
+<span class="nb">echo</span> <span class="s1">&#39;\z&#39;</span>             <span class="c"># \z</span>
+<span class="nb">echo</span> <span class="s1">&#39;\\z&#39;</span>            <span class="c"># \\z</span>
+<span class="nb">echo</span> <span class="s2">&quot;\z&quot;</span>             <span class="c"># \z</span>
+<span class="nb">echo</span> <span class="s2">&quot;\\z&quot;</span>            <span class="c"># \z</span>
+
+                      <span class="c">#  Command substitution</span>
+<span class="nb">echo</span> <span class="sb">`</span><span class="nb">echo</span> <span class="se">\z</span><span class="sb">`</span>        <span class="c">#  z</span>
+<span class="nb">echo</span> <span class="sb">`</span><span class="nb">echo</span> <span class="se">\\</span>z<span class="sb">`</span>       <span class="c">#  z</span>
+<span class="nb">echo</span> <span class="sb">`</span><span class="nb">echo</span> <span class="se">\\\z</span><span class="sb">`</span>      <span class="c"># \z</span>
+<span class="nb">echo</span> <span class="sb">`</span><span class="nb">echo</span> <span class="se">\\\\</span>z<span class="sb">`</span>     <span class="c"># \z</span>
+<span class="nb">echo</span> <span class="sb">`</span><span class="nb">echo</span> <span class="se">\\\\\\</span>z<span class="sb">`</span>   <span class="c"># \z</span>
+<span class="nb">echo</span> <span class="sb">`</span><span class="nb">echo</span> <span class="se">\\\\\\\z</span><span class="sb">`</span>  <span class="c"># \\z</span>
+<span class="nb">echo</span> <span class="sb">`</span><span class="nb">echo</span> <span class="s2">&quot;\z&quot;</span><span class="sb">`</span>      <span class="c"># \z</span>
+<span class="nb">echo</span> <span class="sb">`</span><span class="nb">echo</span> <span class="s2">&quot;\\z&quot;</span><span class="sb">`</span>     <span class="c"># \z</span>
+
+                      <span class="c"># Here document</span>
+cat <span class="s">&lt;&lt;EOF              </span>
+<span class="s">\z                      </span>
+<span class="s">EOF</span>                   <span class="c"># \z</span>
+
+cat <span class="s">&lt;&lt;EOF              </span>
+<span class="s">\\z                     </span>
+<span class="s">EOF</span>                   <span class="c"># \z</span>
+
+<span class="c"># These examples supplied by StÃ©phane Chazelas.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-5-contrabarra-com-a-valor-d-una-variable">
+<h2>Exemple 5. Contrabarra com a valor d&#8217;una variable<a class="headerlink" href="#exemple-5-contrabarra-com-a-valor-d-una-variable" title="Link permanent a aquest títol">¶</a></h2>
+<p>Els elements d&#8217;una cadena de caràcters assignada a una variable poden ser
+escapats, però el caràcter d&#8217;escapament en si (la contrabarra) no pot ser
+assignada com a únic valor a una variable.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># XXX Demostració de \ com a valor de variable</span>
+
+<span class="nv">variable</span><span class="o">=</span><span class="se">\</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$variable</span><span class="s2">&quot;</span>
+<span class="c"># Will not work - gives an error message:</span>
+<span class="c"># test.sh: : command not found</span>
+<span class="c"># A &quot;naked&quot; escape cannot safely be assigned to a variable.</span>
+<span class="c">#</span>
+<span class="c">#  What actually happens here is that the &quot;\&quot; escapes the newline and</span>
+<span class="c">#+ the effect is        variable=echo &quot;$variable&quot;</span>
+<span class="c">#+                      invalid variable assignment</span>
+
+<span class="nv">variable</span><span class="o">=</span><span class="se">\</span>
+23skidoo
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$variable</span><span class="s2">&quot;</span>        <span class="c">#  23skidoo</span>
+                        <span class="c">#  This works, since the second line</span>
+                        <span class="c">#+ is a valid variable assignment.</span>
+
+<span class="nv">variable</span><span class="o">=</span><span class="se">\ </span>
+<span class="c">#        \^    escape followed by space</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$variable</span><span class="s2">&quot;</span>        <span class="c"># space</span>
+
+<span class="nv">variable</span><span class="o">=</span><span class="se">\\</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$variable</span><span class="s2">&quot;</span>        <span class="c"># \</span>
+
+<span class="nv">variable</span><span class="o">=</span><span class="se">\\\</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$variable</span><span class="s2">&quot;</span>
+<span class="c"># Will not work - gives an error message:</span>
+<span class="c"># test.sh: \: command not found</span>
+<span class="c">#</span>
+<span class="c">#  First escape escapes second one, but the third one is left &quot;naked&quot;,</span>
+<span class="c">#+ with same result as first instance, above.</span>
+
+<span class="nv">variable</span><span class="o">=</span><span class="se">\\\\</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$variable</span><span class="s2">&quot;</span>        <span class="c"># \\</span>
+                        <span class="c"># Second and fourth escapes escaped.</span>
+                        <span class="c"># This is o.k.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-6-escapament-d-espai">
+<h2>Exemple 6. Escapament d&#8217;espai<a class="headerlink" href="#exemple-6-escapament-d-espai" title="Link permanent a aquest títol">¶</a></h2>
+<p>Quan escapem espais, hem de tenir present que té implicacions a l&#8217;hora de
+separar paraules en una llista d&#8217;arguments.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># XXX Demostració d&#39;escapament d&#39;espais en blanc</span>
+
+<span class="nv">file_list</span><span class="o">=</span><span class="s2">&quot;/bin/cat /bin/gzip /bin/more /usr/bin/less /usr/bin/emacs-20.7&quot;</span>
+<span class="c"># List of files as argument(s) to a command.</span>
+
+<span class="c"># Add two files to the list, and list all.</span>
+ls -l /usr/X11R6/bin/xsetroot /sbin/dump <span class="nv">$file_list</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;-------------------------------------------------------------------------&quot;</span>
+
+<span class="c"># What happens if we escape a couple of spaces?</span>
+ls -l /usr/X11R6/bin/xsetroot<span class="se">\ </span>/sbin/dump<span class="se">\ </span><span class="nv">$file_list</span>
+<span class="c"># Error: the first three files concatenated into a single argument to &#39;ls -l&#39;</span>
+<span class="c">#        because the two escaped spaces prevent argument (word) splitting.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-7-escapament-i-comandes-multi-linia">
+<h2>Exemple 7. Escapament i comandes multi-línia<a class="headerlink" href="#exemple-7-escapament-i-comandes-multi-linia" title="Link permanent a aquest títol">¶</a></h2>
+<p>Amb <code class="docutils literal"><span class="pre">\</span></code> també disposem d&#8217;un mecanisme per escriure comandes multi-línia. Ja ho
+hem vist per sobre, a un <a class="reference internal" href="#escapingsection-escapedbackslash"><span>exemple previ</span></a>. Considera aquest exemple més complet:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># XXX Demostració d&#39;ús de \ per construir comandes en més d&#39;una línia</span>
+
+<span class="o">(</span><span class="nb">cd</span> /source/directory <span class="o">&amp;&amp;</span> tar cf - . <span class="o">)</span><span class="se">\</span>
+    <span class="o">(</span><span class="nb">cd</span> /dest/directory <span class="o">&amp;&amp;</span> tar xpvf -<span class="o">)</span>
+<span class="c"># Repeating Alan Cox&#39;s directory tree copy command,</span>
+<span class="c"># but split into two lines for increased legibility.</span>
+
+<span class="c"># As an alternative:</span>
+tar cf - -C /source/directory .
+tar xpvf - -C /dest/directory
+<span class="c"># See note below.</span>
+<span class="c"># (Thanks, Stéphane Chazelas.)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">En cas que la línia acabi amb el caràcter <code class="docutils literal"><span class="pre">|</span></code> (<em>pipe</em>), no és extrictament
+necessari escapar el salt de línia. Amb tot, es considera una bona pràctica
+escapar sempre el final de cada línia que continua amb la següent.</p>
+</div>
+</div>
+<div class="section" id="exemple-8-comandes-multi-linia-i-text">
+<h2>Exemple 8. Comandes multi-línia i text<a class="headerlink" href="#exemple-8-comandes-multi-linia-i-text" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># XXX Demostració de text en més d&#39;una línia</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;foo</span>
+<span class="s2">bar&quot;</span>
+<span class="c">#foo</span>
+<span class="c">#bar</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s1">&#39;foo</span>
+<span class="s1">bar&#39;</span>    <span class="c"># No difference yet.</span>
+<span class="c">#foo</span>
+<span class="c">#bar</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo </span>foo<span class="se">\</span>
+    bar     <span class="c"># Newline escaped.</span>
+<span class="c">#foobar</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;foo\</span>
+<span class="s2">    bar&quot;</span>     <span class="c"># Same here, as \ still interpreted as escape within weak quotes.</span>
+<span class="c">#foobar</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s1">&#39;foo\</span>
+<span class="s1">    bar&#39;</span>     <span class="c"># Escape character \ taken literally because of strong quoting.</span>
+<span class="c">#foo\</span>
+    <span class="c">#bar</span>
+
+<span class="c"># Examples suggested by Stéphane Chazelas.</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="exit-status.html" class="btn btn-neutral float-right" title="XXX Chapter 6. Exit and Exit Status" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="quotingvar.html" class="btn btn-neutral" title="5.1. Variables entre cometes"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

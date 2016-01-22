@@ -1,0 +1,1847 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 16.4. Text Processing Commands &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Chapter 16. External Filters, Programs and Commands" href="external.html"/>
+        <link rel="next" title="XXX 16.5. File and Archiving Commands" href="filearchiv.html"/>
+        <link rel="prev" title="XXX 16.2. Complex Commands" href="moreadv.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="internal.html">XXX  Chapter 15. Internal Commands and Builtins</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="external.html">XXX  Chapter 16. External Filters, Programs and Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">XXX  Chapter 17. System and Administrative Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part4.html">XXX Part 4. Commands</a> &raquo;</li>
+      
+          <li><a href="external.html">XXX  Chapter 16. External Filters, Programs and Commands</a> &raquo;</li>
+      
+    <li>XXX  16.4. Text Processing Commands</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-16-4-text-processing-commands">
+<h1>XXX  16.4. Text Processing Commands<a class="headerlink" href="#xxx-16-4-text-processing-commands" title="Link permanent a aquest títol">¶</a></h1>
+<p>** Commands affecting text and text files**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>sort</strong></dt>
+<dd>File sort utility, often used as a filter in a pipe. This command
+sorts a <em>text stream</em> or file forwards or backwards, or according to
+various keys or character positions. Using the
+``         -m        `` option, it merges presorted input files. The
+<em>info page</em> lists its many capabilities and options. See <a class="reference external" href="loops1.html#FINDSTRING">Example
+11-10</a> , <a class="reference external" href="loops1.html#SYMLINKS">Example
+11-11</a> , and <a class="reference external" href="contributed-scripts.html#MAKEDICT">Example
+A-8</a> .</dd>
+<dt><strong>tsort</strong></dt>
+<dd><p class="first"><em>Topological sort</em> , reading in pairs of whitespace-separated
+strings and sorting according to input patterns. The original
+purpose of <strong>tsort</strong> was to sort a list of dependencies for an
+obsolete version of the <em>ld</em> linker in an &#8220;ancient&#8221; version of UNIX.</p>
+<p class="last">The results of a <em>tsort</em> will usually differ markedly from those of
+the standard <strong>sort</strong> command, above.</p>
+</dd>
+<dt><strong>uniq</strong></dt>
+<dd><p class="first">This filter removes duplicate lines from a sorted file. It is often
+seen in a pipe coupled with <a class="reference external" href="textproc.html#SORTREF">sort</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre>cat list-1 list-2 list-3sort <span class="p">|</span> uniq &gt; final.list
+<span class="c"># Concatenates the list files,</span>
+<span class="c"># sorts them,</span>
+<span class="c"># removes duplicate lines,</span>
+<span class="c"># and finally writes the result to an output file.</span>
+</pre></div>
+</div>
+<p>The useful ``         -c        `` option prefixes each line of the
+input file with its number of occurrences.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>cat testfile
+This line occurs only once.
+ This line occurs twice.
+ This line occurs twice.
+ This line occurs three times.
+ This line occurs three times.
+ This line occurs three times.
+
+
+bash<span class="nv">$ </span>uniq -c testfile
+      <span class="m">1</span> This line occurs only once.
+       <span class="m">2</span> This line occurs twice.
+       <span class="m">3</span> This line occurs three times.
+
+
+bash<span class="nv">$ </span>sort testfileuniq -c <span class="p">|</span> sort -nr
+      <span class="m">3</span> This line occurs three times.
+       <span class="m">2</span> This line occurs twice.
+       <span class="m">1</span> This line occurs only once.
+</pre></div>
+</div>
+<p class="last">The
+``                   sort INPUTFILEuniq -c | sort -nr                 ``
+command string produces a <em>frequency of occurrence</em> listing on the
+``         INPUTFILE        `` file (the ``         -nr        ``
+options to <strong>sort</strong> cause a reverse numerical sort). This template
+finds use in analysis of log files and dictionary lists, and
+wherever the lexical structure of a document needs to be examined.</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="section" id="exemple-12-word-frequency-analysis">
+<h2>Exemple 12. Word Frequency Analysis<a class="headerlink" href="#exemple-12-word-frequency-analysis" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># wf.sh: Crude word frequency analysis on a text file.</span>
+<span class="c"># This is a more efficient version of the &quot;wf2.sh&quot; script.</span>
+
+
+<span class="c"># Check for input file on command-line.</span>
+<span class="nv">ARGS</span><span class="o">=</span>1
+<span class="nv">E_BADARGS</span><span class="o">=</span>85
+<span class="nv">E_NOFILE</span><span class="o">=</span>86
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-ne <span class="s2">&quot;</span><span class="nv">$ARGS</span><span class="s2">&quot;</span> <span class="o">]</span>  <span class="c"># Correct number of arguments passed to script?</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` filename&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> ! -f <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>       <span class="c"># Check if file exists.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;File \&quot;</span><span class="nv">$1</span><span class="s2">\&quot; does not exist.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOFILE</span>
+<span class="k">fi</span>
+
+
+
+<span class="c">########################################################</span>
+<span class="c"># main ()</span>
+sed -e <span class="s1">&#39;s/\.//g&#39;</span>  -e <span class="s1">&#39;s/\,//g&#39;</span> -e <span class="s1">&#39;s/ /\</span>
+<span class="s1">/g&#39;</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>tr <span class="s1">&#39;A-Z&#39;</span> <span class="s1">&#39;a-z&#39;</span> <span class="p">|</span> sort <span class="p">|</span> uniq -c <span class="p">|</span> sort -nr
+<span class="c">#                           =========================</span>
+<span class="c">#                            Frequency of occurrence</span>
+
+<span class="c">#  Filter out periods and commas, and</span>
+<span class="c">#+ change space between words to linefeed,</span>
+<span class="c">#+ then shift characters to lowercase, and</span>
+<span class="c">#+ finally prefix occurrence count and sort numerically.</span>
+
+<span class="c">#  Arun Giridhar suggests modifying the above to:</span>
+<span class="c">#  . . .sort | uniq -c | sort +1 [-f] | sort +0 -nr</span>
+<span class="c">#  This adds a secondary sort key, so instances of</span>
+<span class="c">#+ equal occurrence are sorted alphabetically.</span>
+<span class="c">#  As he explains it:</span>
+<span class="c">#  &quot;This is effectively a radix sort, first on the</span>
+<span class="c">#+ least significant column</span>
+<span class="c">#+ (word or string, optionally case-insensitive)</span>
+<span class="c">#+ and last on the most significant column (frequency).&quot;</span>
+<span class="c">#</span>
+<span class="c">#  As Frank Wang explains, the above is equivalent to</span>
+<span class="c">#+       . . .sort | uniq -c | sort +0 -nr</span>
+<span class="c">#+ and the following also works:</span>
+<span class="c">#+       . . .sort | uniq -c | sort -k1nr -k</span>
+<span class="c">########################################################</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># Exercises:</span>
+<span class="c"># ---------</span>
+<span class="c"># 1) Add &#39;sed&#39; commands to filter out other punctuation,</span>
+<span class="c">#+   such as semicolons.</span>
+<span class="c"># 2) Modify the script to also filter out multiple spaces and</span>
+<span class="c">#+   other whitespace.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>cat testfile
+This line occurs only once.
+ This line occurs twice.
+ This line occurs twice.
+ This line occurs three times.
+ This line occurs three times.
+ This line occurs three times.
+
+
+bash<span class="nv">$ </span>./wf.sh testfile
+      <span class="m">6</span> this
+       <span class="m">6</span> occurs
+       <span class="m">6</span> line
+       <span class="m">3</span> <span class="nb">times</span>
+<span class="nb">       </span><span class="m">3</span> three
+       <span class="m">2</span> twice
+       <span class="m">1</span> only
+       <span class="m">1</span> once
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>expand</strong> , <strong>unexpand</strong></dt>
+<dd><p class="first">The <strong>expand</strong> filter converts tabs to spaces. It is often used in a
+<a class="reference external" href="special-chars.html#PIPEREF">pipe</a> .</p>
+<p class="last">The <strong>unexpand</strong> filter converts spaces to tabs. This reverses the
+effect of <strong>expand</strong> .</p>
+</dd>
+<dt><strong>cut</strong></dt>
+<dd><p class="first">A tool for extracting <a class="reference external" href="special-chars.html#FIELDREF">fields</a> from
+files. It is similar to the
+``                   print $N                 `` command set in
+<a class="reference external" href="awk.html#AWKREF">awk</a> , but more limited. It may be simpler to
+use <em>cut</em> in a script than <em>awk</em> . Particularly important are the
+``         -d        `` (delimiter) and ``         -f        ``
+(field specifier) options.</p>
+<p>Using <strong>cut</strong> to obtain a listing of the mounted filesystems:</p>
+<div class="highlight-sh"><div class="highlight"><pre>cut -d <span class="s1">&#39; &#39;</span> -f1,2 /etc/mtab
+</pre></div>
+</div>
+<p>Using <strong>cut</strong> to list the OS and kernel version:</p>
+<div class="highlight-sh"><div class="highlight"><pre>uname -acut -d<span class="s2">&quot; &quot;</span> -f1,3,11,12
+</pre></div>
+</div>
+<p>Using <strong>cut</strong> to extract message headers from an e-mail folder:</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>grep <span class="s1">&#39;^Subject:&#39;</span> <span class="nb">read</span>-messagescut -c10-80
+Re: Linux suitable <span class="k">for</span> mission-critical apps?
+ MAKE MILLIONS WORKING AT HOME!!!
+ Spam complaint
+ Re: Spam complaint
+</pre></div>
+</div>
+<p>Using <strong>cut</strong> to parse a file:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># List all the users in /etc/passwd.</span>
+
+<span class="nv">FILENAME</span><span class="o">=</span>/etc/passwd
+
+<span class="k">for</span> user in <span class="k">$(</span>cut -d: -f1 <span class="nv">$FILENAME</span><span class="k">)</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="nv">$user</span>
+<span class="k">done</span>
+
+<span class="c"># Thanks, Oleg Philon for suggesting this.</span>
+</pre></div>
+</div>
+<p class="last">``                   cut -d &#8216; &#8216; -f2,3 filename                 `` is
+equivalent to
+``                   awk -F&#8217;[ ]&#8217; &#8216;{ print $2, $3 }&#8217; filename                 ``</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">It is even possible to specify a linefeed as a delimiter. The trick
+is to actually embed a linefeed ( <strong>RETURN</strong> ) in the command
+sequence.</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>cut -d<span class="s1">&#39;</span>
+<span class="s1"> &#39;</span> -f3,7,19 testfile
+This is line <span class="m">3</span> of te
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>stfile.</dt>
+<dd>This is line 7 of t</dd>
+<dt>estfile.</dt>
+<dd>This is line 19 of</dd>
+</dl>
+<p>testfile.</p>
+<blockquote>
+<div><blockquote>
+<div><p>Thank you, Jaka Kranjc, for pointing this out.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>cut -d<span class="s1">&#39;</span>
+<span class="s1"> &#39;</span> -f3,7,19 testfile
+This is line <span class="m">3</span> of testfile.
+ This is line <span class="m">7</span> of testfile.
+ This is line <span class="m">19</span> of testfile.
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>cut -d<span class="s1">&#39;</span>
+<span class="s1"> &#39;</span> -f3,7,19 testfile
+This is line <span class="m">3</span> of testfile.
+ This is line <span class="m">7</span> of testfile.
+ This is line <span class="m">19</span> of testfile.
+</pre></div>
+</div>
+<p>See also <a class="reference external" href="mathc.html#BASE">Example 16-48</a> .</p>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>paste</strong></dt>
+<dd><p class="first">Tool for merging together different files into a single,
+multi-column file. In combination with
+<a class="reference external" href="textproc.html#CUTREF">cut</a> , useful for creating system log
+files.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>cat items
+alphabet blocks
+ building blocks
+ cables
+
+bash<span class="nv">$ </span>cat prices
+<span class="nv">$1</span>.00/dozen
+ <span class="nv">$2</span>.50 ea.
+ <span class="nv">$3</span>.75
+
+bash<span class="nv">$ </span>paste items prices
+alphabet blocks <span class="nv">$1</span>.00/dozen
+ building blocks <span class="nv">$2</span>.50 ea.
+ cables  <span class="nv">$3</span>.75
+</pre></div>
+</div>
+</dd>
+<dt><strong>join</strong></dt>
+<dd><p class="first">Consider this a special-purpose cousin of <strong>paste</strong> . This powerful
+utility allows merging two files in a meaningful fashion, which
+essentially creates a simple version of a relational database.</p>
+<p>The <strong>join</strong> command operates on exactly two files, but pastes
+together only those lines with a common tagged
+<a class="reference external" href="special-chars.html#FIELDREF">field</a> (usually a numerical label),
+and writes the result to ``         stdout        `` . The files to
+be joined should be sorted according to the tagged field for the
+matchups to work properly.</p>
+<div class="highlight-sh"><div class="highlight"><pre>File: 1.data
+
+<span class="m">100</span> Shoes
+<span class="m">200</span> Laces
+<span class="m">300</span> Socks
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>File: 2.data
+
+<span class="m">100</span> <span class="nv">$40</span>.00
+<span class="m">200</span> <span class="nv">$1</span>.00
+<span class="m">300</span> <span class="nv">$2</span>.00
+</pre></div>
+</div>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>join 1.data 2.data
+File: 1.data 2.data
+
+ <span class="m">100</span> Shoes <span class="nv">$40</span>.00
+ <span class="m">200</span> Laces <span class="nv">$1</span>.00
+ <span class="m">300</span> Socks <span class="nv">$2</span>.00
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div>The tagged field appears only once in the output.</div></blockquote>
+<dl class="last docutils">
+<dt><strong>head</strong></dt>
+<dd>lists the beginning of a file to ``         stdout        `` . The
+default is ``         10        `` lines, but a different number can
+be specified. The command has a number of interesting options.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="exemple-13-which-files-are-scripts">
+<h2>Exemple 13. Which files are scripts?<a class="headerlink" href="#exemple-13-which-files-are-scripts" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># script-detector.sh: Detects scripts within a directory.</span>
+
+<span class="nv">TESTCHARS</span><span class="o">=</span><span class="m">2</span>    <span class="c"># Test first 2 characters.</span>
+<span class="nv">SHABANG</span><span class="o">=</span><span class="s1">&#39;#!&#39;</span>   <span class="c"># Scripts begin with a &quot;sha-bang.&quot;</span>
+
+<span class="k">for</span> file in *  <span class="c"># Traverse all the files in current directory.</span>
+<span class="k">do</span>
+  <span class="k">if</span> <span class="o">[[</span> <span class="sb">`</span>head -c<span class="nv">$TESTCHARS</span> <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span><span class="sb">`</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$SHABANG</span><span class="s2">&quot;</span> <span class="o">]]</span>
+  <span class="c">#      head -c2                      #!</span>
+  <span class="c">#  The &#39;-c&#39; option to &quot;head&quot; outputs a specified</span>
+  <span class="c">#+ number of characters, rather than lines (the default).</span>
+  <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;File \&quot;</span><span class="nv">$file</span><span class="s2">\&quot; is a script.&quot;</span>
+  <span class="k">else</span>
+    <span class="nb">echo</span> <span class="s2">&quot;File \&quot;</span><span class="nv">$file</span><span class="s2">\&quot; is *not* a script.&quot;</span>
+  <span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="nb">exit </span>0
+
+<span class="c">#  Exercises:</span>
+<span class="c">#  ---------</span>
+<span class="c">#  1) Modify this script to take as an optional argument</span>
+<span class="c">#+    the directory to scan for scripts</span>
+<span class="c">#+    (rather than just the current working directory).</span>
+<span class="c">#</span>
+<span class="c">#  2) As it stands, this script gives &quot;false positives&quot; for</span>
+<span class="c">#+    Perl, awk, and other scripting language scripts.</span>
+<span class="c">#     Correct this.</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-14-generating-10-digit-random-numbers">
+<h2>Exemple 14. Generating 10-digit random numbers<a class="headerlink" href="#exemple-14-generating-10-digit-random-numbers" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># rnd.sh: Outputs a 10-digit random number</span>
+
+<span class="c"># Script by Stephane Chazelas.</span>
+
+head -c4 /dev/urandomod -N4 -tu4 <span class="p">|</span> sed -ne <span class="s1">&#39;1s/.* //p&#39;</span>
+
+
+<span class="c"># =================================================================== #</span>
+
+<span class="c"># Analysis</span>
+<span class="c"># --------</span>
+
+<span class="c"># head:</span>
+<span class="c"># -c4 option takes first 4 bytes.</span>
+
+<span class="c"># od:</span>
+<span class="c"># -N4 option limits output to 4 bytes.</span>
+<span class="c"># -tu4 option selects unsigned decimal format for output.</span>
+
+<span class="c"># sed:</span>
+<span class="c"># -n option, in combination with &quot;p&quot; flag to the &quot;s&quot; command,</span>
+<span class="c"># outputs only matched lines.</span>
+
+
+
+<span class="c"># The author of this script explains the action of &#39;sed&#39;, as follows.</span>
+
+<span class="c"># head -c4 /dev/urandomod -N4 -tu4 | sed -ne &#39;1s/.* //p&#39;</span>
+<span class="c"># ----------------------------------&gt;</span>
+
+<span class="c"># Assume output up to &quot;sed&quot; --------&gt;</span>
+<span class="c"># is 0000000 1198195154\n</span>
+
+<span class="c">#  sed begins reading characters: 0000000 1198195154\n.</span>
+<span class="c">#  Here it finds a newline character,</span>
+<span class="c">#+ so it is ready to process the first line (0000000 1198195154).</span>
+<span class="c">#  It looks at its &lt;range&gt;&lt;action&gt;s. The first and only one is</span>
+
+<span class="c">#   range     action</span>
+<span class="c">#   1         s/.* //p</span>
+
+<span class="c">#  The line number is in the range, so it executes the action:</span>
+<span class="c">#+ tries to substitute the longest string ending with a space in the line</span>
+<span class="c">#  (&quot;0000000 &quot;) with nothing (//), and if it succeeds, prints the result</span>
+<span class="c">#  (&quot;p&quot; is a flag to the &quot;s&quot; command here, this is different</span>
+<span class="c">#+ from the &quot;p&quot; command).</span>
+
+<span class="c">#  sed is now ready to continue reading its input. (Note that before</span>
+<span class="c">#+ continuing, if -n option had not been passed, sed would have printed</span>
+<span class="c">#+ the line once again).</span>
+
+<span class="c">#  Now, sed reads the remainder of the characters, and finds the</span>
+<span class="c">#+ end of the file.</span>
+<span class="c">#  It is now ready to process its 2nd line (which is also numbered &#39;$&#39; as</span>
+<span class="c">#+ it&#39;s the last one).</span>
+<span class="c">#  It sees it is not matched by any &lt;range&gt;, so its job is done.</span>
+
+<span class="c">#  In few word this sed commmand means:</span>
+<span class="c">#  &quot;On the first line only, remove any character up to the right-most space,</span>
+<span class="c">#+ then print it.&quot;</span>
+
+<span class="c"># A better way to do this would have been:</span>
+<span class="c">#           sed -e &#39;s/.* //;q&#39;</span>
+
+<span class="c"># Here, two &lt;range&gt;&lt;action&gt;s (could have been written</span>
+<span class="c">#           sed -e &#39;s/.* //&#39; -e q):</span>
+
+<span class="c">#   range                    action</span>
+<span class="c">#   nothing (matches line)   s/.* //</span>
+<span class="c">#   nothing (matches line)   q (quit)</span>
+
+<span class="c">#  Here, sed only reads its first line of input.</span>
+<span class="c">#  It performs both actions, and prints the line (substituted) before</span>
+<span class="c">#+ quitting (because of the &quot;q&quot; action) since the &quot;-n&quot; option is not passed.</span>
+
+<span class="c"># =================================================================== #</span>
+
+<span class="c"># An even simpler altenative to the above one-line script would be:</span>
+<span class="c">#           head -c4 /dev/urandomod -An -tu4</span>
+
+<span class="nb">exit</span>
+</pre></div>
+</div>
+<p>See also <a class="reference external" href="filearchiv.html#EX52">Example 16-39</a> .</p>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>tail</strong></dt>
+<dd>lists the (tail) end of a file to ``         stdout        `` . The
+default is ``         10        `` lines, but this can be changed
+with the ``         -n        `` option. Commonly used to keep track
+of changes to a system logfile, using the ``         -f        ``
+option, which outputs lines appended to the file.</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-15-using-tail-to-monitor-the-system-log">
+<span id="textproc-exemple-tail"></span><h2>Exemple 15. Using <em>tail</em> to monitor the system log<a class="headerlink" href="#exemple-15-using-tail-to-monitor-the-system-log" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">filename</span><span class="o">=</span>sys.log
+
+cat /dev/null &gt; <span class="nv">$filename</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;Creating / cleaning out file.&quot;</span>
+<span class="c">#  Creates the file if it does not already exist,</span>
+<span class="c">#+ and truncates it to zero length if it does.</span>
+<span class="c">#  : &gt; filename   and   &gt; filename also work.</span>
+
+tail /var/log/messages &gt; <span class="nv">$filename</span>
+<span class="c"># /var/log/messages must have world read permission for this to work.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2"> contains tail end of system log.&quot;</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<p>To list a specific line of a text file,
+<a class="reference external" href="special-chars.html#PIPEREF">pipe</a> the output of <strong>head</strong> to
+<strong>tail -n 1</strong> . For example
+``                         head -n 8 database.txttail         -n 1                       ``
+lists the 8th line of the file
+``            database.txt           `` .</p>
+<p class="last">To set a variable to a given block of a text file:</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">var</span><span class="o">=</span><span class="k">$(</span>head -n <span class="nv">$m</span> <span class="nv">$fi</span>
+</pre></div>
+</div>
+<p>lename | tail -n $n)</p>
+<blockquote>
+<div><blockquote>
+<div># filename = name of</div></blockquote>
+<dl class="docutils">
+<dt>file</dt>
+<dd># m = from beginning</dd>
+</dl>
+<p>of file, number of line</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>s to end of block</dt>
+<dd># n = number of line</dd>
+</dl>
+<p>s to set variable to (tr
+im from end of block)</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="nv">var</span><span class="o">=</span><span class="k">$(</span>head -n <span class="nv">$m</span> <span class="nv">$filenametail</span> -n <span class="nv">$n</span><span class="k">)</span>
+
+<span class="c"># filename = name of file</span>
+<span class="c"># m = from beginning of file, number of lines to end of block</span>
+<span class="c"># n = number of lines to set variable to (trim from end of block)</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">var</span><span class="o">=</span><span class="k">$(</span>head -n <span class="nv">$m</span> <span class="nv">$filenametail</span> -n <span class="nv">$n</span><span class="k">)</span>
+
+<span class="c"># filename = name of file</span>
+<span class="c"># m = from beginning of file, number of lines to end of block</span>
+<span class="c"># n = number of lines to set variable to (trim from end of block)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div><p>Newer implementations of <strong>tail</strong> deprecate the older <strong>tail -$LINES
+filename</strong> usage. The standard <strong>tail -n $LINES filename</strong> is
+correct.</p>
+<p>See also <a class="reference external" href="moreadv.html#EX41">Example 16-5</a> , <a class="reference external" href="filearchiv.html#EX52">Example
+16-39</a> and <a class="reference external" href="debugging.html#ONLINE">Example
+32-6</a> .</p>
+</div></blockquote>
+<dl class="last docutils">
+<dt><strong>grep</strong></dt>
+<dd><p class="first">A multi-purpose file search tool that uses <a class="reference external" href="regexp.html#REGEXREF">Regular
+Expressions</a> . It was originally a
+command/filter in the venerable <strong>ed</strong> line editor:
+``                   g/re/p                 `` &#8211; <em>global - regular
+expression - print</em> .</p>
+<p><strong>grep</strong> ``                   pattern                 `` [
+``                   file                 `` ...]</p>
+<p>Search the target file(s) for occurrences of
+``                 pattern               `` , where
+``                 pattern               `` may be literal text or a
+Regular Expression.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>grep <span class="s1">&#39;[rst]ystem.$&#39;</span> osinfo.txt
+The GPL governs the distribution of the Linux operating system.
+</pre></div>
+</div>
+<p>If no target file(s) specified, <strong>grep</strong> works as a filter on
+``         stdout        `` , as in a
+<a class="reference external" href="special-chars.html#PIPEREF">pipe</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>ps axgrep clock
+<span class="m">765</span> tty1     S      0:00 xclock
+ <span class="m">901</span> pts/1    S      0:00 grep clock
+</pre></div>
+</div>
+<p>The ``         -i        `` option causes a case-insensitive search.</p>
+<p>The ``         -w        `` option matches only whole words.</p>
+<p>The ``         -l        `` option lists only the files in which
+matches were found, but not the matching lines.</p>
+<p>The ``         -r        `` (recursive) option searches files in the
+current working directory and all subdirectories below it.</p>
+<p>The ``         -n        `` option lists the matching lines,
+together with line numbers.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>grep -n Linux osinfo.txt
+2:This is a file containing information about Linux.
+ 6:The GPL governs the distribution of the Linux operating system.
+</pre></div>
+</div>
+<p>The ``         -v        `` (or ``         &#8211;invert-match        ``
+) option <em>filters out</em> matches.</p>
+<div class="highlight-sh"><div class="highlight"><pre>grep pattern1 *.txtgrep -v pattern2
+
+<span class="c"># Matches all lines in &quot;*.txt&quot; files containing &quot;pattern1&quot;,</span>
+<span class="c"># but ***not*** &quot;pattern2&quot;.</span>
+</pre></div>
+</div>
+<p>The ``         -c        `` ( ``         &#8211;count        `` ) option
+gives a numerical count of matches, rather than actually listing the
+matches.</p>
+<div class="highlight-sh"><div class="highlight"><pre>grep -c txt *.sgml   <span class="c"># (number of occurrences of &quot;txt&quot; in &quot;*.sgml&quot; files)</span>
+
+
+<span class="c">#   grep -cz .</span>
+<span class="c">#            ^ dot</span>
+<span class="c"># means count (-c) zero-separated (-z) items matching &quot;.&quot;</span>
+<span class="c"># that is, non-empty ones (containing at least 1 character).</span>
+<span class="c">#</span>
+<span class="nb">printf</span> <span class="s1">&#39;a b\nc  d\n\n\n\n\n\000\n\000e\000\000\nf&#39;</span>grep -cz .     <span class="c"># 3</span>
+<span class="nb">printf</span> <span class="s1">&#39;a b\nc  d\n\n\n\n\n\000\n\000e\000\000\nf&#39;</span>grep -cz <span class="s1">&#39;$&#39;</span>   <span class="c"># 5</span>
+<span class="nb">printf</span> <span class="s1">&#39;a b\nc  d\n\n\n\n\n\000\n\000e\000\000\nf&#39;</span>grep -cz <span class="s1">&#39;^&#39;</span>   <span class="c"># 5</span>
+<span class="c">#</span>
+<span class="nb">printf</span> <span class="s1">&#39;a b\nc  d\n\n\n\n\n\000\n\000e\000\000\nf&#39;</span>grep -c <span class="s1">&#39;$&#39;</span>    <span class="c"># 9</span>
+<span class="c"># By default, newline chars (\n) separate items to match.</span>
+
+<span class="c"># Note that the -z option is GNU &quot;grep&quot; specific.</span>
+
+
+<span class="c"># Thanks, S.C.</span>
+</pre></div>
+</div>
+<p class="last">The ``         &#8211;color        `` (or ``         &#8211;colour        `` )
+option marks the matching string in color (on the console or in an
+<em>xterm</em> window). Since <em>grep</em> prints out each entire line containing
+the matching pattern, this lets you see exactly <em>what</em> is being
+matched. See also the ``         -o        `` option, which shows
+only the matching portion of the line(s).</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="exemple-16-printing-out-the-from-lines-in-stored-e-mail-messages">
+<h2>Exemple 16. Printing out the <em>From</em> lines in stored e-mail messages<a class="headerlink" href="#exemple-16-printing-out-the-from-lines-in-stored-e-mail-messages" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># from.sh</span>
+
+<span class="c">#  Emulates the useful &#39;from&#39; utility in Solaris, BSD, etc.</span>
+<span class="c">#  Echoes the &quot;From&quot; header line in all messages</span>
+<span class="c">#+ in your e-mail directory.</span>
+
+
+<span class="nv">MAILDIR</span><span class="o">=</span>~/mail/*               <span class="c">#  No quoting of variable. Why?</span>
+<span class="c"># Maybe check if-exists $MAILDIR:   if [ -d $MAILDIR ] . . .</span>
+<span class="nv">GREP_OPTS</span><span class="o">=</span><span class="s2">&quot;-H -A 5 --color&quot;</span>    <span class="c">#  Show file, plus extra context lines</span>
+                               <span class="c">#+ and display &quot;From&quot; in color.</span>
+<span class="nv">TARGETSTR</span><span class="o">=</span><span class="s2">&quot;^From&quot;</span>              <span class="c"># &quot;From&quot; at beginning of line.</span>
+
+<span class="k">for</span> file in <span class="nv">$MAILDIR</span>           <span class="c">#  No quoting of variable.</span>
+<span class="k">do</span>
+  grep <span class="nv">$GREP_OPTS</span> <span class="s2">&quot;</span><span class="nv">$TARGETSTR</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>
+  <span class="c">#    ^^^^^^^^^^              #  Again, do not quote this variable.</span>
+  <span class="nb">echo</span>
+<span class="k">done</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c">#  You might wish to pipe the output of this script to &#39;more&#39;</span>
+<span class="c">#+ or redirect it to a file . . .</span>
+</pre></div>
+</div>
+<p>When invoked with more than one target file given, <strong>grep</strong>
+specifies which file contains matches.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>grep Linux osinfo.txt misc.txt
+osinfo.txt:This is a file containing information about Linux.
+ osinfo.txt:The GPL governs the distribution of the Linux operating system.
+ misc.txt:The Linux operating system is steadily gaining in popularity.
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<p class="last">To force <strong>grep</strong> to show the filename when searching only one
+target file, simply give ``            /dev/null           `` as the
+second file.</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>grep Linux osi
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>nfo.txt /dev/null</dt>
+<dd><blockquote class="first">
+<div>osinfo.txt:This is a</div></blockquote>
+<p class="last">file containing informa</p>
+</dd>
+<dt>tion about Linux.</dt>
+<dd>osinfo.txt:The GPL</dd>
+<dt>governs the distribution</dt>
+<dd>of the Linux operating</dd>
+</dl>
+<p>system.</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>grep Linux osinfo.txt /dev/null
+osinfo.txt:This is a file containing information about Linux.
+ osinfo.txt:The GPL governs the distribution of the Linux operating system.
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>grep Linux osinfo.txt /dev/null
+osinfo.txt:This is a file containing information about Linux.
+ osinfo.txt:The GPL governs the distribution of the Linux operating system.
+</pre></div>
+</div>
+<p>If there is a successful match, <strong>grep</strong> returns an <a class="reference external" href="exit-status.html#EXITSTATUSREF">exit
+status</a> of 0, which makes it
+useful in a condition test in a script, especially in combination
+with the ``         -q        `` option to suppress output.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">SUCCESS</span><span class="o">=</span><span class="m">0</span>                      <span class="c"># if grep lookup succeeds</span>
+<span class="nv">word</span><span class="o">=</span>Linux
+<span class="nv">filename</span><span class="o">=</span>data.file
+
+grep -q <span class="s2">&quot;</span><span class="nv">$word</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span>    <span class="c">#  The &quot;-q&quot; option</span>
+                               <span class="c">#+ causes nothing to echo to stdout.</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -eq <span class="nv">$SUCCESS</span> <span class="o">]</span>
+<span class="c"># if grep -q &quot;$word&quot; &quot;$filename&quot;   can replace lines 5 - 7.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$word</span><span class="s2"> found in </span><span class="nv">$filename</span><span class="s2">&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$word</span><span class="s2"> not found in </span><span class="nv">$filename</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="debugging.html#ONLINE">Example 32-6</a> demonstrates how to use
+<strong>grep</strong> to search for a word pattern in a system logfile.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-16-emulating-grep-in-a-script">
+<h2>Exemple 16. Emulating <em>grep</em> in a script<a class="headerlink" href="#exemple-16-emulating-grep-in-a-script" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># grp.sh: Rudimentary reimplementation of grep.</span>
+
+<span class="nv">E_BADARGS</span><span class="o">=</span>85
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>    <span class="c"># Check for argument to script.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` pattern&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span>
+
+<span class="k">for</span> file in *     <span class="c"># Traverse all files in $PWD.</span>
+<span class="k">do</span>
+  <span class="nv">output</span><span class="o">=</span><span class="k">$(</span>sed -n /<span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>/p <span class="nv">$file</span><span class="k">)</span>  <span class="c"># Command substitution.</span>
+
+  <span class="k">if</span> <span class="o">[</span> ! -z <span class="s2">&quot;</span><span class="nv">$output</span><span class="s2">&quot;</span> <span class="o">]</span>           <span class="c"># What happens if &quot;$output&quot; is not quoted?</span>
+  <span class="k">then</span>
+    <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">: &quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$output</span><span class="s2">&quot;</span>
+  <span class="k">fi</span>              <span class="c">#  sed -ne &quot;/$1/s|^|${file}: |p&quot;  is equivalent to above.</span>
+
+  <span class="nb">echo</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># Exercises:</span>
+<span class="c"># ---------</span>
+<span class="c"># 1) Add newlines to output, if more than one match in any given file.</span>
+<span class="c"># 2) Add features.</span>
+</pre></div>
+</div>
+<p>How can <strong>grep</strong> search for two (or more) separate patterns? What if
+you want <strong>grep</strong> to display all lines in a file or files that
+contain both &#8220;pattern1&#8221; <em>and</em> &#8220;pattern2&#8221; ?</p>
+<p>One method is to <a class="reference external" href="special-chars.html#PIPEREF">pipe</a> the result of
+<strong>grep pattern1</strong> to <strong>grep pattern2</strong> .</p>
+<p>For example, given the following file:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Filename: tstfile</span>
+
+This is a sample file.
+This is an ordinary text file.
+This file does not contain any unusual text.
+This file is not unusual.
+Here is some text.
+</pre></div>
+</div>
+<p>Now, let&#8217;s search this file for lines containing <em>both</em> &#8220;file&#8221; and
+&#8220;text&#8221; . . .</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>grep file tstfile
+<span class="c"># Filename: tstfile</span>
+ This is a sample file.
+ This is an ordinary text file.
+ This file does not contain any unusual text.
+ This file is not unusual.
+
+bash<span class="nv">$ </span>grep file tstfilegrep text
+This is an ordinary text file.
+ This file does not contain any unusual text.
+</pre></div>
+</div>
+<p>Now, for an interesting recreational use of <em>grep</em> . . .</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-17-crossword-puzzle-solver">
+<h2>Exemple 17. Crossword puzzle solver<a class="headerlink" href="#exemple-17-crossword-puzzle-solver" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>   <span class="c">#!/bin/bash</span>
+   <span class="c"># cw-solver.sh</span>
+   <span class="c"># This is actually a wrapper around a one-liner (line 46).</span>
+
+   <span class="c">#  Crossword puzzle and anagramming word game solver.</span>
+   <span class="c">#  You know *some* of the letters in the word you&#39;re looking for,</span>
+   <span class="c">#+ so you need a list of all valid words</span>
+   <span class="c">#+ with the known letters in given positions.</span>
+   <span class="c">#  For example: w...i....n</span>
+   <span class="c">#               1???5????10</span>
+   <span class="c"># w in position 1, 3 unknowns, i in the 5th, 4 unknowns, n at the end.</span>
+   <span class="c"># (See comments at end of script.)</span>
+
+
+   <span class="nv">E_NOPATT</span><span class="o">=</span>71
+   <span class="nv">DICT</span><span class="o">=</span>/usr/share/dict/word.lst
+   <span class="c">#                    ^^^^^^^^   Looks for word list here.</span>
+   <span class="c">#  ASCII word list, one word per line.</span>
+   <span class="c">#  If you happen to need an appropriate list,</span>
+   <span class="c">#+ download the author&#39;s &quot;yawl&quot; word list package.</span>
+   <span class="c">#  http://ibiblio.org/pub/Linux/libs/yawl-0.3.2.tar.gz</span>
+   <span class="c">#  or</span>
+   <span class="c">#  http://bash.deta.in/yawl-0.3.2.tar.gz</span>
+
+
+   <span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>   <span class="c">#  If no word pattern specified</span>
+   <span class="k">then</span>             <span class="c">#+ as a command-line argument . . .</span>
+     <span class="nb">echo</span>           <span class="c">#+ . . . then . . .</span>
+     <span class="nb">echo</span> <span class="s2">&quot;Usage:&quot;</span>  <span class="c">#+ Usage message.</span>
+     <span class="nb">echo</span>
+<span class="nb">     echo</span> <span class="s2">&quot;&quot;</span><span class="nv">$0</span><span class="s2">&quot; \&quot;pattern,\&quot;&quot;</span>
+     <span class="nb">echo</span> <span class="s2">&quot;where \&quot;pattern\&quot; is in the form&quot;</span>
+     <span class="nb">echo</span> <span class="s2">&quot;xxx..x.x...&quot;</span>
+     <span class="nb">echo</span>
+<span class="nb">     echo</span> <span class="s2">&quot;The x&#39;s represent known letters,&quot;</span>
+     <span class="nb">echo</span> <span class="s2">&quot;and the periods are unknown letters (blanks).&quot;</span>
+     <span class="nb">echo</span> <span class="s2">&quot;Letters and periods can be in any position.&quot;</span>
+     <span class="nb">echo</span> <span class="s2">&quot;For example, try:   sh cw-solver.sh w...i....n&quot;</span>
+     <span class="nb">echo</span>
+<span class="nb">     exit</span> <span class="nv">$E_NOPATT</span>
+   <span class="k">fi</span>
+
+   <span class="nb">echo</span>
+   <span class="c"># ===============================================</span>
+   <span class="c"># This is where all the work gets done.</span>
+   grep ^<span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span><span class="nv">$ </span><span class="s2">&quot;</span><span class="nv">$DICT</span><span class="s2">&quot;</span>   <span class="c"># Yes, only one line!</span>
+   <span class="c">#</span>
+   <span class="c"># ^ is start-of-word regex anchor.</span>
+   <span class="c"># $ is end-of-word regex anchor.</span>
+
+   <span class="c">#  From _Stupid Grep Tricks_, vol. 1,</span>
+   <span class="c">#+ a book the ABS Guide author may yet get around</span>
+   <span class="c">#+ to writing . . . one of these days . . .</span>
+   <span class="c"># ===============================================</span>
+   <span class="nb">echo</span>
+
+
+<span class="nb">   exit</span> <span class="nv">$?</span>  <span class="c"># Script terminates here.</span>
+   <span class="c">#  If there are too many words generated,</span>
+   <span class="c">#+ redirect the output to a file.</span>
+
+   <span class="nv">$ </span>sh cw-solver.sh w...i....n
+
+   wellington
+   workingman
+   workingmen
+
+
+
+
+**egrep** -- *extended grep* -- is the same as **grep -E** . This
+</pre></div>
+</div>
+<p>uses a somewhat different, extended set of <a class="reference external" href="regexp.html#REGEXREF">Regular
+Expressions</a> , which can make the search a
+bit more flexible. It also allows the boolean ( <em>or</em> ) operator.</p>
+<div class="highlight-sh"><div class="highlight"><pre>   bash <span class="nv">$ </span>egrep <span class="s1">&#39;matches|Matches&#39;</span> file.txt
+   Line <span class="m">1</span> matches.
+    Line <span class="m">3</span> Matches.
+    Line <span class="m">4</span> contains matches, but also Matches
+
+
+
+
+**fgrep** -- *fast grep* -- is the same as **grep -F** . It does a
+</pre></div>
+</div>
+<p>literal string search (no <a class="reference external" href="regexp.html#REGEXREF">Regular
+Expressions</a> ), which generally speeds
+things up a bit.</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">On some Linux distros, <strong>egrep</strong> and <strong>fgrep</strong> are symbolic links
+to, or aliases for <strong>grep</strong> , but invoked with the
+``            -E           `` and ``            -F           ``
+options, respectively.</p>
+</div>
+</div>
+<div class="section" id="exemple-19-looking-up-definitions-in-webster-s-1913-dictionary">
+<h2>Exemple 19. Looking up definitions in <em>Webster&#8217;s 1913 Dictionary</em><a class="headerlink" href="#exemple-19-looking-up-definitions-in-webster-s-1913-dictionary" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># dict-lookup.sh</span>
+
+<span class="c">#  This script looks up definitions in the 1913 Webster&#39;s Dictionary.</span>
+<span class="c">#  This Public Domain dictionary is available for download</span>
+<span class="c">#+ from various sites, including</span>
+<span class="c">#+ Project Gutenberg (http://www.gutenberg.org/etext/247).</span>
+<span class="c">#</span>
+<span class="c">#  Convert it from DOS to UNIX format (with only LF at end of line)</span>
+<span class="c">#+ before using it with this script.</span>
+<span class="c">#  Store the file in plain, uncompressed ASCII text.</span>
+<span class="c">#  Set DEFAULT_DICTFILE variable below to path/filename.</span>
+
+
+<span class="nv">E_BADARGS</span><span class="o">=</span>85
+<span class="nv">MAXCONTEXTLINES</span><span class="o">=</span><span class="m">50</span>                        <span class="c"># Maximum number of lines to show.</span>
+<span class="nv">DEFAULT_DICTFILE</span><span class="o">=</span><span class="s2">&quot;/usr/share/dict/webster1913-dict.txt&quot;</span>
+                                          <span class="c"># Default dictionary file pathname.</span>
+                                          <span class="c"># Change this as necessary.</span>
+<span class="c">#  Note:</span>
+<span class="c">#  ----</span>
+<span class="c">#  This particular edition of the 1913 Webster&#39;s</span>
+<span class="c">#+ begins each entry with an uppercase letter</span>
+<span class="c">#+ (lowercase for the remaining characters).</span>
+<span class="c">#  Only the *very first line* of an entry begins this way,</span>
+<span class="c">#+ and that&#39;s why the search algorithm below works.</span>
+
+
+
+<span class="k">if</span> <span class="o">[[</span> -z <span class="k">$(</span><span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>sed -n <span class="s1">&#39;/^[A-Z]/p&#39;</span><span class="k">)</span> <span class="o">]]</span>
+<span class="c">#  Must at least specify word to look up, and</span>
+<span class="c">#+ it must start with an uppercase letter.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` Word-to-define [dictionary-file]&quot;</span>
+  <span class="nb">echo</span>
+<span class="nb">  echo</span> <span class="s2">&quot;Note: Word to look up must start with capital letter,&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;with the rest of the word in lowercase.&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;--------------------------------------------&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Examples: Abandon, Dictionary, Marking, etc.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span> <span class="o">]</span>                            <span class="c">#  May specify different dictionary</span>
+                                          <span class="c">#+ as an argument to this script.</span>
+<span class="k">then</span>
+  <span class="nv">dictfile</span><span class="o">=</span><span class="nv">$DEFAULT_DICTFILE</span>
+<span class="k">else</span>
+  <span class="nv">dictfile</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+
+<span class="c"># ---------------------------------------------------------</span>
+<span class="nv">Definition</span><span class="o">=</span><span class="k">$(</span>fgrep -A <span class="nv">$MAXCONTEXTLINES</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2"> \\&quot;</span> <span class="s2">&quot;</span><span class="nv">$dictfile</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="c">#                  Definitions in form &quot;Word \...&quot;</span>
+<span class="c">#</span>
+<span class="c">#  And, yes, &quot;fgrep&quot; is fast enough</span>
+<span class="c">#+ to search even a very large text file.</span>
+
+
+<span class="c"># Now, snip out just the definition block.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$Definition</span><span class="s2">&quot;</span>
+sed -n <span class="s1">&#39;1,/^[A-Z]/p&#39;</span>
+<span class="c">#  Print from first line of output</span>
+<span class="c">#+ to the first line of the next entry.</span>
+sed <span class="s1">&#39;$d&#39;</span>sed <span class="s1">&#39;$d&#39;</span>
+<span class="c">#  Delete last two lines of output</span>
+<span class="c">#+ (blank line and first line of next entry).</span>
+<span class="c"># ---------------------------------------------------------</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c"># Exercises:</span>
+<span class="c"># ---------</span>
+<span class="c"># 1)  Modify the script to accept any type of alphabetic input</span>
+<span class="c">#   + (uppercase, lowercase, mixed case), and convert it</span>
+<span class="c">#   + to an acceptable format for processing.</span>
+<span class="c">#</span>
+<span class="c"># 2)  Convert the script to a GUI application,</span>
+<span class="c">#   + using something like &#39;gdialog&#39; or &#39;zenity&#39; . . .</span>
+<span class="c">#     The script will then no longer take its argument(s)</span>
+<span class="c">#   + from the command-line.</span>
+<span class="c">#</span>
+<span class="c"># 3)  Modify the script to parse one of the other available</span>
+<span class="c">#   + Public Domain Dictionaries, such as the U.S. Census Bureau Gazetteer.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p>See also <a class="reference external" href="contributed-scripts.html#QKY">Example A-41</a> for an
+example of speedy <em>fgrep</em> lookup on a large text file.</p>
+<p class="last"><strong>agrep</strong> ( <em>approximate grep</em> ) extends the capabilities of
+<strong>grep</strong> to approximate matching. The search string may differ by a
+specified number of characters from the resulting matches. This
+utility is not part of the core Linux distribution.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<blockquote>
+<div><p>To search compressed files, use <strong>zgrep</strong> , <strong>zegrep</strong> , or
+<strong>zfgrep</strong> . These also work on non-compressed files, though slower
+than plain <strong>grep</strong> , <strong>egrep</strong> , <strong>fgrep</strong> . They are handy for
+searching through a mixed set of files, some compressed, some not.</p>
+<p>To search <a class="reference external" href="filearchiv.html#BZIPREF">bzipped</a> files, use
+<strong>bzgrep</strong> .</p>
+</div></blockquote>
+<dl class="last docutils">
+<dt><strong>look</strong></dt>
+<dd>The command <strong>look</strong> works like <strong>grep</strong> , but does a lookup on a
+&#8220;dictionary,&#8221; a sorted word list. By default, <strong>look</strong> searches for
+a match in ``         /usr/dict/words        `` , but a different
+dictionary file may be specified.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="exemple-18-checking-words-in-a-list-for-validity">
+<h2>Exemple 18. Checking words in a list for validity<a class="headerlink" href="#exemple-18-checking-words-in-a-list-for-validity" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># lookup: Does a dictionary lookup on each word in a data file.</span>
+
+<span class="nv">file</span><span class="o">=</span>words.data  <span class="c"># Data file from which to read words to test.</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;Testing file </span><span class="nv">$file</span><span class="s2">&quot;</span>
+<span class="nb">echo</span>
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$word</span><span class="s2">&quot;</span> !<span class="o">=</span> end <span class="o">]</span>  <span class="c"># Last word in data file.</span>
+<span class="k">do</span>               <span class="c"># ^^^</span>
+  <span class="nb">read </span>word      <span class="c"># From data file, because of redirection at end of loop.</span>
+  look <span class="nv">$word</span> &gt; /dev/null  <span class="c"># Don&#39;t want to display lines in dictionary file.</span>
+  <span class="c">#  Searches for words in the file /usr/share/dict/words</span>
+  <span class="c">#+ (usually a link to linux.words).</span>
+  <span class="nv">lookup</span><span class="o">=</span><span class="nv">$?</span>      <span class="c"># Exit status of &#39;look&#39; command.</span>
+
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$lookup</span><span class="s2">&quot;</span> -eq <span class="m">0</span> <span class="o">]</span>
+  <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;\&quot;</span><span class="nv">$word</span><span class="s2">\&quot; is valid.&quot;</span>
+  <span class="k">else</span>
+    <span class="nb">echo</span> <span class="s2">&quot;\&quot;</span><span class="nv">$word</span><span class="s2">\&quot; is invalid.&quot;</span>
+  <span class="k">fi</span>
+
+<span class="k">done</span> &lt;<span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>    <span class="c"># Redirects stdin to $file, so &quot;reads&quot; come from there.</span>
+
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># ----------------------------------------------------------------</span>
+<span class="c"># Code below line will not execute because of &quot;exit&quot; command above.</span>
+
+
+<span class="c"># Stephane Chazelas proposes the following, more concise alternative:</span>
+
+<span class="k">while</span> <span class="nb">read </span>word <span class="o">&amp;&amp;</span> <span class="o">[[</span> <span class="nv">$word</span> !<span class="o">=</span> end <span class="o">]]</span>
+<span class="k">do</span> <span class="k">if</span> look <span class="s2">&quot;</span><span class="nv">$word</span><span class="s2">&quot;</span> &gt; /dev/null
+   <span class="k">then</span> <span class="nb">echo</span> <span class="s2">&quot;\&quot;</span><span class="nv">$word</span><span class="s2">\&quot; is valid.&quot;</span>
+   <span class="k">else</span> <span class="nb">echo</span> <span class="s2">&quot;\&quot;</span><span class="nv">$word</span><span class="s2">\&quot; is invalid.&quot;</span>
+   <span class="k">fi</span>
+<span class="k">done</span> &lt;<span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>sed</strong> , <strong>awk</strong></dt>
+<dd>Scripting languages especially suited for parsing text files and
+command output. May be embedded singly or in combination in pipes
+and shell scripts.</dd>
+<dt><strong>`sed &lt;sedawk.html#SEDREF&gt;`__</strong></dt>
+<dd>Non-interactive &#8220;stream editor&#8221; , permits using many <strong>ex</strong> commands
+in <a class="reference external" href="timedate.html#BATCHPROCREF">batch</a> mode. It finds many uses
+in shell scripts.</dd>
+<dt><strong>`awk &lt;awk.html#AWKREF&gt;`__</strong></dt>
+<dd>Programmable file extractor and formatter, good for manipulating
+and/or extracting <a class="reference external" href="special-chars.html#FIELDREF">fields</a> (columns)
+in structured text files. Its syntax is similar to C.</dd>
+<dt><strong>wc</strong></dt>
+<dd><p class="first"><em>wc</em> gives a &#8220;word count&#8221; on a file or I/O stream:</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash <span class="nv">$ </span>wc /usr/share/doc/sed-4.1.2/README
+<span class="m">13</span>  <span class="m">70</span>  <span class="m">447</span> README
+<span class="o">[</span><span class="m">13</span> lines  <span class="m">70</span> words  <span class="m">447</span> characters<span class="o">]</span>
+</pre></div>
+</div>
+<p>``                   wc -w                 `` gives only the word
+count.</p>
+<p>``                   wc -l                 `` gives only the line
+count.</p>
+<p>``                   wc -c                 `` gives only the byte
+count.</p>
+<p>``                   wc -m                 `` gives only the
+character count.</p>
+<p>``                   wc -L                 `` gives only the length
+of the longest line.</p>
+<p>Using <strong>wc</strong> to count how many ``         .txt        `` files are
+in current working directory:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>ls *.txtwc -l
+<span class="c">#  Will work as long as none of the &quot;*.txt&quot; files</span>
+<span class="c">#+ have a linefeed embedded in their name.</span>
+
+<span class="c">#  Alternative ways of doing this are:</span>
+<span class="c">#      find . -maxdepth 1 -name \*.txt -print0grep -cz .</span>
+<span class="c">#      (shopt -s nullglob; set -- *.txt; echo $#)</span>
+
+<span class="c">#  Thanks, S.C.</span>
+</pre></div>
+</div>
+<p>Using <strong>wc</strong> to total up the size of all the files whose names begin
+with letters in the range d - h</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>wc <span class="o">[</span>d-h<span class="o">]</span>*grep total <span class="p">|</span> awk <span class="s1">&#39;{print $3}&#39;</span>
+71832
+</pre></div>
+</div>
+<p>Using <strong>wc</strong> to count the instances of the word &#8220;Linux&#8221; in the main
+source file for this book.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>grep Linux abs-book.sgmlwc -l
+138
+</pre></div>
+</div>
+<p>See also <a class="reference external" href="filearchiv.html#EX52">Example 16-39</a> and <a class="reference external" href="redircb.html#REDIR4">Example
+20-8</a> .</p>
+<p>Certain commands include some of the functionality of <strong>wc</strong> as
+options.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>...grep foo <span class="p">|</span> wc -l
+<span class="c"># This frequently used construct can be more concisely rendered.</span>
+
+...grep -c foo
+<span class="c"># Just use the &quot;-c&quot; (or &quot;--count&quot;) option of grep.</span>
+
+<span class="c"># Thanks, S.C.</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>tr</strong></dt>
+<dd>character translation filter.</dd>
+</dl>
+</div></blockquote>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<p><a class="reference external" href="special-chars.html#UCREF">Must use quoting and/or brackets</a> , as
+appropriate. Quotes prevent the shell from reinterpreting the
+special characters in <strong>tr</strong> command sequences. Brackets should be
+quoted to prevent expansion by the shell.</p>
+<p>Either
+``                   tr &#8220;A-Z&#8221; &#8220;*&#8221; &lt;filename                 `` or
+``                   tr A-Z * &lt;filename                 `` changes
+all the uppercase letters in ``         filename        `` to
+asterisks (writes to ``         stdout        `` ). On some systems
+this may not work, but
+``                   tr A-Z           &#8216;[**]&#8217;                 ``
+will.</p>
+<p>The ``         -d        `` option deletes a range of characters.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">echo</span> <span class="s2">&quot;abcdef&quot;</span>                 <span class="c"># abcdef</span>
+<span class="nb">echo</span> <span class="s2">&quot;abcdef&quot;</span>tr -d b-d     <span class="c"># aef</span>
+
+
+tr -d 0-9 &lt;filename
+<span class="c"># Deletes all digits from the file &quot;filename&quot;.</span>
+</pre></div>
+</div>
+<p>The ``         &#8211;squeeze-repeats        `` (or
+``         -s        `` ) option deletes all but the first instance
+of a string of consecutive characters. This option is useful for
+removing excess <a class="reference external" href="special-chars.html#WHITESPACEREF">whitespace</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;XXXXX&quot;</span>tr --squeeze-repeats <span class="s1">&#39;X&#39;</span>
+X
+</pre></div>
+</div>
+<p>The ``         -c        `` &#8220;complement&#8221; option <em>inverts</em> the
+character set to match. With this option, <strong>tr</strong> acts only upon
+those characters <em>not</em> matching the specified set.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;acfdeb123&quot;</span>tr -c b-d +
++c+d+b++++
+</pre></div>
+</div>
+<p>Note that <strong>tr</strong> recognizes <a class="reference external" href="x17129.html#POSIXREF">POSIX character
+classes</a> . ` [1]</p>
+<blockquote>
+<div>&lt;textproc.html#FTN.AEN11502&gt;`__</div></blockquote>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;abcd2ef1&quot;</span>tr <span class="s1">&#39;[:alpha:]&#39;</span> -
+----2--1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="exemple-19-toupper-transforms-a-file-to-all-uppercase">
+<h2>Exemple 19. <em>toupper</em> : Transforms a file to all uppercase.<a class="headerlink" href="#exemple-19-toupper-transforms-a-file-to-all-uppercase" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Changes a file to all uppercase.</span>
+
+<span class="nv">E_BADARGS</span><span class="o">=</span>85
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>  <span class="c"># Standard check for command-line arg.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` filename&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+
+tr a-z A-Z &lt;<span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+
+<span class="c"># Same effect as above, but using POSIX character set notation:</span>
+<span class="c">#        tr &#39;[:lower:]&#39; &#39;[:upper:]&#39; &lt;&quot;$1&quot;</span>
+<span class="c"># Thanks, S.C.</span>
+
+<span class="c">#     Or even . . .</span>
+<span class="c">#     cat &quot;$1&quot;tr a-z A-Z</span>
+<span class="c">#     Or dozens of other ways . . .</span>
+
+<span class="nb">exit </span>0
+
+<span class="c">#  Exercise:</span>
+<span class="c">#  Rewrite this script to give the option of changing a file</span>
+<span class="c">#+ to *either* upper or lowercase.</span>
+<span class="c">#  Hint: Use either the &quot;case&quot; or &quot;select&quot; command.</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-22-lowercase-changes-all-filenames-in-working-directory-to-lowercase">
+<h2>Exemple 22. <em>lowercase</em> : Changes all filenames in working directory to lowercase.<a class="headerlink" href="#exemple-22-lowercase-changes-all-filenames-in-working-directory-to-lowercase" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c">#</span>
+<span class="c">#  Changes every filename in working directory to all lowercase.</span>
+<span class="c">#</span>
+<span class="c">#  Inspired by a script of John Dubois,</span>
+<span class="c">#+ which was translated into Bash by Chet Ramey,</span>
+<span class="c">#+ and considerably simplified by the author of the ABS Guide.</span>
+
+
+<span class="k">for</span> filename in *                <span class="c"># Traverse all files in directory.</span>
+<span class="k">do</span>
+   <span class="nv">fname</span><span class="o">=</span><span class="sb">`</span>basename <span class="nv">$filename</span><span class="sb">`</span>
+   <span class="nv">n</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="nv">$fnametr</span> A-Z a-z<span class="sb">`</span>  <span class="c"># Change name to lowercase.</span>
+   <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$fname</span><span class="s2">&quot;</span> !<span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$n</span><span class="s2">&quot;</span> <span class="o">]</span>       <span class="c"># Rename only files not already lowercase.</span>
+   <span class="k">then</span>
+     mv <span class="nv">$fname</span> <span class="nv">$n</span>
+   <span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+
+<span class="c"># Code below this line will not execute because of &quot;exit&quot;.</span>
+<span class="c">#--------------------------------------------------------#</span>
+<span class="c"># To run it, delete script above line.</span>
+
+<span class="c"># The above script will not work on filenames containing blanks or newlines.</span>
+<span class="c"># Stephane Chazelas therefore suggests the following alternative:</span>
+
+
+<span class="k">for</span> filename in *    <span class="c"># Not necessary to use basename,</span>
+                     <span class="c"># since &quot;*&quot; won&#39;t return any file containing &quot;/&quot;.</span>
+<span class="k">do</span> <span class="nv">n</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">/&quot;</span>tr <span class="s1">&#39;[:upper:]&#39;</span> <span class="s1">&#39;[:lower:]&#39;</span><span class="sb">`</span>
+<span class="c">#                             POSIX char set notation.</span>
+<span class="c">#                    Slash added so that trailing newlines are not</span>
+<span class="c">#                    removed by command substitution.</span>
+   <span class="c"># Variable substitution:</span>
+   <span class="nv">n</span><span class="o">=</span><span class="si">${</span><span class="nv">n</span><span class="p">%/</span><span class="si">}</span>          <span class="c"># Removes trailing slash, added above, from filename.</span>
+   <span class="o">[[</span> <span class="nv">$filename</span> <span class="o">==</span> <span class="nv">$n</span> <span class="o">]]</span> <span class="p">|</span>mv <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$n</span><span class="s2">&quot;</span>
+                     <span class="c"># Checks if filename already lowercase.</span>
+<span class="k">done</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-20-du-dos-to-unix-text-file-conversion">
+<h2>Exemple 20. <em>du</em> : DOS to UNIX text file conversion.<a class="headerlink" href="#exemple-20-du-dos-to-unix-text-file-conversion" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Du.sh: DOS to UNIX text file converter.</span>
+
+<span class="nv">E_WRONGARGS</span><span class="o">=</span>85
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` filename-to-convert&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_WRONGARGS</span>
+<span class="k">fi</span>
+
+<span class="nv">NEWFILENAME</span><span class="o">=</span><span class="nv">$1</span>.unx
+
+<span class="nv">CR</span><span class="o">=</span><span class="s1">&#39;\015&#39;</span>  <span class="c"># Carriage return.</span>
+           <span class="c"># 015 is octal ASCII code for CR.</span>
+           <span class="c"># Lines in a DOS text file end in CR-LF.</span>
+           <span class="c"># Lines in a UNIX text file end in LF only.</span>
+
+tr -d <span class="nv">$CR</span> &lt; <span class="nv">$1</span> &gt; <span class="nv">$NEWFILENAME</span>
+<span class="c"># Delete CR&#39;s and write to new file.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Original DOS text file is \&quot;</span><span class="nv">$1</span><span class="s2">\&quot;.&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Converted UNIX text file is \&quot;</span><span class="nv">$NEWFILENAME</span><span class="s2">\&quot;.&quot;</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># Exercise:</span>
+<span class="c"># --------</span>
+<span class="c"># Change the above script to convert from UNIX to DOS.</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-21-rot13-ultra-weak-encryption">
+<h2>Exemple 21. <em>rot13</em> : ultra-weak encryption.<a class="headerlink" href="#exemple-21-rot13-ultra-weak-encryption" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># rot13.sh: Classic rot13 algorithm,</span>
+<span class="c">#           encryption that might fool a 3-year old</span>
+<span class="c">#           for about 10 minutes.</span>
+
+<span class="c"># Usage: ./rot13.sh filename</span>
+<span class="c"># or     ./rot13.sh &lt;filename</span>
+<span class="c"># or     ./rot13.sh and supply keyboard input (stdin)</span>
+
+cat <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>tr <span class="s1">&#39;a-zA-Z&#39;</span> <span class="s1">&#39;n-za-mN-ZA-M&#39;</span>   <span class="c"># &quot;a&quot; goes to &quot;n&quot;, &quot;b&quot; to &quot;o&quot; ...</span>
+<span class="c">#  The   cat &quot;$@&quot;   construct</span>
+<span class="c">#+ permits input either from stdin or from files.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-22-generating-crypto-quote-puzzles">
+<h2>Exemple 22. Generating &#8220;Crypto-Quote&#8221; Puzzles<a class="headerlink" href="#exemple-22-generating-crypto-quote-puzzles" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>   <span class="c">#!/bin/bash</span>
+   <span class="c"># crypto-quote.sh: Encrypt quotes</span>
+
+   <span class="c">#  Will encrypt famous quotes in a simple monoalphabetic substitution.</span>
+   <span class="c">#  The result is similar to the &quot;Crypto Quote&quot; puzzles</span>
+   <span class="c">#+ seen in the Op Ed pages of the Sunday paper.</span>
+
+
+   <span class="nv">key</span><span class="o">=</span>ETAOINSHRDLUBCFGJMQPVWZYXK
+   <span class="c"># The &quot;key&quot; is nothing more than a scrambled alphabet.</span>
+   <span class="c"># Changing the &quot;key&quot; changes the encryption.</span>
+
+   <span class="c"># The &#39;cat &quot;$@&quot;&#39; construction gets input either from stdin or from files.</span>
+   <span class="c"># If using stdin, terminate input with a Control-D.</span>
+   <span class="c"># Otherwise, specify filename as command-line parameter.</span>
+
+   cat <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>tr <span class="s2">&quot;a-z&quot;</span> <span class="s2">&quot;A-Z&quot;</span> <span class="p">|</span> tr <span class="s2">&quot;A-Z&quot;</span> <span class="s2">&quot;</span><span class="nv">$key</span><span class="s2">&quot;</span>
+   <span class="c"># to uppercase  |     encrypt</span>
+   <span class="c"># Will work on lowercase, uppercase, or mixed-case quotes.</span>
+   <span class="c"># Passes non-alphabetic characters through unchanged.</span>
+
+
+   <span class="c"># Try this script with something like:</span>
+   <span class="c"># &quot;Nothing so needs reforming as other people&#39;s habits.&quot;</span>
+   <span class="c"># --Mark Twain</span>
+   <span class="c">#</span>
+   <span class="c"># Output is:</span>
+   <span class="c"># &quot;CFPHRCS QF CIIOQ MINFMBRCS EQ FPHIM GIFGUI&#39;Q HETRPQ.&quot;</span>
+   <span class="c"># --BEML PZERC</span>
+
+   <span class="c"># To reverse the encryption:</span>
+   <span class="c"># cat &quot;$@&quot;tr &quot;$key&quot; &quot;A-Z&quot;</span>
+
+
+   <span class="c">#  This simple-minded cipher can be broken by an average 12-year old</span>
+   <span class="c">#+ using only pencil and paper.</span>
+
+   <span class="nb">exit </span>0
+
+   <span class="c">#  Exercise:</span>
+   <span class="c">#  --------</span>
+   <span class="c">#  Modify the script so that it will either encrypt or decrypt,</span>
+   <span class="c">#+ depending on command-line argument(s).</span>
+
+
+
+
+Of course, *tr* lends itself to *code obfuscation* .
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># jabh.sh</span>
+
+<span class="nv">x</span><span class="o">=</span><span class="s2">&quot;wftedskaebjgdBstbdbsmnjgz&quot;</span>
+<span class="nb">echo</span> <span class="nv">$xtr</span> <span class="s2">&quot;a-z&quot;</span> <span class="s1">&#39;oh, turtleneck Phrase Jar!&#39;</span>
+
+<span class="c"># Based on the Wikipedia &quot;Just another Perl hacker&quot; article.</span>
+</pre></div>
+</div>
+<p><strong>*tr* variants</strong></p>
+<p>The <strong>tr</strong> utility has two historic variants. The BSD version does
+not use brackets (
+``                         tr a-z A-Z                       `` ),
+but the SysV one does (
+``                         tr &#8216;[a-z]&#8217; &#8216;[A-Z]&#8217;                       ``
+). The GNU version of <strong>tr</strong> resembles the BSD one.</p>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>fold</strong></dt>
+<dd>A filter that wraps lines of input to a specified width. This is
+especially useful with the ``         -s        `` option, which
+breaks lines at word spaces (see <a class="reference external" href="textproc.html#EX50">Example
+16-26</a> and <a class="reference external" href="contributed-scripts.html#MAILFORMAT">Example
+A-1</a> ).</dd>
+<dt><strong>fmt</strong></dt>
+<dd>Simple-minded file formatter, used as a filter in a pipe to &#8220;wrap&#8221;
+long lines of text output.</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-23-formatted-file-listing">
+<h2>Exemple 23. Formatted file listing.<a class="headerlink" href="#exemple-23-formatted-file-listing" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">WIDTH</span><span class="o">=</span><span class="m">40</span>                    <span class="c"># 40 columns wide.</span>
+
+<span class="nv">b</span><span class="o">=</span><span class="sb">`</span>ls /usr/local/bin<span class="sb">`</span>       <span class="c"># Get a file listing...</span>
+
+<span class="nb">echo</span> <span class="nv">$bfmt</span> -w <span class="nv">$WIDTH</span>
+
+<span class="c"># Could also have been done by</span>
+<span class="c">#    echo $bfold - -s -w $WIDTH</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>See also <a class="reference external" href="moreadv.html#EX41">Example 16-5</a> .</p>
+</div></blockquote>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<blockquote>
+<div>A powerful alternative to <strong>fmt</strong> is Kamil Toman&#8217;s <strong>par</strong> utility,
+available from <a class="reference external" href="http://www.cs.berkeley.edu/~amc/Par/">http://www.cs.berkeley.edu/~amc/Par/</a> .</div></blockquote>
+<dl class="last docutils">
+<dt><strong>col</strong></dt>
+<dd>This deceptively named filter removes reverse line feeds from an
+input stream. It also attempts to replace whitespace with equivalent
+tabs. The chief use of <strong>col</strong> is in filtering the output from
+certain text processing utilities, such as <strong>groff</strong> and <strong>tbl</strong> .</dd>
+<dt><strong>column</strong></dt>
+<dd>Column formatter. This filter transforms list-type text output into
+a &#8220;pretty-printed&#8221; table by inserting tabs at appropriate places.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="exemple-24-using-column-to-format-a-directory-listing">
+<h2>Exemple 24. Using <em>column</em> to format a directory listing<a class="headerlink" href="#exemple-24-using-column-to-format-a-directory-listing" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># colms.sh</span>
+<span class="c"># A minor modification of the example file in the &quot;column&quot; man page.</span>
+
+
+<span class="o">(</span><span class="nb">printf</span> <span class="s2">&quot;PERMISSIONS LINKS OWNER GROUP SIZE MONTH DAY HH:MM PROG-NAME\n&quot;</span> <span class="se">\</span>
+<span class="p">;</span> ls -lsed 1d<span class="o">)</span> <span class="p">|</span> column -t
+<span class="c">#         ^^^^^^           ^^</span>
+
+<span class="c">#  The &quot;sed 1d&quot; in the pipe deletes the first line of output,</span>
+<span class="c">#+ which would be &quot;total        N&quot;,</span>
+<span class="c">#+ where &quot;N&quot; is the total number of files found by &quot;ls -l&quot;.</span>
+
+<span class="c"># The -t option to &quot;column&quot; pretty-prints a table.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>colrm</strong></dt>
+<dd>Column removal filter. This removes columns (characters) from a file
+and writes the file, lacking the range of specified columns, back to
+``         stdout        `` .
+``                   colrm 2 4 &lt;filename                 `` removes
+the second through fourth characters from each line of the text file
+``         filename        `` .</dd>
+</dl>
+</div></blockquote>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<blockquote>
+<div>If the file contains tabs or nonprintable characters, this may cause
+unpredictable behavior. In such cases, consider using
+<a class="reference external" href="textproc.html#EXPANDREF">expand</a> and <strong>unexpand</strong> in a pipe
+preceding <strong>colrm</strong> .</div></blockquote>
+<dl class="last docutils">
+<dt><strong>nl</strong></dt>
+<dd><p class="first">Line numbering filter:
+``                   nl filename                 `` lists
+``         filename        `` to ``         stdout        `` , but
+inserts consecutive numbers at the beginning of each non-blank line.
+If ``         filename        `` omitted, operates on
+``         stdin.        ``</p>
+<p class="last">The output of <strong>nl</strong> is very similar to
+``                   cat -b                 `` , since, by default
+<strong>nl</strong> does not list blank lines.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="exemple-25-nl-a-self-numbering-script">
+<h2>Exemple 25. <em>nl</em> : A self-numbering script.<a class="headerlink" href="#exemple-25-nl-a-self-numbering-script" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># line-number.sh</span>
+
+<span class="c"># This script echoes itself twice to stdout with its lines numbered.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;     line number = </span><span class="nv">$LINENO</span><span class="s2">&quot;</span> <span class="c"># &#39;nl&#39; sees this as line 4</span>
+<span class="c">#                                   (nl does not number blank lines).</span>
+<span class="c">#                                   &#39;cat -n&#39; sees it correctly as line #6.</span>
+
+nl <span class="sb">`</span>basename <span class="nv">$0</span><span class="sb">`</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>  <span class="c"># Now, let&#39;s try it with &#39;cat -n&#39;</span>
+
+cat -n <span class="sb">`</span>basename <span class="nv">$0</span><span class="sb">`</span>
+<span class="c"># The difference is that &#39;cat -n&#39; numbers the blank lines.</span>
+<span class="c"># Note that &#39;nl -ba&#39; will also do so.</span>
+
+<span class="nb">exit </span>0
+<span class="c"># -----------------------------------------------------------------</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>pr</strong></dt>
+<dd><p class="first">Print formatting filter. This will paginate files (or
+``         stdout        `` ) into sections suitable for hard copy
+printing or viewing on screen. Various options permit row and column
+manipulation, joining lines, setting margins, numbering lines,
+adding page headers, and merging files, among other things. The
+<strong>pr</strong> command combines much of the functionality of <strong>nl</strong> ,
+<strong>paste</strong> , <strong>fold</strong> , <strong>column</strong> , and <strong>expand</strong> .</p>
+<p>``                   pr -o 5 &#8211;width=65 fileZZZmore                 ``
+gives a nice paginated listing to screen of
+``         fileZZZ        `` with margins set at 5 and 65.</p>
+<p class="last">A particularly useful option is ``         -d        `` , forcing
+double-spacing (same effect as <strong>sed -G</strong> ).</p>
+</dd>
+<dt><strong>gettext</strong></dt>
+<dd><p class="first">The GNU <strong>gettext</strong> package is a set of utilities for
+<a class="reference external" href="localization.html">localizing</a> and translating the text output
+of programs into foreign languages. While originally intended for C
+programs, it now supports quite a number of programming and
+scripting languages.</p>
+<p class="last">The <strong>gettext</strong> <em>program</em> works on shell scripts. See the
+``                   info page                 `` .</p>
+</dd>
+<dt><strong>msgfmt</strong></dt>
+<dd>A program for generating binary message catalogs. It is used for
+<a class="reference external" href="localization.html">localization</a> .</dd>
+<dt><strong>iconv</strong></dt>
+<dd><p class="first">A utility for converting file(s) to a different encoding (character
+set). Its chief use is for <a class="reference external" href="localization.html">localization</a> .</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="c"># Convert a string from UTF-8 to UTF-16 and print to the BookList</span>
+<span class="k">function</span> write_utf8_string <span class="o">{</span>
+    <span class="nv">STRING</span><span class="o">=</span><span class="nv">$1</span>
+    <span class="nv">BOOKLIST</span><span class="o">=</span><span class="nv">$2</span>
+    <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$STRING</span><span class="s2">&quot;</span>iconv -f UTF8 -t UTF16 <span class="p">|</span> <span class="se">\</span>
+    cut -b 3-tr -d <span class="se">\\</span>n &gt;&gt; <span class="s2">&quot;</span><span class="nv">$BOOKLIST</span><span class="s2">&quot;</span>
+<span class="o">}</span>
+
+<span class="c">#  From Peter Knowles&#39; &quot;booklistgen.sh&quot; script</span>
+<span class="c">#+ for converting files to Sony Librie/PRS-50X format.</span>
+<span class="c">#  (http://booklistgensh.peterknowles.com)</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>recode</strong></dt>
+<dd>Consider this a fancier version of <strong>iconv</strong> , above. This very
+versatile utility for converting a file to a different encoding
+scheme. Note that <em>recode</em> is not part of the standard Linux
+installation.</dd>
+<dt><strong>TeX</strong> , <strong>gs</strong></dt>
+<dd><p class="first"><strong>TeX</strong> and <strong>Postscript</strong> are text markup languages used for
+preparing copy for printing or formatted video display.</p>
+<p><strong>TeX</strong> is Donald Knuth&#8217;s elaborate typsetting system. It is often
+convenient to write a shell script encapsulating all the options and
+arguments passed to one of these markup languages.</p>
+<p class="last"><em>Ghostscript</em> ( <strong>gs</strong> ) is a GPL-ed Postscript interpreter.</p>
+</dd>
+<dt><strong>texexec</strong></dt>
+<dd><p class="first">Utility for processing <em>TeX</em> and <em>pdf</em> files. Found in
+``         /usr/bin        `` on many Linux distros, it is actually
+a <a class="reference external" href="wrapper.html#SHWRAPPER">shell wrapper</a> that calls
+<a class="reference external" href="wrapper.html#PERLREF">Perl</a> to invoke <em>Tex</em> .</p>
+<div class="last highlight-sh"><div class="highlight"><pre>texexec --pdfarrange --result<span class="o">=</span>Concatenated.pdf *pdf
+
+<span class="c">#  Concatenates all the pdf files in the current working directory</span>
+<span class="c">#+ into the merged file, Concatenated.pdf . . .</span>
+<span class="c">#  (The --pdfarrange option repaginates a pdf file. See also --pdfcombine.)</span>
+<span class="c">#  The above command-line could be parameterized and put into a shell script.</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>enscript</strong></dt>
+<dd><p class="first">Utility for converting plain text file to PostScript</p>
+<p class="last">For example, <strong>enscript filename.txt -p filename.ps</strong> produces the
+PostScript output file ``         filename.ps        `` .</p>
+</dd>
+<dt><strong>groff</strong> , <strong>tbl</strong> , <strong>eqn</strong></dt>
+<dd><p class="first">Yet another text markup and display formatting language is <strong>groff</strong>
+. This is the enhanced GNU version of the venerable UNIX
+<strong>roff/troff</strong> display and typesetting package.
+<a class="reference external" href="basic.html#MANREF">Manpages</a> use <strong>groff</strong> .</p>
+<p>The <strong>tbl</strong> table processing utility is considered part of <strong>groff</strong>
+, as its function is to convert table markup into <strong>groff</strong>
+commands.</p>
+<p class="last">The <strong>eqn</strong> equation processing utility is likewise part of
+<strong>groff</strong> , and its function is to convert equation markup into
+<strong>groff</strong> commands.</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-26-manview-viewing-formatted-manpages">
+<h2>Exemple 26. <em>manview</em> : Viewing formatted manpages<a class="headerlink" href="#exemple-26-manview-viewing-formatted-manpages" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># manview.sh: Formats the source of a man page for viewing.</span>
+
+<span class="c">#  This script is useful when writing man page source.</span>
+<span class="c">#  It lets you look at the intermediate results on the fly</span>
+<span class="c">#+ while working on it.</span>
+
+<span class="nv">E_WRONGARGS</span><span class="o">=</span>85
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` filename&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_WRONGARGS</span>
+<span class="k">fi</span>
+
+<span class="c"># ---------------------------</span>
+groff -Tascii -man <span class="nv">$1less</span>
+<span class="c"># From the man page for groff.</span>
+<span class="c"># ---------------------------</span>
+
+<span class="c">#  If the man page includes tables and/or equations,</span>
+<span class="c">#+ then the above code will barf.</span>
+<span class="c">#  The following line can handle such cases.</span>
+<span class="c">#</span>
+<span class="c">#   gtbl &lt; &quot;$1&quot;geqn -Tlatin1 | groff -Tlatin1 -mtty-char -man</span>
+<span class="c">#</span>
+<span class="c">#   Thanks, S.C.</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>   <span class="c"># See also the &quot;maned.sh&quot; script.</span>
+</pre></div>
+</div>
+<p>See also <a class="reference external" href="contributed-scripts.html#MANED">Example A-39</a> .</p>
+</div></blockquote>
+<p><strong>lex</strong> , <strong>yacc</strong></p>
+<blockquote>
+<div><p>The <strong>lex</strong> lexical analyzer produces programs for pattern matching.
+This has been replaced by the nonproprietary <strong>flex</strong> on Linux
+systems.</p>
+<p>The <strong>yacc</strong> utility creates a parser based on a set of
+specifications. This has been replaced by the nonproprietary
+<strong>bison</strong> on Linux systems.</p>
+</div></blockquote>
+</div></blockquote>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;textproc.html#AEN11502&gt;`__</p>
+<p>This is only true of the GNU version of <strong>tr</strong> , not the generic version
+often found on commercial UNIX systems.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="filearchiv.html" class="btn btn-neutral float-right" title="XXX 16.5. File and Archiving Commands" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="moreadv.html" class="btn btn-neutral" title="XXX 16.2. Complex Commands"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

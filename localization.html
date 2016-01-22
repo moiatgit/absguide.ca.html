@@ -1,0 +1,405 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Appendix K. Localization &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  Appendix K. Localization</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-appendix-k-localization">
+<h1>XXX  Appendix K. Localization<a class="headerlink" href="#xxx-appendix-k-localization" title="Link permanent a aquest títol">¶</a></h1>
+<p>Localization is an undocumented Bash feature.</p>
+<blockquote>
+<div>A localized shell script echoes its text output in the language defined</div></blockquote>
+<p>as the system&#8217;s locale. A Linux user in Berlin, Germany, would get
+script output in German, whereas his cousin in Berlin, Maryland, would
+get output from the same script in English.</p>
+<p>To create a localized script, use the following template to write all
+messages to the user (error messages, prompts, etc.).</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># localized.sh</span>
+<span class="c">#  Script by Stéphane Chazelas,</span>
+<span class="c">#+ modified by Bruno Haible, bugfixed by Alfredo Pironti.</span>
+
+. gettext.sh
+
+<span class="nv">E_CDERROR</span><span class="o">=</span>65
+
+error<span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">printf</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span> &gt;<span class="p">&amp;</span>2
+  <span class="nb">exit</span> <span class="nv">$E_CDERROR</span>
+<span class="o">}</span>
+
+<span class="nb">cd</span> <span class="nv">$var</span> <span class="p">|</span>error <span class="s2">&quot;`eval_gettext \&quot;Can\&#39;t cd to \\\$var.\&quot;`&quot;</span>
+<span class="c">#  The triple backslashes (escapes) in front of $var needed</span>
+<span class="c">#+ &quot;because eval_gettext expects a string</span>
+<span class="c">#+ where the variable values have not yet been substituted.&quot;</span>
+<span class="c">#    -- per Bruno Haible</span>
+<span class="nb">read</span> -p <span class="s2">&quot;`gettext \&quot;Enter the value: \&quot;`&quot;</span> var
+<span class="c">#  ...</span>
+
+
+<span class="c">#  ------------------------------------------------------------------</span>
+<span class="c">#  Alfredo Pironti comments:</span>
+
+<span class="c">#  This script has been modified to not use the $&quot;...&quot; syntax in</span>
+<span class="c">#+ favor of the &quot;`gettext \&quot;...\&quot;`&quot; syntax.</span>
+<span class="c">#  This is ok, but with the new localized.sh program, the commands</span>
+<span class="c">#+ &quot;bash -D filename&quot; and &quot;bash --dump-po-string filename&quot;</span>
+<span class="c">#+ will produce no output</span>
+<span class="c">#+ (because those command are only searching for the $&quot;...&quot; strings)!</span>
+<span class="c">#  The ONLY way to extract strings from the new file is to use the</span>
+<span class="c"># &#39;xgettext&#39; program. However, the xgettext program is buggy.</span>
+
+<span class="c"># Note that &#39;xgettext&#39; has another bug.</span>
+<span class="c">#</span>
+<span class="c"># The shell fragment:</span>
+<span class="c">#    gettext -s &quot;I like Bash&quot;</span>
+<span class="c"># will be correctly extracted, but . . .</span>
+<span class="c">#    xgettext -s &quot;I like Bash&quot;</span>
+<span class="c"># . . . fails!</span>
+<span class="c">#  &#39;xgettext&#39; will extract &quot;-s&quot; because</span>
+<span class="c">#+ the command only extracts the</span>
+<span class="c">#+ very first argument after the &#39;gettext&#39; word.</span>
+
+
+<span class="c">#  Escape characters:</span>
+<span class="c">#</span>
+<span class="c">#  To localize a sentence like</span>
+<span class="c">#     echo -e &quot;Hello\tworld!&quot;</span>
+<span class="c">#+ you must use</span>
+<span class="c">#     echo -e &quot;`gettext \&quot;Hello\\tworld\&quot;`&quot;</span>
+<span class="c">#  The &quot;double escape character&quot; before the `t&#39; is needed because</span>
+<span class="c">#+ &#39;gettext&#39; will search for a string like: &#39;Hello\tworld&#39;</span>
+<span class="c">#  This is because gettext will read one literal `\&#39;)</span>
+<span class="c">#+ and will output a string like &quot;Bonjour\tmonde&quot;,</span>
+<span class="c">#+ so the &#39;echo&#39; command will display the message correctly.</span>
+<span class="c">#</span>
+<span class="c">#  You may not use</span>
+<span class="c">#     echo &quot;`gettext -e \&quot;Hello\tworld\&quot;`&quot;</span>
+<span class="c">#+ due to the xgettext bug explained above.</span>
+
+
+
+<span class="c"># Let&#39;s localize the following shell fragment:</span>
+<span class="c">#     echo &quot;-h display help and exit&quot;</span>
+<span class="c">#</span>
+<span class="c"># First, one could do this:</span>
+<span class="c">#     echo &quot;`gettext \&quot;-h display help and exit\&quot;`&quot;</span>
+<span class="c">#  This way &#39;xgettext&#39; will work ok,</span>
+<span class="c">#+ but the &#39;gettext&#39; program will read &quot;-h&quot; as an option!</span>
+<span class="c">#</span>
+<span class="c"># One solution could be</span>
+<span class="c">#     echo &quot;`gettext -- \&quot;-h display help and exit\&quot;`&quot;</span>
+<span class="c">#  This way &#39;gettext&#39; will work,</span>
+<span class="c">#+ but &#39;xgettext&#39; will extract &quot;--&quot;, as referred to above.</span>
+<span class="c">#</span>
+<span class="c"># The workaround you may use to get this string localized is</span>
+<span class="c">#     echo -e &quot;`gettext \&quot;\\0-h display help and exit\&quot;`&quot;</span>
+<span class="c">#  We have added a \0 (NULL) at the beginning of the sentence.</span>
+<span class="c">#  This way &#39;gettext&#39; works correctly, as does &#39;xgettext.&#39;</span>
+<span class="c">#  Moreover, the NULL character won&#39;t change the behavior</span>
+<span class="c">#+ of the &#39;echo&#39; command.</span>
+<span class="c">#  ------------------------------------------------------------------</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>bash -D localized.sh
+<span class="s2">&quot;Can&#39;t cd to %s.&quot;</span>
+ <span class="s2">&quot;Enter the value: &quot;</span>
+</pre></div>
+</div>
+<p>This lists all the localized text. (The ``     -D    `` option lists
+double-quoted strings prefixed by a $ , without executing the script.)</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>bash --dump-po-strings localized.sh
+<span class="c">#: a:6</span>
+ msgid <span class="s2">&quot;Can&#39;t cd to %s.&quot;</span>
+ msgstr <span class="s2">&quot;&quot;</span>
+ <span class="c">#: a:7</span>
+ msgid <span class="s2">&quot;Enter the value: &quot;</span>
+ msgstr <span class="s2">&quot;&quot;</span>
+</pre></div>
+</div>
+<p>The ``     &#8211;dump-po-strings    `` option to Bash resembles the
+``     -D    `` option, but uses <a class="reference external" href="textproc.html#GETTEXTREF">gettext</a>
+&#8220;po&#8221; format.</p>
+<p><a href="#id1"><span class="problematic" id="id2">|</span></a>Note</p>
+<p>Bruno Haible points out:</p>
+<p>Starting with gettext-0.12.2, <strong>xgettext -o - localized.sh</strong> is
+recommended instead of <strong>bash &#8211;dump-po-strings localized.sh</strong> , because
+<strong>xgettext</strong> . . .</p>
+<p>1. understands the gettext and eval_gettext commands (whereas bash
+&#8211;dump-po-strings understands only its deprecated $&#8221;...&#8221; syntax)</p>
+<p>2. can extract comments placed by the programmer, intended to be read by
+the translator.</p>
+<p>This shell code is then not specific to Bash any more; it works the same
+way with Bash 1.x and other /bin/sh implementations.</p>
+<p>Now, build a ``      language.po     `` file for each language that the
+script will be translated into, specifying the
+``             msgstr           `` . Alfredo Pironti gives the following
+example:</p>
+<p>fr.po:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#: a:6</span>
+msgid <span class="s2">&quot;Can&#39;t cd to </span><span class="nv">$var</span><span class="s2">.&quot;</span>
+msgstr <span class="s2">&quot;Impossible de se positionner dans le repertoire </span><span class="nv">$var</span><span class="s2">.&quot;</span>
+<span class="c">#: a:7</span>
+msgid <span class="s2">&quot;Enter the value: &quot;</span>
+msgstr <span class="s2">&quot;Entrez la valeur : &quot;</span>
+
+<span class="c">#  The string are dumped with the variable names, not with the %s syntax,</span>
+<span class="c">#+ similar to C programs.</span>
+<span class="c">#+ This is a very cool feature if the programmer uses</span>
+<span class="c">#+ variable names that make sense!</span>
+</pre></div>
+</div>
+<p>Then, run <a class="reference external" href="textproc.html#MSGFMTREF">msgfmt</a> .</p>
+<p>``             msgfmt -o localized.sh.mo fr.po           ``</p>
+<p>Place the resulting ``      localized.sh.mo     `` file in the
+``      /usr/local/share/locale/fr/LC_MESSAGES     `` directory, and at
+the beginning of the script, insert the lines:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">TEXTDOMAINDIR</span><span class="o">=</span>/usr/local/share/locale
+<span class="nv">TEXTDOMAIN</span><span class="o">=</span>localized.sh
+</pre></div>
+</div>
+<p>If a user on a French system runs the script, she will get French
+messages.</p>
+<p><a href="#id3"><span class="problematic" id="id4">|</span></a>Note</p>
+<p>With older versions of Bash or other shells, localization requires
+<a class="reference external" href="textproc.html#GETTEXTREF">gettext</a> , using the
+``         -s        `` option. In this case, the script becomes:</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># localized.sh</span>
+
+<span class="nv">E_CDERROR</span><span class="o">=</span>65
+
+error<span class="o">()</span> <span class="o">{</span>
+  <span class="nb">local </span><span class="nv">format</span><span class="o">=</span><span class="nv">$1</span>
+  <span class="nb">shift</span>
+<span class="nb">  printf</span> <span class="s2">&quot;</span><span class="k">$(</span>gettext
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>-s &#8220;$format&#8221;)&#8221; &#8220;$&#64;&#8221; &gt;&amp;2</dt>
+<dd><blockquote class="first">
+<div>exit $E_CDERROR</div></blockquote>
+<p class="last">}
+cd $var || error &#8220;Ca</p>
+</dd>
+<dt>n&#8217;t cd to %s.&#8221; &#8220;$var&#8221;</dt>
+<dd>read -p &#8220;$(gettext -</dd>
+</dl>
+<p>s &#8220;Enter the value: &#8221;)&#8221;
+var</p>
+<blockquote>
+<div># ...</div></blockquote>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># localized.sh</span>
+
+<span class="nv">E_CDERROR</span><span class="o">=</span>65
+
+error<span class="o">()</span> <span class="o">{</span>
+  <span class="nb">local </span><span class="nv">format</span><span class="o">=</span><span class="nv">$1</span>
+  <span class="nb">shift</span>
+<span class="nb">  printf</span> <span class="s2">&quot;</span><span class="k">$(</span>gettext -s <span class="s2">&quot;</span><span class="nv">$format</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span> &gt;<span class="p">&amp;</span>2
+  <span class="nb">exit</span> <span class="nv">$E_CDERROR</span>
+<span class="o">}</span>
+<span class="nb">cd</span> <span class="nv">$var</span> <span class="p">|</span>error <span class="s2">&quot;Can&#39;t cd to %s.&quot;</span> <span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span>
+<span class="nb">read</span> -p <span class="s2">&quot;</span><span class="k">$(</span>gettext -s <span class="s2">&quot;Enter the value: &quot;</span><span class="k">)</span><span class="s2">&quot;</span> var
+<span class="c"># ...</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># localized.sh</span>
+
+<span class="nv">E_CDERROR</span><span class="o">=</span>65
+
+error<span class="o">()</span> <span class="o">{</span>
+  <span class="nb">local </span><span class="nv">format</span><span class="o">=</span><span class="nv">$1</span>
+  <span class="nb">shift</span>
+<span class="nb">  printf</span> <span class="s2">&quot;</span><span class="k">$(</span>gettext -s <span class="s2">&quot;</span><span class="nv">$format</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span> &gt;<span class="p">&amp;</span>2
+  <span class="nb">exit</span> <span class="nv">$E_CDERROR</span>
+<span class="o">}</span>
+<span class="nb">cd</span> <span class="nv">$var</span> <span class="p">|</span>error <span class="s2">&quot;Can&#39;t cd to %s.&quot;</span> <span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span>
+<span class="nb">read</span> -p <span class="s2">&quot;</span><span class="k">$(</span>gettext -s <span class="s2">&quot;Enter the value: &quot;</span><span class="k">)</span><span class="s2">&quot;</span> var
+<span class="c"># ...</span>
+</pre></div>
+</div>
+<p>The ``      TEXTDOMAIN     `` and ``      TEXTDOMAINDIR     `` variables
+need to be set and exported to the environment. This should be done
+within the script itself.</p>
+<p>&#8212;</p>
+<p>This appendix written by Stéphane Chazelas, with modifications suggested
+by Alfredo Pironti, and by Bruno Haible, maintainer of GNU
+<a class="reference external" href="textproc.html#GETTEXTREF">gettext</a> .</p>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

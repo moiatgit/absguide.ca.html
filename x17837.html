@@ -1,0 +1,371 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 19.1. Here Strings &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  19.1. Here Strings</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-19-1-here-strings">
+<h1>XXX  19.1. Here Strings<a class="headerlink" href="#xxx-19-1-here-strings" title="Link permanent a aquest títol">¶</a></h1>
+<dl class="docutils">
+<dt>A <em>here string</em> can&nbsp;be&nbsp;considered&nbsp;as&nbsp;a&nbsp;stripped-down&nbsp;form&nbsp;of&nbsp;a</dt>
+<dd><blockquote class="first">
+<div><em>here document</em> .</div></blockquote>
+<p>It&nbsp;consists&nbsp;of&nbsp;nothing&nbsp;more&nbsp;than <strong>COMMAND &lt;&lt;&lt; $WORD</strong> ,
+where ``       $WORD      `` is&nbsp;expanded&nbsp;and&nbsp;fed&nbsp;to&nbsp;the</p>
+<blockquote class="last">
+<div>``       stdin      `` of <strong>COMMAND</strong> .</div></blockquote>
+</dd>
+</dl>
+<p>As a simple example, consider this alternative to the
+<a class="reference external" href="internal.html#ECHOGREPREF">echo-grep</a> construction.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Instead of:</span>
+<span class="k">if</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$VAR</span><span class="s2">&quot;</span>grep -q txt   <span class="c"># if [[ $VAR = *txt* ]]</span>
+<span class="c"># etc.</span>
+
+<span class="c"># Try:</span>
+<span class="k">if</span> grep -q <span class="s2">&quot;txt&quot;</span> <span class="o">&lt;&lt;&lt;</span> <span class="s2">&quot;</span><span class="nv">$VAR</span><span class="s2">&quot;</span>
+<span class="k">then</span>   <span class="c">#         ^^^</span>
+   <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$VAR</span><span class="s2"> contains the substring sequence \&quot;txt\&quot;&quot;</span>
+<span class="k">fi</span>
+<span class="c"># Thank you, Sebastian Kaminski, for the suggestion.</span>
+</pre></div>
+</div>
+<p>Or, in combination with <a class="reference external" href="internal.html#READREF">read</a> :</p>
+<div class="highlight-sh"><div class="highlight"><pre>   <span class="nv">String</span><span class="o">=</span><span class="s2">&quot;This is a string of words.&quot;</span>
+
+   <span class="nb">read</span> -r -a Words <span class="o">&lt;&lt;&lt;</span> <span class="s2">&quot;</span><span class="nv">$String</span><span class="s2">&quot;</span>
+   <span class="c">#  The -a option to &quot;read&quot;</span>
+   <span class="c">#+ assigns the resulting values to successive members of an array.</span>
+
+   <span class="nb">echo</span> <span class="s2">&quot;First word in String is:    </span><span class="si">${</span><span class="nv">Words</span><span class="p">[0]</span><span class="si">}</span><span class="s2">&quot;</span>   <span class="c"># This</span>
+   <span class="nb">echo</span> <span class="s2">&quot;Second word in String is:   </span><span class="si">${</span><span class="nv">Words</span><span class="p">[1]</span><span class="si">}</span><span class="s2">&quot;</span>   <span class="c"># is</span>
+   <span class="nb">echo</span> <span class="s2">&quot;Third word in String is:    </span><span class="si">${</span><span class="nv">Words</span><span class="p">[2]</span><span class="si">}</span><span class="s2">&quot;</span>   <span class="c"># a</span>
+   <span class="nb">echo</span> <span class="s2">&quot;Fourth word in String is:   </span><span class="si">${</span><span class="nv">Words</span><span class="p">[3]</span><span class="si">}</span><span class="s2">&quot;</span>   <span class="c"># string</span>
+   <span class="nb">echo</span> <span class="s2">&quot;Fifth word in String is:    </span><span class="si">${</span><span class="nv">Words</span><span class="p">[4]</span><span class="si">}</span><span class="s2">&quot;</span>   <span class="c"># of</span>
+   <span class="nb">echo</span> <span class="s2">&quot;Sixth word in String is:    </span><span class="si">${</span><span class="nv">Words</span><span class="p">[5]</span><span class="si">}</span><span class="s2">&quot;</span>   <span class="c"># words.</span>
+   <span class="nb">echo</span> <span class="s2">&quot;Seventh word in String is:  </span><span class="si">${</span><span class="nv">Words</span><span class="p">[6]</span><span class="si">}</span><span class="s2">&quot;</span>   <span class="c"># (null)</span>
+                                                    <span class="c"># Past end of $String.</span>
+
+   <span class="c"># Thank you, Francisco Lobo, for the suggestion.</span>
+
+
+
+It is, of course, possible to feed the output of a *here string* into
+</pre></div>
+</div>
+<p>the ``      stdin     `` of a <a class="reference external" href="loops.html#LOOPREF00">loop</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># As Seamus points out . . .</span>
+
+<span class="nv">ArrayVar</span><span class="o">=(</span> element0 element1 element2 <span class="o">{</span>A..D<span class="o">}</span> <span class="o">)</span>
+
+<span class="k">while</span> <span class="nb">read </span>element <span class="p">;</span> <span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$element</span><span class="s2">&quot;</span> 1&gt;<span class="p">&amp;</span>2
+<span class="k">done</span> <span class="o">&lt;&lt;&lt;</span> <span class="k">$(</span><span class="nb">echo</span> <span class="si">${</span><span class="nv">ArrayVar</span><span class="p">[*]</span><span class="si">}</span><span class="k">)</span>
+
+<span class="c"># element0 element1 element2 A B C D</span>
+</pre></div>
+</div>
+<div class="section" id="exemple-13-prepending-a-line-to-a-file">
+<h2>Exemple 13. Prepending a line to a file<a class="headerlink" href="#exemple-13-prepending-a-line-to-a-file" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># prepend.sh: Add text at beginning of file.</span>
+<span class="c">#</span>
+<span class="c">#  Example contributed by Kenny Stauffer,</span>
+<span class="c">#+ and slightly modified by document author.</span>
+
+
+<span class="nv">E_NOSUCHFILE</span><span class="o">=</span>85
+
+<span class="nb">read</span> -p <span class="s2">&quot;File: &quot;</span> file   <span class="c"># -p arg to &#39;read&#39; displays prompt.</span>
+<span class="k">if</span> <span class="o">[</span> ! -e <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>   <span class="c"># Bail out if no such file.</span>
+  <span class="nb">echo</span> <span class="s2">&quot;File </span><span class="nv">$file</span><span class="s2"> not found.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOSUCHFILE</span>
+<span class="k">fi</span>
+
+<span class="nb">read</span> -p <span class="s2">&quot;Title: &quot;</span> title
+cat - <span class="nv">$file</span> <span class="o">&lt;&lt;&lt;</span><span class="nv">$title</span> &gt; <span class="nv">$file</span>.new
+
+<span class="nb">echo</span> <span class="s2">&quot;Modified file is </span><span class="nv">$file</span><span class="s2">.new&quot;</span>
+
+<span class="nb">exit</span>  <span class="c"># Ends script execution.</span>
+
+  from <span class="s1">&#39;man bash&#39;</span>:
+  Here Strings
+    A variant of here documents, the format is:
+
+        <span class="o">&lt;&lt;&lt;</span>word
+
+    The word is expanded and supplied to the <span class="nb">command </span>on its standard input.
+
+
+  Of course, the following also works:
+   sed -e <span class="s1">&#39;1i\</span>
+<span class="s1">   Title: &#39;</span> <span class="nv">$file</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-14-parsing-a-mailbox">
+<h2>Exemple 14. Parsing a mailbox<a class="headerlink" href="#exemple-14-parsing-a-mailbox" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c">#  Script by Francisco Lobo,</span>
+<span class="c">#+ and slightly modified and commented by ABS Guide author.</span>
+<span class="c">#  Used in ABS Guide with permission. (Thank you!)</span>
+
+<span class="c"># This script will not run under Bash versions -lt 3.0.</span>
+
+
+<span class="nv">E_MISSING_ARG</span><span class="o">=</span>87
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: </span><span class="nv">$0</span><span class="s2"> mailbox-file&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_MISSING_ARG</span>
+<span class="k">fi</span>
+
+mbox_grep<span class="o">()</span>  <span class="c"># Parse mailbox file.</span>
+<span class="o">{</span>
+    <span class="nb">declare</span> -i <span class="nv">body</span><span class="o">=</span><span class="m">0</span> <span class="nv">match</span><span class="o">=</span>0
+    <span class="nb">declare</span> -a date sender
+    <span class="nb">declare </span>mail header value
+
+
+    <span class="k">while</span> <span class="nv">IFS</span><span class="o">=</span> <span class="nb">read</span> -r mail
+<span class="c">#         ^^^^                 Reset $IFS.</span>
+<span class="c">#  Otherwise &quot;read&quot; will strip leading &amp; trailing space from its input.</span>
+
+   <span class="k">do</span>
+       <span class="k">if</span> <span class="o">[[</span> <span class="nv">$mail</span> <span class="o">=</span>~ ^From  <span class="o">]]</span>   <span class="c"># Match &quot;From&quot; field in message.</span>
+       <span class="k">then</span>
+          <span class="o">((</span> <span class="nv">body</span>  <span class="o">=</span> <span class="m">0</span> <span class="o">))</span>           <span class="c"># &quot;Zero out&quot; variables.</span>
+          <span class="o">((</span> <span class="nv">match</span> <span class="o">=</span> <span class="m">0</span> <span class="o">))</span>
+          <span class="nb">unset </span>date
+
+       <span class="k">elif</span> <span class="o">((</span> body <span class="o">))</span>
+       <span class="k">then</span>
+            <span class="o">((</span> match <span class="o">))</span>
+            <span class="c">#  echo &quot;$mail&quot;</span>
+            <span class="c">#  Uncomment above line if you want entire body</span>
+            <span class="c">#+ of message to display.</span>
+
+   <span class="k">elif</span> <span class="o">[[</span> <span class="nv">$mail</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+      <span class="nv">IFS</span><span class="o">=</span>: <span class="nb">read</span> -r header value <span class="o">&lt;&lt;&lt;</span> <span class="s2">&quot;</span><span class="nv">$mail</span><span class="s2">&quot;</span>
+      <span class="c">#                          ^^^  &quot;here string&quot;</span>
+
+      <span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$header</span><span class="s2">&quot;</span> in
+      <span class="o">[</span>Ff<span class="o">][</span>Rr<span class="o">][</span>Oo<span class="o">][</span>Mm<span class="o">]</span> <span class="o">)</span> <span class="o">[[</span> <span class="nv">$value</span> <span class="o">=</span>~ <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="o">((</span> match++ <span class="o">))</span> <span class="p">;;</span>
+      <span class="c"># Match &quot;From&quot; line.</span>
+      <span class="o">[</span>Dd<span class="o">][</span>Aa<span class="o">][</span>Tt<span class="o">][</span>Ee<span class="o">]</span> <span class="o">)</span> <span class="nb">read</span> -r -a date <span class="o">&lt;&lt;&lt;</span> <span class="s2">&quot;</span><span class="nv">$value</span><span class="s2">&quot;</span> <span class="p">;;</span>
+      <span class="c">#                                  ^^^</span>
+      <span class="c"># Match &quot;Date&quot; line.</span>
+      <span class="o">[</span>Rr<span class="o">][</span>Ee<span class="o">][</span>Cc<span class="o">][</span>Ee<span class="o">][</span>Ii<span class="o">][</span>Vv<span class="o">][</span>Ee<span class="o">][</span>Dd<span class="o">]</span> <span class="o">)</span> <span class="nb">read</span> -r -a sender <span class="o">&lt;&lt;&lt;</span> <span class="s2">&quot;</span><span class="nv">$value</span><span class="s2">&quot;</span> <span class="p">;;</span>
+      <span class="c">#                                                    ^^^</span>
+      <span class="c"># Match IP Address (may be spoofed).</span>
+      <span class="k">esac</span>
+
+       <span class="k">else</span>
+          <span class="o">((</span> body++ <span class="o">))</span>
+          <span class="o">((</span> match  <span class="o">))</span> <span class="o">&amp;&amp;</span>
+          <span class="nb">echo</span> <span class="s2">&quot;MESSAGE </span><span class="si">${</span><span class="nv">date</span><span class="p">:+of: </span><span class="si">${</span><span class="nv">date</span><span class="p">[*]</span><span class="si">}</span><span class="p"> </span><span class="si">}</span><span class="s2">&quot;</span>
+       <span class="c">#    Entire $date array             ^</span>
+          <span class="nb">echo</span> <span class="s2">&quot;IP address of sender: </span><span class="si">${</span><span class="nv">sender</span><span class="p">[1]</span><span class="si">}</span><span class="s2">&quot;</span>
+       <span class="c">#    Second field of &quot;Received&quot; line    ^</span>
+
+       <span class="k">fi</span>
+
+
+    <span class="k">done</span> &lt; <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="c"># Redirect stdout of file into loop.</span>
+<span class="o">}</span>
+
+
+mbox_grep <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>  <span class="c"># Send mailbox file to function.</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c"># Exercises:</span>
+<span class="c"># ---------</span>
+<span class="c"># 1) Break the single function, above, into multiple functions,</span>
+<span class="c">#+   for the sake of readability.</span>
+<span class="c"># 2) Add additional parsing to the script, checking for various keywords.</span>
+
+
+
+<span class="nv">$ </span>mailbox_grep.sh scam_mail
+  MESSAGE of Thu, <span class="m">5</span> Jan <span class="m">2006</span> 08:00:56 -0500 <span class="o">(</span>EST<span class="o">)</span>
+  IP address of sender: 196.3.62.4
+</pre></div>
+</div>
+<p>Exercise: Find other uses for <em>here strings</em> , such as, for example,
+<a class="reference external" href="mathc.html#GOLDENRATIO">feeding input to *dc*</a> .</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

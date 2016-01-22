@@ -1,0 +1,370 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1. Perquè programar en Shell &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="Part 1. Introducció" href="part1.html"/>
+        <link rel="next" title="2. Comencem amb el Sha-Bang" href="sha-bang.html"/>
+        <link rel="prev" title="Part 1. Introducció" href="part1.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="part1.html">Part 1. Introducció</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">1. Perquè programar en Shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sha-bang.html">2. Comencem amb el Sha-Bang</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part1.html">Part 1. Introducció</a> &raquo;</li>
+      
+    <li>1. Perquè programar en Shell</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="perque-programar-en-shell">
+<h1>1. Perquè programar en Shell<a class="headerlink" href="#perque-programar-en-shell" title="Link permanent a aquest títol">¶</a></h1>
+<blockquote class="epigraph">
+<div><p>No programming language is perfect. There is not even a single best
+language; there are only languages well suited or perhaps poorly suited
+for particular purposes.</p>
+<p class="attribution">&mdash;Herbert Mayer</p>
+</div></blockquote>
+<p>Si tens intenció d&#8217;administrar sistemes informàtics de manera
+mínimament decent, tard o d&#8217;hora et caldrà disposar de coneixements de
+programació de guions. Fins i tot, si ara ni se t&#8217;acut per a què et
+pot servir.</p>
+<p>Per exemple, quan una màquina GNU/Linux arrenca, executa els guions
+que troba a la carpeta <code class="docutils literal"><span class="pre">/etc/rc.d</span></code> per recuperar la configuració del
+sistema i arrencar els serveis. És important comprendre el detall
+d&#8217;aquests guions per a poder analitzar el comportament del sistema i,
+si es cau, modificar-lo.</p>
+<p>No és massa difícil dominar la programació de guions ja que poden ser
+escrits en seccions molt petites i només cal aprendre un conjunt força
+reduït d&#8217;opcions i operadors que siguin específics de la <em>shell</em><a class="footnote-reference" href="#builtins" id="id1">[1]</a>.</p>
+<p>La sintaxi és força simple, hom diria austera, similar a la que fem
+servir quan encadenem utilitats en una mateixa línia de la línia de
+comandes. A més, hi ha poques &#8220;regles&#8221; que defineixen el seu ús.</p>
+<p>La majoria dels guions breus solen funcionar a la primera i, depurar
+guions, fins i tot els més llargs, és trivial.</p>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p>Quan van aparèixer els primers ordinadors personals, el llenguatge
+de programació BASIC permetia que qualsevol amb una mica
+d&#8217;habilitat amb l&#8217;ordinador pogués escriure programes per aquells
+microcomputadors.</p>
+<p>Dècades més tard, el llenguatge de guions Bash permet que qualsevol
+amb un coneixement rudimentari de GNU/Linux (o UNIX), pugui també
+escriure programes en les màquines actuals.</p>
+<p class="last">Ara disposem d&#8217;ordinadors miniatura amb capacitats increïbles, com
+ara la <a class="reference external" href="http://www.raspberrypi.org/">Raspberry Pi</a>, i Bash està
+aquí per permetre explorar les possibilitats que ofereixen.</p>
+</div>
+<p>Un guió de shell (o <em>shell script</em>) permet realitzar àgilment
+prototipus d&#8217;aplicacions més complexes.  Sovint és útil disposar d&#8217;un
+subconjunt limitat de funcionalitats executant-se des d&#8217;un guió en les
+primeres fases de desenvolupament d&#8217;un projecte.  D&#8217;aquesta manera, és
+possible provar l&#8217;estructura de l&#8217;aplicació, i arreglar els errors que
+es trobin, abans de realitzar la codificació final en llenguatges com
+ara <em>C</em>, <em>C++</em>, <em>Java</em>, <a class="reference internal" href="wrapper.html"><em>Perl</em></a>, o <em>Python</em>.</p>
+<p>Els guions de shell s&#8217;inspiren que la clàssica filosofia UNIX de
+dividir tasques complexes en subtasques més simples, per després
+encadenar-les juntes de manera que resolguin la tasca complexa.</p>
+<p>Hi ha qui considera aquesta manera de resoldre els problemes, millor o
+com a mínim més estètica, que la de fer servir llenguatges tot-inclòs
+com pot ser <em>Perl</em>, que intenten servir per a tot i per a tothom, amb
+el cost de forçar a tothom a canviar la manera de pensar per a
+adaptar-te a l&#8217;eina.</p>
+<p>Segons <a class="reference internal" href="biblio.html#biblio-herb89"><span>Herbert Mayer</span></a>, <em>per què un llenguatge sigui
+útil, cal que disposi de cadenes (arrays), punters i algun mecanisme
+genèric per crear estructures de dades</em>. Amb aquests criteris, la
+programació en <em>shell</em> quedaria una mica per sota de ser &#8220;útil&#8221;. O,
+potser no...</p>
+<p>Hi ha algunes situacions en les que no voldrem fer servir guions
+de shell:</p>
+<ul class="simple">
+<li>Amb tasques que requereixin un ús intensiu de recursos, especialment
+quan la velocitat és important, com ara ordenació, càlcul de
+funcions de <em>hash</em>, recursivitat<a class="footnote-reference" href="#recursio" id="id2">[2]</a></li>
+<li>Procediments que requereixen operacions matemàtiques molt pesants,
+especialment amb aritmètica de punt flotant, càlculs de precisió
+arbitrària, o nombres complexos. En aquest cas és millor que facis
+servir <em>C</em> o <em>FORTRAN</em>.</li>
+<li>Quan cal aconseguir portabilitat (és a dir, que el programa funcioni
+en altres plataformes). En aquest cas, fes servir <em>C</em> o <em>Java</em>.</li>
+<li>Aplicacions complexes on cal una estructura de programa (comprovació
+de tipus de variables, prototipus de funcions, etc.)</li>
+<li>Aplicacions de missió crítica de les que dependrà el futur de la
+teva empresa.</li>
+<li>Situacions en les que la <em>seguretat</em> sigui important, en les que
+calgui garantir la integritat del teu sistema i protegir-lo contra
+intrusos, <em>cracking</em> i vandalisme.</li>
+<li>Quan el projecte consisteix en subcomponents amb dependències
+entrellaçades.</li>
+<li>Aplicacions que requereixin operacions extensives sobre fitxers.
+<em>Bash</em> es limita a l&#8217;accés en sèrie d&#8217;una manera particularment
+ineficient línia a línia.</li>
+<li>Si es requereix un suport nadiu a matrius (<em>arrays</em>
+multidimensionals)</li>
+<li>Quan calen estructures de dades, com ara llistes enllaçades o
+arbres.</li>
+<li>Si cal generar o manipular gràfics o interfícies gràfiques d&#8217;usuari.</li>
+<li>Si cal l&#8217;accés directe al maquinari del sistema o a perifèrics
+externs.</li>
+<li>Si cal entrada/sortida a través de <a class="reference internal" href="devref1.html"><em>sockets</em></a>.</li>
+<li>Quan cal fer servir biblioteques o accedir a codi heretat.</li>
+<li>Quan l&#8217;aplicació ha de ser de codi tancat, donat que els guions de
+shell mostren el codi obertament llegible per tothom.</li>
+</ul>
+<p>Si el teu projecte presenta alguna de les necessitats anteriors,
+planteja&#8217;t fer servir un llenguatge de programació de guions més potent (com ara <em>Perl</em>, <em>Tcl</em>, <em>Python</em>, <em>Ruby</em>) o fins i tot algun llenguatge compilat com <em>C</em>, <em>C</em>, o <em>Java</em>.
+Fins i tot en aquests casos és probable que et continuï resultant útil
+començant construir prototips de la teva aplicació amb shell script.</p>
+<p>En aquest llibre farem servir <em>Bash</em>, acrònim<a class="footnote-reference" href="#acronim" id="id3">[3]</a> de &#8220;Bourne-Again shell&#8221; i un joc de paraules sobre el ja clàssic &#8220;Bourne Shell&#8221; de Stephen Bourne.
+Bash s&#8217;ha convertit en l&#8217;estàndard <em>de facto</em> de la programació de
+guions a la majoria de les distribucions i varietats UNIX/Linux.
+Molts dels elements que cobreix aquest llibre també funcionen amb
+altres shells, com ara <em>Korn Shell</em>, de la que Bash hereta part de les
+seves característiques<a class="footnote-reference" href="#kornshell" id="id4">[4]</a>, de la mateixa manera que <em>C
+Shell</em> i les seves variants.
+Cal tenir present que la programació en <em>C Shell</em> no està recomanada
+per problemes inherents, tal i com va ser indicat a una <a class="reference external" href="http://www.faqs.org/faqs/unix-faq/shell/csh-whynot/">entrada a
+Usenet</a> del Tom
+Christiansen d&#8217;octubre de 1993</p>
+<p>A continuació trobareu un tutorial de programació de guions (o shell
+scripting). Es recolça fortament en exemples a l&#8217;hora d&#8217;il·lustrar les
+diferents propietats de la shell. Els guions d&#8217;exemple funcionen (han
+estat provats en la messura del possible) i alguns d&#8217;ells poden
+resultar fins i tot útils per resoldre problemes reals.
+Pots jugar amb el codi dels exemples que apareixen en fitxers amb
+extensió .sh o .bash<a class="footnote-reference" href="#extensio" id="id5">[5]</a>. Simplement, descarrega el
+fitxer de <a class="reference external" href="http://bash.deta.in/abs-guide-latest.tar.bz2">arxiu</a>, o si no està disponible, copia el codi directament d&#8217;aquest llibre i enganxa&#8217;l a un fitxer, dóna-li permissos d&#8217;execució (<code class="docutils literal"><span class="pre">chmod</span> <span class="pre">u+rx</span> <span class="pre">scriptname</span></code>) i
+executa&#8217;l per veure que passa.
+Tingués en comptes que alguns guions inclouen característiques abans
+que siguin explicades al llibre, cosa que pot suposar-te una il·luminació
+momentània del que trobaràs més endavant.</p>
+<p>A menys que s&#8217;indiqui el contrari, <a class="reference external" href="mailto:thegrendel&#46;abs&#37;&#52;&#48;gmail&#46;com">l'autor</a> d&#8217;aquest llibre va escriure cada guió que hi apareix.</p>
+<blockquote class="epigraph">
+<div><p><em>His countenance was bold and bashed not.</em></p>
+<p class="attribution">&mdash;Edmund Spenser</p>
+</div></blockquote>
+<p class="rubric">Anotacions</p>
+<table class="docutils footnote" frame="void" id="builtins" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>A aquests operadors i funcions que incorpora la <em>shell</em>, els coneixem com <a class="reference internal" href="internal.html"><em>builtins</em></a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="recursio" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><p class="first">És possible realitzar recursivitat en Bash. Per
+exemple, es factible definir una funció que es crida a si mateixa.
+Sovint, però, el resultat sol executar-se molt lentament i la seva
+implementació queda molt <em>lletja</em>.</p>
+<p class="last">Per a més detalls, consulta les seccions on es descriu recursivitat
+<a class="reference internal" href="localvar.html"><em>amb</em></a> i <a class="reference internal" href="recurnolocvar.html"><em>sense</em></a> variables
+locals.</p>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="acronim" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>Un acrònim és una paraulota composada per les inicials
+de vàries paraules, enganxades de manera que resultin en un
+travallengua. Es tracta d&#8217;una pràctica moralment corrupta i
+perniciosa que mereix ser castigada amb la severitat apropiada, com
+ara flagel·lació pública.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="kornshell" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td>Moltes de les característiques de <em>ksh88</em> i fins i tot
+algunes de la versió actualitzada <em>ksh93</em> han estat incloses en
+Bash.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="extensio" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td>Per convenció, els guions d&#8217;usuari compatibles amb
+Bourne Shell, generalment es guarden en fitxers amb extensió .sh.
+En canvi, els guions de sistema (com ara els que trobaràs a
+/etc/rc?.d) no necessàriament segueixen aquesta nomenclatura.</td></tr>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sha-bang.html" class="btn btn-neutral float-right" title="2. Comencem amb el Sha-Bang" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="part1.html" class="btn btn-neutral" title="Part 1. Introducció"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

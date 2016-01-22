@@ -1,0 +1,1048 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Chapter 19. Document immediat &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Part 5. Advanced Topics" href="part5.html"/>
+        <link rel="next" title="XXX Chapter 20. I/O Redirection" href="io-redirection.html"/>
+        <link rel="prev" title="XXX Chapter 18. Regular Expressions" href="regexp.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="regexp.html">XXX Chapter 18. Regular Expressions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  Chapter 19. Document immediat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io-redirection.html">XXX  Chapter 20. I/O Redirection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subshells.html">XXX  Chapter 21. Subshells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restricted-sh.html">XXX  Chapter 22. Restricted Shells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process-sub.html">XXX  Chapter 23. Process Substitution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">XXX  Chapter 24. Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aliases.html">XXX Capítol 25. Àlies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="list-cons.html">XXX  Chapter 26. List Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrays.html">XXX  Chapter 27. Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ivr.html">XXX  Chapter 28. Indirect References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networkprogramming.html">XXX  Chapter 30. Network Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zeros.html">XXX  Chapter 31. Of Zeros and Nulls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">XXX  Chapter 32. Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html">XXX  Chapter 33. Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gotchas.html">XXX Chapter 34. Gotchas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scrstyle.html">XXX  Chapter 35. Scripting With Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unofficialst.html">XXX  35.1. Unofficial Shell Scripting Stylesheet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellany.html">XXX  Chapter 36. Miscellany</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash2.html">XXX  Chapter 37. Bash, versions 2, 3, and 4</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part5.html">XXX Part 5. Advanced Topics</a> &raquo;</li>
+      
+    <li>XXX  Chapter 19. Document immediat</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-chapter-19-document-immediat">
+<h1>XXX  Chapter 19. Document immediat<a class="headerlink" href="#xxx-chapter-19-document-immediat" title="Link permanent a aquest títol">¶</a></h1>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a></p>
+<p><em>Here and now, boys.</em></p>
+<p><em>&#8211;Aldous Huxley, *Island*</em></p>
+<p>Un <em>document immediat</em> (o <em>here document</em>) és un bloc de codi de propòsit especial que fa servir una
+mena de <a class="reference internal" href="io-redirection.html"><em>redirecció d&#8217;entrada-sortida</em></a> per afegir una llista de comandes a un
+programa interactiu o una altra comanda, com ara <a class="reference internal" href="communications.html"><em>ftp</em></a>, <a class="reference internal" href="basic.html"><em>cat</em></a> o
+l&#8217;editor de text <code class="docutils literal"><span class="pre">ex</span></code>.</p>
+<div class="highlight-sh"><div class="highlight"><pre>COMMAND <span class="s">&lt;&lt;InputComesFromHERE</span>
+<span class="s">...</span>
+<span class="s">...</span>
+<span class="s">...</span>
+<span class="s">InputComesFromHERE</span>
+</pre></div>
+</div>
+<p>A <em>limit string</em> delineates (frames) the command list. The special
+symbol &lt;&lt; precedes the limit string. This has the effect of redirecting
+the output of a command block into the ``      stdin     `` of the
+program or command. It is similar to
+``             interactive-program &lt;     command-file           `` ,
+where ``      command-file     `` contains</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">command</span> <span class="c">#1</span>
+<span class="nb">command</span> <span class="c">#2</span>
+...
+</pre></div>
+</div>
+<p>The <em>here document</em> equivalent looks like this:</p>
+<div class="highlight-sh"><div class="highlight"><pre>interactive-program <span class="s">&lt;&lt;LimitString</span>
+<span class="s">command #1</span>
+<span class="s">command #2</span>
+<span class="s">...</span>
+<span class="s">LimitString</span>
+</pre></div>
+</div>
+<p>Choose a <em>limit string</em> sufficiently unusual that it will not occur
+anywhere in the command list and confuse matters.</p>
+<p>Note that <em>here documents</em> may sometimes be used to good effect with
+non-interactive utilities and commands, such as, for example,
+<a class="reference external" href="system.html#WALLREF">wall</a> .</p>
+<div class="section" id="exemple-1-broadcast-envia-un-missatge-a-tothom-que-estigui-connectat">
+<h2>Exemple 1. <em>broadcast</em>: envia un missatge a tothom que estigui connectat<a class="headerlink" href="#exemple-1-broadcast-envia-un-missatge-a-tothom-que-estigui-connectat" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+wall <span class="s">&lt;&lt;zzz23EndOfMessagezzz23</span>
+<span class="s">E-mail your noontime orders for pizza to the system administrator.</span>
+<span class="s">    (Add an extra dollar for anchovy or mushroom topping.)</span>
+<span class="s"># Additional message text goes here.</span>
+<span class="s"># Note: &#39;wall&#39; prints comment lines.</span>
+<span class="s">zzz23EndOfMessagezzz23</span>
+
+<span class="c"># Could have been done more efficiently by</span>
+<span class="c">#         wall &lt;message-file</span>
+<span class="c">#  However, embedding the message template in a script</span>
+<span class="c">#+ is a quick-and-dirty one-off solution.</span>
+
+<span class="nb">exit</span>
+</pre></div>
+</div>
+<p>Even such unlikely candidates as the <em>vi</em> text editor lend themselves to
+<em>here documents</em> .</p>
+</div>
+<div class="section" id="exemple-2-dummyfile-creates-a-2-line-dummy-file">
+<h2>Exemple 2. <em>dummyfile</em> : Creates a 2-line dummy file<a class="headerlink" href="#exemple-2-dummyfile-creates-a-2-line-dummy-file" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c"># Noninteractive use of &#39;vi&#39; to edit a file.</span>
+<span class="c"># Emulates &#39;sed&#39;.</span>
+
+<span class="nv">E_BADARGS</span><span class="o">=</span>85
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` filename&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+
+<span class="nv">TARGETFILE</span><span class="o">=</span><span class="nv">$1</span>
+
+<span class="c"># Insert 2 lines in file, then save.</span>
+<span class="c">#--------Begin here document-----------#</span>
+vi <span class="nv">$TARGETFILE</span> <span class="s">&lt;&lt;x23LimitStringx23</span>
+<span class="s">i</span>
+<span class="s">This is line 1 of the example file.</span>
+<span class="s">This is line 2 of the example file.</span>
+<span class="s">^[</span>
+<span class="s">ZZ</span>
+<span class="s">x23LimitStringx23</span>
+<span class="c">#----------End here document-----------#</span>
+
+<span class="c">#  Note that ^[ above is a literal escape</span>
+<span class="c">#+ typed by Control-V &lt;Esc&gt;.</span>
+
+<span class="c">#  Bram Moolenaar points out that this may not work with &#39;vim&#39;</span>
+<span class="c">#+ because of possible problems with terminal interaction.</span>
+
+<span class="nb">exit</span>
+</pre></div>
+</div>
+<p>The above script could just as effectively have been implemented with
+<strong>ex</strong> , rather than <strong>vi</strong> . <em>Here documents</em> containing a list of
+<strong>ex</strong> commands are common enough to form their own category, known as
+<em>ex scripts</em> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c">#  Replace all instances of &quot;Smith&quot; with &quot;Jones&quot;</span>
+<span class="c">#+ in files with a &quot;.txt&quot; filename suffix.</span>
+
+<span class="nv">ORIGINAL</span><span class="o">=</span>Smith
+<span class="nv">REPLACEMENT</span><span class="o">=</span>Jones
+
+<span class="k">for</span> word in <span class="k">$(</span>fgrep -l <span class="nv">$ORIGINAL</span> *.txt<span class="k">)</span>
+<span class="k">do</span>
+  <span class="c"># -------------------------------------</span>
+  ex <span class="nv">$word</span> <span class="s">&lt;&lt;EOF</span>
+<span class="s">  :%s/$ORIGINAL/$REPLACEMENT/g</span>
+<span class="s">  :wq</span>
+<span class="s">EOF</span>
+  <span class="c"># :%s is the &quot;ex&quot; substitution command.</span>
+  <span class="c"># :wq is write-and-quit.</span>
+  <span class="c"># -------------------------------------</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<p>Analogous to &#8220;ex scripts&#8221; are <em>cat scripts</em> .</p>
+</div>
+<div class="section" id="exemple-3-multi-line-message-using-cat">
+<h2>Exemple 3. Multi-line message using <em>cat</em><a class="headerlink" href="#exemple-3-multi-line-message-using-cat" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c">#  &#39;echo&#39; is fine for printing single line messages,</span>
+<span class="c">#+  but somewhat problematic for for message blocks.</span>
+<span class="c">#   A &#39;cat&#39; here document overcomes this limitation.</span>
+
+cat <span class="s">&lt;&lt;End-of-message</span>
+<span class="s">-------------------------------------</span>
+<span class="s">This is line 1 of the message.</span>
+<span class="s">This is line 2 of the message.</span>
+<span class="s">This is line 3 of the message.</span>
+<span class="s">This is line 4 of the message.</span>
+<span class="s">This is the last line of the message.</span>
+<span class="s">-------------------------------------</span>
+<span class="s">End</span>-of-message
+
+<span class="c">#  Replacing line 7, above, with</span>
+<span class="c">#+   cat &gt; $Newfile &lt;&lt;End-of-message</span>
+<span class="c">#+       ^^^^^^^^^^</span>
+<span class="c">#+ writes the output to the file $Newfile, rather than to stdout.</span>
+
+<span class="nb">exit </span>0
+
+
+<span class="c">#--------------------------------------------</span>
+<span class="c"># Code below disabled, due to &quot;exit 0&quot; above.</span>
+
+<span class="c"># S.C. points out that the following also works.</span>
+<span class="nb">echo</span> <span class="s2">&quot;-------------------------------------</span>
+<span class="s2">This is line 1 of the message.</span>
+<span class="s2">This is line 2 of the message.</span>
+<span class="s2">This is line 3 of the message.</span>
+<span class="s2">This is line 4 of the message.</span>
+<span class="s2">This is the last line of the message.</span>
+<span class="s2">-------------------------------------&quot;</span>
+<span class="c"># However, text may not include double quotes unless they are escaped.</span>
+</pre></div>
+</div>
+<p>The ``      -     `` option to mark a here document limit string (
+``             &lt;&lt;-LimitString           `` ) suppresses leading tabs
+(but not spaces) in the output. This may be useful in making a script
+more readable.</p>
+</div>
+<div class="section" id="exemple-4-multi-line-message-with-tabs-suppressed">
+<h2>Exemple 4. Multi-line message, with tabs suppressed<a class="headerlink" href="#exemple-4-multi-line-message-with-tabs-suppressed" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Same as previous example, but...</span>
+
+<span class="c">#  The - option to a here document &lt;&lt;-</span>
+<span class="c">#+ suppresses leading tabs in the body of the document,</span>
+<span class="c">#+ but *not* spaces.</span>
+
+cat <span class="s">&lt;&lt;-ENDOFMESSAGE</span>
+<span class="s">    This is line 1 of the message.</span>
+<span class="s">    This is line 2 of the message.</span>
+<span class="s">    This is line 3 of the message.</span>
+<span class="s">    This is line 4 of the message.</span>
+<span class="s">    This is the last line of the message.</span>
+<span class="s">ENDOFMESSAGE</span>
+<span class="c"># The output of the script will be flush left.</span>
+<span class="c"># Leading tab in each line will not show.</span>
+
+<span class="c"># Above 5 lines of &quot;message&quot; prefaced by a tab, not spaces.</span>
+<span class="c"># Spaces not affected by   &lt;&lt;-  .</span>
+
+<span class="c"># Note that this option has no effect on *embedded* tabs.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>A <em>here document</em> supports parameter and command substitution. It is
+therefore possible to pass different parameters to the body of the here
+document, changing its output accordingly.</p>
+</div>
+<div class="section" id="exemple-5-here-document-with-replaceable-parameters">
+<h2>Exemple 5. Here document with replaceable parameters<a class="headerlink" href="#exemple-5-here-document-with-replaceable-parameters" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Another &#39;cat&#39; here document, using parameter substitution.</span>
+
+<span class="c"># Try it with no command-line parameters,   ./scriptname</span>
+<span class="c"># Try it with one command-line parameter,   ./scriptname Mortimer</span>
+<span class="c"># Try it with one two-word quoted command-line parameter,</span>
+<span class="c">#                           ./scriptname &quot;Mortimer Jones&quot;</span>
+
+<span class="nv">CMDLINEPARAM</span><span class="o">=</span><span class="m">1</span>     <span class="c">#  Expect at least command-line parameter.</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-ge <span class="nv">$CMDLINEPARAM</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nv">NAME</span><span class="o">=</span><span class="nv">$1</span>          <span class="c">#  If more than one command-line param,</span>
+                   <span class="c">#+ then just take the first.</span>
+<span class="k">else</span>
+  <span class="nv">NAME</span><span class="o">=</span><span class="s2">&quot;John Doe&quot;</span>  <span class="c">#  Default, if no command-line parameter.</span>
+<span class="k">fi</span>
+
+<span class="nv">RESPONDENT</span><span class="o">=</span><span class="s2">&quot;the author of this fine script&quot;</span>
+
+
+cat <span class="s">&lt;&lt;Endofmessage</span>
+
+<span class="s">Hello, there, $NAME.</span>
+<span class="s">Greetings to you, $NAME, from $RESPONDENT.</span>
+
+<span class="s"># This comment shows up in the output (why?).</span>
+
+<span class="s">Endofmessage</span>
+
+<span class="c"># Note that the blank lines show up in the output.</span>
+<span class="c"># So does the comment.</span>
+
+<span class="nb">exit</span>
+</pre></div>
+</div>
+<p>This is a useful script containing a <em>here document</em> with parameter
+substitution.</p>
+</div>
+<div class="section" id="exemple-6-upload-a-file-pair-to-sunsite-incoming-directory">
+<h2>Exemple 6. Upload a file pair to <em>Sunsite</em> incoming directory<a class="headerlink" href="#exemple-6-upload-a-file-pair-to-sunsite-incoming-directory" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># upload.sh</span>
+
+<span class="c">#  Upload file pair (Filename.lsm, Filename.tar.gz)</span>
+<span class="c">#+ to incoming directory at Sunsite/UNC (ibiblio.org).</span>
+<span class="c">#  Filename.tar.gz is the tarball itself.</span>
+<span class="c">#  Filename.lsm is the descriptor file.</span>
+<span class="c">#  Sunsite requires &quot;lsm&quot; file, otherwise will bounce contributions.</span>
+
+
+<span class="nv">E_ARGERROR</span><span class="o">=</span>85
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` Filename-to-upload&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_ARGERROR</span>
+<span class="k">fi</span>
+
+
+<span class="nv">Filename</span><span class="o">=</span><span class="sb">`</span>basename <span class="nv">$1</span><span class="sb">`</span>           <span class="c"># Strips pathname out of file name.</span>
+
+<span class="nv">Server</span><span class="o">=</span><span class="s2">&quot;ibiblio.org&quot;</span>
+<span class="nv">Directory</span><span class="o">=</span><span class="s2">&quot;/incoming/Linux&quot;</span>
+<span class="c">#  These need not be hard-coded into script,</span>
+<span class="c">#+ but may instead be changed to command-line argument.</span>
+
+<span class="nv">Password</span><span class="o">=</span><span class="s2">&quot;your.e-mail.address&quot;</span>   <span class="c"># Change above to suit.</span>
+
+ftp -n <span class="nv">$Server</span> <span class="s">&lt;&lt;End-Of-Session</span>
+<span class="s"># -n option disables auto-logon</span>
+
+<span class="s">user anonymous &quot;$Password&quot;       #  If this doesn&#39;t work, then try:</span>
+<span class="s">                                 #  quote user anonymous &quot;$Password&quot;</span>
+<span class="s">binary</span>
+<span class="s">bell                             # Ring &#39;bell&#39; after each file transfer.</span>
+<span class="s">cd $Directory</span>
+<span class="s">put &quot;$Filename.lsm&quot;</span>
+<span class="s">put &quot;$Filename.tar.gz&quot;</span>
+<span class="s">bye</span>
+<span class="s">End</span>-Of-Session
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Quoting or escaping the &#8220;limit string&#8221; at the head of a here document
+disables parameter substitution within its body. The reason for this is
+that <em>quoting/escaping the limit string</em> effectively
+<a class="reference external" href="escapingsection.html#ESCP">escapes</a> the $ , ` , and \ <a class="reference external" href="special-chars.html#SCHARLIST">special
+characters</a> , and causes them to be
+interpreted literally. (Thank you, Allen Halsey, for pointing this out.)</p>
+</div>
+<div class="section" id="exemple-7-parameter-substitution-turned-off">
+<h2>Exemple 7. Parameter substitution turned off<a class="headerlink" href="#exemple-7-parameter-substitution-turned-off" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c">#  A &#39;cat&#39; here-document, but with parameter substitution disabled.</span>
+
+<span class="nv">NAME</span><span class="o">=</span><span class="s2">&quot;John Doe&quot;</span>
+<span class="nv">RESPONDENT</span><span class="o">=</span><span class="s2">&quot;the author of this fine script&quot;</span>
+
+cat <span class="s">&lt;&lt;&#39;Endofmessage&#39;</span>
+
+<span class="s">Hello, there, $NAME.</span>
+<span class="s">Greetings to you, $NAME, from $RESPONDENT.</span>
+
+<span class="s">Endofmessage</span>
+
+<span class="c">#   No parameter substitution when the &quot;limit string&quot; is quoted or escaped.</span>
+<span class="c">#   Either of the following at the head of the here document would have</span>
+<span class="c">#+  the same effect.</span>
+<span class="c">#   cat &lt;&lt;&quot;Endofmessage&quot;</span>
+<span class="c">#   cat &lt;&lt;\Endofmessage</span>
+
+
+
+<span class="c">#   And, likewise:</span>
+
+cat &lt;&lt;<span class="s2">&quot;SpecialCharTest&quot;</span>
+
+Directory listing would follow
+<span class="k">if</span> limit string were not quoted.
+<span class="sb">`</span>ls -l<span class="sb">`</span>
+
+Arithmetic expansion would take place
+<span class="k">if</span> limit string were not quoted.
+<span class="k">$((</span><span class="m">5</span> <span class="o">+</span> <span class="m">3</span><span class="k">))</span>
+
+A a single backslash would <span class="nb">echo</span>
+<span class="k">if</span> limit string were not quoted.
+<span class="se">\\</span>
+
+SpecialCharTest
+
+
+<span class="nb">exit</span>
+</pre></div>
+</div>
+<p>Disabling parameter substitution permits outputting literal text.
+Generating scripts or even program code is one use for this.</p>
+</div>
+<div class="section" id="exemple-8-a-script-that-generates-another-script">
+<h2>Exemple 8. A script that generates another script<a class="headerlink" href="#exemple-8-a-script-that-generates-another-script" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># generate-script.sh</span>
+<span class="c"># Based on an idea by Albert Reiner.</span>
+
+<span class="nv">OUTFILE</span><span class="o">=</span>generated.sh         <span class="c"># Name of the file to generate.</span>
+
+
+<span class="c"># -----------------------------------------------------------</span>
+<span class="c"># &#39;Here document containing the body of the generated script.</span>
+<span class="o">(</span>
+cat <span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">#!/bin/bash</span>
+
+<span class="s">echo &quot;This is a generated shell script.&quot;</span>
+<span class="s">#  Note that since we are inside a subshell,</span>
+<span class="s">#+ we can&#39;t access variables in the &quot;outside&quot; script.</span>
+
+<span class="s">echo &quot;Generated file will be named: $OUTFILE&quot;</span>
+<span class="s">#  Above line will not work as normally expected</span>
+<span class="s">#+ because parameter expansion has been disabled.</span>
+<span class="s">#  Instead, the result is literal output.</span>
+
+<span class="s">a=7</span>
+<span class="s">b=3</span>
+
+<span class="s">let &quot;c = $a * $b&quot;</span>
+<span class="s">echo &quot;c = $c&quot;</span>
+
+<span class="s">exit 0</span>
+<span class="s">EOF</span>
+<span class="o">)</span> &gt; <span class="nv">$OUTFILE</span>
+<span class="c"># -----------------------------------------------------------</span>
+
+<span class="c">#  Quoting the &#39;limit string&#39; prevents variable expansion</span>
+<span class="c">#+ within the body of the above &#39;here document.&#39;</span>
+<span class="c">#  This permits outputting literal strings in the output file.</span>
+
+<span class="k">if</span> <span class="o">[</span> -f <span class="s2">&quot;</span><span class="nv">$OUTFILE</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  chmod <span class="m">755</span> <span class="nv">$OUTFILE</span>
+  <span class="c"># Make the generated file executable.</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Problem in creating file: \&quot;</span><span class="nv">$OUTFILE</span><span class="s2">\&quot;&quot;</span>
+<span class="k">fi</span>
+
+<span class="c">#  This method also works for generating</span>
+<span class="c">#+ C programs, Perl programs, Python programs, Makefiles,</span>
+<span class="c">#+ and the like.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>It is possible to set a variable from the output of a here document.
+This is actually a devious form of <a class="reference external" href="commandsub.html#COMMANDSUBREF">command
+substitution</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">variable</span><span class="o">=</span><span class="k">$(</span>cat <span class="s">&lt;&lt;SETVAR</span>
+<span class="s">This variable</span>
+<span class="s">runs over multiple lines.</span>
+<span class="s">SETVAR</span>
+<span class="k">)</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$variable</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>A here document can supply input to a function in the same script.</p>
+</div>
+<div class="section" id="exemple-9-here-documents-and-functions">
+<h2>Exemple 9. Here documents and functions<a class="headerlink" href="#exemple-9-here-documents-and-functions" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># here-function.sh</span>
+
+GetPersonalData <span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">read </span>firstname
+  <span class="nb">read </span>lastname
+  <span class="nb">read </span>address
+  <span class="nb">read </span>city
+  <span class="nb">read </span>state
+  <span class="nb">read </span>zipcode
+<span class="o">}</span> <span class="c"># This certainly appears to be an interactive function, but . . .</span>
+
+
+<span class="c"># Supply input to the above function.</span>
+GetPersonalData <span class="s">&lt;&lt;RECORD001</span>
+<span class="s">Bozo</span>
+<span class="s">Bozeman</span>
+<span class="s">2726 Nondescript Dr.</span>
+<span class="s">Bozeman</span>
+<span class="s">MT</span>
+<span class="s">21226</span>
+<span class="s">RECORD001</span>
+
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$firstname</span><span class="s2"> </span><span class="nv">$lastname</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$address</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$city</span><span class="s2">, </span><span class="nv">$state</span><span class="s2"> </span><span class="nv">$zipcode</span><span class="s2">&quot;</span>
+<span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>It is possible to use : as a dummy command accepting output from a here
+document. This, in effect, creates an &#8220;anonymous&#8221; here document.</p>
+</div>
+<div class="section" id="exemple-10-here-document-anonim">
+<span id="heredocs-anonim"></span><h2>Exemple 10. <em>Here Document</em> anònim<a class="headerlink" href="#exemple-10-here-document-anonim" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+: <span class="s">&lt;&lt;TESTVARIABLES</span>
+<span class="s">${HOSTNAME?}${USER?}${MAIL?}  # Print error message if one of the variables not set.</span>
+<span class="s">TESTVARIABLES</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+<p><a href="#id3"><span class="problematic" id="id4">|</span></a>Tip</p>
+<p>A variation of the above technique permits &#8220;commenting out&#8221; blocks of
+code.</p>
+</div>
+<div class="section" id="exemple-11-commenting-out-a-block-of-code">
+<h2>Exemple 11. Commenting out a block of code<a class="headerlink" href="#exemple-11-commenting-out-a-block-of-code" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre>#!/bin/bash
+# commentblock.sh
+
+: &lt;&lt;COMMENTBLOCK
+echo &quot;This line will not echo.&quot;
+This is a comment line missing the &quot;#&quot; prefix.
+This is another comment line missing the &quot;#&quot; prefix.
+
+&amp;*@!!++=
+The above line will cause no error message,
+because the Bash interpreter will ignore it.
+COMMENTBLOCK
+
+echo &quot;Exit value of above \&quot;COMMENTBLOCK\&quot; is $?.&quot;   # 0
+# No error shown.
+echo
+
+
+#  The above technique also comes in useful for commenting out
+#+ a block of working code for debugging purposes.
+#  This saves having to put a &quot;#&quot; at the beginning of each line,
+#+ then having to go back and delete each &quot;#&quot; later.
+#  Note that the use of of colon, above, is optional.
+
+echo &quot;Just before commented-out code block.&quot;
+#  The lines of code between the double-dashed lines will not execute.
+#  ===================================================================
+: &lt;&lt;DEBUGXXX
+for file in *
+do
+ cat &quot;$file&quot;
+done
+DEBUGXXX
+#  ===================================================================
+echo &quot;Just after commented-out code block.&quot;
+
+exit 0
+
+
+
+######################################################################
+#  Note, however, that if a bracketed variable is contained within
+#+ the commented-out code block,
+#+ then this could cause problems.
+#  for example:
+
+
+#/!/bin/bash
+
+  : &lt;&lt;COMMENTBLOCK
+  echo &quot;This line will not echo.&quot;
+  &amp;*@!!++=
+  ${foo_bar_bazz?}
+  $(rm -rf /tmp/foobar/)
+  $(touch my_build_directory/cups/Makefile)
+COMMENTBLOCK
+
+
+$ sh commented-bad.sh
+commented-bad.sh: line 3: foo_bar_bazz: parameter null or not set
+
+# The remedy for this is to strong-quote the &#39;COMMENTBLOCK&#39; in line 49, above.
+
+  : &lt;&lt;&#39;COMMENTBLOCK&#39;
+
+# Thank you, Kurt Pfeifle, for pointing this out.
+</pre></div>
+</div>
+<p><a href="#id5"><span class="problematic" id="id6">|</span></a>Tip</p>
+<p>Yet another twist of this nifty trick makes &#8220;self-documenting&#8221; scripts
+possible.</p>
+</div>
+<div class="section" id="exemple-12-a-self-documenting-script">
+<h2>Exemple 12. A self-documenting script<a class="headerlink" href="#exemple-12-a-self-documenting-script" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># self-document.sh: self-documenting script</span>
+<span class="c"># Modification of &quot;colm.sh&quot;.</span>
+
+<span class="nv">DOC_REQUEST</span><span class="o">=</span>70
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;-h&quot;</span>  -o <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;--help&quot;</span> <span class="o">]</span>     <span class="c"># Request help.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;Usage: </span><span class="nv">$0</span><span class="s2"> [directory-name]&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+<span class="nb">  </span>sed --silent -e <span class="s1">&#39;/DOCUMENTATIONXX$/,/^DOCUMENTATIONXX$/p&#39;</span> <span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span>
+  sed -e <span class="s1">&#39;/DOCUMENTATIONXX$/d&#39;</span><span class="p">;</span> <span class="nb">exit</span> <span class="nv">$DOC_REQUEST</span><span class="p">;</span> <span class="k">fi</span>
+
+
+: <span class="s">&lt;&lt;DOCUMENTATIONXX</span>
+<span class="s">List the statistics of a specified directory in tabular format.</span>
+<span class="s">---------------------------------------------------------------</span>
+<span class="s">The command-line parameter gives the directory to be listed.</span>
+<span class="s">If no directory specified or directory specified cannot be read,</span>
+<span class="s">then list the current working directory.</span>
+
+<span class="s">DOCUMENTATIONXX</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> -o ! -r <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nv">directory</span><span class="o">=</span>.
+<span class="k">else</span>
+  <span class="nv">directory</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Listing of &quot;</span><span class="nv">$directory</span><span class="s2">&quot;:&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+<span class="o">(</span><span class="nb">printf</span> <span class="s2">&quot;PERMISSIONS LINKS OWNER GROUP SIZE MONTH DAY HH:MM PROG-NAME\n&quot;</span> <span class="se">\</span>
+<span class="p">;</span> ls -l <span class="s2">&quot;</span><span class="nv">$directory</span><span class="s2">&quot;</span>sed 1d<span class="o">)</span> <span class="p">|</span> column -t
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Using a <a class="reference external" href="here-docs.html#CATSCRIPTREF">cat script</a> is an alternate way
+of accomplishing this.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">DOC_REQUEST</span><span class="o">=</span>70
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;-h&quot;</span>  -o <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;--help&quot;</span> <span class="o">]</span>     <span class="c"># Request help.</span>
+<span class="k">then</span>                                       <span class="c"># Use a &quot;cat script&quot; . . .</span>
+  cat <span class="s">&lt;&lt;DOCUMENTATIONXX</span>
+<span class="s">List the statistics of a specified directory in tabular format.</span>
+<span class="s">---------------------------------------------------------------</span>
+<span class="s">The command-line parameter gives the directory to be listed.</span>
+<span class="s">If no directory specified or directory specified cannot be read,</span>
+<span class="s">then list the current working directory.</span>
+
+<span class="s">DOCUMENTATIONXX</span>
+<span class="nb">exit</span> <span class="nv">$DOC_REQUEST</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+<p>See also <a class="reference external" href="contributed-scripts.html#ISSPAMMER2">Example A-28</a> ,
+<a class="reference external" href="contributed-scripts.html#PETALS">Example A-40</a> , <a class="reference external" href="contributed-scripts.html#QKY">Example
+A-41</a> , and <a class="reference external" href="contributed-scripts.html#NIM">Example
+A-42</a> for more examples of
+self-documenting scripts.</p>
+<p><a href="#id7"><span class="problematic" id="id8">|</span></a>Note</p>
+<p>Here documents create temporary files, but these files are deleted after
+opening and are not accessible to any other process.</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>bash$ bash -c &#39;lsof
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>-a -p $$ -d0&#8217; &lt;&lt; EOF</dt>
+<dd><blockquote class="first">
+<div>&gt; EOF
+lsof    1213 bozo</div></blockquote>
+<p class="last">0r   REG    3,5    0 30</p>
+</dd>
+</dl>
+<p>386 /tmp/t1213-0-sh (del
+eted)</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>bash -c <span class="s1">&#39;lsof -a -p $$ -d0&#39;</span> <span class="s">&lt;&lt; EOF</span>
+<span class="s">&gt; EOF</span>
+lsof    <span class="m">1213</span> bozo    0r   REG    3,5    <span class="m">0</span> <span class="m">30386</span> /tmp/t1213-0-sh <span class="o">(</span>deleted<span class="o">)</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>bash -c <span class="s1">&#39;lsof -a -p $$ -d0&#39;</span> <span class="s">&lt;&lt; EOF</span>
+<span class="s">&gt; EOF</span>
+lsof    <span class="m">1213</span> bozo    0r   REG    3,5    <span class="m">0</span> <span class="m">30386</span> /tmp/t1213-0-sh <span class="o">(</span>deleted<span class="o">)</span>
+</pre></div>
+</div>
+<p><a href="#id9"><span class="problematic" id="id10">|</span></a>Caution</p>
+<p>Some utilities will not work inside a <em>here document</em> .</p>
+<p><a href="#id11"><span class="problematic" id="id12">|</span></a>Warning</p>
+<p>The closing <em>limit string</em> , on the final line of a here document, must
+start in the <em>first</em> character position. There can be <em>no leading
+whitespace</em> . Trailing whitespace after the limit string likewise causes
+unexpected behavior. The whitespace prevents the limit string from being
+recognized. ` [1]  &lt;here-docs.html#FTN.AEN17822&gt;`__</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;--------------</span>
+</pre></div>
+</div>
+<p>&#8212;&#8212;&#8211;&#8221;</p>
+<blockquote>
+<div><blockquote>
+<div>cat &lt;&lt;LimitString
+echo &#8220;This is line 1</div></blockquote>
+<p>of the message inside t</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>he here document.&#8221;</dt>
+<dd><blockquote class="first">
+<div>echo &#8220;This is line 2</div></blockquote>
+<p class="last">of the message inside t</p>
+</dd>
+<dt>he here document.&#8221;</dt>
+<dd>echo &#8220;This is the fi</dd>
+</dl>
+<p>nal line of the message
+inside the here document
+.&#8221;</p>
+<blockquote>
+<div><blockquote>
+<div>LimitString</div></blockquote>
+<p>#^^^^Indented limit</p>
+</div></blockquote>
+<p>string. Error! This scri
+pt will not behave as ex
+pected.</p>
+<blockquote>
+<div>echo &#8220;&#8212;&#8212;&#8212;&#8212;&#8211;</div></blockquote>
+<p>&#8212;&#8212;&#8211;&#8221;</p>
+<blockquote>
+<div>#  These comments ar</div></blockquote>
+<p>e outside the &#8216;here docu
+ment&#8217;,</p>
+<blockquote>
+<div>#+ and should not ec</div></blockquote>
+<p>ho.</p>
+<blockquote>
+<div>echo &#8220;Outside the he</div></blockquote>
+<p>re document.&#8221;</p>
+<blockquote>
+<div><p>exit 0</p>
+<p>echo &#8220;This line had</p>
+</div></blockquote>
+<p>better not echo.&#8221;  # Fol
+lows an &#8216;exit&#8217; command.</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;----------------------------------------------------------------------&quot;</span>
+
+cat <span class="s">&lt;&lt;LimitString</span>
+<span class="s">echo &quot;This is line 1 of the message inside the here document.&quot;</span>
+<span class="s">echo &quot;This is line 2 of the message inside the here document.&quot;</span>
+<span class="s">echo &quot;This is the final line of the message inside the here document.&quot;</span>
+<span class="s">     LimitString</span>
+<span class="c">#^^^^Indented limit string. Error! This script will not behave as expected.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;----------------------------------------------------------------------&quot;</span>
+
+<span class="c">#  These comments are outside the &#39;here document&#39;,</span>
+<span class="c">#+ and should not echo.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Outside the here document.&quot;</span>
+
+<span class="nb">exit </span>0
+
+<span class="nb">echo</span> <span class="s2">&quot;This line had better not echo.&quot;</span>  <span class="c"># Follows an &#39;exit&#39; command.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;----------------------------------------------------------------------&quot;</span>
+
+cat <span class="s">&lt;&lt;LimitString</span>
+<span class="s">echo &quot;This is line 1 of the message inside the here document.&quot;</span>
+<span class="s">echo &quot;This is line 2 of the message inside the here document.&quot;</span>
+<span class="s">echo &quot;This is the final line of the message inside the here document.&quot;</span>
+<span class="s">     LimitString</span>
+<span class="c">#^^^^Indented limit string. Error! This script will not behave as expected.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;----------------------------------------------------------------------&quot;</span>
+
+<span class="c">#  These comments are outside the &#39;here document&#39;,</span>
+<span class="c">#+ and should not echo.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Outside the here document.&quot;</span>
+
+<span class="nb">exit </span>0
+
+<span class="nb">echo</span> <span class="s2">&quot;This line had better not echo.&quot;</span>  <span class="c"># Follows an &#39;exit&#39; command.</span>
+</pre></div>
+</div>
+<p><a href="#id13"><span class="problematic" id="id14">|</span></a>Caution</p>
+<blockquote>
+<div>Some people very cleverly use a single ! as a limit string. But, that&#8217;s</div></blockquote>
+<p>not necessarily a good idea.</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># This works.</span>
+cat &lt;&lt;!
+Hello!
+! Three more exclama
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>tions !!!</dt>
+<dd><p class="first">!</p>
+<p class="last"># But . . .
+cat &lt;&lt;!
+Hello!
+Single exclamation p</p>
+</dd>
+<dt>oint follows!</dt>
+<dd># Crashes with an er</dd>
+</dl>
+<p>ror message.</p>
+<blockquote>
+<div># However, the follo</div></blockquote>
+<dl class="docutils">
+<dt>wing will work.</dt>
+<dd>cat &lt;&lt;EOF
+Hello!
+Single exclamation p</dd>
+<dt>oint follows!</dt>
+<dd>!
+EOF
+# It&#8217;s safer to use</dd>
+</dl>
+<p>a multi-character limit
+string.</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># This works.</span>
+cat &lt;&lt;!
+Hello!
+! Three more exclamations !!!
+!
+
+
+<span class="c"># But . . .</span>
+cat &lt;&lt;!
+Hello!
+Single exclamation point follows!
+!
+!
+<span class="c"># Crashes with an error message.</span>
+
+
+<span class="c"># However, the following will work.</span>
+cat <span class="s">&lt;&lt;EOF</span>
+<span class="s">Hello!</span>
+<span class="s">Single exclamation point follows!</span>
+<span class="s">!</span>
+<span class="s">EOF</span>
+<span class="c"># It&#39;s safer to use a multi-character limit string.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># This works.</span>
+cat &lt;&lt;!
+Hello!
+! Three more exclamations !!!
+!
+
+
+<span class="c"># But . . .</span>
+cat &lt;&lt;!
+Hello!
+Single exclamation point follows!
+!
+!
+<span class="c"># Crashes with an error message.</span>
+
+
+<span class="c"># However, the following will work.</span>
+cat <span class="s">&lt;&lt;EOF</span>
+<span class="s">Hello!</span>
+<span class="s">Single exclamation point follows!</span>
+<span class="s">!</span>
+<span class="s">EOF</span>
+<span class="c"># It&#39;s safer to use a multi-character limit string.</span>
+</pre></div>
+</div>
+<p>For those tasks too complex for a <em>here document</em> , consider using the
+``             expect           `` scripting language, which was
+specifically designed for feeding input into interactive programs.</p>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;here-docs.html#AEN17822&gt;`__</p>
+<p>Except, as Dennis Benzinger points out, if <a class="reference external" href="here-docs.html#LIMITSTRDASH">using **&lt;&lt;-** to suppress
+tabs</a> .</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="io-redirection.html" class="btn btn-neutral float-right" title="XXX Chapter 20. I/O Redirection" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="regexp.html" class="btn btn-neutral" title="XXX Chapter 18. Regular Expressions"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

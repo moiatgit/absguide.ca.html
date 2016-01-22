@@ -1,0 +1,289 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX O.1. Analyzing Scripts &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  O.1. Analyzing Scripts</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-o-1-analyzing-scripts">
+<h1>XXX  O.1. Analyzing Scripts<a class="headerlink" href="#xxx-o-1-analyzing-scripts" title="Link permanent a aquest títol">¶</a></h1>
+<p>Examine the following script. Run it, then explain what it does.
+Annotate the script and rewrite it in a more compact and elegant manner.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">MAX</span><span class="o">=</span>10000
+
+
+  <span class="k">for</span><span class="o">((</span><span class="nv">nr</span><span class="o">=</span>1<span class="p">;</span> nr&lt;<span class="nv">$MAX</span><span class="p">;</span> nr++<span class="o">))</span>
+  <span class="k">do</span>
+
+    <span class="nb">let</span> <span class="s2">&quot;t1 = nr % 5&quot;</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$t1</span><span class="s2">&quot;</span> -ne <span class="m">3</span> <span class="o">]</span>
+    <span class="k">then</span>
+      <span class="k">continue</span>
+    <span class="k">fi</span>
+
+    <span class="nb">let</span> <span class="s2">&quot;t2 = nr % 7&quot;</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$t2</span><span class="s2">&quot;</span> -ne <span class="m">4</span> <span class="o">]</span>
+    <span class="k">then</span>
+      <span class="k">continue</span>
+    <span class="k">fi</span>
+
+    <span class="nb">let</span> <span class="s2">&quot;t3 = nr % 9&quot;</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$t3</span><span class="s2">&quot;</span> -ne <span class="m">5</span> <span class="o">]</span>
+    <span class="k">then</span>
+      <span class="k">continue</span>
+    <span class="k">fi</span>
+
+  <span class="nb">break</span>   <span class="c"># What happens when you comment out this line? Why?</span>
+
+  <span class="k">done</span>
+
+  <span class="nb">echo</span> <span class="s2">&quot;Number = </span><span class="nv">$nr</span><span class="s2">&quot;</span>
+
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>&#8212;</p>
+<p>Explain what the following script does. It is really just a
+parameterized command-line pipe.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">DIRNAME</span><span class="o">=</span>/usr/bin
+<span class="nv">FILETYPE</span><span class="o">=</span><span class="s2">&quot;shell script&quot;</span>
+<span class="nv">LOGFILE</span><span class="o">=</span>logfile
+
+file <span class="s2">&quot;</span><span class="nv">$DIRNAME</span><span class="s2">&quot;</span>/*fgrep <span class="s2">&quot;</span><span class="nv">$FILETYPE</span><span class="s2">&quot;</span> <span class="p">|</span> tee <span class="nv">$LOGFILE</span> <span class="p">|</span> wc -l
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>&#8212;</p>
+<p>Examine and explain the following script. For hints, you might refer to
+the listings for <a class="reference external" href="moreadv.html#FINDREF">find</a> and
+<a class="reference external" href="system.html#STATREF">stat</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c"># Author:  Nathan Coulter</span>
+<span class="c"># This code is released to the public domain.</span>
+<span class="c"># The author gave permission to use this code snippet in the ABS Guide.</span>
+
+find -maxdepth <span class="m">1</span> -type f -printf <span class="s1">&#39;%f\000&#39;</span><span class="o">{</span>
+   <span class="k">while</span> <span class="nb">read</span> -d <span class="s1">$&#39;\000&#39;</span><span class="p">;</span> <span class="k">do</span>
+      mv <span class="s2">&quot;</span><span class="nv">$REPLY</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="k">$(</span>date -d <span class="s2">&quot;</span><span class="k">$(</span>stat -c <span class="s1">&#39;%y&#39;</span> <span class="s2">&quot;</span><span class="nv">$REPLY</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2"> &quot;</span> <span class="s1">&#39;+%Y%m%d%H%M%S&#39;</span>
+      <span class="k">)</span><span class="s2">-</span><span class="nv">$REPLY</span><span class="s2">&quot;</span>
+   <span class="k">done</span>
+<span class="o">}</span>
+
+<span class="c"># Warning: Test-drive this script in a &quot;scratch&quot; directory.</span>
+<span class="c"># It will somehow affect all the files there.</span>
+</pre></div>
+</div>
+<p>&#8212;</p>
+<p>A reader sent in the following code snippet.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">while</span> <span class="nb">read </span>LINE
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="nv">$LINE</span>
+<span class="k">done</span> &lt; <span class="sb">`</span>tail -f /var/log/messages<span class="sb">`</span>
+</pre></div>
+</div>
+<p>He wished to write a script tracking changes to the system log file,
+``      /var/log/messages     `` . Unfortunately, the above code block
+hangs and does nothing useful. Why? Fix this so it does work. (Hint:
+rather than <cite>redirecting the `</cite>       stdin      `` of the
+loop &lt;redircb.html#REDIRREF&gt;`__ , try a
+<a class="reference external" href="special-chars.html#PIPEREF">pipe</a> .)</p>
+<p>&#8212;</p>
+<p>Analyze the following &#8220;one-liner&#8221; (here split into two lines for
+clarity) contributed by Rory Winston:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">export </span><span class="nv">SUM</span><span class="o">=</span>0<span class="p">;</span> <span class="k">for</span> f in <span class="k">$(</span>find src -name <span class="s2">&quot;*.java&quot;</span><span class="k">)</span><span class="p">;</span>
+<span class="k">do</span> <span class="nb">export </span><span class="nv">SUM</span><span class="o">=</span><span class="k">$((</span><span class="nv">$SUM</span> <span class="o">+</span> <span class="k">$(</span>wc -l <span class="nv">$fawk</span> <span class="s1">&#39;{ print $1 }&#39;</span><span class="k">)))</span><span class="p">;</span> <span class="k">done</span><span class="p">;</span> <span class="nb">echo</span> <span class="nv">$SUM</span>
+</pre></div>
+</div>
+<p>Hint: First, break the script up into bite-sized sections. Then,
+carefully examine its use of <a class="reference external" href="dblparens.html">double-parentheses</a>
+arithmetic, the <a class="reference external" href="internal.html#EXPORTREF">export</a> command, the
+<a class="reference external" href="moreadv.html#FINDREF">find</a> command, the
+<a class="reference external" href="textproc.html#WCREF">wc</a> command, and <a class="reference external" href="awk.html#AWKREF">awk</a> .</p>
+<p>&#8212;</p>
+<p>Analyze <a class="reference external" href="contributed-scripts.html#LIFESLOW">Example A-10</a> , and
+reorganize it in a simplified and more logical style. See how many of
+the variables can be eliminated, and try to optimize the script to speed
+up its execution time.</p>
+<p>Alter the script so that it accepts any ordinary ASCII text file as
+input for its initial &#8220;generation&#8221; . The script will read the first
+``             $ROW*$COL           `` characters, and set the
+occurrences of vowels as &#8220;living&#8221; cells. Hint: be sure to translate the
+spaces in the input file to underscore characters.</p>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

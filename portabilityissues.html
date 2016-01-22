@@ -1,0 +1,312 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 36.9. Portability Issues &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX 36.9. Portability Issues</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-36-9-portability-issues">
+<h1>XXX 36.9. Portability Issues<a class="headerlink" href="#xxx-36-9-portability-issues" title="Link permanent a aquest títol">¶</a></h1>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a></p>
+<p><em>It is easier to port a shell than a shell script.</em></p>
+<p><em>&#8211;Larry Wall</em></p>
+<p>This book deals specifically with Bash scripting on a GNU/Linux system.
+All the same, users of <strong>sh</strong> and <strong>ksh</strong> will find much of value here.</p>
+<blockquote>
+<div>As it happens, many of the various shells and scripting languages seem</div></blockquote>
+<p>to be converging toward the <a class="reference external" href="sha-bang.html#POSIX2REF">POSIX</a> 1003.2
+standard. Invoking Bash with the ``      &#8211;posix     `` option or
+inserting a <strong>set -o posix</strong> at the head of a script causes Bash to
+conform very closely to this standard. Another alternative is to use a
+<em>#!/bin/sh</em> <a class="reference external" href="sha-bang.html#SHABANGREF">sha-bang header</a> in the
+script, rather than <em>#!/bin/bash</em> . ` [1]</p>
+<blockquote>
+<div>&lt;portabilityissues.html#FTN.AEN20799&gt;`__ Note that</div></blockquote>
+<p>``      /bin/sh     `` is a <a class="reference external" href="basic.html#LINKREF">link</a> to
+``      /bin/bash     `` in Linux and certain other flavors of UNIX, and
+a script invoked this way disables extended Bash functionality.</p>
+<p>Most Bash scripts will run as-is under <strong>ksh</strong> , and vice-versa, since
+Chet Ramey has been busily porting <strong>ksh</strong> features to the latest
+versions of Bash.</p>
+<p>On a commercial UNIX machine, scripts using GNU-specific features of
+standard commands may not work. This has become less of a problem in the
+last few years, as the GNU utilities have pretty much displaced their
+proprietary counterparts even on &#8220;big-iron&#8221; UNIX. <a class="reference external" href="http://linux.oreillynet.com/pub/a/linux/2002/02/28/caldera.html">Caldera&#8217;s release of
+the
+source</a>
+to many of the original UNIX utilities has accelerated the trend.</p>
+<p>Bash has certain features that the traditional <a class="reference external" href="why-shell.html#BASHDEF">Bourne
+shell</a> lacks. Among these are:</p>
+<ul class="simple">
+<li>Certain extended <a class="reference external" href="options.html#INVOCATIONOPTIONSREF">invocation
+options</a></li>
+<li><a class="reference external" href="commandsub.html#COMMANDSUBREF">Command substitution</a> using <strong>$(
+)</strong> notation</li>
+<li><a class="reference external" href="bashver3.html#BRACEEXPREF3">Brace expansion</a></li>
+<li>Certain <a class="reference external" href="arrays.html#ARRAYREF">array</a> operations, and <a class="reference external" href="bashver4.html#ASSOCARR">associative
+arrays</a></li>
+<li>The <a class="reference external" href="testconstructs.html#DBLBRACKETS">double brackets</a> extended
+test construct</li>
+<li>The <a class="reference external" href="dblparens.html#DBLPARENSREF">double-parentheses</a>
+arithmetic-evaluation construct</li>
+<li>Certain <a class="reference external" href="string-manipulation.html#STRINGMANIP">string
+manipulation</a> operations</li>
+<li><a class="reference external" href="process-sub.html#PROCESSSUBREF">Process substitution</a></li>
+<li>A Regular Expression <a class="reference external" href="bashver3.html#REGEXMATCHREF">matching
+operator</a></li>
+<li>Bash-specific <a class="reference external" href="internal.html#BUILTINREF">builtins</a></li>
+<li><a class="reference external" href="bashver4.html#COPROCREF">Coprocesses</a></li>
+</ul>
+<p>See the <a class="reference external" href="ftp://ftp.cwru.edu/pub/bash/FAQ">Bash F.A.Q.</a> for a complete
+listing.</p>
+<blockquote>
+<div>36.9.1. A Test Suite</div></blockquote>
+<hr class="docutils" />
+<blockquote>
+<div>Let us illustrate some of the incompatibilities between Bash and the</div></blockquote>
+<dl class="docutils">
+<dt>classic Bourne shell. Download and install the ` &#8220;Heirloom Bourne Shell&#8221;</dt>
+<dd>&lt;<a class="reference external" href="http://freshmeat.net/projects/bournesh">http://freshmeat.net/projects/bournesh</a>&gt;`__ and run the following</dd>
+</dl>
+<p>script, first using Bash, then the classic <em>sh</em> .</p>
+<div class="section" id="exemple-23-test-suite">
+<h2>Exemple 23. Test Suite<a class="headerlink" href="#exemple-23-test-suite" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># test-suite.sh</span>
+<span class="c"># A partial Bash compatibility test suite.</span>
+<span class="c"># Run this on your version of Bash, or some other shell.</span>
+
+<span class="nv">default_option</span><span class="o">=</span>FAIL         <span class="c"># Tests below will fail unless . . .</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;Testing &quot;</span>
+sleep 1<span class="p">;</span> <span class="nb">echo</span> -n <span class="s2">&quot;. &quot;</span>
+sleep 1<span class="p">;</span> <span class="nb">echo</span> -n <span class="s2">&quot;. &quot;</span>
+sleep 1<span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;. &quot;</span>
+<span class="nb">echo</span>
+
+<span class="c"># Double brackets</span>
+<span class="nv">String</span><span class="o">=</span><span class="s2">&quot;Double brackets supported?&quot;</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;Double brackets test: &quot;</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$String</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;Double brackets supported?&quot;</span> <span class="o">]]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;PASS&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;FAIL&quot;</span>
+<span class="k">fi</span>
+
+
+<span class="c"># Double brackets and regex matching</span>
+<span class="nv">String</span><span class="o">=</span><span class="s2">&quot;Regex matching supported?&quot;</span>
+<span class="nb">echo</span> -n <span class="s2">&quot;Regex matching: &quot;</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$String</span><span class="s2">&quot;</span> <span class="o">=</span>~ R.....matching* <span class="o">]]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;PASS&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;FAIL&quot;</span>
+<span class="k">fi</span>
+
+
+<span class="c"># Arrays</span>
+<span class="nv">test_arr</span><span class="o">=</span><span class="nv">$default_option</span>     <span class="c"># FAIL</span>
+<span class="nv">Array</span><span class="o">=(</span> If supports arrays will print PASS <span class="o">)</span>
+<span class="nv">test_arr</span><span class="o">=</span><span class="si">${</span><span class="nv">Array</span><span class="p">[5]</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">&quot;Array test: </span><span class="nv">$test_arr</span><span class="s2">&quot;</span>
+
+
+<span class="c"># Command Substitution</span>
+csub_test <span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">echo</span> <span class="s2">&quot;PASS&quot;</span>
+<span class="o">}</span>
+
+<span class="nv">test_csub</span><span class="o">=</span><span class="nv">$default_option</span>    <span class="c"># FAIL</span>
+<span class="nv">test_csub</span><span class="o">=</span><span class="k">$(</span>csub_test<span class="k">)</span>
+<span class="nb">echo</span> <span class="s2">&quot;Command substitution test: </span><span class="nv">$test_csub</span><span class="s2">&quot;</span>
+
+<span class="nb">echo</span>
+
+<span class="c">#  Completing this script is an exercise for the reader.</span>
+<span class="c">#  Add to the above similar tests for double parentheses,</span>
+<span class="c">#+ brace expansion, process substitution, etc.</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;portabilityissues.html#AEN20799&gt;`__</p>
+<p>Or, better yet, <a class="reference external" href="system.html#ENVV2REF">#!/bin/env sh</a> .</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

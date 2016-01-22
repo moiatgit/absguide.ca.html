@@ -1,0 +1,227 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.1. Uns primers exercicis &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="2. Comencem amb el Sha-Bang" href="sha-bang.html"/>
+        <link rel="next" title="Part 2. Conceptes bàsics" href="part2.html"/>
+        <link rel="prev" title="2.1. Invoking the script" href="invoking.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="part1.html">Part 1. Introducció</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="why-shell.html">1. Perquè programar en Shell</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="sha-bang.html">2. Comencem amb el Sha-Bang</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part1.html">Part 1. Introducció</a> &raquo;</li>
+      
+          <li><a href="sha-bang.html">2. Comencem amb el Sha-Bang</a> &raquo;</li>
+      
+    <li>2.1. Uns primers exercicis</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="uns-primers-exercicis">
+<h1>2.1. Uns primers exercicis<a class="headerlink" href="#uns-primers-exercicis" title="Link permanent a aquest títol">¶</a></h1>
+<p>Troba aquí uns primers exercicis:</p>
+<ol class="arabic">
+<li><p class="first">Els administradors de sistemes sovint escriuen guions per a
+automatitzar tarees habituals.</p>
+<p>Pensa diferents exemples pels que els guions poden ser útils.</p>
+</li>
+<li><p class="first">Escriu un guió que, en ser invocat, mostri:</p>
+<ul class="simple">
+<li>l&#8217;hora i la data</li>
+<li>la llista de tots els usuaris logats</li>
+<li>el temps durant el qual el sistema és operatiu (<em>uptime</em>)</li>
+</ul>
+<p>Finalment, el guió guardarà tota aquesta informació en un fitxer de
+log.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Pista</p>
+<p>Trobaràs ajuda per a resoldre aquest exercici als següents
+documents:</p>
+<ul class="last simple">
+<li><a class="reference internal" href="timedate.html"><em>XXX Comandes de data i hora</em></a></li>
+<li><a class="reference internal" href="system.html"><em>XXX  Chapter 17. System and Administrative Commands</em></a></li>
+<li><a class="reference internal" href="io-redirection.html"><em>XXX  Chapter 20. I/O Redirection</em></a></li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="part2.html" class="btn btn-neutral float-right" title="Part 2. Conceptes bàsics" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="invoking.html" class="btn btn-neutral" title="2.1. Invoking the script"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

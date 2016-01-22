@@ -1,0 +1,375 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>5.1. Variables entre cometes &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="Chapter 5. Cometes" href="quoting.html"/>
+        <link rel="next" title="XXX 5.2. Escapament" href="escapingsection.html"/>
+        <link rel="prev" title="Chapter 5. Cometes" href="quoting.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="special-chars.html">XXX 3. Caràcters especials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">4. Variables</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="quoting.html">Chapter 5. Cometes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exit-status.html">XXX Chapter 6. Exit and Exit Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html">XXX Chapter 7. Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testconstructs.html">XXX  7.1. Test Constructs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fto.html">XXX  7.2. File test operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparison-ops.html">XXX  7.3. Other Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedifthen.html">7.4. Condicionals aniuats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testtest.html">XXX  7.5. Testing Your Knowledge of Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations.html">XXX Chapter 8. Operations and Related Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ops.html">XXX  8.1. Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="numerical-constants.html">XXX  8.2. Numerical Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dblparens.html">XXX  8.3. The Double-Parentheses Construct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opprecedence.html">XXX  8.4. Operator Precedence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part2.html">Part 2. Conceptes bàsics</a> &raquo;</li>
+      
+          <li><a href="quoting.html">Chapter 5. Cometes</a> &raquo;</li>
+      
+    <li>5.1. Variables entre cometes</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="variables-entre-cometes">
+<h1>5.1. Variables entre cometes<a class="headerlink" href="#variables-entre-cometes" title="Link permanent a aquest títol">¶</a></h1>
+<p>En referenciar una variable, en general es recomanable posar-la entre cometes
+dobles per evitar que es reinterpretin tots els caràcters especials que hi pugui
+contenir (a excepció de <code class="docutils literal"><span class="pre">$</span></code>, la cometa invertida <code class="docutils literal"><span class="pre">`</span></code> i la contrabarra <code class="docutils literal"><span class="pre">\</span></code><a class="footnote-reference" href="#quotingbang" id="id1">[1]</a>.</p>
+<p>El caràcter <code class="docutils literal"><span class="pre">$</span></code> es manté amb el seu significat especial per permetre
+referenciar el contingut de les variables. Mira <a class="reference internal" href="varsubn.html"><em>4.1. Substitució de variables</em></a> per més detall.</p>
+<p>Farem servir les cometes dobles per evitar que es separin les paraules que
+apareixen en el text separades per blancs.  Un valor entre cometes dobles es
+presenta com una única paraula, fins i tot si conté espais en blanc.</p>
+<p>Posarem els arguments d&#8217;una crida a <code class="docutils literal"><span class="pre">echo</span></code> entre cometes dobles només quan
+ens sigui important separar per paraules o preservar els espais.</p>
+<div class="section" id="exemple-1-preservacio-d-espais-en-blanc">
+<h2>Exemple 1. Preservació d&#8217;espais en blanc<a class="headerlink" href="#exemple-1-preservacio-d-espais-en-blanc" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># Demostració de l&#39;ús de les cometes dobles per preservar espais en blanc</span>
+<span class="nv">Llista</span><span class="o">=</span><span class="s2">&quot;un dos tres&quot;</span>
+
+<span class="k">for</span> a in <span class="nv">$Llista</span>     <span class="c"># Cada paraula separada per espais en blanc.</span>
+<span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+<span class="c"># Sortida:</span>
+<span class="c">#   un</span>
+<span class="c">#   dos</span>
+<span class="c">#   tres</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;---&quot;</span>
+
+<span class="k">for</span> a in <span class="s2">&quot;</span><span class="nv">$Llista</span><span class="s2">&quot;</span>   <span class="c"># Considera els espais en blanc com part de la paraula.</span>
+<span class="k">do</span> <span class="c">#     ^     ^</span>
+    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+<span class="c"># Sortida: un dos tres</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-2-espais-en-blanc-i-variables-buides">
+<h2>Exemple 2. Espais en blanc i variables buides<a class="headerlink" href="#exemple-2-espais-en-blanc-i-variables-buides" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># Demostració de l&#39;ús de les cometes dobles per preservar espais en blanc</span>
+
+<span class="c"># funció que mostra quantes paraules rep</span>
+<span class="k">function</span> compta_arguments <span class="o">()</span> <span class="o">{</span> <span class="nb">echo</span> <span class="s2">&quot;Paraules rebudes: </span><span class="nv">$# </span><span class="s2">&quot;</span><span class="p">;</span> <span class="o">}</span>
+
+<span class="nv">frase1</span><span class="o">=</span><span class="s2">&quot;una variable amb cinc paraules&quot;</span>
+<span class="nv">frase2</span><span class="o">=</span><span class="s2">&quot;&quot;</span>    <span class="c"># Buida</span>
+
+compta_arguments Això és <span class="nv">$frase1</span>               <span class="c"># Sortida: Paraules rebudes: 7</span>
+
+compta_arguments <span class="s2">&quot;Això és </span><span class="nv">$frase1</span><span class="s2">&quot;</span>             <span class="c"># Sortida: Paraules rebudes: 1</span>
+
+compta_arguments <span class="nv">$frase2</span> <span class="nv">$frase2</span> <span class="nv">$frase2</span>       <span class="c"># Sortida: Paraules rebudes: 0</span>
+
+compta_arguments <span class="s2">&quot;</span><span class="nv">$frase2</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$frase2</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$frase2</span><span class="s2">&quot;</span> <span class="c"># Sortida: Paraules rebudes: 3</span>
+
+compta_arguments <span class="s2">&quot;</span><span class="nv">$frase2</span><span class="s2"> </span><span class="nv">$frase2</span><span class="s2"> </span><span class="nv">$frase2</span><span class="s2">&quot;</span>     <span class="c"># Sortida: Paraules rebudes: 1</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Aquest exemple mostra la definició d&#8217;una funció. Pots trobar més
+detalls sobre funcions a <a class="reference internal" href="functions.html"><em>XXX  Chapter 24. Functions</em></a>.</p>
+</div>
+</div>
+<div class="section" id="exemple-3-com-mostrar-variables-rares">
+<h2>Exemple 3. Com mostrar variables <em>rares</em><a class="headerlink" href="#exemple-3-com-mostrar-variables-rares" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Demostració de com mostrar variables &quot;rares&quot;</span>
+
+<span class="nb">echo</span>
+
+<span class="nv">var</span><span class="o">=</span><span class="s2">&quot;&#39;(]\\{}\$\&quot;&quot;</span>           <span class="c"># Inclou cometes dins de cometes!</span>
+<span class="nb">echo</span> <span class="nv">$var</span>        <span class="c"># &#39;(]\{}$&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span>      <span class="c"># &#39;(]\{}$&quot;     No fa cap diferencia</span>
+
+<span class="nb">echo</span>
+
+<span class="nv">IFS</span><span class="o">=</span><span class="s1">&#39;\&#39;</span>
+<span class="nb">echo</span> <span class="nv">$var</span>        <span class="c"># &#39;(] {}$&quot;     \ es converteix en un espai. Perquè?</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span>      <span class="c"># &#39;(]\{}$&quot;</span>
+
+<span class="nb">echo</span>
+
+<span class="nv">var2</span><span class="o">=</span><span class="s2">&quot;\\\\\&quot;&quot;</span>
+<span class="nb">echo</span> <span class="nv">$var2</span>       <span class="c">#   &quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$var2</span><span class="s2">&quot;</span>     <span class="c"># \\&quot;</span>
+<span class="nb">echo</span>
+<span class="c"># Però en canvi... var2=&quot;\\\\&quot;&quot; no és legal. Perquè?</span>
+
+<span class="nv">var3</span><span class="o">=</span><span class="s1">&#39;\\\\&#39;</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$var3</span><span class="s2">&quot;</span>     <span class="c"># \\\\</span>
+<span class="c"># En canvi, si fem cometes fortes sí que funciona.</span>
+
+<span class="c"># El primer exemple demostra que està permés posar cometes dins de cometes.</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="k">$(</span><span class="nb">echo</span> <span class="s1">&#39;&quot;&#39;</span><span class="k">)</span><span class="s2">&quot;</span>           <span class="c"># &quot;</span>
+<span class="c">#    ^           ^</span>
+
+<span class="c"># De vegades pot ser útil</span>
+<span class="nv">var1</span><span class="o">=</span><span class="s2">&quot;Dues paraules&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;\$var1 = &quot;</span><span class="nv">$var1</span><span class="s2">&quot;&quot;</span>      <span class="c"># $var1 = Dues paraules</span>
+<span class="c">#    ^                ^</span>
+</pre></div>
+</div>
+<p>Les cometes simples funcionen de manera semblant a les dobles. Entre
+d&#8217;altres coses, però, no permeten referenciar variables donat que el significat
+especial de <code class="docutils literal"><span class="pre">$</span></code> es perd. Dins de cometes simples, <strong>cada</strong> caràcter especial
+és interpretat literalment. Les cometes simples es consideren com a <em>completes</em>
+o <em>fortes</em>, mentre que les dobles es consideren com <em>parcials</em> o <em>febles</em>.</p>
+<p>Com que fins i tot el <code class="docutils literal"><span class="pre">\</span></code> és interpretat literalment dins de cometes simples,
+ens trobarem que intentar posar cometes simples dins de cometes simples no ens
+donarà el resultat esperat.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># Demostració de cometes simples dins de cometes simples</span>
+<span class="nb">echo</span> <span class="s2">&quot;Com m&#39;has afegit una cometa simple com aquesta &#39; entre cometes simples?&quot;</span>
+
+<span class="nb">echo</span> <span class="s1">&#39;Com m&#39;</span><span class="se">\&#39;</span><span class="s1">&#39;has afegit una cometa simple com aquesta &#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39; entre cometes simples?&#39;</span>
+<span class="c">#    |-----|  |-----------------------------------------|   |-----------------------|</span>
+<span class="c"># Són tres cadenes entre cometes simples amb una cometa simple escapada i una</span>
+<span class="c"># altra entre cometes dobles.</span>
+</pre></div>
+</div>
+<p class="rubric">Anotacions</p>
+<table class="docutils footnote" frame="void" id="quotingbang" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><p class="first">Posar entre cometes <code class="docutils literal"><span class="pre">!</span></code> en la línia de comandes, ens
+generarà un error donat que arrenca el <a class="reference internal" href="histcommands.html"><em>mecanisme d&#8217;històric</em></a>. Això no passa dins d&#8217;un guió on l&#8217;històric queda
+deshabilitat.</p>
+<p>Més preocupant pot resultar el comportament aparentment inconsistent de <code class="docutils literal"><span class="pre">\</span></code>
+entre cometes dobles, especialment seguint <code class="docutils literal"><span class="pre">echo</span> <span class="pre">-e</span></code>.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo </span>hola<span class="se">\!</span>
+hola!
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;hola\!&quot;</span>
+hola<span class="se">\!</span>
+
+
+<span class="nv">$ </span><span class="nb">echo</span> <span class="se">\</span>
+&gt;
+<span class="c"># surt amb control-c</span>
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;\&quot;</span>
+<span class="s2">&gt;</span>
+<span class="s2"># surt amb control-c</span>
+<span class="nv">$ </span><span class="s2">echo \a</span>
+<span class="s2">a</span>
+<span class="nv">$ </span><span class="s2">echo &quot;</span><span class="se">\a</span><span class="s2">&quot;</span>
+<span class="s2">\a</span>
+
+
+<span class="nv">$ </span><span class="s2">echo x\ty</span>
+<span class="s2">xty</span>
+<span class="nv">$ </span><span class="s2">echo &quot;</span>x<span class="se">\t</span>y<span class="s2">&quot;</span>
+<span class="s2">x\ty</span>
+
+<span class="nv">$ </span><span class="s2">echo -e x\ty</span>
+<span class="s2">xty</span>
+<span class="nv">$ </span><span class="s2">echo -e &quot;</span>x<span class="se">\t</span>y<span class="s2">&quot;</span>
+<span class="s2">x       y</span>
+</pre></div>
+</div>
+<p class="last">Les cometes dobles a continuació de <code class="docutils literal"><span class="pre">echo</span></code> de vegades escapen <code class="docutils literal"><span class="pre">\</span></code>. És
+més, l&#8217;opció <code class="docutils literal"><span class="pre">-e</span></code> fa que <code class="docutils literal"><span class="pre">\t</span></code> sigui interpretat com un tabulador.</p>
+</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="escapingsection.html" class="btn btn-neutral float-right" title="XXX 5.2. Escapament" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="quoting.html" class="btn btn-neutral" title="Chapter 5. Cometes"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

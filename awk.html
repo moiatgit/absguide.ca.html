@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX C.2. Awk &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  C.2. Awk</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-c-2-awk">
+<h1>XXX  C.2. Awk<a class="headerlink" href="#xxx-c-2-awk" title="Link permanent a aquest títol">¶</a></h1>
+<p><em>Awk</em> ` [1]  &lt;awk.html#FTN.AEN23443&gt;`__ is a full-featured text
+processing language with a syntax reminiscent of <em>C</em> . While it
+possesses an extensive set of operators and capabilities, we will cover
+only a few of these here - the ones most useful in shell scripts.</p>
+<p>Awk breaks each line of input passed to it into
+<a class="reference external" href="special-chars.html#FIELDREF">fields</a> . By default, a field is a
+string of consecutive characters delimited by
+<a class="reference external" href="special-chars.html#WHITESPACEREF">whitespace</a> , though there are
+options for changing this. Awk parses and operates on each separate
+field. This makes it ideal for handling structured text files &#8211;
+especially tables &#8211; data organized into consistent chunks, such as rows
+and columns.</p>
+<p><a class="reference external" href="varsubn.html#SNGLQUO">Strong quoting</a> and <a class="reference external" href="special-chars.html#CODEBLOCKREF">curly
+brackets</a> enclose blocks of awk code
+within a shell script.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># $1 is field #1, $2 is field #2, etc.</span>
+
+<span class="nb">echo </span>one twoawk <span class="s1">&#39;{print $1}&#39;</span>
+<span class="c"># one</span>
+
+<span class="nb">echo </span>one twoawk <span class="s1">&#39;{print $2}&#39;</span>
+<span class="c"># two</span>
+
+<span class="c"># But what is field #0 ($0)?</span>
+<span class="nb">echo </span>one twoawk <span class="s1">&#39;{print $0}&#39;</span>
+<span class="c"># one two</span>
+<span class="c"># All the fields!</span>
+
+
+awk <span class="s1">&#39;{print $3}&#39;</span> <span class="nv">$filename</span>
+<span class="c"># Prints field #3 of file $filename to stdout.</span>
+
+awk <span class="s1">&#39;{print $1 $5 $6}&#39;</span> <span class="nv">$filename</span>
+<span class="c"># Prints fields #1, #5, and #6 of file $filename.</span>
+
+awk <span class="s1">&#39;{print $0}&#39;</span> <span class="nv">$filename</span>
+<span class="c"># Prints the entire file!</span>
+<span class="c"># Same effect as:   cat $filename . . . or . . . sed &#39;&#39; $filename</span>
+</pre></div>
+</div>
+<p>We have just seen the awk <em>print</em> command in action. The only other
+feature of awk we need to deal with here is variables. Awk handles
+variables similarly to shell scripts, though a bit more flexibly.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span> total +<span class="o">=</span> <span class="si">${</span><span class="nv">column_number</span><span class="si">}</span> <span class="o">}</span>
+</pre></div>
+</div>
+<p>This adds the value of ``           column_number         `` to the
+running total of ``           total         `` &gt;. Finally, to print
+&#8220;total&#8221; , there is an <strong>END</strong> command block, executed after the script
+has processed all its input.</p>
+<div class="highlight-sh"><div class="highlight"><pre>END <span class="o">{</span> print total <span class="o">}</span>
+</pre></div>
+</div>
+<p>Corresponding to the <strong>END</strong> , there is a <strong>BEGIN</strong> , for a code block
+to be performed before awk starts processing its input.</p>
+<p>The following example illustrates how <strong>awk</strong> can add text-parsing tools
+to a shell script.</p>
+<div class="section" id="exemple-1-counting-letter-occurrences">
+<h2>Exemple 1. Counting Letter Occurrences<a class="headerlink" href="#exemple-1-counting-letter-occurrences" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#! /bin/sh</span>
+<span class="c"># letter-count2.sh: Counting letter occurrences in a text file.</span>
+<span class="c">#</span>
+<span class="c"># Script by nyal [nyal@voila.fr].</span>
+<span class="c"># Used in ABS Guide with permission.</span>
+<span class="c"># Recommented and reformatted by ABS Guide author.</span>
+<span class="c"># Version 1.1: Modified to work with gawk 3.1.3.</span>
+<span class="c">#              (Will still work with earlier versions.)</span>
+
+
+<span class="nv">INIT_TAB_AWK</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+<span class="c"># Parameter to initialize awk script.</span>
+<span class="nv">count_case</span><span class="o">=</span>0
+<span class="nv">FILE_PARSE</span><span class="o">=</span><span class="nv">$1</span>
+
+<span class="nv">E_PARAMERR</span><span class="o">=</span>85
+
+usage<span class="o">()</span>
+<span class="o">{</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Usage: letter-count.sh file letters&quot;</span> 2&gt;<span class="p">&amp;</span>1
+    <span class="c"># For example:   ./letter-count2.sh filename.txt a b c</span>
+    <span class="nb">exit</span> <span class="nv">$E_PARAMERR</span>  <span class="c"># Too few arguments passed to script.</span>
+<span class="o">}</span>
+
+<span class="k">if</span> <span class="o">[</span> ! -f <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">: No such file.&quot;</span> 2&gt;<span class="p">&amp;</span>1
+    usage                 <span class="c"># Print usage message and exit.</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">: No letters specified.&quot;</span> 2&gt;<span class="p">&amp;</span>1
+    usage
+<span class="k">fi</span>
+
+<span class="nb">shift</span>                      <span class="c"># Letters specified.</span>
+<span class="k">for</span> letter in <span class="sb">`</span><span class="nb">echo</span> <span class="nv">$@</span><span class="sb">`</span>    <span class="c"># For each one . . .</span>
+  <span class="k">do</span>
+  <span class="nv">INIT_TAB_AWK</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$INIT_TAB_AWK</span><span class="s2"> tab_search[</span><span class="si">${</span><span class="nv">count_case</span><span class="si">}</span><span class="s2">] = \</span>
+<span class="s2">  \&quot;</span><span class="nv">$letter</span><span class="s2">\&quot;; final_tab[</span><span class="si">${</span><span class="nv">count_case</span><span class="si">}</span><span class="s2">] = 0; &quot;</span>
+  <span class="c"># Pass as parameter to awk script below.</span>
+  <span class="nv">count_case</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$count_case</span> + 1<span class="sb">`</span>
+<span class="k">done</span>
+
+<span class="c"># DEBUG:</span>
+<span class="c"># echo $INIT_TAB_AWK;</span>
+
+cat <span class="nv">$FILE_PARSE</span>
+<span class="c"># Pipe the target file to the following awk script.</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Earlier version of script:</span>
+<span class="c"># awk -v tab_search=0 -v final_tab=0 -v tab=0 -v \</span>
+<span class="c"># nb_letter=0 -v chara=0 -v chara2=0 \</span>
+
+awk <span class="se">\</span>
+<span class="s2">&quot;BEGIN { </span><span class="nv">$INIT_TAB_AWK</span><span class="s2"> } \</span>
+<span class="s2">{ split(\$0, tab, \&quot;\&quot;); \</span>
+<span class="s2">for (chara in tab) \</span>
+<span class="s2">{ for (chara2 in tab_search) \</span>
+<span class="s2">{ if (tab_search[chara2] == tab[chara]) { final_tab[chara2]++ } } } } \</span>
+<span class="s2">END { for (chara in final_tab) \</span>
+<span class="s2">{ print tab_search[chara] \&quot; =&gt; \&quot; final_tab[chara] } }&quot;</span>
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c">#  Nothing all that complicated, just . . .</span>
+<span class="c">#+ for-loops, if-tests, and a couple of specialized functions.</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c"># Compare this script to letter-count.sh.</span>
+</pre></div>
+</div>
+<p>For simpler examples of awk within shell scripts, see:</p>
+<ol class="arabic simple">
+<li><a class="reference external" href="internal.html#EX44">Example 15-14</a></li>
+<li><a class="reference external" href="redircb.html#REDIR4">Example 20-8</a></li>
+<li><a class="reference external" href="filearchiv.html#STRIPC">Example 16-32</a></li>
+<li><a class="reference external" href="wrapper.html#COLTOTALER">Example 36-5</a></li>
+<li><a class="reference external" href="ivr.html#COLTOTALER2">Example 28-2</a></li>
+<li><a class="reference external" href="internal.html#COLTOTALER3">Example 15-20</a></li>
+<li><a class="reference external" href="procref1.html#PIDID">Example 29-3</a></li>
+<li><a class="reference external" href="procref1.html#CONSTAT">Example 29-4</a></li>
+<li><a class="reference external" href="loops1.html#FILEINFO">Example 11-3</a></li>
+<li><a class="reference external" href="extmisc.html#BLOTOUT">Example 16-61</a></li>
+<li><a class="reference external" href="randomvar.html#SEEDINGRANDOM">Example 9-16</a></li>
+<li><a class="reference external" href="moreadv.html#IDELETE">Example 16-4</a></li>
+<li><a class="reference external" href="string-manipulation.html#SUBSTRINGEX">Example 10-6</a></li>
+<li><a class="reference external" href="assortedtips.html#SUMPRODUCT">Example 36-19</a></li>
+<li><a class="reference external" href="loops1.html#USERLIST">Example 11-9</a></li>
+<li><a class="reference external" href="wrapper.html#PRASC">Example 36-4</a></li>
+<li><a class="reference external" href="mathc.html#HYPOT">Example 16-53</a></li>
+<li><a class="reference external" href="asciitable.html#ASCII3SH">Example T-3</a></li>
+</ol>
+<p>That&#8217;s all the awk we&#8217;ll cover here, folks, but there&#8217;s lots more to
+learn. See the appropriate references in the
+<a class="reference external" href="biblio.html">*Bibliography*</a> .</p>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;awk.html#AEN23443&gt;`__</p>
+<p>Its name derives from the initials of its authors, <strong>A</strong> ho, <strong>W</strong>
+einberg, and <strong>K</strong> ernighan.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

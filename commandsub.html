@@ -1,0 +1,1057 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Chapter 12. Substitució de comanda &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Part 3. Beyond the Basics" href="part3.html"/>
+        <link rel="next" title="XXX Chapter 13. Arithmetic Expansion" href="arithexp.html"/>
+        <link rel="prev" title="XXX 11.4. Testing and Branching" href="testbranch.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="variables2.html">XXX  Chapter 9. Another Look at Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internalvariables.html">XXX  9.1. Internal Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="declareref.html">XXX  9.2. Typing variables: <strong>declare</strong> or <strong>typeset</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="randomvar.html">XXX  9.3. $RANDOM: generate random integer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manipulatingvars.html">XXX  Chapter 10. Manipulating Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="string-manipulation.html">XXX  10.1. Manipulating Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parameter-substitution.html">XXX 10.2. Substitució de paràmetres</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loops.html">Chapter 11. Loops and Branches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loops1.html">XXX  11.1. Loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedloops.html">XXX  11.2. Nested Loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loopcontrol.html">XXX  11.3. Loop Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testbranch.html">XXX  11.4. Testing and Branching</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XXX  Chapter 12. Substitució de comanda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arithexp.html">XXX  Chapter 13. Arithmetic Expansion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recess-time.html">XXX  Chapter 14. Recess Time</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part3.html">XXX Part 3. Beyond the Basics</a> &raquo;</li>
+      
+    <li>XXX  Chapter 12. Substitució de comanda</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-chapter-12-substitucio-de-comanda">
+<h1>XXX  Chapter 12. Substitució de comanda<a class="headerlink" href="#xxx-chapter-12-substitucio-de-comanda" title="Link permanent a aquest títol">¶</a></h1>
+<blockquote>
+<div><strong>Command substitution</strong> reassigns the output of a command ` [1]
+&lt;commandsub.html#FTN.AEN7205&gt;`__ or even multiple commands; it</div></blockquote>
+<dl class="docutils">
+<dt>literally plugs the command output into another context. ` [2]</dt>
+<dd><p class="first">&lt;commandsub.html#FTN.AEN7211&gt;`__</p>
+<p class="last">The classic form of command substitution uses <em>backquotes</em> (`...`).</p>
+</dd>
+</dl>
+<p>Commands within backquotes (backticks) generate command-line text.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">script_name</span><span class="o">=</span><span class="sb">`</span>basename <span class="nv">$0</span><span class="sb">`</span>
+<span class="nb">echo</span> <span class="s2">&quot;The name of this script is </span><span class="nv">$script_name</span><span class="s2">.&quot;</span>
+</pre></div>
+</div>
+<p><strong>The output of commands can be used as arguments to another command, to
+set a variable, and even for generating the argument list in a
+`for &lt;loops1.html#FORLOOPREF1&gt;`__ loop.</strong></p>
+<div class="highlight-sh"><div class="highlight"><pre>rm <span class="sb">`</span>cat filename<span class="sb">`</span>   <span class="c"># &quot;filename&quot; contains a list of files to delete.</span>
+<span class="c">#</span>
+<span class="c"># S. C. points out that &quot;arg list too long&quot; error might result.</span>
+<span class="c"># Better is              xargs rm -- &lt; filename</span>
+<span class="c"># ( -- covers those cases where &quot;filename&quot; begins with a &quot;-&quot; )</span>
+
+<span class="nv">textfile_listing</span><span class="o">=</span><span class="sb">`</span>ls *.txt<span class="sb">`</span>
+<span class="c"># Variable contains names of all *.txt files in current working directory.</span>
+<span class="nb">echo</span> <span class="nv">$textfile_listing</span>
+
+<span class="nv">textfile_listing2</span><span class="o">=</span><span class="k">$(</span>ls *.txt<span class="k">)</span>   <span class="c"># The alternative form of command substitution.</span>
+<span class="nb">echo</span> <span class="nv">$textfile_listing2</span>
+<span class="c"># Same result.</span>
+
+<span class="c"># A possible problem with putting a list of files into a single string</span>
+<span class="c"># is that a newline may creep in.</span>
+<span class="c">#</span>
+<span class="c"># A safer way to assign a list of files to a parameter is with an array.</span>
+<span class="c">#      shopt -s nullglob    # If no match, filename expands to nothing.</span>
+<span class="c">#      textfile_listing=( *.txt )</span>
+<span class="c">#</span>
+<span class="c"># Thanks, S.C.</span>
+</pre></div>
+</div>
+<p><a href="#id1"><span class="problematic" id="id2">|</span></a>Note</p>
+<blockquote>
+<div>Command substitution invokes a</div></blockquote>
+<p><a class="reference external" href="subshells.html#SUBSHELLSREF">subshell</a> .</p>
+<p><a href="#id3"><span class="problematic" id="id4">|</span></a>Caution</p>
+<blockquote>
+<div>Command substitution may result in <a href="#id5"><span class="problematic" id="id6">`</span></a>word</div></blockquote>
+<p>splitting &lt;quotingvar.html#WSPLITREF&gt;`__ .</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre> COMMAND <span class="sb">`</span><span class="nb">echo </span>a b<span class="sb">`</span>
+<span class="c"># 2 args: a and b</span>
+
+ COMMAND <span class="s2">&quot;`echo a b`&quot;</span>
+<span class="c"># 1 arg: &quot;a b&quot;</span>
+
+ COMMAND <span class="sb">`</span><span class="nb">echo</span><span class="sb">`</span>
+<span class="c"># no arg</span>
+
+ COMMAND <span class="s2">&quot;`echo`&quot;</span>
+<span class="c"># one empty arg</span>
+
+
+ <span class="c"># Thanks, S.C.</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>Even when there is no word splitting, command substitution can remove
+trailing newlines.</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>   # cd &quot;`pwd`&quot;  # This
+should always work.
+   # However...
+
+   mkdir &#39;dir with trai
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>ling newline</dt>
+<dd><p class="first">&#8216;</p>
+<p class="last">cd &#8216;dir with trailin</p>
+</dd>
+<dt>g newline</dt>
+<dd><p class="first">&#8216;</p>
+<p class="last">cd &#8220;<cite>pwd</cite>&#8221;  # Error</p>
+</dd>
+<dt>message:</dt>
+<dd># bash: cd: /tmp/fil</dd>
+<dt>e with trailing newline:</dt>
+<dd>No such file or directo</dd>
+</dl>
+<p>ry</p>
+<blockquote>
+<div>cd &#8220;$PWD&#8221;   # Works</div></blockquote>
+<p>fine.</p>
+<blockquote>
+<div>old_tty_setting=$(st</div></blockquote>
+<p>ty -g)   # Save old term
+inal setting.</p>
+<blockquote>
+<div><p>echo &#8220;Hit a key &#8221;
+stty -icanon -echo</p>
+<blockquote>
+<div># Disable &#8220;cano</div></blockquote>
+</div></blockquote>
+<p>nical&#8221; mode for terminal
+.</p>
+<blockquote>
+<div><blockquote>
+<div># Also, disable</div></blockquote>
+<dl class="docutils">
+<dt><em>local</em> echo.</dt>
+<dd>key=$(dd bs=1 count=</dd>
+</dl>
+</div></blockquote>
+<p>1 2&gt; /dev/null)   # Usin
+g &#8216;dd&#8217; to get a keypress
+.</p>
+<blockquote>
+<div>stty &#8220;$old_tty_setti</div></blockquote>
+<p>ng&#8221;      # Restore old s
+etting.</p>
+<blockquote>
+<div>echo &#8220;You hit ${#key</div></blockquote>
+<p>} key.&#8221;  # ${#variable}
+= number of characters i
+n $variable</p>
+<blockquote>
+<div><blockquote>
+<div>#
+# Hit any key except</div></blockquote>
+<p>RETURN, and the output</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>is &#8220;You hit 1 key.&#8221;</dt>
+<dd># Hit RETURN, and it</dd>
+<dt>&#8216;s &#8220;You hit 0 key.&#8221;</dt>
+<dd># The newline gets e</dd>
+</dl>
+<p>aten in the command subs
+titution.</p>
+<blockquote>
+<div>#Code snippet by StÃ</div></blockquote>
+<p>©phane Chazelas.</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>COMMAND <span class="sb">`</span><span class="nb">echo </span>a b<span class="sb">`</span>     <span class="c"># 2 args: a and b</span>
+
+COMMAND <span class="s2">&quot;`echo a b`&quot;</span>   <span class="c"># 1 arg: &quot;a b&quot;</span>
+
+COMMAND <span class="sb">`</span><span class="nb">echo</span><span class="sb">`</span>         <span class="c"># no arg</span>
+
+COMMAND <span class="s2">&quot;`echo`&quot;</span>       <span class="c"># one empty arg</span>
+
+
+<span class="c"># Thanks, S.C.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># cd &quot;`pwd`&quot;  # This should always work.</span>
+<span class="c"># However...</span>
+
+mkdir <span class="s1">&#39;dir with trailing newline</span>
+<span class="s1">&#39;</span>
+
+<span class="nb">cd</span> <span class="s1">&#39;dir with trailing newline</span>
+<span class="s1">&#39;</span>
+
+<span class="nb">cd</span> <span class="s2">&quot;`pwd`&quot;</span>  <span class="c"># Error message:</span>
+<span class="c"># bash: cd: /tmp/file with trailing newline: No such file or directory</span>
+
+<span class="nb">cd</span> <span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">&quot;</span>   <span class="c"># Works fine.</span>
+
+
+
+
+
+<span class="nv">old_tty_setting</span><span class="o">=</span><span class="k">$(</span>stty -g<span class="k">)</span>   <span class="c"># Save old terminal setting.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Hit a key &quot;</span>
+stty -icanon -echo           <span class="c"># Disable &quot;canonical&quot; mode for terminal.</span>
+                             <span class="c"># Also, disable *local* echo.</span>
+<span class="nv">key</span><span class="o">=</span><span class="k">$(</span>dd <span class="nv">bs</span><span class="o">=</span><span class="m">1</span> <span class="nv">count</span><span class="o">=</span><span class="m">1</span> 2&gt; /dev/null<span class="k">)</span>   <span class="c"># Using &#39;dd&#39; to get a keypress.</span>
+stty <span class="s2">&quot;</span><span class="nv">$old_tty_setting</span><span class="s2">&quot;</span>      <span class="c"># Restore old setting.</span>
+<span class="nb">echo</span> <span class="s2">&quot;You hit </span><span class="si">${#</span><span class="nv">key</span><span class="si">}</span><span class="s2"> key.&quot;</span>  <span class="c"># ${#variable} = number of characters in $variable</span>
+<span class="c">#</span>
+<span class="c"># Hit any key except RETURN, and the output is &quot;You hit 1 key.&quot;</span>
+<span class="c"># Hit RETURN, and it&#39;s &quot;You hit 0 key.&quot;</span>
+<span class="c"># The newline gets eaten in the command substitution.</span>
+
+<span class="c">#Code snippet by StÃ©phane Chazelas.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>COMMAND <span class="sb">`</span><span class="nb">echo </span>a b<span class="sb">`</span>     <span class="c"># 2 args: a and b</span>
+
+COMMAND <span class="s2">&quot;`echo a b`&quot;</span>   <span class="c"># 1 arg: &quot;a b&quot;</span>
+
+COMMAND <span class="sb">`</span><span class="nb">echo</span><span class="sb">`</span>         <span class="c"># no arg</span>
+
+COMMAND <span class="s2">&quot;`echo`&quot;</span>       <span class="c"># one empty arg</span>
+
+
+<span class="c"># Thanks, S.C.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># cd &quot;`pwd`&quot;  # This should always work.</span>
+<span class="c"># However...</span>
+
+mkdir <span class="s1">&#39;dir with trailing newline</span>
+<span class="s1">&#39;</span>
+
+<span class="nb">cd</span> <span class="s1">&#39;dir with trailing newline</span>
+<span class="s1">&#39;</span>
+
+<span class="nb">cd</span> <span class="s2">&quot;`pwd`&quot;</span>  <span class="c"># Error message:</span>
+<span class="c"># bash: cd: /tmp/file with trailing newline: No such file or directory</span>
+
+<span class="nb">cd</span> <span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">&quot;</span>   <span class="c"># Works fine.</span>
+
+
+
+
+
+<span class="nv">old_tty_setting</span><span class="o">=</span><span class="k">$(</span>stty -g<span class="k">)</span>   <span class="c"># Save old terminal setting.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Hit a key &quot;</span>
+stty -icanon -echo           <span class="c"># Disable &quot;canonical&quot; mode for terminal.</span>
+                             <span class="c"># Also, disable *local* echo.</span>
+<span class="nv">key</span><span class="o">=</span><span class="k">$(</span>dd <span class="nv">bs</span><span class="o">=</span><span class="m">1</span> <span class="nv">count</span><span class="o">=</span><span class="m">1</span> 2&gt; /dev/null<span class="k">)</span>   <span class="c"># Using &#39;dd&#39; to get a keypress.</span>
+stty <span class="s2">&quot;</span><span class="nv">$old_tty_setting</span><span class="s2">&quot;</span>      <span class="c"># Restore old setting.</span>
+<span class="nb">echo</span> <span class="s2">&quot;You hit </span><span class="si">${#</span><span class="nv">key</span><span class="si">}</span><span class="s2"> key.&quot;</span>  <span class="c"># ${#variable} = number of characters in $variable</span>
+<span class="c">#</span>
+<span class="c"># Hit any key except RETURN, and the output is &quot;You hit 1 key.&quot;</span>
+<span class="c"># Hit RETURN, and it&#39;s &quot;You hit 0 key.&quot;</span>
+<span class="c"># The newline gets eaten in the command substitution.</span>
+
+<span class="c">#Code snippet by StÃ©phane Chazelas.</span>
+</pre></div>
+</div>
+<p><a href="#id7"><span class="problematic" id="id8">|</span></a>Caution</p>
+<p>Using <strong>echo</strong> to output an <em>unquoted</em> variable set with command
+substitution removes trailing newlines characters from the output of the
+reassigned command(s). This can cause unpleasant surprises.</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>   <span class="nv">dir_listing</span><span class="o">=</span><span class="sb">`</span>ls -l<span class="sb">`</span>
+   <span class="nb">echo</span> <span class="nv">$dir_listing</span>
+ <span class="c"># unquoted</span>
+
+   <span class="c"># Expecting a nicely</span>
+ordered directory listi
+</pre></div>
+</div>
+<p>ng.</p>
+<blockquote>
+<div># However, what you</div></blockquote>
+<dl class="docutils">
+<dt>get is:</dt>
+<dd><blockquote class="first">
+<div># total 3 -rw-rw-r&#8211;</div></blockquote>
+<p class="last">1 bozo bozo 30 May 13 1</p>
+</dd>
+</dl>
+<p>7:15 1.txt -rw-rw-r&#8211; 1
+bozo</p>
+<blockquote>
+<div># bozo 51 May 15 20:</div></blockquote>
+<p>57 t2.sh -rwxr-xr-x 1 bo
+zo bozo 217 Mar 5 21:13
+wi.sh</p>
+<blockquote>
+<div># The newlines disap</div></blockquote>
+<p>peared.</p>
+<blockquote>
+<div><blockquote>
+<div>echo &#8220;$dir_listing&#8221;</div></blockquote>
+<dl class="docutils">
+<dt># quoted</dt>
+<dd># -rw-rw-r&#8211;    1 bo</dd>
+</dl>
+</div></blockquote>
+<dl class="docutils">
+<dt>zo       30 May 13 17:15</dt>
+<dd><dl class="first last docutils">
+<dt>1.txt</dt>
+<dd># -rw-rw-r&#8211;    1 bo</dd>
+</dl>
+</dd>
+<dt>zo       51 May 15 20:57</dt>
+<dd><dl class="first last docutils">
+<dt>t2.sh</dt>
+<dd># -rwxr-xr-x    1 bo</dd>
+</dl>
+</dd>
+<dt>zo      217 Mar  5 21:13</dt>
+<dd>wi.sh</dd>
+</dl>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">dir_listing</span><span class="o">=</span><span class="sb">`</span>ls -l<span class="sb">`</span>
+<span class="nb">echo</span> <span class="nv">$dir_listing</span>     <span class="c"># unquoted</span>
+
+<span class="c"># Expecting a nicely ordered directory listing.</span>
+
+<span class="c"># However, what you get is:</span>
+<span class="c"># total 3 -rw-rw-r-- 1 bozo bozo 30 May 13 17:15 1.txt -rw-rw-r-- 1 bozo</span>
+<span class="c"># bozo 51 May 15 20:57 t2.sh -rwxr-xr-x 1 bozo bozo 217 Mar 5 21:13 wi.sh</span>
+
+<span class="c"># The newlines disappeared.</span>
+
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$dir_listing</span><span class="s2">&quot;</span>   <span class="c"># quoted</span>
+<span class="c"># -rw-rw-r--    1 bozo       30 May 13 17:15 1.txt</span>
+<span class="c"># -rw-rw-r--    1 bozo       51 May 15 20:57 t2.sh</span>
+<span class="c"># -rwxr-xr-x    1 bozo      217 Mar  5 21:13 wi.sh</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">dir_listing</span><span class="o">=</span><span class="sb">`</span>ls -l<span class="sb">`</span>
+<span class="nb">echo</span> <span class="nv">$dir_listing</span>     <span class="c"># unquoted</span>
+
+<span class="c"># Expecting a nicely ordered directory listing.</span>
+
+<span class="c"># However, what you get is:</span>
+<span class="c"># total 3 -rw-rw-r-- 1 bozo bozo 30 May 13 17:15 1.txt -rw-rw-r-- 1 bozo</span>
+<span class="c"># bozo 51 May 15 20:57 t2.sh -rwxr-xr-x 1 bozo bozo 217 Mar 5 21:13 wi.sh</span>
+
+<span class="c"># The newlines disappeared.</span>
+
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$dir_listing</span><span class="s2">&quot;</span>   <span class="c"># quoted</span>
+<span class="c"># -rw-rw-r--    1 bozo       30 May 13 17:15 1.txt</span>
+<span class="c"># -rw-rw-r--    1 bozo       51 May 15 20:57 t2.sh</span>
+<span class="c"># -rwxr-xr-x    1 bozo      217 Mar  5 21:13 wi.sh</span>
+</pre></div>
+</div>
+<p>Command substitution even permits setting a variable to the contents of
+a file, using either <a class="reference external" href="io-redirection.html#IOREDIRREF">redirection</a> or
+the <a class="reference external" href="basic.html#CATREF">cat</a> command.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">variable1</span><span class="o">=</span><span class="sb">`</span>&lt;file1<span class="sb">`</span>      <span class="c">#  Set &quot;variable1&quot; to contents of &quot;file1&quot;.</span>
+<span class="nv">variable2</span><span class="o">=</span><span class="sb">`</span>cat file2<span class="sb">`</span>   <span class="c">#  Set &quot;variable2&quot; to contents of &quot;file2&quot;.</span>
+                        <span class="c">#  This, however, forks a new process,</span>
+                        <span class="c">#+ so the line of code executes slower than the above version.</span>
+
+<span class="c">#  Note that the variables may contain embedded whitespace,</span>
+<span class="c">#+ or even (horrors), control characters.</span>
+
+<span class="c">#  It is not necessary to explicitly assign a variable.</span>
+<span class="nb">echo</span> <span class="s2">&quot;` &lt;</span><span class="nv">$0</span><span class="s2">`&quot;</span>           <span class="c"># Echoes the script itself to stdout.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#  Excerpts from system file, /etc/rc.d/rc.sysinit</span>
+<span class="c">#+ (on a Red Hat Linux installation)</span>
+
+
+<span class="k">if</span> <span class="o">[</span> -f /fsckoptions <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nv">fsckoptions</span><span class="o">=</span><span class="sb">`</span>cat /fsckoptions<span class="sb">`</span>
+...
+<span class="k">fi</span>
+<span class="c">#</span>
+<span class="c">#</span>
+<span class="k">if</span> <span class="o">[</span> -e <span class="s2">&quot;/proc/ide/</span><span class="si">${</span><span class="nv">disk</span><span class="p">[</span><span class="nv">$device</span><span class="p">]</span><span class="si">}</span><span class="s2">/media&quot;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+             <span class="nv">hdmedia</span><span class="o">=</span><span class="sb">`</span>cat /proc/ide/<span class="si">${</span><span class="nv">disk</span><span class="p">[</span><span class="nv">$device</span><span class="p">]</span><span class="si">}</span>/media<span class="sb">`</span>
+...
+<span class="k">fi</span>
+<span class="c">#</span>
+<span class="c">#</span>
+<span class="k">if</span> <span class="o">[</span> ! -n <span class="s2">&quot;`uname -rgrep -- &quot;</span>-<span class="s2">&quot;`&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+       <span class="nv">ktag</span><span class="o">=</span><span class="s2">&quot;`cat /proc/version`&quot;</span>
+...
+<span class="k">fi</span>
+<span class="c">#</span>
+<span class="c">#</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$usb</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    sleep 5
+    <span class="nv">mouseoutput</span><span class="o">=</span><span class="sb">`</span>cat /proc/bus/usb/devices 2&gt;/dev/null<span class="p">|</span>grep -E <span class="s2">&quot;^I.*Cls=03.*Prot=02&quot;</span><span class="sb">`</span>
+    <span class="nv">kbdoutput</span><span class="o">=</span><span class="sb">`</span>cat /proc/bus/usb/devices 2&gt;/dev/null<span class="p">|</span>grep -E <span class="s2">&quot;^I.*Cls=03.*Prot=01&quot;</span><span class="sb">`</span>
+...
+<span class="k">fi</span>
+</pre></div>
+</div>
+<p><a href="#id9"><span class="problematic" id="id10">|</span></a>Caution</p>
+<p>Do not set a variable to the contents of a <em>long</em> text file unless you
+have a very good reason for doing so. Do not set a variable to the
+contents of a <em>binary</em> file, even as a joke.</p>
+<div class="section" id="exemple-1-stupid-script-tricks">
+<h2>Exemple 1. Stupid script tricks<a class="headerlink" href="#exemple-1-stupid-script-tricks" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># stupid-script-tricks.sh: Don&#39;t try this at home, folks.</span>
+<span class="c"># From &quot;Stupid Script Tricks,&quot; Volume I.</span>
+
+<span class="nb">exit </span><span class="m">99</span>  <span class="c">### Comment out this line if you dare.</span>
+
+<span class="nv">dangerous_variable</span><span class="o">=</span><span class="sb">`</span>cat /boot/vmlinuz<span class="sb">`</span>   <span class="c"># The compressed Linux kernel itself.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;string-length of \$dangerous_variable = </span><span class="si">${#</span><span class="nv">dangerous_variable</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="c"># string-length of $dangerous_variable = 794151</span>
+<span class="c"># (Newer kernels are bigger.)</span>
+<span class="c"># Does not give same count as &#39;wc -c /boot/vmlinuz&#39;.</span>
+
+<span class="c"># echo &quot;$dangerous_variable&quot;</span>
+<span class="c"># Don&#39;t try this! It would hang the script.</span>
+
+
+<span class="c">#  The document author is aware of no useful applications for</span>
+<span class="c">#+ setting a variable to the contents of a binary file.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Notice that a <em>buffer overrun</em> does not occur. This is one instance
+where an interpreted language, such as Bash, provides more protection
+from programmer mistakes than a compiled language.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># stupid-script-tricks.sh: Don&#39;t try this at home, folks.</span>
+<span class="c"># From &quot;Stupid Script Tricks,&quot; Volume I.</span>
+
+<span class="nb">exit </span><span class="m">99</span>  <span class="c">### Comment out this line if you dare.</span>
+
+<span class="nv">dangerous_variable</span><span class="o">=</span><span class="sb">`</span>cat /boot/vmlinuz<span class="sb">`</span>   <span class="c"># The compressed Linux kernel itself.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;string-length of \$dangerous_variable = </span><span class="si">${#</span><span class="nv">dangerous_variable</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="c"># string-length of $dangerous_variable = 794151</span>
+<span class="c"># (Newer kernels are bigger.)</span>
+<span class="c"># Does not give same count as &#39;wc -c /boot/vmlinuz&#39;.</span>
+
+<span class="c"># echo &quot;$dangerous_variable&quot;</span>
+<span class="c"># Don&#39;t try this! It would hang the script.</span>
+
+
+<span class="c">#  The document author is aware of no useful applications for</span>
+<span class="c">#+ setting a variable to the contents of a binary file.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># stupid-script-tricks.sh: Don&#39;t try this at home, folks.</span>
+<span class="c"># From &quot;Stupid Script Tricks,&quot; Volume I.</span>
+
+<span class="nb">exit </span><span class="m">99</span>  <span class="c">### Comment out this line if you dare.</span>
+
+<span class="nv">dangerous_variable</span><span class="o">=</span><span class="sb">`</span>cat /boot/vmlinuz<span class="sb">`</span>   <span class="c"># The compressed Linux kernel itself.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;string-length of \$dangerous_variable = </span><span class="si">${#</span><span class="nv">dangerous_variable</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="c"># string-length of $dangerous_variable = 794151</span>
+<span class="c"># (Newer kernels are bigger.)</span>
+<span class="c"># Does not give same count as &#39;wc -c /boot/vmlinuz&#39;.</span>
+
+<span class="c"># echo &quot;$dangerous_variable&quot;</span>
+<span class="c"># Don&#39;t try this! It would hang the script.</span>
+
+
+<span class="c">#  The document author is aware of no useful applications for</span>
+<span class="c">#+ setting a variable to the contents of a binary file.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Command substitution permits setting a variable to the output of a
+<a class="reference external" href="loops1.html#FORLOOPREF1">loop</a> . The key to this is grabbing the
+output of an <a class="reference external" href="internal.html#ECHOREF">echo</a> command within the loop.</p>
+</div>
+<div class="section" id="exemple-2-generating-a-variable-from-a-loop">
+<h2>Exemple 2. Generating a variable from a loop<a class="headerlink" href="#exemple-2-generating-a-variable-from-a-loop" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># csubloop.sh: Setting a variable to the output of a loop.</span>
+
+<span class="nv">variable1</span><span class="o">=</span><span class="sb">`</span><span class="k">for</span> i in <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> 5
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span>                 <span class="c">#  The &#39;echo&#39; command is critical</span>
+<span class="k">done</span><span class="sb">`</span>                          <span class="c">#+ to command substitution here.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;variable1 = </span><span class="nv">$variable1</span><span class="s2">&quot;</span>  <span class="c"># variable1 = 12345</span>
+
+
+<span class="nv">i</span><span class="o">=</span>0
+<span class="nv">variable2</span><span class="o">=</span><span class="sb">`</span><span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span> -lt <span class="m">10</span> <span class="o">]</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span>                 <span class="c"># Again, the necessary &#39;echo&#39;.</span>
+  <span class="nb">let</span> <span class="s2">&quot;i += 1&quot;</span>                 <span class="c"># Increment.</span>
+<span class="k">done</span><span class="sb">`</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;variable2 = </span><span class="nv">$variable2</span><span class="s2">&quot;</span>  <span class="c"># variable2 = 0123456789</span>
+
+<span class="c">#  Demonstrates that it&#39;s possible to embed a loop</span>
+<span class="c">#+ inside a variable declaration.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>Command substitution makes it possible to extend the toolset available
+to Bash. It is simply a matter of writing a program or script that
+outputs to ``         stdout        `` (like a well-behaved UNIX tool
+should) and assigning that output to a variable.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#include &lt;stdio.h&gt;</span>
+
+/*  <span class="s2">&quot;Hello, world.&quot;</span> C program  */
+
+int main<span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">printf</span><span class="o">(</span> <span class="s2">&quot;Hello, world.\n&quot;</span> <span class="o">)</span><span class="p">;</span>
+  <span class="k">return</span> <span class="o">(</span>0<span class="o">)</span><span class="p">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>gcc -o hello hello.c
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># hello.sh</span>
+
+<span class="nv">greeting</span><span class="o">=</span><span class="sb">`</span>./hello<span class="sb">`</span>
+<span class="nb">echo</span> <span class="nv">$greeting</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>sh hello.sh
+Hello, world.
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#include &lt;stdio.h&gt;</span>
+
+/*  <span class="s2">&quot;Hello, world.&quot;</span> C program  */
+
+int main<span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">printf</span><span class="o">(</span> <span class="s2">&quot;Hello, world.\n&quot;</span> <span class="o">)</span><span class="p">;</span>
+  <span class="k">return</span> <span class="o">(</span>0<span class="o">)</span><span class="p">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>gcc -o hello hello.c
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># hello.sh</span>
+
+<span class="nv">greeting</span><span class="o">=</span><span class="sb">`</span>./hello<span class="sb">`</span>
+<span class="nb">echo</span> <span class="nv">$greeting</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>sh hello.sh
+Hello, world.
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#include &lt;stdio.h&gt;</span>
+
+/*  <span class="s2">&quot;Hello, world.&quot;</span> C program  */
+
+int main<span class="o">()</span>
+<span class="o">{</span>
+  <span class="nb">printf</span><span class="o">(</span> <span class="s2">&quot;Hello, world.\n&quot;</span> <span class="o">)</span><span class="p">;</span>
+  <span class="k">return</span> <span class="o">(</span>0<span class="o">)</span><span class="p">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>gcc -o hello hello.c
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># hello.sh</span>
+
+<span class="nv">greeting</span><span class="o">=</span><span class="sb">`</span>./hello<span class="sb">`</span>
+<span class="nb">echo</span> <span class="nv">$greeting</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>sh hello.sh
+Hello, world.
+</pre></div>
+</div>
+<p><a href="#id11"><span class="problematic" id="id12">|</span></a>Note</p>
+<blockquote>
+<div>The <strong>$(...)</strong> form has superseded backticks for command substitution.</div></blockquote>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">output</span><span class="o">=</span><span class="k">$(</span>sed -n /<span class="s2">&quot;</span><span class="nv">$1</span><span class="s2"></span>
+</pre></div>
+</div>
+<p>&#8220;/p $file)   # From &#8220;grp
+.sh&#8221;  example.</p>
+<blockquote>
+<div><blockquote>
+<div># Setting a variable</div></blockquote>
+<p>to the contents of a te</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>xt file.</dt>
+<dd><blockquote class="first">
+<div>File_contents1=$(cat</div></blockquote>
+<dl class="last docutils">
+<dt>$file1)</dt>
+<dd>File_contents2=$(&lt;$f</dd>
+</dl>
+</dd>
+</dl>
+<p>ile2)        # Bash perm
+its this also.</p>
+<hr class="docutils" />
+<p>The <strong>$(...)</strong> form of command substitution treats a double backslash in
+a different way than <strong>`...`</strong> .</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo</span> <span class="sb">`</span><span class="nb">echo</span> <span class="se">\\</span><span class="sb">`</span>
+
+
+bash<span class="nv">$ </span><span class="nb">echo</span> <span class="k">$(</span><span class="nb">echo</span> <span class="se">\\</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>)</dt>
+<dd></dd>
+</dl>
+<hr class="docutils" />
+<dl class="docutils">
+<dt>The <strong>$(...)</strong> form of command substitution permits nesting. ` [3]</dt>
+<dd>&lt;commandsub.html#FTN.AEN7308&gt;`__</dd>
+</dl>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">word_count</span><span class="o">=</span><span class="k">$(</span> wc -w
+</pre></div>
+</div>
+<p>$(echo * | awk &#8216;{print $
+8}&#8217;) )</p>
+<hr class="docutils" />
+<p>Or, for something a bit more elaborate . . .</p>
+</div>
+<div class="section" id="exemple-3-finding-anagrams">
+<h2>Exemple 3. Finding anagrams<a class="headerlink" href="#exemple-3-finding-anagrams" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># agram2.sh</span>
+<span class="c"># Example of nested command substitution.</span>
+
+<span class="c">#  Uses &quot;anagram&quot; utility</span>
+<span class="c">#+ that is part of the author&#39;s &quot;yawl&quot; word list package.</span>
+<span class="c">#  http://ibiblio.org/pub/Linux/libs/yawl-0.3.2.tar.gz</span>
+<span class="c">#  http://bash.deta.in/yawl-0.3.2.tar.gz</span>
+
+<span class="nv">E_NOARGS</span><span class="o">=</span>86
+<span class="nv">E_BADARG</span><span class="o">=</span>87
+<span class="nv">MINLEN</span><span class="o">=</span>7
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage </span><span class="nv">$0</span><span class="s2"> LETTERSET&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOARGS</span>         <span class="c"># Script needs a command-line argument.</span>
+<span class="k">elif</span> <span class="o">[</span> <span class="si">${#</span><span class="nv">1</span><span class="si">}</span> -lt <span class="nv">$MINLEN</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Argument must have at least </span><span class="nv">$MINLEN</span><span class="s2"> letters.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARG</span>
+<span class="k">fi</span>
+
+
+
+<span class="nv">FILTER</span><span class="o">=</span><span class="s1">&#39;.......&#39;</span>         <span class="c"># Must have at least 7 letters.</span>
+<span class="c">#       1234567</span>
+<span class="nv">Anagrams</span><span class="o">=(</span> <span class="k">$(</span><span class="nb">echo</span> <span class="k">$(</span>anagram <span class="nv">$1grep</span> <span class="nv">$FILTER</span><span class="k">)</span> <span class="k">)</span> <span class="o">)</span>
+<span class="c">#          $(     $(  nested command sub.    ) )</span>
+<span class="c">#        (              array assignment         )</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${#</span><span class="nv">Anagrams</span><span class="p">[*]</span><span class="si">}</span><span class="s2">  7+ letter anagrams found&quot;</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">Anagrams</span><span class="p">[0]</span><span class="si">}</span>      <span class="c"># First anagram.</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">Anagrams</span><span class="p">[1]</span><span class="si">}</span>      <span class="c"># Second anagram.</span>
+                         <span class="c"># Etc.</span>
+
+<span class="c"># echo &quot;${Anagrams[*]}&quot;  # To list all the anagrams in a single line . . .</span>
+
+<span class="c">#  Look ahead to the Arrays chapter for enlightenment on</span>
+<span class="c">#+ what&#39;s going on here.</span>
+
+<span class="c"># See also the agram.sh script for an exercise in anagram finding.</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">output</span><span class="o">=</span><span class="k">$(</span>sed -n /<span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>/p <span class="nv">$file</span><span class="k">)</span>   <span class="c"># From &quot;grp.sh&quot; example.</span>
+
+<span class="c"># Setting a variable to the contents of a text file.</span>
+<span class="nv">File_contents1</span><span class="o">=</span><span class="k">$(</span>cat <span class="nv">$file1</span><span class="k">)</span>
+<span class="nv">File_contents2</span><span class="o">=</span><span class="k">$(</span>&lt;<span class="nv">$file2</span><span class="k">)</span>        <span class="c"># Bash permits this also.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo</span> <span class="sb">`</span><span class="nb">echo</span> <span class="se">\\</span><span class="sb">`</span>
+
+
+bash<span class="nv">$ </span><span class="nb">echo</span> <span class="k">$(</span><span class="nb">echo</span> <span class="se">\\</span><span class="k">)</span>
+<span class="se">\</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">word_count</span><span class="o">=</span><span class="k">$(</span> wc -w <span class="k">$(</span><span class="nb">echo</span> *awk <span class="s1">&#39;{print $8}&#39;</span><span class="k">)</span> <span class="k">)</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># agram2.sh</span>
+<span class="c"># Example of nested command substitution.</span>
+
+<span class="c">#  Uses &quot;anagram&quot; utility</span>
+<span class="c">#+ that is part of the author&#39;s &quot;yawl&quot; word list package.</span>
+<span class="c">#  http://ibiblio.org/pub/Linux/libs/yawl-0.3.2.tar.gz</span>
+<span class="c">#  http://bash.deta.in/yawl-0.3.2.tar.gz</span>
+
+<span class="nv">E_NOARGS</span><span class="o">=</span>86
+<span class="nv">E_BADARG</span><span class="o">=</span>87
+<span class="nv">MINLEN</span><span class="o">=</span>7
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage </span><span class="nv">$0</span><span class="s2"> LETTERSET&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOARGS</span>         <span class="c"># Script needs a command-line argument.</span>
+<span class="k">elif</span> <span class="o">[</span> <span class="si">${#</span><span class="nv">1</span><span class="si">}</span> -lt <span class="nv">$MINLEN</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Argument must have at least </span><span class="nv">$MINLEN</span><span class="s2"> letters.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARG</span>
+<span class="k">fi</span>
+
+
+
+<span class="nv">FILTER</span><span class="o">=</span><span class="s1">&#39;.......&#39;</span>         <span class="c"># Must have at least 7 letters.</span>
+<span class="c">#       1234567</span>
+<span class="nv">Anagrams</span><span class="o">=(</span> <span class="k">$(</span><span class="nb">echo</span> <span class="k">$(</span>anagram <span class="nv">$1grep</span> <span class="nv">$FILTER</span><span class="k">)</span> <span class="k">)</span> <span class="o">)</span>
+<span class="c">#          $(     $(  nested command sub.    ) )</span>
+<span class="c">#        (              array assignment         )</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${#</span><span class="nv">Anagrams</span><span class="p">[*]</span><span class="si">}</span><span class="s2">  7+ letter anagrams found&quot;</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">Anagrams</span><span class="p">[0]</span><span class="si">}</span>      <span class="c"># First anagram.</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">Anagrams</span><span class="p">[1]</span><span class="si">}</span>      <span class="c"># Second anagram.</span>
+                         <span class="c"># Etc.</span>
+
+<span class="c"># echo &quot;${Anagrams[*]}&quot;  # To list all the anagrams in a single line . . .</span>
+
+<span class="c">#  Look ahead to the Arrays chapter for enlightenment on</span>
+<span class="c">#+ what&#39;s going on here.</span>
+
+<span class="c"># See also the agram.sh script for an exercise in anagram finding.</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">output</span><span class="o">=</span><span class="k">$(</span>sed -n /<span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>/p <span class="nv">$file</span><span class="k">)</span>   <span class="c"># From &quot;grp.sh&quot; example.</span>
+
+<span class="c"># Setting a variable to the contents of a text file.</span>
+<span class="nv">File_contents1</span><span class="o">=</span><span class="k">$(</span>cat <span class="nv">$file1</span><span class="k">)</span>
+<span class="nv">File_contents2</span><span class="o">=</span><span class="k">$(</span>&lt;<span class="nv">$file2</span><span class="k">)</span>        <span class="c"># Bash permits this also.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo</span> <span class="sb">`</span><span class="nb">echo</span> <span class="se">\\</span><span class="sb">`</span>
+
+
+bash<span class="nv">$ </span><span class="nb">echo</span> <span class="k">$(</span><span class="nb">echo</span> <span class="se">\\</span><span class="k">)</span>
+<span class="se">\</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">word_count</span><span class="o">=</span><span class="k">$(</span> wc -w <span class="k">$(</span><span class="nb">echo</span> *awk <span class="s1">&#39;{print $8}&#39;</span><span class="k">)</span> <span class="k">)</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># agram2.sh</span>
+<span class="c"># Example of nested command substitution.</span>
+
+<span class="c">#  Uses &quot;anagram&quot; utility</span>
+<span class="c">#+ that is part of the author&#39;s &quot;yawl&quot; word list package.</span>
+<span class="c">#  http://ibiblio.org/pub/Linux/libs/yawl-0.3.2.tar.gz</span>
+<span class="c">#  http://bash.deta.in/yawl-0.3.2.tar.gz</span>
+
+<span class="nv">E_NOARGS</span><span class="o">=</span>86
+<span class="nv">E_BADARG</span><span class="o">=</span>87
+<span class="nv">MINLEN</span><span class="o">=</span>7
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage </span><span class="nv">$0</span><span class="s2"> LETTERSET&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOARGS</span>         <span class="c"># Script needs a command-line argument.</span>
+<span class="k">elif</span> <span class="o">[</span> <span class="si">${#</span><span class="nv">1</span><span class="si">}</span> -lt <span class="nv">$MINLEN</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Argument must have at least </span><span class="nv">$MINLEN</span><span class="s2"> letters.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARG</span>
+<span class="k">fi</span>
+
+
+
+<span class="nv">FILTER</span><span class="o">=</span><span class="s1">&#39;.......&#39;</span>         <span class="c"># Must have at least 7 letters.</span>
+<span class="c">#       1234567</span>
+<span class="nv">Anagrams</span><span class="o">=(</span> <span class="k">$(</span><span class="nb">echo</span> <span class="k">$(</span>anagram <span class="nv">$1grep</span> <span class="nv">$FILTER</span><span class="k">)</span> <span class="k">)</span> <span class="o">)</span>
+<span class="c">#          $(     $(  nested command sub.    ) )</span>
+<span class="c">#        (              array assignment         )</span>
+
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${#</span><span class="nv">Anagrams</span><span class="p">[*]</span><span class="si">}</span><span class="s2">  7+ letter anagrams found&quot;</span>
+<span class="nb">echo</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">Anagrams</span><span class="p">[0]</span><span class="si">}</span>      <span class="c"># First anagram.</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">Anagrams</span><span class="p">[1]</span><span class="si">}</span>      <span class="c"># Second anagram.</span>
+                         <span class="c"># Etc.</span>
+
+<span class="c"># echo &quot;${Anagrams[*]}&quot;  # To list all the anagrams in a single line . . .</span>
+
+<span class="c">#  Look ahead to the Arrays chapter for enlightenment on</span>
+<span class="c">#+ what&#39;s going on here.</span>
+
+<span class="c"># See also the agram.sh script for an exercise in anagram finding.</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+<p>Examples of command substitution in shell scripts:</p>
+<ol class="arabic simple">
+<li><a class="reference external" href="loops1.html#BINGREP">Example 11-8</a></li>
+<li><a class="reference external" href="testbranch.html#CASECMD">Example 11-27</a></li>
+<li><a class="reference external" href="randomvar.html#SEEDINGRANDOM">Example 9-16</a></li>
+<li><a class="reference external" href="moreadv.html#EX57">Example 16-3</a></li>
+<li><a class="reference external" href="textproc.html#LOWERCASE">Example 16-22</a></li>
+<li><a class="reference external" href="textproc.html#GRP">Example 16-17</a></li>
+<li><a class="reference external" href="extmisc.html#EX53">Example 16-54</a></li>
+<li><a class="reference external" href="loops1.html#EX24">Example 11-14</a></li>
+<li><a class="reference external" href="loops1.html#SYMLINKS">Example 11-11</a></li>
+<li><a class="reference external" href="filearchiv.html#STRIPC">Example 16-32</a></li>
+<li><a class="reference external" href="redircb.html#REDIR4">Example 20-8</a></li>
+<li><a class="reference external" href="contributed-scripts.html#TREE">Example A-16</a></li>
+<li><a class="reference external" href="procref1.html#PIDID">Example 29-3</a></li>
+<li><a class="reference external" href="mathc.html#MONTHLYPMT">Example 16-47</a></li>
+<li><a class="reference external" href="mathc.html#BASE">Example 16-48</a></li>
+<li><a class="reference external" href="mathc.html#ALTBC">Example 16-49</a></li>
+</ol>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;commandsub.html#AEN7205&gt;`__</p>
+<p>For purposes of <em>command substitution</em> , a <strong>command</strong> may be an
+external system command, an internal scripting
+<a class="reference external" href="internal.html#BUILTINREF">builtin</a> , or even <a class="reference external" href="assortedtips.html#RVT">a script
+function</a> .</p>
+<p>` [2]  &lt;commandsub.html#AEN7211&gt;`__</p>
+<p>In a more technically correct sense, <em>command substitution</em> extracts the
+``       stdout      `` of a command, then assigns it to a variable
+using the = operator.</p>
+<p>` [3]  &lt;commandsub.html#AEN7308&gt;`__</p>
+<p>In fact, nesting with backticks is also possible, but only by escaping
+the inner backticks, as John Default points out.</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">word_count</span><span class="o">=</span><span class="sb">`</span> wc -w <span class="se">\</span>
+</pre></div>
+</div>
+<p><a href="#id13"><span class="problematic" id="id14">`</span></a>echo * | awk &#8216;{print $8
+}&#8217;` `</p>
+<hr class="docutils" />
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">word_count</span><span class="o">=</span><span class="sb">`</span> wc -w <span class="se">\`</span><span class="nb">echo</span> *awk <span class="s1">&#39;{print $8}&#39;</span><span class="se">\`</span> <span class="sb">`</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">word_count</span><span class="o">=</span><span class="sb">`</span> wc -w <span class="se">\`</span><span class="nb">echo</span> *awk <span class="s1">&#39;{print $8}&#39;</span><span class="se">\`</span> <span class="sb">`</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="arithexp.html" class="btn btn-neutral float-right" title="XXX Chapter 13. Arithmetic Expansion" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="testbranch.html" class="btn btn-neutral" title="XXX 11.4. Testing and Branching"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

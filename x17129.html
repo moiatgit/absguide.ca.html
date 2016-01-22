@@ -1,0 +1,652 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 18.1. A Brief Introduction to Regular Expressions &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX 18.1. A Brief Introduction to Regular Expressions</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-18-1-a-brief-introduction-to-regular-expressions">
+<h1>XXX 18.1. A Brief Introduction to Regular Expressions<a class="headerlink" href="#xxx-18-1-a-brief-introduction-to-regular-expressions" title="Link permanent a aquest títol">¶</a></h1>
+<p>An expression is a string of characters. Those characters having an
+interpretation above and beyond their literal meaning are called
+<em>metacharacters</em> . A quote symbol, for example, may denote speech by a
+person, <em>ditto</em> , or a meta-meaning ` [1]  &lt;x17129.html#FTN.AEN17134&gt;`__
+for the symbols that follow. Regular Expressions are sets of characters
+and/or metacharacters that match (or specify) patterns.</p>
+<p>A Regular Expression contains one or more of the following:</p>
+<ul class="simple">
+<li><em>A character set</em> . These are the characters retaining their literal
+meaning. The simplest type of Regular Expression consists <em>only</em> of a
+character set, with no metacharacters.</li>
+<li><em>An anchor</em> . These designate ( <em>anchor</em> ) the position in the line
+of text that the RE is to match. For example, ^ , and $ are anchors.</li>
+<li><em>Modifiers</em> . These expand or narrow ( <em>modify</em> ) the range of text
+the RE is to match. Modifiers include the asterisk, brackets, and the
+backslash.</li>
+</ul>
+<p>The main uses for Regular Expressions ( <em>RE</em> s) are text searches and
+string manipulation. An RE <em>matches</em> a single character or a set of
+characters &#8211; a string or a part of a string.</p>
+<ul class="simple">
+<li>The asterisk &#8211; * &#8211; matches any number of repeats of the character</li>
+</ul>
+<blockquote>
+<div><p>string or RE preceding it, including <em>zero</em> instances.</p>
+<blockquote>
+<div>&#8220;1133*&#8221; matches</div></blockquote>
+<p>``                 11 +           one or more 3&#8217;s               `` :
+``                 113               `` ,
+``                 1133               `` ,
+``                 1133333               `` , and so forth.</p>
+</div></blockquote>
+<ul>
+<li><p class="first">The <em>dot</em> &#8211; . &#8211; matches any one character, except a newline. ` [2]
+&lt;x17129.html#FTN.AEN17189&gt;`__</p>
+<p>&#8220;13.&#8221; matches</p>
+</li>
+</ul>
+<blockquote>
+<div><p>``                 13 + at          least one of any character (including a          space)               ``
+: ``                 1133               `` ,
+``                 11333               `` , but not
+``                 13               `` (additional character
+missing).</p>
+<p>See <a class="reference external" href="textproc.html#CWSOLVER">Example 16-18</a> for a demonstration of
+<em>dot single-character</em> matching.</p>
+</div></blockquote>
+<ul class="simple">
+<li>The caret &#8211; ^ &#8211; matches the beginning of a line, but sometimes,</li>
+</ul>
+<blockquote>
+<div>depending on context, negates the meaning of a set of characters in
+an RE.</div></blockquote>
+<ul>
+<li><p class="first">The dollar sign &#8211; $ &#8211; at the end of an RE matches the end of a
+line.</p>
+<blockquote>
+<div><p>&#8220;XXX$&#8221; matches XXX at the end of a line.</p>
+<p>&#8220;^$&#8221; matches blank lines.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Brackets &#8211; [...] &#8211; enclose a set of characters to match in a single
+RE.</p>
+<blockquote>
+<div><p>&#8220;[xyz]&#8221; matches any one of the characters</p>
+</div></blockquote>
+<p>``                 x               `` ,
+``                 y               `` , or
+``                 z               `` .</p>
+<blockquote>
+<div><p>&#8220;[c-n]&#8221; matches any one of the characters in the range</p>
+</div></blockquote>
+<p>``                 c               `` to
+``                 n               `` .</p>
+<blockquote>
+<div><p>&#8220;[B-Pk-y]&#8221; matches any one of the characters in the ranges</p>
+</div></blockquote>
+<p>``                 B               `` to
+``                 P               `` and
+``                 k               `` to
+``                 y               `` .</p>
+<blockquote>
+<div><p>&#8220;[a-z0-9]&#8221; matches any single lowercase letter or any digit.</p>
+<p>&#8220;[^b-d]&#8221; matches any character <em>except</em> those in the range</p>
+</div></blockquote>
+<p>``                 b               `` to
+``                 d               `` . This is an instance of ^
+negating or inverting the meaning of the following RE (taking on a
+role similar to ! in a different context).</p>
+<p>Combined sequences of bracketed characters match common word
+patterns. &#8220;[Yy][Ee][Ss]&#8221; matches
+``                 yes               `` ,
+``                 Yes               `` ,
+``                 YES               `` ,
+``                 yEs               `` , and so forth.
+&#8220;[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]&#8221; matches any Social
+Security number.</p>
+</li>
+<li><p class="first">The backslash &#8211; \ &#8211; <a class="reference external" href="escapingsection.html#ESCP">escapes</a> a
+special character, which means that character gets interpreted
+literally (and is therefore no longer <em>special</em> ).</p>
+<p>A &#8220;\$&#8221; reverts back to its literal meaning of &#8220;$&#8221; , rather than its
+RE meaning of end-of-line. Likewise a &#8220;\\&#8221; has the literal meaning
+of &#8220;\&#8221; .</p>
+</li>
+<li><p class="first"><a class="reference external" href="escapingsection.html#ESCP">Escaped</a> &#8220;angle brackets&#8221; &#8211; \&lt;...\&gt;
+&#8211; mark word boundaries.</p>
+<p>The angle brackets must be escaped, since otherwise they have only
+their literal character meaning.</p>
+<blockquote>
+<div><p>&#8220;\&lt;the\&gt;&#8221; matches the word &#8220;the,&#8221; but not the words &#8220;them,&#8221;</p>
+</div></blockquote>
+<p>&#8220;there,&#8221; &#8220;other,&#8221; etc.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>cat textfile
+This is line 1, of which there is only one instance.
+ This is the only instance of line 2.
+ This is line 3, another line.
+ This is line 4.
+
+
+bash<span class="nv">$ </span>grep <span class="s1">&#39;the&#39;</span> textfile
+This is line 1, of which there is only one instance.
+ This is the only instance of line 2.
+ This is line 3, another line.
+
+
+bash<span class="nv">$ </span>grep <span class="s1">&#39;\&lt;the\&gt;&#39;</span> textfile
+This is the only instance of line 2.
+</pre></div>
+</div>
+</li>
+</ul>
+<p>The only way to be certain that a particular RE works is to test it.</p>
+<div class="highlight-sh"><div class="highlight"><pre>TEST FILE: tstfile                          <span class="c"># No match.</span>
+                                            <span class="c"># No match.</span>
+Run   grep <span class="s2">&quot;1133*&quot;</span>  on this file.           <span class="c"># Match.</span>
+                                            <span class="c"># No match.</span>
+                                            <span class="c"># No match.</span>
+This line contains the number 113.          <span class="c"># Match.</span>
+This line contains the number 13.           <span class="c"># No match.</span>
+This line contains the number 133.          <span class="c"># No match.</span>
+This line contains the number 1133.         <span class="c"># Match.</span>
+This line contains the number 113312.       <span class="c"># Match.</span>
+This line contains the number 1112.         <span class="c"># No match.</span>
+This line contains the number 113312312.    <span class="c"># Match.</span>
+This line contains no numbers at all.       <span class="c"># No match.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>grep <span class="s2">&quot;1133*&quot;</span> tstfile
+Run   grep <span class="s2">&quot;1133*&quot;</span>  on this file.           <span class="c"># Match.</span>
+ This line contains the number 113.          <span class="c"># Match.</span>
+ This line contains the number 1133.         <span class="c"># Match.</span>
+ This line contains the number 113312.       <span class="c"># Match.</span>
+ This line contains the number 113312312.    <span class="c"># Match.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>TEST FILE: tstfile                          <span class="c"># No match.</span>
+                                            <span class="c"># No match.</span>
+Run   grep <span class="s2">&quot;1133*&quot;</span>  on this file.           <span class="c"># Match.</span>
+                                            <span class="c"># No match.</span>
+                                            <span class="c"># No match.</span>
+This line contains the number 113.          <span class="c"># Match.</span>
+This line contains the number 13.           <span class="c"># No match.</span>
+This line contains the number 133.          <span class="c"># No match.</span>
+This line contains the number 1133.         <span class="c"># Match.</span>
+This line contains the number 113312.       <span class="c"># Match.</span>
+This line contains the number 1112.         <span class="c"># No match.</span>
+This line contains the number 113312312.    <span class="c"># Match.</span>
+This line contains no numbers at all.       <span class="c"># No match.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>grep <span class="s2">&quot;1133*&quot;</span> tstfile
+Run   grep <span class="s2">&quot;1133*&quot;</span>  on this file.           <span class="c"># Match.</span>
+ This line contains the number 113.          <span class="c"># Match.</span>
+ This line contains the number 1133.         <span class="c"># Match.</span>
+ This line contains the number 113312.       <span class="c"># Match.</span>
+ This line contains the number 113312312.    <span class="c"># Match.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>TEST FILE: tstfile                          <span class="c"># No match.</span>
+                                            <span class="c"># No match.</span>
+Run   grep <span class="s2">&quot;1133*&quot;</span>  on this file.           <span class="c"># Match.</span>
+                                            <span class="c"># No match.</span>
+                                            <span class="c"># No match.</span>
+This line contains the number 113.          <span class="c"># Match.</span>
+This line contains the number 13.           <span class="c"># No match.</span>
+This line contains the number 133.          <span class="c"># No match.</span>
+This line contains the number 1133.         <span class="c"># Match.</span>
+This line contains the number 113312.       <span class="c"># Match.</span>
+This line contains the number 1112.         <span class="c"># No match.</span>
+This line contains the number 113312312.    <span class="c"># Match.</span>
+This line contains no numbers at all.       <span class="c"># No match.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>grep <span class="s2">&quot;1133*&quot;</span> tstfile
+Run   grep <span class="s2">&quot;1133*&quot;</span>  on this file.           <span class="c"># Match.</span>
+ This line contains the number 113.          <span class="c"># Match.</span>
+ This line contains the number 1133.         <span class="c"># Match.</span>
+ This line contains the number 113312.       <span class="c"># Match.</span>
+ This line contains the number 113312312.    <span class="c"># Match.</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">** Extended REs.** Additional metacharacters added to the basic set.
+Used in <a class="reference external" href="textproc.html#EGREPREF">egrep</a> ,
+<a class="reference external" href="awk.html#AWKREF">awk</a> , and <a class="reference external" href="wrapper.html#PERLREF">Perl</a> .</p>
+</li>
+<li><p class="first">The question mark &#8211; ? &#8211; matches zero or one of the previous RE. It
+is generally used for matching single characters.</p>
+</li>
+<li><p class="first">The plus &#8211; + &#8211; matches one or more of the previous RE. It serves a
+role similar to the * , but does <em>not</em> match zero occurrences.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># GNU versions of sed and awk can use &quot;+&quot;,</span>
+<span class="c"># but it needs to be escaped.</span>
+
+<span class="nb">echo </span>a111bsed -ne <span class="s1">&#39;/a1\+b/p&#39;</span>
+<span class="nb">echo </span>a111bgrep <span class="s1">&#39;a1\+b&#39;</span>
+<span class="nb">echo </span>a111bgawk <span class="s1">&#39;/a1+b/&#39;</span>
+<span class="c"># All of above are equivalent.</span>
+
+<span class="c"># Thanks, S.C.</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="escapingsection.html#ESCP">Escaped</a> &#8220;curly brackets&#8221; &#8211; \{ \}
+&#8211; indicate the number of occurrences of a preceding RE to match.</p>
+<p>It is necessary to escape the curly brackets since they have only
+their literal character meaning otherwise. This usage is technically
+not part of the basic RE set.</p>
+<blockquote>
+<div><p>&#8220;[0-9]\{5\}&#8221; matches exactly five digits (characters in the range</p>
+</div></blockquote>
+<p>of 0 to 9).</p>
+</li>
+</ul>
+<p>Note</p>
+<blockquote>
+<div><blockquote>
+<div>Curly brackets are not available as an RE in the &#8220;classic&#8221; (non-POSIX
+compliant) version of <a class="reference external" href="awk.html#AWKREF">awk</a> . However, the GNU
+extended version of <em>awk</em> , <strong>gawk</strong> , has the
+``           &#8211;re-interval          `` option that permits them
+(without being escaped).</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo </span>2222ga
+</pre></div>
+</div>
+<p>wk &#8211;re-interval &#8216;/2{3}/
+&#8216;</p>
+<blockquote>
+<div><blockquote>
+<div>2222</div></blockquote>
+<p><strong>Perl</strong> and some <strong>egrep</strong> versions do not require escaping the
+curly brackets.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo </span>2222gawk --re-interval <span class="s1">&#39;/2{3}/&#39;</span>
+2222
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo </span>2222gawk --re-interval <span class="s1">&#39;/2{3}/&#39;</span>
+2222
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<ul>
+<li><p class="first">Parentheses &#8211; <strong>( )</strong> &#8211; enclose a group of REs. They are useful
+with the following &#8221; &#8221; operator and in <a class="reference external" href="string-manipulation.html#EXPRPAREN">substring
+extraction</a> using
+<a class="reference external" href="moreadv.html#EXPRREF">expr</a> .</p>
+</li>
+<li><p class="first">The &#8211; <strong>|</strong> &#8211; &#8220;or&#8221; RE operator matches any of a set of alternate
+characters.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>egrep <span class="s1">&#39;re(a|e)d&#39;</span> misc.txt
+People who <span class="nb">read </span>seem to be better informed than those who <span class="k">do</span> not.
+ The clarinet produces sound by the vibration of its reed.
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Note</p>
+<p>Some versions of <strong>sed</strong> , <strong>ed</strong> , and <strong>ex</strong> support escaped versions
+of the extended Regular Expressions described above, as do the GNU
+utilities.</p>
+<ul>
+<li><p class="first">** POSIX Character Classes.**
+``                   [:class:]                 ``</p>
+<p>This is an alternate method of specifying a range of characters to
+match.</p>
+</li>
+<li><p class="first">``                 [:alnum:]               `` matches alphabetic or
+numeric characters. This is equivalent to
+``                 A-Za-z0-9               `` .</p>
+</li>
+<li><p class="first">``                 [:alpha:]               `` matches alphabetic
+characters. This is equivalent to
+``                 A-Za-z               `` .</p>
+</li>
+<li><p class="first">``                 [:blank:]               `` matches a space or a
+tab.</p>
+</li>
+<li><p class="first">``                 [:cntrl:]               `` matches control
+characters.</p>
+</li>
+<li><p class="first">``                 [:digit:]               `` matches (decimal)
+digits. This is equivalent to ``                 0-9               ``
+.</p>
+</li>
+<li><p class="first">``                 [:graph:]               `` (graphic printable
+characters). Matches characters in the range of
+<a class="reference external" href="special-chars.html#ASCIIDEF">ASCII</a> 33 - 126. This is the same as
+``                 [:print:]               `` , below, but excluding
+the space character.</p>
+</li>
+<li><p class="first">``                 [:lower:]               `` matches lowercase
+alphabetic characters. This is equivalent to
+``                 a-z               `` .</p>
+</li>
+<li><p class="first">``                 [:print:]               `` (printable characters).
+Matches characters in the range of ASCII 32 - 126. This is the same
+as ``                 [:graph:]               `` , above, but adding
+the space character.</p>
+</li>
+<li><p class="first">``                 [:space:]               `` matches whitespace</p>
+</li>
+</ul>
+<blockquote>
+<div>characters (space and horizontal tab).</div></blockquote>
+<ul class="simple">
+<li>``                 [:upper:]               `` matches uppercase
+alphabetic characters. This is equivalent to
+``                 A-Z               `` .</li>
+<li>``                 [:xdigit:]               `` matches hexadecimal
+digits. This is equivalent to
+``                 0-9A-Fa-f               `` .</li>
+</ul>
+<p>Important</p>
+<blockquote>
+<div><p>POSIX character classes generally require quoting or <a class="reference external" href="testconstructs.html#DBLBRACKETS">double
+brackets</a> ([[ ]]).</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>grep <span class="o">[[</span>:digit:<span class="o">]]</span> test.file
+<span class="nv">abc</span><span class="o">=</span>723
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># ...</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$arow</span> <span class="o">=</span>~ <span class="o">[[</span>:digit:<span class="o">]]</span> <span class="o">]]</span>   <span class="c">#  Numerical input?</span>
+<span class="k">then</span>       <span class="c">#  POSIX char class</span>
+  <span class="k">if</span> <span class="o">[[</span> <span class="nv">$acol</span> <span class="o">=</span>~ <span class="o">[[</span>:alpha:<span class="o">]]</span> <span class="o">]]</span> <span class="c"># Number followed by a letter? Illegal!</span>
+<span class="c"># ...</span>
+<span class="c"># From ktour.sh example script.</span>
+</pre></div>
+</div>
+<p>These character classes may even be used with
+<a class="reference external" href="globbingref.html">globbing</a> , to a limited extent.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>ls -l ?<span class="o">[[</span>:digit:<span class="o">]][[</span>:digit:<span class="o">]]</span>?
+-rw-rw-r--    <span class="m">1</span> bozo  bozo         <span class="m">0</span> Aug <span class="m">21</span> 14:47 a33b
+</pre></div>
+</div>
+<p>POSIX character classes are used in <a class="reference external" href="textproc.html#EX49">Example
+16-21</a> and <a class="reference external" href="textproc.html#LOWERCASE">Example
+16-22</a> .</p>
+</div></blockquote>
+<p><a class="reference external" href="sedawk.html#SEDREF">Sed</a> , <a class="reference external" href="awk.html#AWKREF">awk</a> , and
+<a class="reference external" href="wrapper.html#PERLREF">Perl</a> , used as filters in scripts, take REs
+as arguments when &#8220;sifting&#8221; or transforming files or I/O streams. See
+<a class="reference external" href="contributed-scripts.html#BEHEAD">Example A-12</a> and <a class="reference external" href="contributed-scripts.html#TREE">Example
+A-16</a> for illustrations of this.</p>
+<p>The standard reference on this complex topic is Friedl&#8217;s <em>Mastering
+Regular Expressions</em> . <em>Sed &amp; Awk</em> , by Dougherty and Robbins, also
+gives a very lucid treatment of REs. See the
+<a class="reference external" href="biblio.html">*Bibliography*</a> for more information on these books.</p>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h2>
+<p>` [1]  &lt;x17129.html#AEN17134&gt;`__</p>
+<blockquote>
+<div>A <em>meta-meaning</em> is the meaning of a term or expression on a higher</div></blockquote>
+<p>level of abstraction. For example, the <em>literal</em> meaning of <em>regular
+expression</em> is an ordinary expression that conforms to accepted usage.
+The <em>meta-meaning</em> is drastically different, as discussed at length in
+this chapter.</p>
+<p>` [2]  &lt;x17129.html#AEN17189&gt;`__</p>
+<p>Since <a class="reference external" href="sedawk.html#SEDREF">sed</a> , <a class="reference external" href="awk.html#AWKREF">awk</a> , and
+<a class="reference external" href="textproc.html#GREPREF">grep</a> process single lines, there will
+usually not be a newline to match. In those cases where there is a
+newline in a multiple line expression, the dot will match the newline.</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>   <span class="c">#!/bin/bash</span>
+
+   sed -e <span class="s1">&#39;N;s/.*/[&amp;]/&#39;</span>
+&lt;&lt; EOF   <span class="c"># Here Documen</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>t</dt>
+<dd><p class="first">line1
+line2
+EOF
+# OUTPUT:
+# [line1
+# line2]</p>
+<p>echo</p>
+<p class="last">awk &#8216;{ $0=$1 &#8220;n&#8221; $2</p>
+</dd>
+</dl>
+<p>; if (/line.1/) {print}}
+&#8216; &lt;&lt; EOF</p>
+<blockquote>
+<div><p>line 1
+line 2
+EOF
+# OUTPUT:
+# line
+# 1</p>
+<p># Thanks, S.C.</p>
+<p>exit 0</p>
+</div></blockquote>
+</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+sed -e <span class="s1">&#39;N;s/.*/[&amp;]/&#39;</span> <span class="s">&lt;&lt; EOF   # Here Document</span>
+<span class="s">line1</span>
+<span class="s">line2</span>
+<span class="s">EOF</span>
+<span class="c"># OUTPUT:</span>
+<span class="c"># [line1</span>
+<span class="c"># line2]</span>
+
+
+
+<span class="nb">echo</span>
+
+awk <span class="s1">&#39;{ $0=$1 &quot;\n&quot; $2; if (/line.1/) {print}}&#39;</span> <span class="s">&lt;&lt; EOF</span>
+<span class="s">line 1</span>
+<span class="s">line 2</span>
+<span class="s">EOF</span>
+<span class="c"># OUTPUT:</span>
+<span class="c"># line</span>
+<span class="c"># 1</span>
+
+
+<span class="c"># Thanks, S.C.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+sed -e <span class="s1">&#39;N;s/.*/[&amp;]/&#39;</span> <span class="s">&lt;&lt; EOF   # Here Document</span>
+<span class="s">line1</span>
+<span class="s">line2</span>
+<span class="s">EOF</span>
+<span class="c"># OUTPUT:</span>
+<span class="c"># [line1</span>
+<span class="c"># line2]</span>
+
+
+
+<span class="nb">echo</span>
+
+awk <span class="s1">&#39;{ $0=$1 &quot;\n&quot; $2; if (/line.1/) {print}}&#39;</span> <span class="s">&lt;&lt; EOF</span>
+<span class="s">line 1</span>
+<span class="s">line 2</span>
+<span class="s">EOF</span>
+<span class="c"># OUTPUT:</span>
+<span class="c"># line</span>
+<span class="c"># 1</span>
+
+
+<span class="c"># Thanks, S.C.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,325 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX Appendix T. ASCII Table &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  Appendix T. ASCII Table</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-appendix-t-ascii-table">
+<h1>XXX  Appendix T. ASCII Table<a class="headerlink" href="#xxx-appendix-t-ascii-table" title="Link permanent a aquest títol">¶</a></h1>
+<p>Traditionally, a book of this sort has an
+<a class="reference external" href="special-chars.html#ASCIIDEF">ASCII</a> Table appendix. This book does
+not. Instead, here are several short scripts, each of which generates a
+complete ASCII table.</p>
+<div class="section" id="exemple-1-a-script-that-generates-an-ascii-table">
+<h2>Exemple 1. A script that generates an ASCII table<a class="headerlink" href="#exemple-1-a-script-that-generates-an-ascii-table" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># ascii.sh</span>
+<span class="c"># ver. 0.2, reldate 26 Aug 2008</span>
+<span class="c"># Patched by ABS Guide author.</span>
+
+<span class="c"># Original script by Sebastian Arming.</span>
+<span class="c"># Used with permission (thanks!).</span>
+
+<span class="nb">exec</span> &gt;ASCII.txt         <span class="c">#  Save stdout to file,</span>
+                        <span class="c">#+ as in the example scripts</span>
+                        <span class="c">#+ reassign-stdout.sh and upperconv.sh.</span>
+
+<span class="nv">MAXNUM</span><span class="o">=</span>256
+<span class="nv">COLUMNS</span><span class="o">=</span>5
+<span class="nv">OCT</span><span class="o">=</span>8
+<span class="nv">OCTSQU</span><span class="o">=</span>64
+<span class="nv">LITTLESPACE</span><span class="o">=</span>-3
+<span class="nv">BIGSPACE</span><span class="o">=</span>-5
+
+<span class="nv">i</span><span class="o">=</span><span class="m">1</span> <span class="c"># Decimal counter</span>
+<span class="nv">o</span><span class="o">=</span><span class="m">1</span> <span class="c"># Octal counter</span>
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span> -lt <span class="s2">&quot;</span><span class="nv">$MAXNUM</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">do</span>  <span class="c"># We don&#39;t have to count past 400 octal.</span>
+        <span class="nv">paddi</span><span class="o">=</span><span class="s2">&quot;    </span><span class="nv">$i</span><span class="s2">&quot;</span>
+        <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="si">${</span><span class="nv">paddi</span><span class="p">: </span><span class="nv">$BIGSPACE</span><span class="si">}</span><span class="s2">  &quot;</span>       <span class="c"># Column spacing.</span>
+        <span class="nv">paddo</span><span class="o">=</span><span class="s2">&quot;00</span><span class="nv">$o</span><span class="s2">&quot;</span>
+<span class="c">#       echo -ne &quot;\\${paddo: $LITTLESPACE}&quot;   # Original.</span>
+        <span class="nb">echo</span> -ne <span class="s2">&quot;\\0</span><span class="si">${</span><span class="nv">paddo</span><span class="p">: </span><span class="nv">$LITTLESPACE</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c"># Fixup.</span>
+<span class="c">#                   ^</span>
+        <span class="nb">echo</span> -n <span class="s2">&quot;     &quot;</span>
+        <span class="k">if</span> <span class="o">((</span> i % <span class="nv">$COLUMNS</span> <span class="o">==</span> 0<span class="o">))</span><span class="p">;</span> <span class="k">then</span>       <span class="c"># New line.</span>
+           <span class="nb">echo</span>
+<span class="nb">        </span><span class="k">fi</span>
+        <span class="o">((</span>i++, o++<span class="o">))</span>
+        <span class="c"># The octal notation for 8 is 10, and 64 decimal is 100 octal.</span>
+        <span class="o">((</span> i % <span class="nv">$OCT</span> <span class="o">==</span> 0<span class="o">))</span>    <span class="o">&amp;&amp;</span> <span class="o">((</span>o+<span class="o">=</span>2<span class="o">))</span>
+        <span class="o">((</span> i % <span class="nv">$OCTSQU</span> <span class="o">==</span> 0<span class="o">))</span> <span class="o">&amp;&amp;</span> <span class="o">((</span>o+<span class="o">=</span>20<span class="o">))</span>
+<span class="k">done</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c"># Compare this script with the &quot;pr-asc.sh&quot; example.</span>
+<span class="c"># This one handles &quot;unprintable&quot; characters.</span>
+
+<span class="c"># Exercise:</span>
+<span class="c"># Rewrite this script to use decimal numbers, rather than octal.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-2-another-ascii-table-script">
+<h2>Exemple 2. Another ASCII table script<a class="headerlink" href="#exemple-2-another-ascii-table-script" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Script author: Joseph Steinhauser</span>
+<span class="c"># Lightly edited by ABS Guide author, but not commented.</span>
+<span class="c"># Used in ABS Guide with permission.</span>
+
+<span class="c">#-------------------------------------------------------------------------</span>
+<span class="c">#-- File:  ascii.sh    Print ASCII chart, base 10/8/16         (JETS-2012)</span>
+<span class="c">#-------------------------------------------------------------------------</span>
+<span class="c">#-- Usage: ascii [oct|dec|hex|help|8|10|16]</span>
+<span class="c">#--</span>
+<span class="c">#-- This script prints out a summary of ASCII char codes from Zero to 127.</span>
+<span class="c">#-- Numeric values may be printed in Base10, Octal, or Hex.</span>
+<span class="c">#--</span>
+<span class="c">#-- Format Based on: /usr/share/lib/pub/ascii with base-10 as default.</span>
+<span class="c">#-- For more detail, man ascii . . .</span>
+<span class="c">#-------------------------------------------------------------------------</span>
+
+<span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$BASH_VERSION</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">shopt</span> -s extglob
+
+<span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> in
+   oct<span class="p">|</span><span class="o">[</span>Oo<span class="o">]</span>?<span class="o">([</span>Cc<span class="o">][</span>Tt<span class="o">])</span><span class="p">|</span>8<span class="o">)</span>       <span class="nv">Obase</span><span class="o">=</span>Octal<span class="p">;</span>  <span class="nv">Numy</span><span class="o">=</span>3o<span class="p">;;</span>
+   hex<span class="p">|</span><span class="o">[</span>Hh<span class="o">]</span>?<span class="o">([</span>Ee<span class="o">][</span>Xx<span class="o">])</span><span class="p">|</span>16<span class="p">|</span><span class="o">[</span>Xx<span class="o">])</span> <span class="nv">Obase</span><span class="o">=</span>Hex<span class="p">;</span>    <span class="nv">Numy</span><span class="o">=</span>2X<span class="p">;;</span>
+   <span class="nb">help</span><span class="p">|</span>?<span class="o">(</span>-<span class="o">)[</span>h?<span class="o">])</span>        sed -n <span class="s1">&#39;2,/^[ ]*$/p&#39;</span> <span class="nv">$0</span><span class="p">;</span><span class="nb">exit</span><span class="p">;;</span>
+   code<span class="p">|</span><span class="o">[</span>Cc<span class="o">][</span>Oo<span class="o">][</span>Dd<span class="o">][</span>Ee<span class="o">])</span>sed -n <span class="s1">&#39;/case/,$p&#39;</span>   <span class="nv">$0</span><span class="p">;</span><span class="nb">exit</span><span class="p">;;</span>
+   *<span class="o">)</span> <span class="nv">Obase</span><span class="o">=</span>Decimal
+<span class="k">esac</span> <span class="c"># CODE is actually shorter than the chart!</span>
+
+<span class="nb">printf</span> <span class="s2">&quot;\t\t## </span><span class="nv">$Obase</span><span class="s2"> ASCII Chart ##\n\n&quot;</span><span class="p">;</span> <span class="nv">FM1</span><span class="o">=</span><span class="s2">&quot;|%0</span><span class="si">${</span><span class="nv">Numy</span><span class="k">:-</span><span class="nv">3d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="nv">LD</span><span class="o">=</span>-1
+
+<span class="nv">AB</span><span class="o">=</span><span class="s2">&quot;nul soh stx etx eot enq ack bel bs tab nl vt np cr so si dle&quot;</span>
+<span class="nv">AD</span><span class="o">=</span><span class="s2">&quot;dc1 dc2 dc3 dc4 nak syn etb can em sub esc fs gs rs us sp&quot;</span>
+
+<span class="k">for</span> TOK in <span class="nv">$AB</span> <span class="nv">$AD</span><span class="p">;</span> <span class="k">do</span> ABR<span class="o">[</span><span class="k">$((</span>LD+<span class="o">=</span><span class="m">1</span><span class="k">))</span><span class="o">]=</span><span class="nv">$TOK</span><span class="p">;</span> <span class="k">done</span><span class="p">;</span>
+ABR<span class="o">[</span>127<span class="o">]=</span>del
+
+<span class="nv">IDX</span><span class="o">=</span>0
+<span class="k">while</span> <span class="o">[</span> <span class="nv">$IDX</span> -le <span class="m">127</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nv">CHR</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">ABR</span><span class="p">[</span><span class="nv">$IDX</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+   <span class="k">do</span> <span class="o">((</span><span class="si">${#</span><span class="nv">CHR</span><span class="si">}</span><span class="o">))&amp;&amp;</span> <span class="nv">FM2</span><span class="o">=</span><span class="s1">&#39;%-3s&#39;</span><span class="p">|</span><span class="nv">FM2</span><span class="o">=</span><span class="sb">`</span><span class="nb">printf</span> <span class="s1">&#39;\\\\%o  &#39;</span> <span class="nv">$IDX</span><span class="sb">`</span>
+      <span class="nb">printf</span> <span class="s2">&quot;</span><span class="nv">$FM1</span><span class="s2"> </span><span class="nv">$FM2</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$IDX</span><span class="s2">&quot;</span> <span class="nv">$CHR</span><span class="p">;</span> <span class="o">((</span> <span class="o">(</span>IDX+<span class="o">=</span>1<span class="o">)</span>%8<span class="o">))||</span><span class="nb">echo</span> <span class="s1">&#39;|&#39;</span>
+   <span class="k">done</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-3-a-third-ascii-table-script-using-awk">
+<h2>Exemple 3. A third ASCII table script, using <em>awk</em><a class="headerlink" href="#exemple-3-a-third-ascii-table-script-using-awk" title="Link permanent a aquest títol">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># ASCII table script, using awk.</span>
+<span class="c"># Author: Joseph Steinhauser</span>
+<span class="c"># Used in ABS Guide with permission.</span>
+
+
+<span class="c">#-------------------------------------------------------------------------</span>
+<span class="c">#-- File:  ascii     Print ASCII chart, base 10/8/16         (JETS-2010)</span>
+<span class="c">#-------------------------------------------------------------------------</span>
+<span class="c">#-- Usage: ascii [oct|dec|hex|help|8|10|16]</span>
+<span class="c">#--</span>
+<span class="c">#-- This script prints a summary of ASCII char codes from Zero to 127.</span>
+<span class="c">#-- Numeric values may be printed in Base10, Octal, or Hex (Base16).</span>
+<span class="c">#--</span>
+<span class="c">#-- Format Based on: /usr/share/lib/pub/ascii with base-10 as default.</span>
+<span class="c">#-- For more detail, man ascii</span>
+<span class="c">#-------------------------------------------------------------------------</span>
+
+<span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$BASH_VERSION</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">shopt</span> -s extglob
+
+<span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> in
+   oct<span class="p">|</span><span class="o">[</span>Oo<span class="o">]</span>?<span class="o">([</span>Cc<span class="o">][</span>Tt<span class="o">])</span><span class="p">|</span>8<span class="o">)</span>       <span class="nv">Obase</span><span class="o">=</span>Octal<span class="p">;</span>  <span class="nv">Numy</span><span class="o">=</span>3o<span class="p">;;</span>
+   hex<span class="p">|</span><span class="o">[</span>Hh<span class="o">]</span>?<span class="o">([</span>Ee<span class="o">][</span>Xx<span class="o">])</span><span class="p">|</span>16<span class="p">|</span><span class="o">[</span>Xx<span class="o">])</span> <span class="nv">Obase</span><span class="o">=</span>Hex<span class="p">;</span>    <span class="nv">Numy</span><span class="o">=</span>2X<span class="p">;;</span>
+   <span class="nb">help</span><span class="p">|</span>?<span class="o">(</span>-<span class="o">)[</span>h?<span class="o">])</span>        sed -n <span class="s1">&#39;2,/^[ ]*$/p&#39;</span> <span class="nv">$0</span><span class="p">;</span><span class="nb">exit</span><span class="p">;;</span>
+   code<span class="p">|</span><span class="o">[</span>Cc<span class="o">][</span>Oo<span class="o">][</span>Dd<span class="o">][</span>Ee<span class="o">])</span>sed -n <span class="s1">&#39;/case/,$p&#39;</span>   <span class="nv">$0</span><span class="p">;</span><span class="nb">exit</span><span class="p">;;</span>
+   *<span class="o">)</span> <span class="nv">Obase</span><span class="o">=</span>Decimal
+<span class="k">esac</span>
+<span class="nb">export </span>Obase   <span class="c"># CODE is actually shorter than the chart!</span>
+
+awk <span class="s1">&#39;BEGIN{print &quot;\n\t\t## &quot;ENVIRON[&quot;Obase&quot;]&quot; ASCII Chart ##\n&quot;</span>
+<span class="s1">           ab=&quot;soh,stx,etx,eot,enq,ack,bel,bs,tab,nl,vt,np,cr,so,si,dle,&quot;</span>
+<span class="s1">           ad=&quot;dc1,dc2,dc3,dc4,nak,syn,etb,can,em,sub,esc,fs,gs,rs,us,sp&quot;</span>
+<span class="s1">           split(ab ad,abr,&quot;,&quot;);abr[0]=&quot;nul&quot;;abr[127]=&quot;del&quot;;</span>
+<span class="s1">           fm1=&quot;|%0&#39;</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">Numy</span><span class="k">:-</span><span class="p"> 4d</span><span class="si">}</span><span class="s2">&quot;</span><span class="s1">&#39; %-3s&quot;</span>
+<span class="s1">           for(idx=0;idx&lt;128;idx++){fmt=fm1 (++colz%8?&quot;&quot;:&quot;|\n&quot;)</span>
+<span class="s1">           printf(fmt,idx,(idx in abr)?abr[idx]:sprintf(&quot;%c&quot;,idx))} }&#39;</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

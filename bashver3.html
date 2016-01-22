@@ -1,0 +1,412 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 37.2. Bash, version 3 &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+    <li>XXX  37.2. Bash, version 3</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-37-2-bash-version-3">
+<h1>XXX  37.2. Bash, version 3<a class="headerlink" href="#xxx-37-2-bash-version-3" title="Link permanent a aquest títol">¶</a></h1>
+<p>On July 27, 2004, Chet Ramey released version 3 of Bash. This update
+fixed quite a number of bugs and added new features.</p>
+<p>Some of the more important added features:</p>
+<ul>
+<li><p class="first">A new, more generalized <strong>{a..z}</strong> <a class="reference external" href="special-chars.html#BRACEEXPREF">brace
+expansion</a> operator.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="k">for</span> i in <span class="o">{</span>1..10<span class="o">}</span>
+<span class="c">#  Simpler and more straightforward than</span>
+<span class="c">#+ for i in $(seq 10)</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$i</span><span class="s2"> &quot;</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span>
+
+<span class="c"># 1 2 3 4 5 6 7 8 9 10</span>
+
+
+
+<span class="c"># Or just . . .</span>
+
+<span class="nb">echo</span> <span class="o">{</span>a..z<span class="o">}</span>    <span class="c">#  a b c d e f g h i j k l m n o p q r s t u v w x y z</span>
+<span class="nb">echo</span> <span class="o">{</span>e..m<span class="o">}</span>    <span class="c">#  e f g h i j k l m</span>
+<span class="nb">echo</span> <span class="o">{</span>z..a<span class="o">}</span>    <span class="c">#  z y x w v u t s r q p o n m l k j i h g f e d c b a</span>
+               <span class="c">#  Works backwards, too.</span>
+<span class="nb">echo</span> <span class="o">{</span>25..30<span class="o">}</span>  <span class="c">#  25 26 27 28 29 30</span>
+<span class="nb">echo</span> <span class="o">{</span>3..-2<span class="o">}</span>   <span class="c">#  3 2 1 0 -1 -2</span>
+<span class="nb">echo</span> <span class="o">{</span>X..d<span class="o">}</span>    <span class="c">#  X Y Z [  ] ^ _ ` a b c d</span>
+               <span class="c">#  Shows (some of) the ASCII characters between Z and a,</span>
+               <span class="c">#+ but don&#39;t rely on this type of behavior because . . .</span>
+<span class="nb">echo</span> <span class="o">{]</span>..a<span class="o">}</span>    <span class="c">#  {]..a}</span>
+               <span class="c">#  Why?</span>
+
+
+<span class="c"># You can tack on prefixes and suffixes.</span>
+<span class="nb">echo</span> <span class="s2">&quot;Number #&quot;</span><span class="o">{</span>1..4<span class="o">}</span>, <span class="s2">&quot;...&quot;</span>
+     <span class="c"># Number #1, Number #2, Number #3, Number #4, ...</span>
+
+
+<span class="c"># You can concatenate brace-expansion sets.</span>
+<span class="nb">echo</span> <span class="o">{</span>1..3<span class="o">}{</span>x..z<span class="o">}</span><span class="s2">&quot; +&quot;</span> <span class="s2">&quot;...&quot;</span>
+     <span class="c"># 1x + 1y + 1z + 2x + 2y + 2z + 3x + 3y + 3z + ...</span>
+     <span class="c"># Generates an algebraic expression.</span>
+     <span class="c"># This could be used to find permutations.</span>
+
+<span class="c"># You can nest brace-expansion sets.</span>
+<span class="nb">echo</span> <span class="o">{{</span>a..c<span class="o">}</span>,<span class="o">{</span>1..3<span class="o">}}</span>
+     <span class="c"># a b c 1 2 3</span>
+     <span class="c"># The &quot;comma operator&quot; splices together strings.</span>
+
+<span class="c"># ########## ######### ############ ########### ######### ###############</span>
+<span class="c"># Unfortunately, brace expansion does not lend itself to parameterization.</span>
+<span class="nv">var1</span><span class="o">=</span>1
+<span class="nv">var2</span><span class="o">=</span>5
+<span class="nb">echo</span> <span class="o">{</span><span class="nv">$var1</span>..<span class="nv">$var2</span><span class="o">}</span>   <span class="c"># {1..5}</span>
+
+
+<span class="c"># Yet, as Emiliano G. points out, using &quot;eval&quot; overcomes this limitation.</span>
+
+<span class="nv">start</span><span class="o">=</span>0
+<span class="nv">end</span><span class="o">=</span>10
+<span class="k">for</span> index in <span class="k">$(</span><span class="nb">eval echo</span> <span class="o">{</span><span class="nv">$start</span>..<span class="nv">$end</span><span class="o">}</span><span class="k">)</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$index</span><span class="s2"> &quot;</span>   <span class="c"># 0 1 2 3 4 5 6 7 8 9 10</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">The <strong>${!array[&#64;]}</strong> operator, which expands to all the indices of a
+given <a class="reference external" href="arrays.html#ARRAYREF">array</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">Array</span><span class="o">=(</span>element-zero element-one element-two element-three<span class="o">)</span>
+
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">Array</span><span class="p">[0]</span><span class="si">}</span>   <span class="c"># element-zero</span>
+                   <span class="c"># First element of array.</span>
+
+<span class="nb">echo</span> <span class="si">${</span><span class="p">!Array[@]</span><span class="si">}</span>  <span class="c"># 0 1 2 3</span>
+                   <span class="c"># All the indices of Array.</span>
+
+<span class="k">for</span> i in <span class="si">${</span><span class="p">!Array[@]</span><span class="si">}</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="si">${</span><span class="nv">Array</span><span class="p">[i]</span><span class="si">}</span> <span class="c"># element-zero</span>
+                   <span class="c"># element-one</span>
+                   <span class="c"># element-two</span>
+                   <span class="c"># element-three</span>
+                   <span class="c">#</span>
+                   <span class="c"># All the elements in Array.</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">The <strong>=~</strong> <a class="reference external" href="regexp.html#REGEXREF">Regular Expression</a> matching
+operator within a <a class="reference external" href="testconstructs.html#DBLBRACKETS">double
+brackets</a> test expression. (Perl
+has a similar operator.)</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">variable</span><span class="o">=</span><span class="s2">&quot;This is a fine mess.&quot;</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$variable</span><span class="s2">&quot;</span>
+
+<span class="c"># Regex matching with =~ operator within [[ double brackets ]].</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$variable</span><span class="s2">&quot;</span> <span class="o">=</span>~ T.........fin*es* <span class="o">]]</span>
+<span class="c"># NOTE: As of version 3.2 of Bash, expression to match no longer quoted.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;match found&quot;</span>
+      <span class="c"># match found</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+<p>Or, more usefully:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nv">input</span><span class="o">=</span><span class="nv">$1</span>
+
+
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$input</span><span class="s2">&quot;</span> <span class="o">=</span>~ <span class="s2">&quot;[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]&quot;</span> <span class="o">]]</span>
+<span class="c">#                 ^ NOTE: Quoting not necessary, as of version 3.2 of Bash.</span>
+<span class="c"># NNN-NN-NNNN (where each N is a digit).</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Social Security number.&quot;</span>
+  <span class="c"># Process SSN.</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Not a Social Security number!&quot;</span>
+  <span class="c"># Or, ask for corrected input.</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+<p>For additional examples of using the <strong>=~</strong> operator, see <a class="reference external" href="contributed-scripts.html#WHX">Example
+A-29</a> , <a class="reference external" href="x17837.html#MAILBOXGREP">Example
+19-14</a> , <a class="reference external" href="contributed-scripts.html#FINDSPLIT">Example
+A-35</a> , and <a class="reference external" href="contributed-scripts.html#TOHTML">Example
+A-24</a> .</p>
+</li>
+<li><p class="first">The new ``        set -o pipefail       `` option is useful for
+debugging <a class="reference external" href="special-chars.html#PIPEREF">pipes</a> . If this option is
+set, then the <a class="reference external" href="exit-status.html#EXITSTATUSREF">exit status</a> of a
+pipe is the exit status of the last command in the pipe to <em>fail</em>
+(return a non-zero value), rather than the actual final command in
+the pipe.</p>
+<p>See <a class="reference external" href="communications.html#FC4UPD">Example 16-43</a> .</p>
+</li>
+</ul>
+<p><a href="#id1"><span class="problematic" id="id2">|</span></a>Caution</p>
+<p>The update to version 3 of Bash breaks a few scripts that worked under
+earlier versions. <em>Test critical legacy scripts to make sure they still
+work!</em></p>
+<p>As it happens, a couple of the scripts in the <em>Advanced Bash Scripting
+Guide</em> had to be fixed up (see <a class="reference external" href="internalvariables.html#TOUT">Example
+9-4</a> , for instance).</p>
+<blockquote>
+<div>37.2.1. Bash, version 3.1</div></blockquote>
+<hr class="docutils" />
+<p>The version 3.1 update of Bash introduces a number of bugfixes and a few
+minor changes.</p>
+<ul>
+<li><p class="first">The += operator is now permitted in in places where previously only
+the = assignment operator was recognized.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">a</span><span class="o">=</span>1
+<span class="nb">echo</span> <span class="nv">$a</span>        <span class="c"># 1</span>
+
+a+<span class="o">=</span><span class="m">5</span>           <span class="c"># Won&#39;t work under versions of Bash earlier than 3.1.</span>
+<span class="nb">echo</span> <span class="nv">$a</span>        <span class="c"># 15</span>
+
+a+<span class="o">=</span>Hello
+<span class="nb">echo</span> <span class="nv">$a</span>        <span class="c"># 15Hello</span>
+</pre></div>
+</div>
+<p>Here, += functions as a <em>string concatenation</em> operator. Note that
+its behavior in this particular context is different than within a
+<a class="reference external" href="internal.html#LETREF">let</a> construct.</p>
+<div class="highlight-sh"><div class="highlight"><pre>   <span class="nv">a</span><span class="o">=</span>1
+   <span class="nb">echo</span> <span class="nv">$a</span>        <span class="c"># 1</span>
+
+   <span class="nb">let </span>a+<span class="o">=</span><span class="m">5</span>       <span class="c"># Integer arithmetic, rather than string concatenation.</span>
+   <span class="nb">echo</span> <span class="nv">$a</span>        <span class="c"># 6</span>
+
+   <span class="nb">let </span>a+<span class="o">=</span>Hello   <span class="c"># Doesn&#39;t &quot;add&quot; anything to a.</span>
+   <span class="nb">echo</span> <span class="nv">$a</span>        <span class="c"># 6</span>
+
+
+
+Jeffrey Haemer points out that this concatenation operator can be
+</pre></div>
+</div>
+<p>quite useful. In this instance, we append a directory to the
+``         $PATH        `` .</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$PATH</span>
+/usr/bin:/bin:/usr/local/bin:/usr/X11R6/bin/:/usr/games
+
+
+bash<span class="nv">$ </span>PATH+<span class="o">=</span>:/opt/bin
+
+bash<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$PATH</span>
+/usr/bin:/bin:/usr/local/bin:/usr/X11R6/bin/:/usr/games:/opt/bin
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div>37.2.2. Bash, version 3.2</div></blockquote>
+<hr class="docutils" />
+<p>This is pretty much a bugfix update.</p>
+<ul class="simple">
+<li>In <a class="reference external" href="parameter-substitution.html#PSGLOB">*global* parameter
+substitutions</a> , the pattern
+no longer anchors at the start of the string.</li>
+<li>The ``         &#8211;wordexp        `` option disables <a class="reference external" href="process-sub.html#PROCESSSUBREF">process
+substitution</a> .</li>
+<li>The <strong>=~</strong> <a class="reference external" href="bashver3.html#REGEXMATCHREF">Regular Expression match
+operator</a> no longer requires
+<a class="reference external" href="quoting.html#QUOTINGREF">quoting</a> of the <em>pattern</em> within <a class="reference external" href="testconstructs.html#DBLBRACKETS">[[ ...
+]]</a> .</li>
+</ul>
+<div class="admonition caution">
+<p class="first admonition-title">Compte</p>
+<p>In fact, quoting in this context is <em>not</em> advisable as it may cause
+<em>regex</em> evaluation to fail. Chet Ramey states in the <a class="reference external" href="biblio.html#BASHFAQ">Bash
+FAQ</a> that quoting explicitly disables regex
+evaluation. See also the <a class="reference external" href="https://bugs.launchpad.net/ubuntu-website/+bug/109931">Ubuntu Bug
+List</a> and
+<a class="reference external" href="http://en.wikinerds.org/index.php/Bash_syntax_and_semantics">Wikinerds on Bash
+syntax</a>
+.</p>
+<p class="last">Setting <em>shopt -s compat31</em> in a script causes reversion to the
+original behavior.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

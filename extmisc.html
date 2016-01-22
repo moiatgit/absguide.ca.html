@@ -1,0 +1,1383 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XXX 16.9. Miscellaneous Commands &mdash; Guia Avançada de Programació Bash 10 març de 2014 documentació</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="copyright" title="Copyright" href="copyright.html"/>
+    <link rel="top" title="Guia Avançada de Programació Bash 10 març de 2014 documentació" href="index.html"/>
+        <link rel="up" title="XXX Chapter 16. External Filters, Programs and Commands" href="external.html"/>
+        <link rel="next" title="XXX Chapter 17. System and Administrative Commands" href="system.html"/>
+        <link rel="prev" title="XXX 16.8. Math Commands" href="mathc.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Guia Avançada de Programació Bash
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cercar..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Part 1. Introducció</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Part 2. Conceptes bàsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">XXX Part 3. Beyond the Basics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="part4.html">XXX Part 4. Commands</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="internal.html">XXX  Chapter 15. Internal Commands and Builtins</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="external.html">XXX  Chapter 16. External Filters, Programs and Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">XXX  Chapter 17. System and Administrative Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">XXX Part 5. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endnotes.html">Notes finals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">XXX  Bibliografia</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Guia Avançada de Programació Bash</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Inici</a> &raquo;</li>
+      
+          <li><a href="part4.html">XXX Part 4. Commands</a> &raquo;</li>
+      
+          <li><a href="external.html">XXX  Chapter 16. External Filters, Programs and Commands</a> &raquo;</li>
+      
+    <li>XXX 16.9. Miscellaneous Commands</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="xxx-16-9-miscellaneous-commands">
+<h1>XXX 16.9. Miscellaneous Commands<a class="headerlink" href="#xxx-16-9-miscellaneous-commands" title="Link permanent a aquest títol">¶</a></h1>
+<p>** Command that fit in no special category**</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><strong>jot</strong> , <strong>seq</strong></dt>
+<dd><p class="first">These utilities emit a sequence of integers, with a user-selectable
+increment.</p>
+<p>The default separator character between each integer is a newline,
+but this can be changed with the ``         -s        `` option.</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>seq 5
+1
+ 2
+ 3
+ 4
+ 5
+
+
+
+bash<span class="nv">$ </span>seq -s : 5
+1:2:3:4:5
+</pre></div>
+</div>
+<p class="last">Both <strong>jot</strong> and <strong>seq</strong> come in handy in a <a class="reference external" href="loops1.html#FORLOOPREF1">for
+loop</a> .</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="section" id="exemple-54-using-seq-to-generate-loop-arguments">
+<h2>Exemple 54. Using <em>seq</em> to generate loop arguments<a class="headerlink" href="#exemple-54-using-seq-to-generate-loop-arguments" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Using &quot;seq&quot;</span>
+
+<span class="nb">echo</span>
+
+<span class="k">for</span> a in <span class="sb">`</span>seq 80<span class="sb">`</span>  <span class="c"># or   for a in $( seq 80 )</span>
+<span class="c"># Same as   for a in 1 2 3 4 5 ... 80   (saves much typing!).</span>
+<span class="c"># May also use &#39;jot&#39; (if present on system).</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> &quot;</span>
+<span class="k">done</span>      <span class="c"># 1 2 3 4 5 ... 80</span>
+<span class="c"># Example of using the output of a command to generate</span>
+<span class="c"># the [list] in a &quot;for&quot; loop.</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+
+<span class="nv">COUNT</span><span class="o">=</span><span class="m">80</span>  <span class="c"># Yes, &#39;seq&#39; also accepts a replaceable parameter.</span>
+
+<span class="k">for</span> a in <span class="sb">`</span>seq <span class="nv">$COUNT</span><span class="sb">`</span>  <span class="c"># or   for a in $( seq $COUNT )</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> &quot;</span>
+<span class="k">done</span>      <span class="c"># 1 2 3 4 5 ... 80</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nv">BEGIN</span><span class="o">=</span>75
+<span class="nv">END</span><span class="o">=</span>80
+
+<span class="k">for</span> a in <span class="sb">`</span>seq <span class="nv">$BEGIN</span> <span class="nv">$END</span><span class="sb">`</span>
+<span class="c">#  Giving &quot;seq&quot; two arguments starts the count at the first one,</span>
+<span class="c">#+ and continues until it reaches the second.</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> &quot;</span>
+<span class="k">done</span>      <span class="c"># 75 76 77 78 79 80</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nv">BEGIN</span><span class="o">=</span>45
+<span class="nv">INTERVAL</span><span class="o">=</span>5
+<span class="nv">END</span><span class="o">=</span>80
+
+<span class="k">for</span> a in <span class="sb">`</span>seq <span class="nv">$BEGIN</span> <span class="nv">$INTERVAL</span> <span class="nv">$END</span><span class="sb">`</span>
+<span class="c">#  Giving &quot;seq&quot; three arguments starts the count at the first one,</span>
+<span class="c">#+ uses the second for a step interval,</span>
+<span class="c">#+ and continues until it reaches the third.</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> &quot;</span>
+<span class="k">done</span>      <span class="c"># 45 50 55 60 65 70 75 80</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>A simpler example:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#  Create a set of 10 files,</span>
+<span class="c">#+ named file.1, file.2 . . . file.10.</span>
+<span class="nv">COUNT</span><span class="o">=</span>10
+<span class="nv">PREFIX</span><span class="o">=</span>file
+
+<span class="k">for</span> filename in <span class="sb">`</span>seq <span class="nv">$COUNT</span><span class="sb">`</span>
+<span class="k">do</span>
+  touch <span class="nv">$PREFIX</span>.<span class="nv">$filename</span>
+  <span class="c">#  Or, can do other operations,</span>
+  <span class="c">#+ such as rm, grep, etc.</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-55-letter-count">
+<h2>Exemple 55. Letter Count&#8221;<a class="headerlink" href="#exemple-55-letter-count" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># letter-count.sh: Counting letter occurrences in a text file.</span>
+<span class="c"># Written by Stefano Palmeri.</span>
+<span class="c"># Used in ABS Guide with permission.</span>
+<span class="c"># Slightly modified by document author.</span>
+
+<span class="nv">MINARGS</span><span class="o">=</span><span class="m">2</span>          <span class="c"># Script requires at least two arguments.</span>
+<span class="nv">E_BADARGS</span><span class="o">=</span>65
+<span class="nv">FILE</span><span class="o">=</span><span class="nv">$1</span>
+
+<span class="nb">let </span><span class="nv">LETTERS</span><span class="o">=</span><span class="nv">$#-</span><span class="m">1</span>   <span class="c"># How many letters specified (as command-line args).</span>
+                   <span class="c"># (Subtract 1 from number of command-line args.)</span>
+
+
+show_help<span class="o">(){</span>
+       <span class="nb">echo</span>
+<span class="nb">           echo </span>Usage: <span class="sb">`</span>basename <span class="nv">$0</span><span class="sb">`</span> file letters
+           <span class="nb">echo </span>Note: <span class="sb">`</span>basename <span class="nv">$0</span><span class="sb">`</span> arguments are <span class="k">case</span> sensitive.
+           <span class="nb">echo </span>Example: <span class="sb">`</span>basename <span class="nv">$0</span><span class="sb">`</span> foobar.txt G n U L i N U x.
+       <span class="nb">echo</span>
+<span class="o">}</span>
+
+<span class="c"># Checks number of arguments.</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span>-lt <span class="nv">$MINARGS</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+   <span class="nb">echo</span>
+<span class="nb">   echo</span> <span class="s2">&quot;Not enough arguments.&quot;</span>
+   <span class="nb">echo</span>
+<span class="nb">   </span>show_help
+   <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+
+
+<span class="c"># Checks if file exists.</span>
+<span class="k">if</span> <span class="o">[</span> ! -f <span class="nv">$FILE</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;File \&quot;</span><span class="nv">$FILE</span><span class="s2">\&quot; does not exist.&quot;</span>
+    <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+
+
+
+<span class="c"># Counts letter occurrences .</span>
+<span class="k">for</span> n in <span class="sb">`</span>seq <span class="nv">$LETTERS</span><span class="sb">`</span><span class="p">;</span> <span class="k">do</span>
+      <span class="nb">shift</span>
+<span class="nb">      </span><span class="k">if</span> <span class="o">[[</span> <span class="sb">`</span><span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>wc -c<span class="sb">`</span> -eq <span class="m">1</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>             <span class="c">#  Checks arg.</span>
+             <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> -<span class="se">\&gt;</span> <span class="sb">`</span>cat <span class="nv">$FILEtr</span> -cd  <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="p">|</span> wc -c<span class="sb">`</span> <span class="c">#  Counting.</span>
+      <span class="k">else</span>
+             <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2"> is not a  single char.&quot;</span>
+      <span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c">#  This script has exactly the same functionality as letter-count2.sh,</span>
+<span class="c">#+ but executes faster.</span>
+<span class="c">#  Why?</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p>Somewhat more capable than <em>seq</em> , <strong>jot</strong> is a classic UNIX utility
+that is not normally included in a standard Linux distro. However,
+the source <em>rpm</em> is available for download from the <a class="reference external" href="http://www.mit.edu/afs/athena/system/rhlinux/athena-9.0/free/SRPMS/athena-jot-9.0-3.src.rpm">MIT
+repository</a>
+.</p>
+<p class="last">Unlike <em>seq</em> , <strong>jot</strong> can generate a sequence of random numbers,
+using the ``            -r           `` option.</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>   bash<span class="nv">$ </span>jot -r <span class="m">3</span> 999
+   1069
+    1272
+    1428
+
+
+
+   .. code-block:: sh
+
+       bash<span class="nv">$ </span>jot -r <span class="m">3</span> 999
+       1069
+        1272
+        1428
+
+
+   .. code-block:: sh
+
+       bash<span class="nv">$ </span>jot -r <span class="m">3</span> 999
+       1069
+        1272
+        1428
+
+
+
+
+**getopt**
+   The **getopt** <span class="nb">command </span>parses <span class="nb">command</span>-line options preceded by a
+   <span class="sb">`</span>dash &lt;special-chars.html#DASHREF&gt;<span class="sb">`</span>__ . This external <span class="nb">command</span>
+<span class="nb">   </span>corresponds to the <span class="sb">`</span><span class="nb">getopts</span> &lt;internal.html#GETOPTSX&gt;<span class="sb">`</span>__ Bash
+   builtin. Using **getopt** permits handling long options by means of
+   the <span class="sb">``</span>         -l        <span class="sb">``</span> flag, and this also allows parameter
+   reshuffling.
+</pre></div>
+</div>
+</div>
+<div class="section" id="exemple-56-using-getopt-to-parse-command-line-options">
+<h2>Exemple 56. Using <em>getopt</em> to parse command-line options<a class="headerlink" href="#exemple-56-using-getopt-to-parse-command-line-options" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Using getopt</span>
+
+<span class="c"># Try the following when invoking this script:</span>
+<span class="c">#   sh ex33a.sh -a</span>
+<span class="c">#   sh ex33a.sh -abc</span>
+<span class="c">#   sh ex33a.sh -a -b -c</span>
+<span class="c">#   sh ex33a.sh -d</span>
+<span class="c">#   sh ex33a.sh -dXYZ</span>
+<span class="c">#   sh ex33a.sh -d XYZ</span>
+<span class="c">#   sh ex33a.sh -abcd</span>
+<span class="c">#   sh ex33a.sh -abcdZ</span>
+<span class="c">#   sh ex33a.sh -z</span>
+<span class="c">#   sh ex33a.sh a</span>
+<span class="c"># Explain the results of each of the above.</span>
+
+<span class="nv">E_OPTERR</span><span class="o">=</span>65
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$#&quot;</span><span class="s2"> -eq 0 ]</span>
+<span class="s2">then   # Script needs at least one command-line argument.</span>
+<span class="s2">  echo &quot;</span>Usage <span class="nv">$0</span> -<span class="o">[</span>options a,b,c<span class="o">]</span><span class="s2">&quot;</span>
+<span class="s2">  exit </span><span class="nv">$E_OPTERR</span><span class="s2"></span>
+<span class="s2">fi</span>
+
+<span class="s2">set -- `getopt &quot;</span>abcd:<span class="s2">&quot; &quot;</span><span class="nv">$@</span><span class="s2">&quot;`</span>
+<span class="s2"># Sets positional parameters to command-line arguments.</span>
+<span class="s2"># What happens if you use &quot;</span><span class="nv">$*</span><span class="s2">&quot; instead of &quot;</span><span class="nv">$@</span><span class="s2">&quot;?</span>
+
+<span class="s2">while [ ! -z &quot;</span><span class="nv">$1</span><span class="s2">&quot; ]</span>
+<span class="s2">do</span>
+<span class="s2">  case &quot;</span><span class="nv">$1</span><span class="s2">&quot; in</span>
+<span class="s2">    -a) echo &quot;</span>Option <span class="se">\&quot;</span>a<span class="se">\&quot;</span><span class="s2">&quot;;;</span>
+<span class="s2">    -b) echo &quot;</span>Option <span class="se">\&quot;</span>b<span class="se">\&quot;</span><span class="s2">&quot;;;</span>
+<span class="s2">    -c) echo &quot;</span>Option <span class="se">\&quot;</span>c<span class="se">\&quot;</span><span class="s2">&quot;;;</span>
+<span class="s2">    -d) echo &quot;</span>Option <span class="se">\&quot;</span>d<span class="se">\&quot;</span> <span class="nv">$2</span><span class="s2">&quot;;;</span>
+<span class="s2">     *) break;;</span>
+<span class="s2">  esac</span>
+
+<span class="s2">  shift</span>
+<span class="s2">done</span>
+
+<span class="s2">#  It is usually better to use the &#39;getopts&#39; builtin in a script.</span>
+<span class="s2">#  See &quot;</span>ex33.sh.<span class="s2">&quot;</span>
+
+<span class="s2">exit 0</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p>As <em>Peggy Russell</em> points out:</p>
+<p class="last">It is often necessary to include an <a class="reference external" href="internal.html#EVALREF">eval</a>
+to correctly process
+<a class="reference external" href="special-chars.html#WHITESPACEREF">whitespace</a> and <em>quotes</em> .</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">args</span><span class="o">=</span><span class="k">$(</span>getopt -o a:b
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>c:d &#8211; &#8220;$&#64;&#8221;)</dt>
+<dd><blockquote class="first">
+<div><p>eval set &#8211; &#8220;$args&#8221;</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">args</span><span class="o">=</span><span class="k">$(</span>getopt -o a:bc:d -- <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="nb">eval set</span> -- <span class="s2">&quot;</span><span class="nv">$args</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">args</span><span class="o">=</span><span class="k">$(</span>getopt -o a:bc:d -- <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="nb">eval set</span> -- <span class="s2">&quot;</span><span class="nv">$args</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="string-manipulation.html#GETOPTSIMPLE">Example 10-5</a> for a
+simplified emulation of <strong>getopt</strong> .</p>
+</div></blockquote>
+<dl class="last docutils">
+<dt><strong>run-parts</strong></dt>
+<dd><p class="first">The <strong>run-parts</strong> command ` [1]  &lt;extmisc.html#FTN.AEN14105&gt;`__
+executes all the scripts in a target directory, sequentially in
+ASCII-sorted filename order. Of course, the scripts need to have
+execute permission.</p>
+<p class="last">The <a class="reference external" href="system.html#CRONREF">cron</a>
+<a class="reference external" href="communications.html#DAEMONREF">daemon</a> invokes <strong>run-parts</strong> to
+run the scripts in the ``         /etc/cron.*        `` directories.</p>
+</dd>
+<dt><strong>yes</strong></dt>
+<dd><p class="first">In its default behavior the <strong>yes</strong> command feeds a continuous
+string of the character ``         y        `` followed by a line
+feed to ``         stdout        `` . A <strong>control</strong> - <strong>C</strong>
+terminates the run. A different output string may be specified, as
+in
+``                   yes different           string                 ``
+, which would continually output
+``         different string        `` to ``         stdout        ``
+.</p>
+<p>One might well ask the purpose of this. From the command-line or in
+a script, the output of <strong>yes</strong> can be redirected or piped into a
+program expecting user input. In effect, this becomes a sort of poor
+man&#8217;s version of <em>expect</em> .</p>
+<p>``                   yesfsck /dev/hda1                 `` runs
+<strong>fsck</strong> non-interactively (careful!).</p>
+<p class="last">``                   yesrm -r dirname                 `` has same
+effect as ``                   rm -rf dirname                 ``
+(careful!).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="first admonition-title">Avís</p>
+<p class="last">Caution advised when piping <em>yes</em> to a potentially dangerous system
+command, such as <a class="reference external" href="system.html#FSCKREF">fsck</a> or
+<a class="reference external" href="system.html#FDISKREF">fdisk</a> . It might have unintended
+consequences.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">The <em>yes</em> command parses variables, or more accurately, it echoes
+parsed variables. For example:</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>yes <span class="nv">$BASH_VERS</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>ION</dt>
+<dd><dl class="first docutils">
+<dt>3.1.17(1)-release</dt>
+<dd>3.1.17(1)-release
+3.1.17(1)-release
+3.1.17(1)-release
+3.1.17(1)-release
+. . .</dd>
+</dl>
+<p class="last">This particular &#8220;feature&#8221; may be used to create a <em>very large</em> ASCII
+file on the fly:</p>
+</dd>
+</dl>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>yes <span class="nv">$PATH</span> &gt; hu
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>ge_file.txt</dt>
+<dd><blockquote class="first">
+<div><p>Ctl-C</p>
+<p>Hit ``                       Ctl-C                     `` <em>very
+quickly</em> , or you just might get more than you bargained for. . . .</p>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>yes <span class="nv">$BASH_VERSION</span>
+3.1.17<span class="o">(</span>1<span class="o">)</span>-release
+ 3.1.17<span class="o">(</span>1<span class="o">)</span>-release
+ 3.1.17<span class="o">(</span>1<span class="o">)</span>-release
+ 3.1.17<span class="o">(</span>1<span class="o">)</span>-release
+ 3.1.17<span class="o">(</span>1<span class="o">)</span>-release
+ . . .
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>yes <span class="nv">$PATH</span> &gt; huge_file.txt
+Ctl-C
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>yes <span class="nv">$BASH_VERSION</span>
+3.1.17<span class="o">(</span>1<span class="o">)</span>-release
+ 3.1.17<span class="o">(</span>1<span class="o">)</span>-release
+ 3.1.17<span class="o">(</span>1<span class="o">)</span>-release
+ 3.1.17<span class="o">(</span>1<span class="o">)</span>-release
+ 3.1.17<span class="o">(</span>1<span class="o">)</span>-release
+ . . .
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>   bash<span class="nv">$ </span>yes <span class="nv">$PATH</span> &gt; huge_file.txt
+   Ctl-C
+
+
+
+
+
+The *yes* <span class="nb">command </span>may be emulated in a very simple script
+</pre></div>
+</div>
+<p><a class="reference external" href="functions.html#FUNCTIONREF">function</a> .</p>
+<div class="highlight-sh"><div class="highlight"><pre>yes <span class="o">()</span>
+<span class="o">{</span> <span class="c"># Trivial emulation of &quot;yes&quot; ...</span>
+  <span class="nb">local </span><span class="nv">DEFAULT_TEXT</span><span class="o">=</span><span class="s2">&quot;y&quot;</span>
+  <span class="k">while</span> <span class="o">[</span> <span class="nb">true</span> <span class="o">]</span>   <span class="c"># Endless loop.</span>
+  <span class="k">do</span>
+    <span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+    <span class="k">then</span>
+      <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$DEFAULT_TEXT</span><span class="s2">&quot;</span>
+    <span class="k">else</span>           <span class="c"># If argument ...</span>
+      <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>    <span class="c"># ... expand and echo it.</span>
+    <span class="k">fi</span>
+  <span class="k">done</span>             <span class="c">#  The only things missing are the</span>
+<span class="o">}</span>                  <span class="c">#+ --help and --version options.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="last docutils">
+<dt><strong>banner</strong></dt>
+<dd><p class="first">Prints arguments as a large vertical banner to
+``         stdout        `` , using an
+<a class="reference external" href="special-chars.html#ASCIIDEF">ASCII</a> character (default &#8216;#&#8217;).
+This may be redirected to a printer for hardcopy.</p>
+<p class="last">Note that <em>banner</em> has been dropped from many Linux distros,
+presumably because it is no longer considered useful.</p>
+</dd>
+<dt><strong>printenv</strong></dt>
+<dd><p class="first">Show all the <a class="reference external" href="othertypesv.html#ENVREF">environmental variables</a>
+set for a particular user.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>printenvgrep HOME
+<span class="nv">HOME</span><span class="o">=</span>/home/bozo
+</pre></div>
+</div>
+</dd>
+<dt><strong>lp</strong></dt>
+<dd><p class="first">The <strong>lp</strong> and <strong>lpr</strong> commands send file(s) to the print queue, to
+be printed as hard copy. ` [2]  &lt;extmisc.html#FTN.AEN14214&gt;`__ These
+commands trace the origin of their names to the line printers of
+another era. ` [3]  &lt;extmisc.html#FTN.AEN14218&gt;`__</p>
+<p>``         bash$        ``
+``                   lp file1.txt                 `` or
+``         bash        ``
+``                   lp         &lt;file1.txt                 ``</p>
+<p>It is often useful to pipe the formatted output from <strong>pr</strong> to
+<strong>lp</strong> .</p>
+<p>``         bash$        ``
+``                   pr -options file1.txtlp                 ``</p>
+<p>Formatting packages, such as <a class="reference external" href="textproc.html#GROFFREF">groff</a> and
+<em>Ghostscript</em> may send their output directly to <strong>lp</strong> .</p>
+<p>``         bash$        ``
+``                   groff -Tascii file.trlp                 ``</p>
+<p>``         bash$        ``
+``                   gs -optionslp file.ps                 ``</p>
+<p class="last">Related commands are <strong>lpq</strong> , for viewing the print queue, and
+<strong>lprm</strong> , for removing jobs from the print queue.</p>
+</dd>
+<dt><strong>tee</strong></dt>
+<dd><p class="first">[UNIX borrows an idea from the plumbing trade.]</p>
+<p>This is a redirection operator, but with a difference. Like the
+plumber&#8217;s <em>tee,</em> it permits &#8220;siphoning off&#8221; <em>to a file</em> the output
+of a command or commands within a pipe, but without affecting the
+result. This is useful for printing an ongoing process to a file or
+paper, perhaps to keep track of it for debugging purposes.</p>
+<div class="highlight-sh"><div class="highlight"><pre>                           <span class="o">(</span>redirection<span class="o">)</span>
+                          <span class="p">|</span>----&gt; to <span class="nv">file</span>
+
+<span class="o">==========================</span><span class="p">|</span><span class="o">====================</span>
+<span class="nb">command</span> ---&gt; <span class="nb">command</span> ---&gt; <span class="p">|</span>tee ---&gt; <span class="nb">command</span> ---&gt; ---&gt; output of <span class="nv">pipe</span>
+<span class="o">===============================================</span>
+</pre></div>
+</div>
+<div class="last highlight-sh"><div class="highlight"><pre>cat listfile*sort <span class="p">|</span> tee check.file <span class="p">|</span> uniq &gt; result.file
+<span class="c">#                      ^^^^^^^^^^^^^^   ^^^^</span>
+
+<span class="c">#  The file &quot;check.file&quot; contains the concatenated sorted &quot;listfiles,&quot;</span>
+<span class="c">#+ before the duplicate lines are removed by &#39;uniq.&#39;</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>mkfifo</strong></dt>
+<dd><blockquote class="first">
+<div>This obscure command creates a <em>named pipe</em> , a temporary</div></blockquote>
+<p><em>first-in-first-out buffer</em> for transferring data between processes.
+` [4]  &lt;extmisc.html#FTN.AEN14280&gt;`__ Typically, one process writes
+to the FIFO, and the other reads from it. See <a class="reference external" href="contributed-scripts.html#FIFO">Example
+A-14</a> .</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># This short script by Omair Eshkenazi.</span>
+<span class="c"># Used in ABS Guide with permission (thanks!).</span>
+
+mkfifo pipe1   <span class="c"># Yes, pipes can be given names.</span>
+mkfifo pipe2   <span class="c"># Hence the designation &quot;named pipe.&quot;</span>
+
+<span class="o">(</span>cut -d<span class="s1">&#39; &#39;</span> -f1tr <span class="s2">&quot;a-z&quot;</span> <span class="s2">&quot;A-Z&quot;</span><span class="o">)</span> &gt;pipe2 &lt;pipe1 <span class="p">&amp;</span>
+ls -ltr -s <span class="s1">&#39; &#39;</span> <span class="p">|</span> cut -d<span class="s1">&#39; &#39;</span> -f3,9- <span class="p">|</span> tee pipe1
+cut -d<span class="s1">&#39; &#39;</span> -f2paste - pipe2
+
+rm -f pipe1
+rm -f pipe2
+
+<span class="c"># No need to kill background processes when script terminates (why not?).</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+Now, invoke the script and explain the output:
+sh mkfifo-example.sh
+
+4830.tar.gz          BOZO
+pipe1   BOZO
+pipe2   BOZO
+mkfifo-example.sh    BOZO
+Mixed.msg BOZO
+</pre></div>
+</div>
+</dd>
+<dt><strong>pathchk</strong></dt>
+<dd><p class="first">This command checks the validity of a filename. If the filename
+exceeds the maximum allowable length (255 characters) or one or more
+of the directories in its path is not searchable, then an error
+message results.</p>
+<p class="last">Unfortunately, <strong>pathchk</strong> does not return a recognizable error
+code, and it is therefore pretty much useless in a script. Consider
+instead the <a class="reference external" href="fto.html#RTIF">file test operators</a> .</p>
+</dd>
+<dt><strong>dd</strong></dt>
+<dd><p class="first">Though this somewhat obscure and much feared <strong>d</strong> ata <strong>d</strong>
+uplicator command originated as a utility for exchanging data on
+magnetic tapes between UNIX minicomputers and IBM mainframes, it
+still has its uses. The <strong>dd</strong> command simply copies a file (or
+``         stdin/stdout        `` ), but with conversions. Possible
+conversions include ASCII/EBCDIC, ` [5]</p>
+<blockquote>
+<div>&lt;extmisc.html#FTN.AEN14318&gt;`__ upper/lower case, swapping of byte</div></blockquote>
+<p>pairs between input and output, and skipping and/or truncating the
+head or tail of the input file.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Converting a file to all uppercase:</span>
+
+dd <span class="k">if</span><span class="o">=</span><span class="nv">$filename</span> <span class="nv">conv</span><span class="o">=</span>ucase &gt; <span class="nv">$filename</span>.uppercase
+<span class="c">#                    lcase   # For lower case conversion</span>
+</pre></div>
+</div>
+<p>Some basic options to <strong>dd</strong> are:</p>
+<ul>
+<li><p class="first">if=INFILE</p>
+<p>INFILE is the <em>source</em> file.</p>
+</li>
+<li><p class="first">of=OUTFILE</p>
+<p>OUTFILE is the <em>target</em> file, the file that will have the data
+written to it.</p>
+</li>
+<li><p class="first">bs=BLOCKSIZE</p>
+<p>This is the size of each block of data being read and written,
+usually a power of 2.</p>
+</li>
+<li><p class="first">skip=BLOCKS</p>
+<p>How many blocks of data to skip in INFILE before starting to
+copy. This is useful when the INFILE has &#8220;garbage&#8221; or garbled
+data in its header or when it is desirable to copy only a portion
+of the INFILE.</p>
+</li>
+<li><p class="first">seek=BLOCKS</p>
+<p>How many blocks of data to skip in OUTFILE before starting to
+copy, leaving blank data at beginning of OUTFILE.</p>
+</li>
+<li><p class="first">count=BLOCKS</p>
+<p>Copy only this many blocks of data, rather than the entire
+INFILE.</p>
+</li>
+<li><p class="first">conv=CONVERSION</p>
+<p>Type of conversion to be applied to INFILE data before copying
+operation.</p>
+</li>
+</ul>
+<p class="last">A ``                   dd &#8211;help                 `` lists all the
+options this powerful utility takes.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+<div class="section" id="exemple-57-a-script-that-copies-itself">
+<h2>Exemple 57. A script that copies itself<a class="headerlink" href="#exemple-57-a-script-that-copies-itself" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># self-copy.sh</span>
+
+<span class="c"># This script copies itself.</span>
+
+<span class="nv">file_subscript</span><span class="o">=</span>copy
+
+dd <span class="k">if</span><span class="o">=</span><span class="nv">$0</span> <span class="nv">of</span><span class="o">=</span><span class="nv">$0</span>.<span class="nv">$file_subscript</span> 2&gt;/dev/null
+<span class="c"># Suppress messages from dd:   ^^^^^^^^^^^</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c">#  A program whose only output is its own source code</span>
+<span class="c">#+ is called a &quot;quine&quot; per Willard Quine.</span>
+<span class="c">#  Does this script qualify as a quine?</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-58-exercising-dd">
+<h2>Exemple 58. Exercising <em>dd</em><a class="headerlink" href="#exemple-58-exercising-dd" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># exercising-dd.sh</span>
+
+<span class="c"># Script by Stephane Chazelas.</span>
+<span class="c"># Somewhat modified by ABS Guide author.</span>
+
+<span class="nv">infile</span><span class="o">=</span><span class="nv">$0</span>           <span class="c"># This script.</span>
+<span class="nv">outfile</span><span class="o">=</span>log.txt     <span class="c"># Output file left behind.</span>
+<span class="nv">n</span><span class="o">=</span>8
+<span class="nv">p</span><span class="o">=</span>11
+
+dd <span class="k">if</span><span class="o">=</span><span class="nv">$infile</span> <span class="nv">of</span><span class="o">=</span><span class="nv">$outfile</span> <span class="nv">bs</span><span class="o">=</span><span class="m">1</span> <span class="nv">skip</span><span class="o">=</span><span class="k">$((</span>n-1<span class="k">))</span> <span class="nv">count</span><span class="o">=</span><span class="k">$((</span>p-n+1<span class="k">))</span> 2&gt; /dev/null
+<span class="c"># Extracts characters n to p (8 to 11) from this script (&quot;bash&quot;).</span>
+
+<span class="c"># ----------------------------------------------------------------</span>
+
+<span class="nb">echo</span> -n <span class="s2">&quot;hello vertical world&quot;</span>dd <span class="nv">cbs</span><span class="o">=</span><span class="m">1</span> <span class="nv">conv</span><span class="o">=</span>unblock 2&gt; /dev/null
+<span class="c"># Echoes &quot;hello vertical world&quot; vertically downward.</span>
+<span class="c"># Why? A newline follows each character dd emits.</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></div>
+</div>
+<p>To demonstrate just how versatile <strong>dd</strong> is, let&#8217;s use it to capture
+keystrokes.</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-59-capturing-keystrokes">
+<h2>Exemple 59. Capturing Keystrokes<a class="headerlink" href="#exemple-59-capturing-keystrokes" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># dd-keypress.sh: Capture keystrokes without needing to press ENTER.</span>
+
+
+<span class="nv">keypresses</span><span class="o">=</span><span class="m">4</span>                      <span class="c"># Number of keypresses to capture.</span>
+
+
+<span class="nv">old_tty_setting</span><span class="o">=</span><span class="k">$(</span>stty -g<span class="k">)</span>        <span class="c"># Save old terminal settings.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Press </span><span class="nv">$keypresses</span><span class="s2"> keys.&quot;</span>
+stty -icanon -echo                <span class="c"># Disable canonical mode.</span>
+                                  <span class="c"># Disable local echo.</span>
+<span class="nv">keys</span><span class="o">=</span><span class="k">$(</span>dd <span class="nv">bs</span><span class="o">=</span><span class="m">1</span> <span class="nv">count</span><span class="o">=</span><span class="nv">$keypresses</span> 2&gt; /dev/null<span class="k">)</span>
+<span class="c"># &#39;dd&#39; uses stdin, if &quot;if&quot; (input file) not specified.</span>
+
+stty <span class="s2">&quot;</span><span class="nv">$old_tty_setting</span><span class="s2">&quot;</span>           <span class="c"># Restore old terminal settings.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;You pressed the \&quot;</span><span class="nv">$keys</span><span class="s2">\&quot; keys.&quot;</span>
+
+<span class="c"># Thanks, Stephane Chazelas, for showing the way.</span>
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+<p>The <strong>dd</strong> command can do random access on a data stream.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">echo</span> -n .dd <span class="nv">bs</span><span class="o">=</span><span class="m">1</span> <span class="nv">seek</span><span class="o">=</span><span class="m">4</span> <span class="nv">of</span><span class="o">=</span>file <span class="nv">conv</span><span class="o">=</span>notrunc
+<span class="c">#  The &quot;conv=notrunc&quot; option means that the output file</span>
+<span class="c">#+ will not be truncated.</span>
+
+<span class="c"># Thanks, S.C.</span>
+</pre></div>
+</div>
+<p>The <strong>dd</strong> command can copy raw data and disk images to and from
+devices, such as floppies and tape drives ( <a class="reference external" href="contributed-scripts.html#COPYCD">Example
+A-5</a> ). A common use is creating
+boot floppies.</p>
+<p>``                   dd if=kernel-image of=/dev/fd0H1440                 ``</p>
+<p>Similarly, <strong>dd</strong> can copy the entire contents of a floppy, even one
+formatted with a &#8220;foreign&#8221; OS, to the hard drive as an image file.</p>
+<p>``                   dd if=/dev/fd0 of=/home/bozo/projects/floppy.img                 ``</p>
+<blockquote>
+<div>Likewise, <strong>dd</strong> can create bootable flash drives and SD cards.</div></blockquote>
+<p>``                   dd if=image.iso of=/dev/sdb                 ``</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-60-preparing-a-bootable-sd-card-for-the-raspberry-pi">
+<h2>Exemple 60. Preparing a bootable SD card for the <em>Raspberry Pi</em><a class="headerlink" href="#exemple-60-preparing-a-bootable-sd-card-for-the-raspberry-pi" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># rp.sdcard.sh</span>
+<span class="c"># Preparing an SD card with a bootable image for the Raspberry Pi.</span>
+
+<span class="c"># $1 = imagefile name</span>
+<span class="c"># $2 = sdcard (device file)</span>
+<span class="c"># Otherwise defaults to the defaults, see below.</span>
+
+<span class="nv">DEFAULTbs</span><span class="o">=</span>4M                                 <span class="c"># Block size, 4 mb default.</span>
+<span class="nv">DEFAULTif</span><span class="o">=</span><span class="s2">&quot;2013-07-26-wheezy-raspbian.img&quot;</span>   <span class="c"># Commonly used distro.</span>
+<span class="nv">DEFAULTsdcard</span><span class="o">=</span><span class="s2">&quot;/dev/mmcblk0&quot;</span>                 <span class="c"># May be different. Check!</span>
+<span class="nv">ROOTUSER_NAME</span><span class="o">=</span>root                           <span class="c"># Must run as root!</span>
+<span class="nv">E_NOTROOT</span><span class="o">=</span>81
+<span class="nv">E_NOIMAGE</span><span class="o">=</span>82
+
+<span class="nv">username</span><span class="o">=</span><span class="k">$(</span>id -nu<span class="k">)</span>                           <span class="c"># Who is running this script?</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$username</span><span class="s2">&quot;</span> !<span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$ROOTUSER_NAME</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;This script must run as root or with root privileges.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOTROOT</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nv">imagefile</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="k">else</span>
+  <span class="nv">imagefile</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$DEFAULTif</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nv">sdcard</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+<span class="k">else</span>
+  <span class="nv">sdcard</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$DEFAULTsdcard</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> ! -e <span class="nv">$imagefile</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Image file \&quot;</span><span class="nv">$imagefile</span><span class="s2">\&quot; not found!&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOIMAGE</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Last chance to change your mind!&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+<span class="nb">read</span> -s -n1 -p <span class="s2">&quot;Hit a key to write </span><span class="nv">$imagefile</span><span class="s2"> to </span><span class="nv">$sdcard</span><span class="s2"> [Ctl-c to exit].&quot;</span>
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Writing </span><span class="nv">$imagefile</span><span class="s2"> to </span><span class="nv">$sdcard</span><span class="s2"> ...&quot;</span>
+dd <span class="nv">bs</span><span class="o">=</span><span class="nv">$DEFAULTbs</span> <span class="k">if</span><span class="o">=</span><span class="nv">$imagefile</span> <span class="nv">of</span><span class="o">=</span><span class="nv">$sdcard</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+
+<span class="c"># Exercises:</span>
+<span class="c"># ---------</span>
+<span class="c"># 1) Provide additional error checking.</span>
+<span class="c"># 2) Have script autodetect device file for SD card (difficult!).</span>
+<span class="c"># 3) Have script sutodetect image file (*img) in $PWD.</span>
+</pre></div>
+</div>
+<p>Other applications of <strong>dd</strong> include initializing temporary swap
+files ( <a class="reference external" href="zeros.html#EX73">Example 31-2</a> ) and ramdisks ( <a class="reference external" href="zeros.html#RAMDISK">Example
+31-3</a> ). It can even do a low-level copy of
+an entire hard drive partition, although this is not necessarily
+recommended.</p>
+<p>People (with presumably nothing better to do with their time) are
+constantly thinking of interesting applications of <strong>dd</strong> .</p>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-61-securely-deleting-a-file">
+<h2>Exemple 61. Securely deleting a file<a class="headerlink" href="#exemple-61-securely-deleting-a-file" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># blot-out.sh: Erase &quot;all&quot; traces of a file.</span>
+
+<span class="c">#  This script overwrites a target file alternately</span>
+<span class="c">#+ with random bytes, then zeros before finally deleting it.</span>
+<span class="c">#  After that, even examining the raw disk sectors by conventional methods</span>
+<span class="c">#+ will not reveal the original file data.</span>
+
+<span class="nv">PASSES</span><span class="o">=</span><span class="m">7</span>         <span class="c">#  Number of file-shredding passes.</span>
+                 <span class="c">#  Increasing this slows script execution,</span>
+                 <span class="c">#+ especially on large target files.</span>
+<span class="nv">BLOCKSIZE</span><span class="o">=</span><span class="m">1</span>      <span class="c">#  I/O with /dev/urandom requires unit block size,</span>
+                 <span class="c">#+ otherwise you get weird results.</span>
+<span class="nv">E_BADARGS</span><span class="o">=</span><span class="m">70</span>     <span class="c">#  Various error exit codes.</span>
+<span class="nv">E_NOT_FOUND</span><span class="o">=</span>71
+<span class="nv">E_CHANGED_MIND</span><span class="o">=</span>72
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>   <span class="c"># No filename specified.</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` filename&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_BADARGS</span>
+<span class="k">fi</span>
+
+<span class="nv">file</span><span class="o">=</span><span class="nv">$1</span>
+
+<span class="k">if</span> <span class="o">[</span> ! -e <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;File \&quot;</span><span class="nv">$file</span><span class="s2">\&quot; not found.&quot;</span>
+  <span class="nb">exit</span> <span class="nv">$E_NOT_FOUND</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span><span class="p">;</span> <span class="nb">echo</span> -n <span class="s2">&quot;Are you absolutely sure you want to blot out \&quot;</span><span class="nv">$file</span><span class="s2">\&quot; (y/n)? &quot;</span>
+<span class="nb">read </span>answer
+<span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$answer</span><span class="s2">&quot;</span> in
+<span class="o">[</span>nN<span class="o">])</span> <span class="nb">echo</span> <span class="s2">&quot;Changed your mind, huh?&quot;</span>
+      <span class="nb">exit</span> <span class="nv">$E_CHANGED_MIND</span>
+      <span class="p">;;</span>
+*<span class="o">)</span>    <span class="nb">echo</span> <span class="s2">&quot;Blotting out file \&quot;</span><span class="nv">$file</span><span class="s2">\&quot;.&quot;</span><span class="p">;;</span>
+<span class="k">esac</span>
+
+
+<span class="nv">flength</span><span class="o">=</span><span class="k">$(</span>ls -l <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>awk <span class="s1">&#39;{print $5}&#39;</span><span class="k">)</span>  <span class="c"># Field 5 is file length.</span>
+<span class="nv">pass_count</span><span class="o">=</span>1
+
+chmod u+w <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>   <span class="c"># Allow overwriting/deleting the file.</span>
+
+<span class="nb">echo</span>
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$pass_count</span><span class="s2">&quot;</span> -le <span class="s2">&quot;</span><span class="nv">$PASSES</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Pass #</span><span class="nv">$pass_count</span><span class="s2">&quot;</span>
+  sync         <span class="c"># Flush buffers.</span>
+  dd <span class="k">if</span><span class="o">=</span>/dev/urandom <span class="nv">of</span><span class="o">=</span><span class="nv">$file</span> <span class="nv">bs</span><span class="o">=</span><span class="nv">$BLOCKSIZE</span> <span class="nv">count</span><span class="o">=</span><span class="nv">$flength</span>
+               <span class="c"># Fill with random bytes.</span>
+  sync         <span class="c"># Flush buffers again.</span>
+  dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span><span class="nv">$file</span> <span class="nv">bs</span><span class="o">=</span><span class="nv">$BLOCKSIZE</span> <span class="nv">count</span><span class="o">=</span><span class="nv">$flength</span>
+               <span class="c"># Fill with zeros.</span>
+  sync         <span class="c"># Flush buffers yet again.</span>
+  <span class="nb">let</span> <span class="s2">&quot;pass_count += 1&quot;</span>
+  <span class="nb">echo</span>
+<span class="k">done</span>
+
+
+rm -f <span class="nv">$file</span>    <span class="c"># Finally, delete scrambled and shredded file.</span>
+sync           <span class="c"># Flush buffers a final time.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;File \&quot;</span><span class="nv">$file</span><span class="s2">\&quot; blotted out and deleted.&quot;</span><span class="p">;</span> <span class="nb">echo</span>
+
+
+<span class="nb">exit </span>0
+
+<span class="c">#  This is a fairly secure, if inefficient and slow method</span>
+<span class="c">#+ of thoroughly &quot;shredding&quot; a file.</span>
+<span class="c">#  The &quot;shred&quot; command, part of the GNU &quot;fileutils&quot; package,</span>
+<span class="c">#+ does the same thing, although more efficiently.</span>
+
+<span class="c">#  The file cannot not be &quot;undeleted&quot; or retrieved by normal methods.</span>
+<span class="c">#  However . . .</span>
+<span class="c">#+ this simple method would *not* likely withstand</span>
+<span class="c">#+ sophisticated forensic analysis.</span>
+
+<span class="c">#  This script may not play well with a journaled file system.</span>
+<span class="c">#  Exercise (difficult): Fix it so it does.</span>
+
+
+
+<span class="c">#  Tom Vier&#39;s &quot;wipe&quot; file-deletion package does a much more thorough job</span>
+<span class="c">#+ of file shredding than this simple script.</span>
+<span class="c">#     http://www.ibiblio.org/pub/Linux/utils/file/wipe-2.0.0.tar.bz2</span>
+
+<span class="c">#  For an in-depth analysis on the topic of file deletion and security,</span>
+<span class="c">#+ see Peter Gutmann&#39;s paper,</span>
+<span class="c">#+     &quot;Secure Deletion of Data From Magnetic and Solid-State Memory&quot;.</span>
+<span class="c">#       http://www.cs.auckland.ac.nz/~pgut001/pubs/secure_del.html</span>
+</pre></div>
+</div>
+<p>See also the <a class="reference external" href="biblio.html#DDLINK">dd thread</a> entry in the
+<a class="reference external" href="biblio.html#BIBLIOREF">bibliography</a> .</p>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>od</strong></dt>
+<dd><p class="first">The <strong>od</strong> , or <em>octal dump</em> filter converts input (or files) to
+octal (base-8) or other bases. This is useful for viewing or
+processing binary data files or otherwise unreadable system <a class="reference external" href="devref1.html#DEVFILEREF">device
+files</a> , such as
+``         /dev/urandom        `` , and as a filter for binary data.</p>
+<div class="highlight-sh"><div class="highlight"><pre>head -c4 /dev/urandomod -N4 -tu4 <span class="p">|</span> sed -ne <span class="s1">&#39;1s/.* //p&#39;</span>
+<span class="c"># Sample output: 1324725719, 3918166450, 2989231420, etc.</span>
+
+<span class="c"># From rnd.sh example script, by StÃ©phane Chazelas</span>
+</pre></div>
+</div>
+<p class="last">See also <a class="reference external" href="randomvar.html#SEEDINGRANDOM">Example 9-16</a> and
+<a class="reference external" href="contributed-scripts.html#INSERTIONSORT">Example A-36</a> .</p>
+</dd>
+<dt><strong>hexdump</strong></dt>
+<dd><p class="first">Performs a hexadecimal, octal, decimal, or ASCII dump of a binary
+file. This command is the rough equivalent of <strong>od</strong> , above, but
+not nearly as useful. May be used to view the contents of a binary
+file, in combination with <a class="reference external" href="extmisc.html#DDREF">dd</a> and
+<a class="reference external" href="filearchiv.html#LESSREF">less</a> .</p>
+<div class="last highlight-sh"><div class="highlight"><pre>dd <span class="k">if</span><span class="o">=</span>/bin/lshexdump -C <span class="p">|</span> less
+<span class="c"># The -C option nicely formats the output in tabular form.</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>objdump</strong></dt>
+<dd><p class="first">Displays information about an object file or binary executable in
+either hexadecimal form or as a disassembled listing (with the
+``         -d        `` option).</p>
+<div class="last highlight-sh"><div class="highlight"><pre>bash<span class="nv">$ </span>objdump -d /bin/ls
+/bin/ls:     file format elf32-i386
+
+ Disassembly of section .init:
+
+ 080490bc &lt;.init&gt;:
+  80490bc:       <span class="m">55</span>                      push   %ebp
+  80490bd:       <span class="m">89</span> e5                   mov    %esp,%ebp
+  . . .
+</pre></div>
+</div>
+</dd>
+<dt><strong>mcookie</strong></dt>
+<dd><p class="first">This command generates a &#8220;magic cookie,&#8221; a 128-bit (32-character)
+pseudorandom hexadecimal number, normally used as an authorization
+&#8220;signature&#8221; by the X server. This also available for use in a script
+as a &#8220;quick &#8216;n dirty&#8221; random number.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">random000</span><span class="o">=</span><span class="k">$(</span>mcookie<span class="k">)</span>
+</pre></div>
+</div>
+<p>Of course, a script could use <a class="reference external" href="filearchiv.html#MD5SUMREF">md5sum</a>
+for the same purpose.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># Generate md5 checksum on the script itself.</span>
+<span class="nv">random001</span><span class="o">=</span><span class="sb">`</span>md5sum <span class="nv">$0awk</span> <span class="s1">&#39;{print $1}&#39;</span><span class="sb">`</span>
+<span class="c"># Uses &#39;awk&#39; to strip off the filename.</span>
+</pre></div>
+</div>
+<p class="last">The <strong>mcookie</strong> command gives yet another way to generate a &#8220;unique&#8221;
+filename.</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-62-filename-generator">
+<h2>Exemple 62. Filename generator<a class="headerlink" href="#exemple-62-filename-generator" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># tempfile-name.sh:  temp filename generator</span>
+
+<span class="nv">BASE_STR</span><span class="o">=</span><span class="sb">`</span>mcookie<span class="sb">`</span>   <span class="c"># 32-character magic cookie.</span>
+<span class="nv">POS</span><span class="o">=</span><span class="m">11</span>               <span class="c"># Arbitrary position in magic cookie string.</span>
+<span class="nv">LEN</span><span class="o">=</span><span class="m">5</span>                <span class="c"># Get $LEN consecutive characters.</span>
+
+<span class="nv">prefix</span><span class="o">=</span>temp          <span class="c">#  This is, after all, a &quot;temp&quot; file.</span>
+                     <span class="c">#  For more &quot;uniqueness,&quot; generate the</span>
+                     <span class="c">#+ filename prefix using the same method</span>
+                     <span class="c">#+ as the suffix, below.</span>
+
+<span class="nv">suffix</span><span class="o">=</span><span class="si">${</span><span class="nv">BASE_STR</span><span class="p">:</span><span class="nv">POS</span><span class="p">:</span><span class="nv">LEN</span><span class="si">}</span>
+                     <span class="c">#  Extract a 5-character string,</span>
+                     <span class="c">#+ starting at position 11.</span>
+
+<span class="nv">temp_filename</span><span class="o">=</span><span class="nv">$prefix</span>.<span class="nv">$suffix</span>
+                     <span class="c"># Construct the filename.</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Temp filename = &quot;</span><span class="nv">$temp_filename</span><span class="s2">&quot;&quot;</span>
+
+<span class="c"># sh tempfile-name.sh</span>
+<span class="c"># Temp filename = temp.e19ea</span>
+
+<span class="c">#  Compare this method of generating &quot;unique&quot; filenames</span>
+<span class="c">#+ with the &#39;date&#39; method in ex51.sh.</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>units</strong></dt>
+<dd>This utility converts between different <em>units of measure</em> . While
+normally invoked in interactive mode, <strong>units</strong> may find use in a
+script.</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-63-converting-meters-to-miles">
+<h2>Exemple 63. Converting meters to miles<a class="headerlink" href="#exemple-63-converting-meters-to-miles" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># unit-conversion.sh</span>
+<span class="c"># Must have &#39;units&#39; utility installed.</span>
+
+
+convert_units <span class="o">()</span>  <span class="c"># Takes as arguments the units to convert.</span>
+<span class="o">{</span>
+  <span class="nv">cf</span><span class="o">=</span><span class="k">$(</span>units <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>sed --silent -e <span class="s1">&#39;1p&#39;</span> <span class="p">|</span> awk <span class="s1">&#39;{print $2}&#39;</span><span class="k">)</span>
+  <span class="c"># Strip off everything except the actual conversion factor.</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$cf</span><span class="s2">&quot;</span>
+<span class="o">}</span>
+
+<span class="nv">Unit1</span><span class="o">=</span>miles
+<span class="nv">Unit2</span><span class="o">=</span>meters
+<span class="nv">cfactor</span><span class="o">=</span><span class="sb">`</span>convert_units <span class="nv">$Unit1</span> <span class="nv">$Unit2</span><span class="sb">`</span>
+<span class="nv">quantity</span><span class="o">=</span>3.73
+
+<span class="nv">result</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$quantity</span>*<span class="nv">$cfactorbc</span><span class="k">)</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;There are </span><span class="nv">$result</span><span class="s2"> </span><span class="nv">$Unit2</span><span class="s2"> in </span><span class="nv">$quantity</span><span class="s2"> </span><span class="nv">$Unit1</span><span class="s2">.&quot;</span>
+
+<span class="c">#  What happens if you pass incompatible units,</span>
+<span class="c">#+ such as &quot;acres&quot; and &quot;miles&quot; to the function?</span>
+
+<span class="nb">exit </span>0
+
+<span class="c"># Exercise: Edit this script to accept command-line parameters,</span>
+<span class="c">#           with appropriate error checking, of course.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>m4</strong></dt>
+<dd><dl class="first docutils">
+<dt>A hidden treasure, <strong>m4</strong> is a powerful macro ` [6]</dt>
+<dd>&lt;extmisc.html#FTN.AEN14523&gt;`__ processing filter, virtually a</dd>
+</dl>
+<p>complete language. Although originally written as a pre-processor
+for <em>RatFor</em> , <strong>m4</strong> turned out to be useful as a stand-alone
+utility. In fact, <strong>m4</strong> combines some of the functionality of
+<a class="reference external" href="internal.html#EVALREF">eval</a> , <a class="reference external" href="textproc.html#TRREF">tr</a> ,
+and <a class="reference external" href="awk.html#AWKREF">awk</a> , in addition to its extensive macro
+expansion facilities.</p>
+<p class="last">The April, 2002 issue of <a class="reference external" href="http://www.linuxjournal.com">*Linux
+Journal*</a> has a very nice article on
+<strong>m4</strong> and its uses.</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="exemple-64-using-m4">
+<h2>Exemple 64. Using <em>m4</em><a class="headerlink" href="#exemple-64-using-m4" title="Link permanent a aquest títol">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># m4.sh: Using the m4 macro processor</span>
+
+<span class="c"># Strings</span>
+<span class="nv">string</span><span class="o">=</span>abcdA01
+<span class="nb">echo</span> <span class="s2">&quot;len(</span><span class="nv">$string</span><span class="s2">)&quot;</span>m4                            <span class="c">#   7</span>
+<span class="nb">echo</span> <span class="s2">&quot;substr(</span><span class="nv">$string</span><span class="s2">,4)&quot;</span>m4                       <span class="c"># A01</span>
+<span class="nb">echo</span> <span class="s2">&quot;regexp(</span><span class="nv">$string</span><span class="s2">,[0-1][0-1],\&amp;Z)&quot;</span>m4      <span class="c"># 01Z</span>
+
+<span class="c"># Arithmetic</span>
+<span class="nv">var</span><span class="o">=</span>99
+<span class="nb">echo</span> <span class="s2">&quot;incr(</span><span class="nv">$var</span><span class="s2">)&quot;</span>m4                              <span class="c">#  100</span>
+<span class="nb">echo</span> <span class="s2">&quot;eval(</span><span class="nv">$var</span><span class="s2"> / 3)&quot;</span>m4                          <span class="c">#   33</span>
+
+<span class="nb">exit</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>xmessage</strong></dt>
+<dd><p class="first">This X-based variant of <a class="reference external" href="internal.html#ECHOREF">echo</a> pops up a
+message/query window on the desktop.</p>
+<div class="last highlight-sh"><div class="highlight"><pre>xmessage Left click to <span class="k">continue</span> -button okay
+</pre></div>
+</div>
+</dd>
+<dt><strong>zenity</strong></dt>
+<dd>The <a class="reference external" href="http://freshmeat.net/projects/zenity">zenity</a> utility is
+adept at displaying <em>GTK+</em> dialog
+<a class="reference external" href="assortedtips.html#WIDGETREF">widgets</a> and <a class="reference external" href="assortedtips.html#ZENITYREF2">very suitable for
+scripting purposes</a> .</dd>
+<dt><strong>doexec</strong></dt>
+<dd><p class="first">The <strong>doexec</strong> command enables passing an arbitrary list of
+arguments to a <em>binary executable</em> . In particular, passing
+``                   argv[0]                 `` (which corresponds
+to <a class="reference external" href="othertypesv.html#POSPARAMREF1">$0</a> in a script) lets the
+executable be invoked by various names, and it can then carry out
+different sets of actions, according to the name by which it was
+called. What this amounts to is roundabout way of passing options to
+an executable.</p>
+<p class="last">For example, the ``         /usr/local/bin        `` directory might
+contain a binary called &#8220;aaa&#8221; . Invoking <strong>doexec /usr/local/bin/aaa
+list</strong> would <em>list</em> all those files in the current working directory
+beginning with an &#8220;a&#8221; , while invoking (the same executable with)
+<strong>doexec /usr/local/bin/aaa delete</strong> would <em>delete</em> those files.</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">The various behaviors of the executable must be defined within the
+code of the executable itself, analogous to something like the
+following in a shell script:</p>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">case</span> <span class="sb">`</span>basename <span class="nv">$0</span><span class="sb">`</span> i
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>n</dt>
+<dd>&#8220;name1&#8221; ) do_somethi</dd>
+<dt>ng;;</dt>
+<dd>&#8220;name2&#8221; ) do_somethi</dd>
+<dt>ng_else;;</dt>
+<dd>&#8220;name3&#8221; ) do_yet_ano</dd>
+<dt>ther_thing;;</dt>
+<dd><blockquote class="first">
+<div><ul class="simple">
+<li>) bail_out;;</li>
+</ul>
+<p>esac</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">case</span> <span class="sb">`</span>basename <span class="nv">$0</span><span class="sb">`</span> in
+<span class="s2">&quot;name1&quot;</span> <span class="o">)</span> do_something<span class="p">;;</span>
+<span class="s2">&quot;name2&quot;</span> <span class="o">)</span> do_something_else<span class="p">;;</span>
+<span class="s2">&quot;name3&quot;</span> <span class="o">)</span> do_yet_another_thing<span class="p">;;</span>
+*       <span class="o">)</span> bail_out<span class="p">;;</span>
+<span class="k">esac</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span class="k">case</span> <span class="sb">`</span>basename <span class="nv">$0</span><span class="sb">`</span> in
+<span class="s2">&quot;name1&quot;</span> <span class="o">)</span> do_something<span class="p">;;</span>
+<span class="s2">&quot;name2&quot;</span> <span class="o">)</span> do_something_else<span class="p">;;</span>
+<span class="s2">&quot;name3&quot;</span> <span class="o">)</span> do_yet_another_thing<span class="p">;;</span>
+*       <span class="o">)</span> bail_out<span class="p">;;</span>
+<span class="k">esac</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="last docutils">
+<dt><strong>dialog</strong></dt>
+<dd>The <a class="reference external" href="assortedtips.html#DIALOGREF">dialog</a> family of tools provide
+a method of calling interactive &#8220;dialog&#8221; boxes from a script. The
+more elaborate variations of <strong>dialog</strong> &#8211; <strong>gdialog</strong> , <strong>Xdialog</strong>
+, and <strong>kdialog</strong> &#8211; actually invoke X-Windows
+<a class="reference external" href="assortedtips.html#WIDGETREF">widgets</a> .</dd>
+<dt><strong>sox</strong></dt>
+<dd><p class="first">The <strong>sox</strong> , or &#8221; <strong>so</strong> und e <strong>x</strong> change&#8221; command plays and
+performs transformations on sound files. In fact, the
+``         /usr/bin/play        `` executable (now deprecated) is
+nothing but a shell wrapper for <em>sox</em> .</p>
+<p>For example, <strong>sox soundfile.wav soundfile.au</strong> changes a WAV sound
+file into a (Sun audio format) AU sound file.</p>
+<p class="last">Shell scripts are ideally suited for batch-processing <strong>sox</strong>
+operations on sound files. For examples, see the <a class="reference external" href="http://osl.iu.edu/~tveldhui/radio/">Linux Radio
+Timeshift HOWTO</a> and the
+<a class="reference external" href="http://savannah.nongnu.org/projects/audiodo">MP3do Project</a> .</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link permanent a aquest títol">¶</a></h3>
+<p>` [1]  &lt;extmisc.html#AEN14105&gt;`__</p>
+<p>This is actually a script adapted from the Debian Linux distribution.</p>
+<p>` [2]  &lt;extmisc.html#AEN14214&gt;`__</p>
+<p>The <em>print queue</em> is the group of jobs &#8220;waiting in line&#8221; to be printed.</p>
+<p>` [3]  &lt;extmisc.html#AEN14218&gt;`__</p>
+<p>Large mechanical <em>line printers</em> printed a single line of type at a time
+onto joined sheets of <em>greenbar</em> paper, to the accompaniment of <a class="reference external" href="http://www.columbia.edu/cu/computinghistory/1403.html">a great
+deal of noise</a>
+. The hardcopy thusly printed was referred to as a <em>printout</em> .</p>
+<p>` [4]  &lt;extmisc.html#AEN14280&gt;`__</p>
+<p>For an excellent overview of this topic, see Andy Vaught&#8217;s article,
+<a class="reference external" href="http://www2.linuxjournal.com/lj-issues/issue41/2156.html">Introduction to Named
+Pipes</a> , in
+the September, 1997 issue of <a class="reference external" href="http://www.linuxjournal.com">*Linux
+Journal*</a> .</p>
+<p>` [5]  &lt;extmisc.html#AEN14318&gt;`__</p>
+<blockquote>
+<div>EBCDIC (pronounced &#8220;ebb-sid-ick&#8221; ) is an acronym for Extended Binary</div></blockquote>
+<p>Coded Decimal Interchange Code, an obsolete IBM data format. A bizarre
+application of the ``       conv=ebcdic      `` option of <strong>dd</strong> is as a
+quick &#8216;n easy, but not very secure text file encoder.</p>
+<div class="highlight-sh"><div class="highlight"><pre>cat <span class="nv">$file</span> <span class="p">|</span> dd <span class="nv">conv</span><span class="o">=</span>
+</pre></div>
+</div>
+<p>swab,ebcdic &gt; $file_encr
+ypted</p>
+<blockquote>
+<div><blockquote>
+<div># Encode (looks like</div></blockquote>
+<dl class="docutils">
+<dt>gibberish).</dt>
+<dd># Might as well swit</dd>
+</dl>
+</div></blockquote>
+<p>ch bytes (swab), too, fo
+r a little extra obscuri
+ty.</p>
+<blockquote>
+<div>cat $file_encrypted</div></blockquote>
+<div class="line-block">
+<div class="line">dd conv=swab,ascii &gt; $</div>
+</div>
+<dl class="docutils">
+<dt>file_plaintext</dt>
+<dd># Decode.</dd>
+</dl>
+<div class="highlight-sh"><div class="highlight"><pre>cat <span class="nv">$filedd</span> <span class="nv">conv</span><span class="o">=</span>swab,ebcdic &gt; <span class="nv">$file_encrypted</span>
+<span class="c"># Encode (looks like gibberish).</span>
+<span class="c"># Might as well switch bytes (swab), too, for a little extra obscurity.</span>
+
+cat <span class="nv">$file_encrypteddd</span> <span class="nv">conv</span><span class="o">=</span>swab,ascii &gt; <span class="nv">$file_plaintext</span>
+<span class="c"># Decode.</span>
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre>cat <span class="nv">$filedd</span> <span class="nv">conv</span><span class="o">=</span>swab,ebcdic &gt; <span class="nv">$file_encrypted</span>
+<span class="c"># Encode (looks like gibberish).</span>
+<span class="c"># Might as well switch bytes (swab), too, for a little extra obscurity.</span>
+
+cat <span class="nv">$file_encrypteddd</span> <span class="nv">conv</span><span class="o">=</span>swab,ascii &gt; <span class="nv">$file_plaintext</span>
+<span class="c"># Decode.</span>
+</pre></div>
+</div>
+<p>` [6]  &lt;extmisc.html#AEN14523&gt;`__</p>
+<p>A <em>macro</em> is a symbolic constant that expands into a command string or a
+set of operations on parameters. Simply put, it&#8217;s a shortcut or
+abbreviation.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  <hr/>
+
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="system.html" class="btn btn-neutral float-right" title="XXX Chapter 17. System and Administrative Commands" accesskey="n">Seg <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mathc.html" class="btn btn-neutral" title="XXX 16.8. Math Commands"
+                                                            accesskey="p"><span class="fa fa-arrow-circle-left"></span> Ant</a>
+      
+    </div>
+  
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+      Pàgina generada amb <a href="http://sphinx-doc.org/">Sphinx</a> amb una lleugera
+                                     variació del tema<a
+                                     href="https://github.com/snide/sphinx_rtd_theme">
+                                         sphinx-rtd-theme </a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'10 març de 2014',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
